@@ -5,6 +5,8 @@
 :root {
   --background: #f8fafc;
   --foreground: #0f172a;
+  --brand-purple: #30235F;
+  --brand-green: #009444;
 }
 
 body {
@@ -28,4 +30,15 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
+}
+
+/* Utility Badges */
+.badge-purple {
+  background-color: #30235F;
+  color: #ffffff;
+}
+
+.badge-green {
+  background-color: #009444;
+  color: #ffffff;
 }

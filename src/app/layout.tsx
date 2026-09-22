@@ -16,46 +16,48 @@ export default function RootLayout({
   return (
     <html lang="es">
       <head>
-        <meta name="theme-color" content="#1e40af" />
+        <meta name="theme-color" content="#30235F" />
         <link rel="manifest" href="/manifest.webmanifest" />
       </head>
       <body className="min-h-screen flex flex-col bg-slate-50 text-slate-900">
-        {/* TOP NAVBAR */}
-        <header className="sticky top-0 z-50 bg-slate-900 text-white shadow-md border-b border-slate-800">
+        {/* TOP NAVBAR INSTITUCIONAL CON #30235F Y ACENTO #009444 */}
+        <header className="sticky top-0 z-50 bg-[#30235F] text-white shadow-lg border-b border-[#3e2c7a]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <span className="bg-blue-600 text-white font-extrabold text-xs px-2.5 py-1 rounded tracking-wider uppercase">
-                SISBIRCECA
-              </span>
-              <span className="font-bold text-sm sm:text-base tracking-tight text-slate-100 hidden sm:inline">
-                PWA Radiobases Telecom
-              </span>
-              <span className="bg-emerald-600/80 text-emerald-100 text-[10px] font-semibold px-2 py-0.5 rounded-full border border-emerald-400/30">
-                TypeORM Core
+              <Link href="/" className="flex items-center space-x-2">
+                <span className="bg-[#009444] text-white font-black text-xs px-2.5 py-1 rounded tracking-wider uppercase shadow-sm">
+                  SISBIRCECA
+                </span>
+                <span className="font-extrabold text-sm sm:text-base tracking-tight text-white hidden sm:inline">
+                  Radiobases Telecom
+                </span>
+              </Link>
+              <span className="bg-emerald-950/80 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-500/30">
+                PRODUCCIÓN
               </span>
             </div>
 
-            <nav className="flex items-center space-x-1 sm:space-x-3 text-xs sm:text-sm font-medium">
+            <nav className="flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm font-semibold">
               <Link
                 href="/mobile"
-                className="px-3 py-1.5 rounded-md hover:bg-slate-800 text-slate-200 transition-colors flex items-center gap-1.5"
+                className="px-3 py-1.5 rounded-md hover:bg-[#3e2c7a] text-purple-100 transition-colors flex items-center gap-1.5"
               >
                 <span>📱</span>
                 <span>PWA Campo</span>
               </Link>
               <Link
                 href="/supervisor"
-                className="px-3 py-1.5 rounded-md hover:bg-slate-800 text-slate-200 transition-colors flex items-center gap-1.5 bg-blue-900/40 border border-blue-500/30 text-blue-200"
+                className="px-3 py-1.5 rounded-md bg-[#009444] hover:bg-[#00803b] text-white transition-colors flex items-center gap-1.5 shadow-sm"
               >
                 <span>👁️</span>
                 <span>Validación Visual</span>
               </Link>
               <Link
                 href="/reportes"
-                className="px-3 py-1.5 rounded-md hover:bg-slate-800 text-slate-200 transition-colors flex items-center gap-1.5"
+                className="px-3 py-1.5 rounded-md hover:bg-[#3e2c7a] text-purple-100 transition-colors flex items-center gap-1.5"
               >
                 <span>📋</span>
-                <span>Reportes</span>
+                <span>48 Zonas</span>
               </Link>
             </nav>
           </div>

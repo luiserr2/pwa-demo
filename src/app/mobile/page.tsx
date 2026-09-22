@@ -98,7 +98,6 @@ export default function MobileFieldPage() {
   };
 
   const cargarEjemploCompleto = () => {
-    // Fotos reales optimizadas de muestra para pruebas en campo
     const fotosDemo = [
       {
         antes: 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=600&auto=format&fit=crop&q=80',
@@ -155,34 +154,34 @@ export default function MobileFieldPage() {
   const fotosCompletas = slots.filter((s) => s.fotoAntes && s.fotoDespues).length;
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-6 w-full pb-20">
+    <div className="max-w-2xl mx-auto px-4 py-6 w-full pb-24">
       {/* STATUS HEADER */}
       <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-sm mb-5">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <span
               className={`w-3 h-3 rounded-full ${
-                isOnline ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'
+                isOnline ? 'bg-[#009444] animate-pulse' : 'bg-amber-500'
               }`}
             />
             <span className="text-xs font-bold uppercase tracking-wider text-slate-700">
               {isOnline ? 'Conexión En Línea' : 'Modo Fuera de Línea (Dexie Activo)'}
             </span>
           </div>
-          <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
-            PWA Mobile V1
+          <span className="text-[11px] font-bold text-[#30235F] bg-purple-50 px-2.5 py-0.5 rounded-full border border-purple-200">
+            PWA Mobile Oficial
           </span>
         </div>
 
         <div className="space-y-3">
           <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase mb-1">
+            <label className="block text-xs font-extrabold text-[#30235F] uppercase mb-1">
               Radiobase Seleccionada
             </label>
             <select
               value={radiobaseSeleccionada}
               onChange={(e) => setRadiobaseSeleccionada(e.target.value)}
-              className="w-full text-sm font-semibold text-slate-800 bg-slate-50 border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500"
+              className="w-full text-sm font-bold text-slate-800 bg-slate-50 border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-[#30235F]"
             >
               <option value="RDB-001">[RDB-001] Torre Puerto Madero (CABA)</option>
               <option value="RDB-002">[RDB-002] Cerro Catedral (Bariloche)</option>
@@ -192,14 +191,14 @@ export default function MobileFieldPage() {
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase mb-1">
+            <label className="block text-xs font-extrabold text-[#30235F] uppercase mb-1">
               Técnico en Campo
             </label>
             <input
               type="text"
               value={tecnicoNombre}
               onChange={(e) => setTecnicoNombre(e.target.value)}
-              className="w-full text-sm text-slate-800 bg-slate-50 border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500"
+              className="w-full text-sm text-slate-800 bg-slate-50 border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-[#30235F]"
             />
           </div>
         </div>
@@ -207,7 +206,7 @@ export default function MobileFieldPage() {
         <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
           <button
             onClick={cargarEjemploCompleto}
-            className="text-xs font-bold text-blue-700 hover:text-blue-900 bg-blue-50 hover:bg-blue-100 border border-blue-200 px-3 py-1.5 rounded-md transition-colors flex items-center gap-1.5"
+            className="text-xs font-extrabold text-[#30235F] hover:text-white bg-purple-50 hover:bg-[#30235F] border border-purple-300 px-3.5 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 shadow-sm"
           >
             <span>⚡</span>
             <span>Cargar Ejemplo de Campo</span>
@@ -219,14 +218,14 @@ export default function MobileFieldPage() {
       </div>
 
       {mensajeExito && (
-        <div className="mb-5 bg-emerald-50 border border-emerald-300 text-emerald-800 p-3 rounded-xl text-xs font-medium flex items-center gap-2 animate-fade-in">
+        <div className="mb-5 bg-emerald-50 border border-emerald-300 text-emerald-800 p-3.5 rounded-xl text-xs font-bold flex items-center gap-2 animate-fade-in shadow-sm">
           <span>✅</span>
           <span>{mensajeExito}</span>
         </div>
       )}
 
       {comprimiendo && (
-        <div className="mb-5 bg-blue-50 border border-blue-300 text-blue-800 p-3 rounded-xl text-xs font-medium flex items-center gap-2 animate-pulse">
+        <div className="mb-5 bg-purple-50 border border-purple-300 text-[#30235F] p-3.5 rounded-xl text-xs font-bold flex items-center gap-2 animate-pulse shadow-sm">
           <span>⏳</span>
           <span>Optimizando y comprimiendo imagen en navegador a &lt; 250 KB WebP...</span>
         </div>
@@ -244,12 +243,12 @@ export default function MobileFieldPage() {
             >
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-slate-900 text-white font-bold text-xs flex items-center justify-center">
+                  <span className="w-6 h-6 rounded-full bg-[#30235F] text-white font-black text-xs flex items-center justify-center">
                     {slot.id}
                   </span>
-                  <h4 className="text-sm font-bold text-slate-800">{slot.nombre}</h4>
+                  <h4 className="text-sm font-extrabold text-slate-800">{slot.nombre}</h4>
                 </div>
-                <span className="text-[10px] font-mono font-bold text-slate-400 bg-slate-100 px-2 py-0.5 rounded">
+                <span className="text-[10px] font-mono font-bold text-[#30235F] bg-purple-50 px-2 py-0.5 rounded border border-purple-200">
                   {slot.tipoEquipo}
                 </span>
               </div>
@@ -259,7 +258,7 @@ export default function MobileFieldPage() {
                 {/* SLOT ANTES */}
                 <div className="border border-slate-200 rounded-lg p-2.5 bg-slate-50 flex flex-col justify-between">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-extrabold text-blue-700 uppercase">
+                    <span className="text-xs font-extrabold text-[#30235F] uppercase">
                       1. Antes
                     </span>
                     {slot.tamanoAntes && (
@@ -276,7 +275,7 @@ export default function MobileFieldPage() {
                         alt="Foto Antes"
                         className="w-full h-full object-cover"
                       />
-                      <span className="absolute top-1 left-1 bg-black/70 text-white text-[9px] font-bold px-1.5 py-0.5 rounded">
+                      <span className="absolute top-1 left-1 bg-black/75 text-white text-[9px] font-bold px-1.5 py-0.5 rounded">
                         ANTES
                       </span>
                     </div>
@@ -310,7 +309,7 @@ export default function MobileFieldPage() {
                   <div className="flex items-center justify-between mb-2">
                     <span
                       className={`text-xs font-extrabold uppercase ${
-                        antesListo ? 'text-emerald-700' : 'text-slate-400'
+                        antesListo ? 'text-[#009444]' : 'text-slate-400'
                       }`}
                     >
                       2. Después
@@ -329,7 +328,7 @@ export default function MobileFieldPage() {
                         alt="Foto Después"
                         className="w-full h-full object-cover"
                       />
-                      <span className="absolute top-1 left-1 bg-emerald-700 text-white text-[9px] font-bold px-1.5 py-0.5 rounded">
+                      <span className="absolute top-1 left-1 bg-[#009444] text-white text-[9px] font-bold px-1.5 py-0.5 rounded">
                         DESPUES
                       </span>
                     </div>
@@ -337,7 +336,7 @@ export default function MobileFieldPage() {
                     <div
                       className={`aspect-video rounded-md border-2 border-dashed flex flex-col items-center justify-center mb-2 p-2 text-center ${
                         antesListo
-                          ? 'border-emerald-300 text-emerald-600'
+                          ? 'border-emerald-300 text-[#009444]'
                           : 'border-slate-300 text-slate-400'
                       }`}
                     >
@@ -349,7 +348,7 @@ export default function MobileFieldPage() {
                   )}
 
                   {antesListo ? (
-                    <label className="w-full text-center bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-1.5 px-2 rounded cursor-pointer transition-colors block">
+                    <label className="w-full text-center bg-[#009444] hover:bg-[#007d3a] text-white text-xs font-bold py-1.5 px-2 rounded cursor-pointer transition-colors block shadow-sm">
                       <span>{slot.fotoDespues ? 'Cambiar Foto' : 'Capturar Después'}</span>
                       <input
                         type="file"
@@ -372,15 +371,15 @@ export default function MobileFieldPage() {
       </div>
 
       {/* FIXED BOTTOM ACTION BAR */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-3 shadow-lg z-40">
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-3 shadow-2xl z-40">
         <div className="max-w-2xl mx-auto flex items-center justify-between gap-3">
           <div className="text-xs">
-            <span className="font-extrabold text-slate-800">{fotosCompletas} de 6</span>
+            <span className="font-black text-[#30235F] text-sm">{fotosCompletas} de 6</span>
             <span className="text-slate-500 ml-1">completados</span>
           </div>
           <button
             onClick={enviarARevision}
-            className="flex-1 max-w-xs bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm py-2.5 px-4 rounded-xl shadow-md transition-colors text-center"
+            className="flex-1 max-w-xs bg-[#009444] hover:bg-[#007d3a] text-white font-extrabold text-sm py-2.5 px-4 rounded-xl shadow-md transition-colors text-center"
           >
             Enviar a Revisión del Supervisor
           </button>

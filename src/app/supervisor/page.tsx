@@ -151,34 +151,34 @@ export default function SupervisorPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
-      {/* BANNER SUPERVISOR */}
-      <div className="bg-slate-900 text-white rounded-2xl p-6 mb-8 border border-slate-800 shadow-md">
+      {/* BANNER SUPERVISOR INSTITUCIONAL EN #30235F */}
+      <div className="bg-[#30235F] text-white rounded-2xl p-6 mb-8 border border-purple-900 shadow-xl">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="bg-indigo-600 text-white text-[11px] font-extrabold uppercase px-2.5 py-0.5 rounded">
-                Módulo de Calidad & QA
+              <span className="bg-[#009444] text-white text-[11px] font-black uppercase px-2.5 py-0.5 rounded shadow">
+                Módulo Oficial de Calidad & QA
               </span>
-              <span className="text-xs font-semibold text-slate-400">
+              <span className="text-xs font-semibold text-purple-200">
                 Supervisor Técnico Asignado: Ing. Roberto Silva
               </span>
             </div>
             <h1 className="text-xl sm:text-2xl font-black tracking-tight">
               Bandeja de Validación Visual de Evidencias
             </h1>
-            <p className="text-slate-400 text-xs sm:text-sm mt-1">
+            <p className="text-purple-200/90 text-xs sm:text-sm mt-1">
               Inspección comparativa lado a lado de fotografías técnicas tomadas en campo antes y después de la intervención.
             </p>
           </div>
 
           <div className="flex items-center gap-3">
             <span
-              className={`px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider border ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider border shadow ${
                 reporteActivo.estado === 'APROBADO'
-                  ? 'bg-emerald-950 text-emerald-300 border-emerald-700'
+                  ? 'bg-emerald-950 text-emerald-300 border-emerald-500'
                   : reporteActivo.estado === 'OBSERVADO'
-                  ? 'bg-amber-950 text-amber-300 border-amber-700'
-                  : 'bg-blue-950 text-blue-300 border-blue-700 animate-pulse'
+                  ? 'bg-amber-950 text-amber-300 border-amber-500'
+                  : 'bg-purple-950 text-purple-200 border-purple-400 animate-pulse'
               }`}
             >
               Estado: {reporteActivo.estado}
@@ -189,7 +189,7 @@ export default function SupervisorPage() {
 
       {notificacion && (
         <div
-          className={`p-4 rounded-xl text-sm font-semibold mb-6 border ${
+          className={`p-4 rounded-xl text-sm font-bold mb-6 border shadow-sm ${
             notificacion.tipo === 'ok'
               ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
               : 'bg-rose-50 text-rose-800 border-rose-300'
@@ -204,22 +204,22 @@ export default function SupervisorPage() {
       <div className="bg-white rounded-xl border border-slate-200 p-4 mb-6 shadow-sm flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-6">
           <div>
-            <span className="block text-[10px] font-bold uppercase text-slate-400">Reporte</span>
+            <span className="block text-[10px] font-extrabold uppercase text-[#30235F]">Reporte</span>
             <span className="font-mono font-bold text-sm text-slate-800">{reporteActivo.codigo}</span>
           </div>
           <div>
-            <span className="block text-[10px] font-bold uppercase text-slate-400">Radiobase</span>
+            <span className="block text-[10px] font-extrabold uppercase text-[#30235F]">Radiobase</span>
             <span className="font-bold text-sm text-slate-800">{reporteActivo.radiobase}</span>
           </div>
           <div>
-            <span className="block text-[10px] font-bold uppercase text-slate-400">Técnico</span>
+            <span className="block text-[10px] font-extrabold uppercase text-[#30235F]">Técnico</span>
             <span className="font-bold text-sm text-slate-800">{reporteActivo.tecnico}</span>
           </div>
         </div>
 
         <div className="flex items-center gap-3">
           <div className="text-right mr-2">
-            <span className="text-xs font-extrabold text-slate-700">
+            <span className="text-xs font-black text-[#30235F]">
               {totalAprobadas} de {fotos.length}
             </span>
             <span className="text-xs text-slate-400 ml-1">aprobadas</span>
@@ -227,7 +227,7 @@ export default function SupervisorPage() {
 
           <button
             onClick={devolverConObservaciones}
-            className="bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 text-xs font-bold px-3 py-2 rounded-lg transition-colors"
+            className="bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 text-xs font-bold px-3 py-2 rounded-lg transition-colors"
           >
             ⚠️ Devolver Observado
           </button>
@@ -235,10 +235,10 @@ export default function SupervisorPage() {
           <button
             onClick={certificarReporte}
             disabled={hayRechazadas || !todasRevisadas}
-            className={`text-xs font-bold px-4 py-2 rounded-lg transition-colors flex items-center gap-1.5 ${
+            className={`text-xs font-black px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 shadow ${
               hayRechazadas || !todasRevisadas
                 ? 'bg-slate-200 text-slate-400 cursor-not-allowed'
-                : 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-md'
+                : 'bg-[#009444] hover:bg-[#007d3a] text-white'
             }`}
           >
             <span>🎖️</span>
@@ -263,11 +263,11 @@ export default function SupervisorPage() {
             {/* CARD HEADER */}
             <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
               <div className="flex items-center gap-3">
-                <span className="w-7 h-7 rounded-lg bg-blue-100 text-blue-800 font-extrabold text-xs flex items-center justify-center">
+                <span className="w-7 h-7 rounded-lg bg-purple-100 text-[#30235F] font-black text-xs flex items-center justify-center">
                   #{foto.slotNumero}
                 </span>
                 <div>
-                  <h3 className="font-bold text-slate-900 text-sm sm:text-base">{foto.nombre}</h3>
+                  <h3 className="font-extrabold text-slate-900 text-sm sm:text-base">{foto.nombre}</h3>
                   <span className="text-xs text-slate-500 font-mono">Tipo: {foto.tipoEquipo}</span>
                 </div>
               </div>
@@ -275,12 +275,12 @@ export default function SupervisorPage() {
               {/* STATUS PILL */}
               <div className="flex items-center gap-2">
                 <span
-                  className={`text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider ${
+                  className={`text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider ${
                     foto.estado === 'APROBADO'
                       ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
                       : foto.estado === 'RECHAZADO'
                       ? 'bg-rose-100 text-rose-800 border border-rose-300'
-                      : 'bg-slate-100 text-slate-600'
+                      : 'bg-purple-50 text-[#30235F] border border-purple-200'
                   }`}
                 >
                   {foto.estado === 'APROBADO' && '✅ Aprobado'}
@@ -295,7 +295,7 @@ export default function SupervisorPage() {
               {/* ANTES */}
               <div className="flex flex-col">
                 <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-xs font-bold text-slate-700 uppercase">
+                  <span className="text-xs font-extrabold text-[#30235F] uppercase">
                     Estado Anterior (Antes)
                   </span>
                   <span className="text-[10px] text-slate-400 font-mono">22/09/2026 09:15</span>
@@ -315,18 +315,18 @@ export default function SupervisorPage() {
               {/* DESPUES */}
               <div className="flex flex-col">
                 <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-xs font-bold text-emerald-700 uppercase">
+                  <span className="text-xs font-extrabold text-[#009444] uppercase">
                     Estado Final (Después)
                   </span>
                   <span className="text-[10px] text-slate-400 font-mono">22/09/2026 11:40</span>
                 </div>
-                <div className="relative aspect-video rounded-lg overflow-hidden border border-emerald-300 bg-slate-900">
+                <div className="relative aspect-video rounded-lg overflow-hidden border border-emerald-400 bg-slate-900">
                   <img
                     src={foto.urlDespues}
                     alt={`${foto.nombre} Después`}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                   />
-                  <div className="absolute top-2 left-2 bg-emerald-700 text-white text-[10px] font-bold px-2 py-0.5 rounded">
+                  <div className="absolute top-2 left-2 bg-[#009444] text-white text-[10px] font-bold px-2 py-0.5 rounded">
                     DESPUES
                   </div>
                 </div>
@@ -352,7 +352,7 @@ export default function SupervisorPage() {
 
               <button
                 onClick={() => handleAprobarFoto(foto.id)}
-                className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-1.5 rounded-lg shadow-sm transition-colors flex items-center gap-1"
+                className="bg-[#009444] hover:bg-[#007d3a] text-white text-xs font-black px-4 py-1.5 rounded-lg shadow-sm transition-colors flex items-center gap-1"
               >
                 <span>✅</span>
                 <span>Aprobar Evidencia</span>

@@ -85,6 +85,12 @@ export default function ReportesPage() {
       {/* HEADER */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div>
+          <div className="flex items-center gap-2 mb-1">
+            <span className="bg-[#30235F] text-white text-[10px] font-black uppercase px-2 py-0.5 rounded">
+              Auditoría y Despliegue
+            </span>
+            <span className="text-xs font-bold text-slate-500">Módulo de Tabulación Rápida</span>
+          </div>
           <h1 className="text-2xl font-black text-slate-900 tracking-tight">
             Gestión de Reportes & Matriz de 48 Zonas
           </h1>
@@ -96,9 +102,10 @@ export default function ReportesPage() {
         <div className="flex items-center gap-2">
           <Link
             href="/mobile"
-            className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-3 py-2 rounded-lg shadow-sm transition-colors"
+            className="bg-[#009444] hover:bg-[#007d3a] text-white text-xs font-black px-3.5 py-2 rounded-lg shadow-sm transition-colors flex items-center gap-1.5"
           >
-            + Nuevo Reporte en Campo
+            <span>📱</span>
+            <span>Nuevo Reporte en Campo</span>
           </Link>
         </div>
       </div>
@@ -106,14 +113,14 @@ export default function ReportesPage() {
       {/* FILTER BAR */}
       <div className="bg-white rounded-xl border border-slate-200 p-4 mb-6 shadow-sm flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <span className="text-xs font-bold text-slate-500 uppercase">Filtrar por:</span>
+          <span className="text-xs font-extrabold text-[#30235F] uppercase">Filtrar por:</span>
           {['TODOS', 'BORRADOR', 'EN_REVISION', 'OBSERVADO', 'APROBADO'].map((st) => (
             <button
               key={st}
               onClick={() => setFiltroEstado(st)}
-              className={`text-xs font-bold px-3 py-1.5 rounded-lg transition-colors ${
+              className={`text-xs font-black px-3 py-1.5 rounded-lg transition-colors ${
                 filtroEstado === st
-                  ? 'bg-slate-900 text-white'
+                  ? 'bg-[#30235F] text-white shadow-sm'
                   : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
               }`}
             >
@@ -131,7 +138,7 @@ export default function ReportesPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* LIST OF REPORTS (5 COLS) */}
         <div className="lg:col-span-5 space-y-3">
-          <h2 className="text-sm font-bold text-slate-700 uppercase tracking-wider mb-2">
+          <h2 className="text-xs font-black text-[#30235F] uppercase tracking-wider mb-2">
             Listado de Reportes
           </h2>
           {reportesFiltrados.map((rep) => {
@@ -143,20 +150,20 @@ export default function ReportesPage() {
                 onClick={() => setZonaActivaReporte(rep.id)}
                 className={`bg-white rounded-xl p-4 border transition-all cursor-pointer shadow-sm ${
                   isSelected
-                    ? 'border-blue-600 ring-2 ring-blue-500/20 shadow-md'
+                    ? 'border-[#30235F] ring-2 ring-purple-600/20 shadow-md'
                     : 'border-slate-200 hover:border-slate-300'
                 }`}
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className="font-mono text-xs font-black text-blue-700">{rep.codigo}</span>
+                  <span className="font-mono text-xs font-black text-[#30235F]">{rep.codigo}</span>
                   <span
-                    className={`text-[10px] font-extrabold uppercase px-2 py-0.5 rounded border ${
+                    className={`text-[10px] font-black uppercase px-2 py-0.5 rounded border ${
                       rep.estado === 'APROBADO'
-                        ? 'bg-emerald-50 text-emerald-700 border-emerald-300'
+                        ? 'bg-emerald-50 text-[#009444] border-emerald-300'
                         : rep.estado === 'OBSERVADO'
                         ? 'bg-amber-50 text-amber-700 border-amber-300'
                         : rep.estado === 'EN_REVISION'
-                        ? 'bg-indigo-50 text-indigo-700 border-indigo-300'
+                        ? 'bg-purple-50 text-[#30235F] border-purple-300'
                         : 'bg-slate-100 text-slate-700 border-slate-300'
                     }`}
                   >
@@ -164,17 +171,17 @@ export default function ReportesPage() {
                   </span>
                 </div>
 
-                <h3 className="font-bold text-slate-900 text-sm mb-1">{rep.radiobase}</h3>
+                <h3 className="font-extrabold text-slate-900 text-sm mb-1">{rep.radiobase}</h3>
                 <div className="text-xs text-slate-500 flex items-center justify-between">
                   <span>Técnico: {rep.tecnico}</span>
-                  <span className="font-mono">{rep.fotosCount} fotos</span>
+                  <span className="font-mono font-bold text-slate-700">{rep.fotosCount} fotos</span>
                 </div>
 
                 <div className="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px]">
                   <span className="text-slate-400">Fecha: {rep.fechaVisita}</span>
                   <Link
                     href="/supervisor"
-                    className="text-indigo-600 hover:text-indigo-800 font-bold"
+                    className="text-[#30235F] hover:text-[#009444] font-black transition-colors"
                   >
                     Inspección Visual &rarr;
                   </Link>
@@ -197,7 +204,7 @@ export default function ReportesPage() {
             </div>
             <button
               onClick={() => alert('¡Matriz de 48 zonas guardada con éxito en la base de datos!')}
-              className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm transition-colors"
+              className="bg-[#009444] hover:bg-[#007d3a] text-white text-xs font-black px-3.5 py-1.5 rounded-lg shadow-sm transition-colors"
             >
               💾 Guardar 48 Zonas
             </button>
@@ -209,24 +216,24 @@ export default function ReportesPage() {
               {zonas.map((zona) => (
                 <div
                   key={zona.id}
-                  className="flex items-center gap-2 p-2 border border-slate-200 rounded-lg bg-slate-50/50 hover:bg-white text-xs"
+                  className="flex items-center gap-2 p-2 border border-slate-200 rounded-lg bg-slate-50/50 hover:bg-white text-xs transition-colors"
                 >
-                  <span className="w-7 h-7 rounded bg-slate-800 text-white font-mono font-bold flex items-center justify-center shrink-0">
+                  <span className="w-7 h-7 rounded bg-[#30235F] text-white font-mono font-bold flex items-center justify-center shrink-0">
                     {zona.id}
                   </span>
                   <input
                     type="text"
                     value={zona.desc}
                     onChange={(e) => handleZonaChange(zona.id, e.target.value, zona.estado)}
-                    className="flex-1 bg-white border border-slate-300 rounded px-2 py-1 text-slate-800 text-xs focus:ring-1 focus:ring-blue-500"
+                    className="flex-1 bg-white border border-slate-300 rounded px-2 py-1 text-slate-800 text-xs focus:ring-1 focus:ring-[#30235F]"
                     placeholder={`Descripción zona ${zona.id}`}
                   />
                   <select
                     value={zona.estado}
                     onChange={(e) => handleZonaChange(zona.id, zona.desc, e.target.value)}
-                    className={`rounded px-1.5 py-1 font-bold text-[10px] border ${
+                    className={`rounded px-1.5 py-1 font-extrabold text-[10px] border ${
                       zona.estado === 'OK'
-                        ? 'bg-emerald-50 text-emerald-700 border-emerald-300'
+                        ? 'bg-emerald-50 text-[#009444] border-emerald-300'
                         : 'bg-rose-50 text-rose-700 border-rose-300'
                     }`}
                   >
