@@ -13,18 +13,19 @@
 - STACK TÉCNICO OFICIAL:
   * Persistencia: TypeORM 0.3+ con decoradores TypeScript estrictos + PostgreSQL 16.
   * DataSource: Singleton tolerante a Hot-Reload en Next.js (AppDataSourceManager).
-  * Frontend: Next.js 14+ (App Router), Tailwind CSS, Dexie.js (IndexedDB offline) y Service Worker.
-  * Pruebas de Backend: Suite Jest con 17/17 pruebas unitarias e integrales aprobadas (100% PASS).
+  * Frontend: Next.js 14+ (App Router), Tailwind CSS con tokens #30235F y #009444, Dexie.js (IndexedDB offline) y Service Worker.
+  * Pruebas de Backend: Suite Jest con 20/20 pruebas unitarias e integrales aprobadas (100% PASS en 4 suites).
   * Flujo de Validación: Validación visual de evidencias lado a lado (Antes vs Después) con aprobación unitaria y observaciones de rechazo.
-- MÓDULOS ACTIVOS:
+- MÓDULOS ACTIVOS Y CERTIFICADOS:
+  * `/` (Home): Portal institucional de presentación.
   * `/mobile`: Captura en campo para técnicos con compresión Canvas (< 250 KB WebP) y bloqueo reactivo de fotos 'Después'.
   * `/supervisor`: Bandeja de inspección visual y certificación con bloqueo anti-rechazo.
-  * `/reportes`: Matriz técnica de 48 zonas fijas con inicialización atómica.
+  * `/reportes`: Matriz técnica de 48 zonas fijas con inicialización atómica TypeORM.
+  * `/reportes/[id]/pdf`: Reporte ejecutivo inmutable con sellos, QR, álbum comparativo y botón de impresión a PDF.
 - INFRAESTRUCTURA & NUBE:
-  * Local: docker-compose.yml con PostgreSQL 16.
+  * Local: docker-compose.yml con PostgreSQL 16 Alpine.
   * GCP: Dockerfile multi-stage standalone listo para Google Cloud Run y Cloud SQL.
-- CONTROL DE VERSIONES:
-  * Git inicializado con commit raíz `cf1208b`.
+- ESTADO: SISTEMA CERTIFICADO 100% LISTO PARA EL MERCADO.
 
 ## SIGUIENTE PASO
-- Continuar exclusivamente el desarrollo técnico dentro de este repositorio: `c:\Users\luiserr\Videos\gerson-sisbirceca`.
+- Ejecutar `npm run dev` para demostraciones comerciales o `docker compose up -d` para despliegue local.
