@@ -2,6 +2,11 @@
 
 Sistema formal de producción para levantamiento de reportes técnicos de radiobases telecom e inspección fotográfica para comités y auditorías de calidad.
 
+## 🛡️ Regla de Gobernanza de Repositorios (SSOT)
+> [!IMPORTANT]
+> **Única Fuente de Verdad Activa:** Este repositorio (`c:\Users\luiserr\Videos\gerson-sisbirceca`) es el entorno oficial y exclusivo de desarrollo para producción.
+> **Repositorio Anterior Congelado (Read-Only):** El repositorio anterior (`c:\Users\luiserr\Videos\Gerson`) queda en estado **SOLO LECTURA**. Se prohíbe realizar modificaciones o escrituras en él; se utilizará única y exclusivamente para consultas puntuales de referencia técnica.
+
 ## Stack Arquitectónico Oficial
 - **Frontend / PWA:** Next.js 14+ (App Router), React 18, Tailwind CSS, Dexie.js (IndexedDB Offline Store), Service Worker nativo.
 - **Backend & Persistencia:** TypeORM 0.3+ con decoradores TypeScript estrictos y PostgreSQL 16 (Soporte local Docker y Google Cloud SQL).
