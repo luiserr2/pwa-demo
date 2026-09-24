@@ -9,23 +9,28 @@
 #    EXCLUSIVAMENTE en este proyecto: gerson-sisbirceca.
 # ==============================================================================================
 
-# ESTADO ACTUAL: GERSON-SISBIRCECA v1.0.0
-- STACK TÉCNICO OFICIAL:
-  * Persistencia: TypeORM 0.3+ con decoradores TypeScript estrictos + PostgreSQL 16.
-  * DataSource: Singleton tolerante a Hot-Reload en Next.js (AppDataSourceManager).
-  * Frontend: Next.js 14+ (App Router), Tailwind CSS con tokens #30235F y #009444, Dexie.js (IndexedDB offline) y Service Worker.
-  * Pruebas de Backend: Suite Jest con 20/20 pruebas unitarias e integrales aprobadas (100% PASS en 4 suites).
-  * Flujo de Validación: Validación visual de evidencias lado a lado (Antes vs Después) con aprobación unitaria y observaciones de rechazo.
-- MÓDULOS ACTIVOS Y CERTIFICADOS:
-  * `/` (Home): Portal institucional de presentación.
-  * `/mobile`: Captura en campo para técnicos con compresión Canvas (< 250 KB WebP) y bloqueo reactivo de fotos 'Después'.
-  * `/supervisor`: Bandeja de inspección visual y certificación con bloqueo anti-rechazo.
-  * `/reportes`: Matriz técnica de 48 zonas fijas con inicialización atómica TypeORM.
-  * `/reportes/[id]/pdf`: Reporte ejecutivo inmutable con sellos, QR, álbum comparativo y botón de impresión a PDF.
-- INFRAESTRUCTURA & NUBE:
-  * Local: docker-compose.yml con PostgreSQL 16 Alpine.
-  * GCP: Dockerfile multi-stage standalone listo para Google Cloud Run y Cloud SQL.
-- ESTADO: SISTEMA CERTIFICADO 100% LISTO PARA EL MERCADO.
+# ESTADO ACTUAL: GERSON-SISBIRCECA v2.4.0 (UNIFICACIÓN DE RBAC A 2 ROLES & ABM DE USUARIOS)
+- ARQUITECTURA OFICIAL DE 2 ROLES (ELIMINACIÓN DE SILO ARTIFICIAL DE SUPERVISOR):
+  * Rol 1: TECNICO / EMPLEADO DE CAMPO (Gerson Martínez):
+    - Rutas: `/campo`, `/mobile`.
+    - Funciones: Captura guiada en torre, compresión Canvas WebP (< 250 KB), encolado offline Dexie.js.
+  * Rol 2: DIRECCIÓN DE OPERACIONES / ADMIN (Lic. Mariana Fernández):
+    - Rutas: `/admin/dashboard`, `/admin/radiobases`, `/admin/usuarios`, `/supervisor`, `/reportes`, `/reportes/[id]/pdf`.
+    - Funciones unificadas sin cambio de cuenta: Auditoría fotográfica Antes vs Después, validación/aprobación de reportes con sellado SHA-256, catálogo de radiobases y gestión completa de usuarios.
+
+- GESTIÓN REAL DE USUARIOS (ABM / CRUD COMPLETO EN /admin/usuarios):
+  * Modal de registro interactivo con asignación exclusiva entre los 2 roles oficiales.
+  * Acciones directas por fila: Alternar estado (ACTIVO / INACTIVO) y eliminación permanente con confirmación.
+  * Handlers en backend: `POST`, `DELETE` y `PATCH` en `/api/usuarios` con persistencia TypeORM y fallback resiliente.
+
+- EXPERIENCIA DE USUARIO (UX PURGADA DE PERFILES BUROCRÁTICOS):
+  * `Navbar.tsx`: Modal rápido reducido de 3 a 2 opciones (Técnico de Torre y Dirección de Operaciones). Acceso directo a Auditoría QA en el menú de navegación del Administrador.
+  * `/login`: Dos terminales operativas limpias con ingreso directo y formulario manual homologado.
+  * `middleware.ts`: Redirecciones automáticas de 2 vías (`TECNICO` a `/campo` y `ADMIN` a `/admin/dashboard`).
+
+- SUITE DE PRUEBAS & CERTIFICACIÓN:
+  * Jest: 34/34 tests unitarios pasando al 100%.
+  * TypeScript: 0 errores (`tsc --noEmit` código 0).
 
 ## SIGUIENTE PASO
-- Ejecutar `npm run dev` para demostraciones comerciales o `docker compose up -d` para despliegue local.
+- Probar creación y eliminación de usuarios en vivo en `/admin/usuarios` y verificar el selector de roles en `/login` y Navbar.

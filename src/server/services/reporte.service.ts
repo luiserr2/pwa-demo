@@ -9,6 +9,7 @@ import {
   EvidenciaFotografica,
   EstadoValidacionVisual,
 } from '../entities';
+import { generarHashDeterministaReporte } from '../security/auth-token';
 
 export interface CrearReporteDTO {
   radiobaseId: string;
@@ -167,6 +168,18 @@ export class ReporteService {
       if (observacion) {
         reporte.observaciones = observacion;
       }
+
+      // Generar sello criptográfico inmutable SHA-256
+      reporte.hashSha256 = generarHashDeterministaReporte({
+        reporteId: reporte.id,
+        codigoReporte: reporte.codigo,
+        radiobaseId: reporte.radiobaseId,
+        tecnicoId: reporte.tecnicoId,
+        supervisorId: usuarioEjecutor.id,
+        fechaAprobacion: new Date().toISOString(),
+        totalZonas: reporte.zonas?.length || 48,
+        totalEvidencias: reporte.evidencias?.length || 0,
+      });
     }
 
     // Regla 4: Volver a BORRADOR para corregir

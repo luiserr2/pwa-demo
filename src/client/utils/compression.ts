@@ -32,7 +32,7 @@ export async function comprimirImagenEnCliente(
             width = maxDimension;
           } else {
             width = Math.round((width * maxDimension) / height);
-            height = maxDimension;
+            width = maxDimension;
           }
         }
 
@@ -67,4 +67,14 @@ export async function comprimirImagenEnCliente(
     };
     reader.readAsDataURL(archivo);
   });
+}
+
+/**
+ * Libera la URL de objeto del navegador para evitar fugas de memoria (Memory Leaks)
+ * en dispositivos móviles de campo de recursos limitados.
+ */
+export function liberarUrlImagen(url: string): void {
+  if (url && typeof window !== 'undefined' && url.startsWith('blob:')) {
+    URL.revokeObjectURL(url);
+  }
 }

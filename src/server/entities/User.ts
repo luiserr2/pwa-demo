@@ -6,12 +6,9 @@ import {
   UpdateDateColumn,
   OneToMany,
 } from 'typeorm';
+import { RolUsuario } from '../types/roles';
 
-export enum RolUsuario {
-  TECNICO = 'TECNICO',
-  SUPERVISOR = 'SUPERVISOR',
-  ADMIN = 'ADMIN',
-}
+export { RolUsuario };
 
 @Entity('usuarios')
 export class User {

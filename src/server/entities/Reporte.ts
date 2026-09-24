@@ -7,6 +7,7 @@ import {
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  Index,
 } from 'typeorm';
 import { User } from './User';
 import { Radiobase } from './Radiobase';
@@ -22,6 +23,8 @@ export enum EstadoReporte {
 }
 
 @Entity('reportes')
+@Index(['estado', 'createdAt'])
+@Index(['tecnicoId', 'estado'])
 export class Reporte {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -73,6 +76,12 @@ export class Reporte {
     dns1?: string;
     dns2?: string;
   } | null;
+
+  @Column({ name: 'hash_sha256', type: 'varchar', length: 64, nullable: true })
+  hashSha256: string | null;
+
+  @Column({ name: 'firma_digital', type: 'text', nullable: true })
+  firmaDigital: string | null;
 
   @OneToMany(() => EvidenciaFotografica, (evidencia) => evidencia.reporte, { cascade: true })
   evidencias: EvidenciaFotografica[];

@@ -7,16 +7,19 @@
   --foreground: #0f172a;
   --brand-purple: #30235F;
   --brand-green: #009444;
+  --telecom-red: #D92D20;
+  --telecom-amber: #F79009;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar Industrial */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -32,13 +35,29 @@ body {
   background: #94a3b8;
 }
 
-/* Utility Badges */
-.badge-purple {
-  background-color: #30235F;
-  color: #ffffff;
+/* Microinteracciones Industriales Rápidas (Ease-out-expo) */
+.btn-industrial {
+  transition: all 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-industrial:active {
+  transform: scale(0.98);
 }
 
-.badge-green {
-  background-color: #009444;
-  color: #ffffff;
+/* Touch Target Mínimo para Trabajo en Torre (WCAG 2.2 AA) */
+.touch-target-field {
+  min-height: 48px;
+  min-width: 48px;
+}
+
+/* Modo Alto Contraste Exterior (Sunlight View) */
+.sunlight-contrast {
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+/* Zebra Striping para Tablas de Datos B2B */
+.table-dense tbody tr:nth-child(even) {
+  background-color: #f8fafc;
+}
+.table-dense tbody tr:hover {
+  background-color: #f1f5f9;
 }

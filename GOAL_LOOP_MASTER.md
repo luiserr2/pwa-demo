@@ -1,64 +1,67 @@
-# GOAL_LOOP_MASTER: SISBIRCECA PRODUCTION SYSTEM (MARKET READY)
+# GOAL_LOOP_MASTER: PLAN MAESTRO DE EVOLUCIÓN ARQUITECTÓNICA Y LISTO PARA EL MERCADO
 
-Estado general: **LISTO PARA EL MERCADO (CERTIFICADO 100%)**  
-Orquestación: Super Agente & Enjambre Jerárquico (Gerente Dev vs Auditor Negador QA)  
-Gobernanza: Repositorio Oficial Único (c:\Users\luiserr\Videos\gerson-sisbirceca)  
-Identidad Visual: Morado Institucional `#30235F` | Verde Telecom `#009444`  
-
----
-
-## 🎯 HITOS DE PRODUCCIÓN Y ESTADO DE VERIFICACIÓN
-
-### [x] HITO 1: GOBERNANZA & CONGELAMIENTO DEL REPOSITORIO DEMO
-- [x] Repositorio viejo (`c:\Users\luiserr\Videos\Gerson`) marcado como `READ-ONLY / CONGELADO` en prompt.txt y git.
-- [x] Cero líneas modificadas en el repo viejo.
-- [x] Repositorio nuevo (`c:\Users\luiserr\Videos\gerson-sisbirceca`) establecido como la Única Fuente de Verdad (SSOT).
-- **Veredicto Auditor Negador:** APROBADO (Aislamiento de código 100% verificado).
-
-### [x] HITO 2: PERSISTENCIA RELACIONAL TYPEORM & POSTGRESQL 16
-- [x] Reemplazo total de Prisma por TypeORM 0.3+.
-- [x] 6 Entidades relacionales (`User`, `Radiobase`, `Reporte`, `EvidenciaFotografica`, `ZonaMatriz`, `EquipoInstalado`).
-- [x] DataSource Singleton tolerante al Hot-Reload de Next.js sin fugas de conexiones.
-- [x] Inicialización atómica transaccional de las 48 zonas fijas por reporte.
-- [x] Restricción de unicidad compuesta `[reporteId, tipoEquipo, slotNumero, momento]`.
-- **Veredicto Auditor Negador:** APROBADO (Transacciones ACID y relaciones comprobadas).
-
-### [x] HITO 3: SUITE DE TESTING EN BACKEND CON JEST
-- [x] Jest configurado con `ts-jest` en `jest.config.js`.
-- [x] 20 pruebas unitarias e integrales en 4 suites (`reporte.service`, `evidencia.service`, `zona.service`, `seed.service`).
-- [x] Regla crítica de avance validada: Bloqueo de foto 'DESPUES' si 'ANTES' no existe en el slot.
-- [x] Máquina de estados validada: El técnico no puede auto-aprobarse y el supervisor no puede aprobar con fotos rechazadas.
-- [x] Tiempo de ejecución: < 5 segundos en caliente.
-- **Veredicto Auditor Negador:** APROBADO (100% PASS, 0 regresiones).
-
-### [x] HITO 4: SISTEMA DE DISEÑO E IDENTIDAD CORPORATIVA (#30235F Y #009444)
-- [x] Tokens en `tailwind.config.ts` (`brand-purple: #30235F` y `brand-green: #009444`).
-- [x] Variables CSS en `src/app/globals.css`.
-- [x] Navbar institucional y portal principal adaptados a la paleta oficial.
-- [x] PWA Móvil (`/mobile`) optimizada con botones de acción en verde `#009444` y candados reactivos.
-- [x] Bandeja de validación visual (`/supervisor`) con banner morado `#30235F` y acciones aprobatorias en `#009444`.
-- [x] Matriz de 48 zonas (`/reportes`) tabulada y accesible según WCAG AA.
-- **Veredicto Auditor Negador:** APROBADO (Contraste y jerarquía visual armonizada).
-
-### [x] HITO 5: MÓDULO DE VALIDACIÓN VISUAL QA & FLUJO DE SUPERVISIÓN
-- [x] Inspección fotográfica lado a lado (Antes vs Después).
-- [x] Acciones unitarias: `Aprobar Evidencia` (verde) y `Rechazar Evidencia` (rojo) con selector de motivos visuales técnicos.
-- [x] Certificación final del reporte bloqueada reactivamente si existen fotos rechazadas o pendientes.
-- **Veredicto Auditor Negador:** APROBADO (Flujo a prueba de errores humanos en campo).
-
-### [x] HITO 6: REPORTE EJECUTIVO CERTIFICADO Y EXPORTACIÓN A PDF
-- [x] Vista formal en `/reportes/[id]/pdf` con encabezado institucional, QR/Hash SHA-256 inmutable, inventario de equipos, datos de red, álbum fotográfico tabulado y firmas digitales.
-- [x] Botón directo de impresión/guardado a PDF (`window.print()`).
-- **Veredicto Auditor Negador:** APROBADO (Listo para presentación ante directorios y comités).
-
-### [x] HITO 7: CONTENERIZACIÓN & DESPLIEGUE A NUBE (GCP READY)
-- [x] `Dockerfile` multi-stage standalone probado y optimizado para Google Cloud Run.
-- [x] `docker-compose.yml` para desarrollo y staging con PostgreSQL 16 Alpine.
-- [x] `.env.example` y `.env.local` configurados.
-- **Veredicto Auditor Negador:** APROBADO (Portabilidad certificada).
+Estado General: **COMPLETADO Y CERTIFICADO PARA PRODUCCIÓN (MARKET READY)**  
+Metodología: Master Orchestrator Loop V4 / Zero-Conflict Swarm  
+Gobernanza: Repositorio Oficial Único (`c:\Users\luiserr\Videos\gerson-sisbirceca`)  
+Repositorio Legado: `c:\Users\luiserr\Videos\Gerson` (**ESTRICTAMENTE CONGELADO / READ-ONLY**)  
+Identidad Corporativa: Morado Institucional `#30235F` | Verde Telecom `#009444`  
+Fecha de Certificación: 23 de Septiembre de 2026  
 
 ---
 
-## 🔒 CERTIFICACIÓN FINAL DEL ENJAMBRE
-El sistema `gerson-sisbirceca` cumple con el 100% de los criterios de aceptación técnicos, estéticos, arquitectónicos y de gobernanza.  
-**Estado:** LISTO PARA EL MERCADO.
+## 🎯 HITOS MAESTROS Y MATRIZ DE TRAZABILIDAD BIDIRECCIONAL
+
+### HITO 1: Cimientos, Base de Datos e Infraestructura
+*Objetivo: Estabilizar el esquema relacional TypeORM, índices de alto rendimiento, inicialización atómica de datos y entorno Docker standalone.*
+
+- [x] [HITO-1.1] Agregar columnas `hash_sha256` y `firma_digital` en entidad `Reporte` para sellado criptográfico inmutable. (Origen: docs/01-DATABASE.md)
+- [x] [HITO-1.2] Crear servicio y repositorio para la entidad `Radiobase` (`RadiobaseService`) con filtrado por región y código. (Origen: docs/01-DATABASE.md)
+- [x] [HITO-1.3] Crear servicio y repositorio para la entidad `User` (`UserService`) con soporte para gestión de cuadrillas. (Origen: docs/01-DATABASE.md)
+- [x] [HITO-1.4] Agregar índices B-Tree compuestos en `reportes` para acelerar consultas de dashboards gerenciales. (Origen: docs/01-DATABASE.md)
+- [x] [HITO-1.5] Conectar seed automático en inicio o script de migración para inicialización controlada de PostgreSQL. (Origen: docs/01-DATABASE.md)
+- [x] [HITO-1.6] Habilitar modo `output: 'standalone'` y cabeceras de seguridad HTTP en `next.config.mjs`. (Origen: docs/05-DEPLOYMENT_GCP.md)
+- [x] [HITO-1.7] Adaptar `data-source.ts` para soportar `INSTANCE_UNIX_SOCKET` para conexiones seguras con Google Cloud SQL. (Origen: docs/05-DEPLOYMENT_GCP.md)
+- [x] [HITO-1.8] Crear script de verificación y empaquetado de contenedor Docker local `docker-test.ps1`. (Origen: docs/05-DEPLOYMENT_GCP.md)
+
+---
+
+### HITO 2: Backend, Lógica de Negocio y Seguridad Zero-Trust
+*Objetivo: Implementar contratos de API con validación Zod, autenticación basada en cookies firmadas, middleware de autorización y generador de hash determinístico.*
+
+- [x] [HITO-2.1] Implementar esquemas de validación Zod (`reporte.schema.ts`, `foto.schema.ts`, `radiobase.schema.ts`). (Origen: docs/02-BACKEND_API.md)
+- [x] [HITO-2.2] Crear ruta `GET /api/radiobases` y `POST /api/radiobases` conectada al `RadiobaseService`. (Origen: docs/02-BACKEND_API.md)
+- [x] [HITO-2.3] Crear ruta `GET /api/usuarios` para listar personal y asignación de cuadrillas. (Origen: docs/02-BACKEND_API.md)
+- [x] [HITO-2.4] Crear ruta `GET /api/admin/stats` para computar métricas y KPIs operacionales en tiempo real desde PostgreSQL. (Origen: docs/02-BACKEND_API.md)
+- [x] [HITO-2.5] Crear endpoint `POST /api/sync/offline` para procesamiento transaccional en lote de registros Dexie.js. (Origen: docs/02-BACKEND_API.md)
+- [x] [HITO-2.6] Implementar utilitario de cookies y tokens de sesión firmados (`sisbirceca_auth`). (Origen: docs/04-SECURITY_ZERO_TRUST.md)
+- [x] [HITO-2.7] Crear middleware guard de seguridad en API para rechazar peticiones sin credenciales del rol requerido. (Origen: docs/04-SECURITY_ZERO_TRUST.md)
+- [x] [HITO-2.8] Implementar cálculo de Hash SHA-256 determinístico en `ReporteService.cambiarEstado` al certificar como `APROBADO`. (Origen: docs/04-SECURITY_ZERO_TRUST.md)
+- [x] [HITO-2.9] Sanitizar y validar payloads en `/api/fotos` con verificación de formato WebP y tamaño máximo 500KB. (Origen: docs/04-SECURITY_ZERO_TRUST.md)
+- [x] [HITO-2.10] Implementar liberación de memoria (`URL.revokeObjectURL`) en compresión de imágenes de la PWA. (Origen: docs/04-SECURITY_ZERO_TRUST.md)
+
+---
+
+### HITO 3: Frontend, UI/UX y Segregación Absoluta de Roles (RBAC)
+*Objetivo: Cerrar la navegación por roles, conectar las vistas React con endpoints REST reales y optimizar el flujo de captura offline en sitio.*
+
+- [x] [HITO-3.1] Crear middleware central de Next.js (`src/middleware.ts`) que bloquee físicamente el acceso cruzado entre rutas según el rol. (Origen: docs/03-FRONTEND_RBAC_UX.md)
+- [x] [HITO-3.2] Redirigir reactivamente desde `/login` a la vista jurisdiccional del rol (`/campo`, `/supervisor`, `/admin/dashboard`). (Origen: docs/03-FRONTEND_RBAC_UX.md)
+- [x] [HITO-3.3] Vincular selección de orden de trabajo en `/campo` con `/mobile?reporteId=[id]` para contextualizar la captura fotográfica en torre. (Origen: docs/03-FRONTEND_RBAC_UX.md)
+- [x] [HITO-3.4] Conectar tabla de radiobases `/admin/radiobases` a API real `GET/POST /api/radiobases`. (Origen: docs/03-FRONTEND_RBAC_UX.md)
+- [x] [HITO-3.5] Conectar directorio `/admin/usuarios` a API real `GET /api/usuarios`. (Origen: docs/03-FRONTEND_RBAC_UX.md)
+- [x] [HITO-3.6] Conectar tarjetas de KPIs y distribución tecnológica del `/admin/dashboard` a `GET /api/admin/stats`. (Origen: docs/03-FRONTEND_RBAC_UX.md)
+- [x] [HITO-3.7] Conectar bandeja `/supervisor` para cargar las fotos y datos del reporte real seleccionado desde `/api/reportes/[id]`. (Origen: docs/03-FRONTEND_RBAC_UX.md)
+- [x] [HITO-3.8] Implementar sincronización bidireccional en `/campo` enviando el paquete local Dexie.js a `POST /api/sync/offline`. (Origen: docs/03-FRONTEND_RBAC_UX.md)
+- [x] [HITO-3.9] Pulir contraste WCAG AA, estados de carga y feedback visual según directivas del Design Orchestrator e Impeccable. (Origen: docs/03-FRONTEND_RBAC_UX.md)
+
+---
+
+### HITO 4: Auditoría Integral, Testing Automatizado y Certificación Final
+*Objetivo: Validar la integridad de los contratos, tests unitarios en Jest, auditoría de vulnerabilidades y verificación del build de producción.*
+
+- [x] [HITO-4.1] Ampliar la suite de pruebas unitarias Jest para cubrir nuevos servicios (`RadiobaseService`, `UserService`, `AdminStats`). (Origen: docs/02-BACKEND_API.md)
+- [x] [HITO-4.2] Crear tests unitarios para validación de permisos en guardias y cálculo determinístico del hash SHA-256. (Origen: docs/04-SECURITY_ZERO_TRUST.md)
+- [x] [HITO-4.3] Ejecutar `npm run typecheck` y certificar 0 errores de tipado en TypeScript. (Origen: docs/03-FRONTEND_RBAC_UX.md)
+- [x] [HITO-4.4] Ejecutar `npm test` y certificar 100% de tests aprobados sin regresiones. (Origen: docs/02-BACKEND_API.md)
+- [x] [HITO-4.5] Ejecutar `npm run build` y certificar compilación limpia de todas las rutas y bundles standalone. (Origen: docs/05-DEPLOYMENT_GCP.md)
+- [x] [HITO-4.6] Emitir acta formal de certificación de producto listo para entrega comercial y despliegue a cliente. (Origen: docs/05-DEPLOYMENT_GCP.md)

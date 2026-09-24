@@ -23,7 +23,7 @@ export function createDataSource(): DataSource {
       type: 'postgres',
       url: databaseUrl,
       entities: [User, Radiobase, Reporte, EvidenciaFotografica, ZonaMatriz, EquipoInstalado],
-      synchronize: !isProduction, // In production use migrations
+      synchronize: !isProduction,
       logging: process.env.DB_LOGGING === 'true',
       ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false,
       extra: {
@@ -34,9 +34,12 @@ export function createDataSource(): DataSource {
     });
   }
 
+  // Soporte Google Cloud SQL Unix Socket o TCP estándar
+  const host = process.env.INSTANCE_UNIX_SOCKET || process.env.DB_HOST || 'localhost';
+
   return new DataSource({
     type: 'postgres',
-    host: process.env.DB_HOST || 'localhost',
+    host,
     port: parseInt(process.env.DB_PORT || '5432', 10),
     username: process.env.DB_USER || 'postgres',
     password: process.env.DB_PASSWORD || 'postgres',
