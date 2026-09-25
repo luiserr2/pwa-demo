@@ -414,6 +414,7 @@ function MobileContent() {
                             type="file"
                             accept="image/*"
                             capture="environment"
+                            aria-label={`Capturar fotografía estado Antes para slot ${slot.id}: ${slot.nombre}`}
                             className="hidden"
                             onChange={(e) => handleCapture(slot.id, 'ANTES', e)}
                           />
@@ -451,6 +452,7 @@ function MobileContent() {
                             type="file"
                             accept="image/*"
                             capture="environment"
+                            aria-label={`Capturar fotografía estado Después para slot ${slot.id}: ${slot.nombre}`}
                             className="hidden"
                             onChange={(e) => handleCapture(slot.id, 'DESPUES', e)}
                           />
@@ -605,14 +607,19 @@ function MobileContent() {
       {/* MODAL DE ÉXITO OPERATIVO (SMOKED OBSIDIAN SHEET) */}
       {modalCompletado && (
         <div className="fixed inset-0 bg-[#0A0F1D]/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-[#0A0F1D]/95 backdrop-blur-xl rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-white/10 text-white text-center animate-in fade-in zoom-in-95 duration-150">
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-exito-title"
+            className="bg-[#0A0F1D]/95 backdrop-blur-xl rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-white/10 text-white text-center animate-in fade-in zoom-in-95 duration-150"
+          >
             <div className="w-12 h-12 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-3">
               <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <polyline points="20 6 9 17 4 12" />
               </svg>
             </div>
 
-            <h3 className="font-bold text-base text-white mb-1">
+            <h3 id="modal-exito-title" className="font-bold text-base text-white mb-1">
               {tipoReporteGuardado === 'FOTOGRAFICO'
                 ? 'Reporte Fotográfico Guardado'
                 : tipoReporteGuardado === 'TECNICO'

@@ -287,10 +287,15 @@ export default function AdminRadiobasesPage() {
       {/* MODAL ALTA NUEVA RADIOBASE (SMOKED OBSIDIAN SHEET) */}
       {modalNuevo && (
         <div className="fixed inset-0 bg-[#0A0F1D]/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-          <div className="bg-[#0A0F1D]/95 backdrop-blur-xl rounded-2xl p-6 max-w-md w-full shadow-2xl border border-white/10 text-white animate-in fade-in zoom-in-95 duration-150">
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-radiobase-title"
+            className="bg-[#0A0F1D]/95 backdrop-blur-xl rounded-2xl p-6 max-w-md w-full shadow-2xl border border-white/10 text-white animate-in fade-in zoom-in-95 duration-150"
+          >
             <div className="flex items-center justify-between pb-3 border-b border-white/[0.08] mb-4">
               <div>
-                <h3 className="text-sm font-bold text-white tracking-tight">
+                <h3 id="modal-radiobase-title" className="text-sm font-bold text-white tracking-tight">
                   Dar de Alta Nueva Radiobase
                 </h3>
                 <p className="text-xs text-slate-400">
@@ -298,7 +303,9 @@ export default function AdminRadiobasesPage() {
                 </p>
               </div>
               <button
+                type="button"
                 onClick={() => setModalNuevo(false)}
+                aria-label="Cerrar ventana modal"
                 className="w-7 h-7 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-slate-400 hover:text-white border border-white/[0.08] font-bold text-xs flex items-center justify-center transition-colors cursor-pointer"
               >
                 <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -309,10 +316,11 @@ export default function AdminRadiobasesPage() {
 
             <form onSubmit={handleCrearRadiobase} className="space-y-4 text-xs">
               <div>
-                <label className="block text-[11px] font-semibold text-slate-300 uppercase mb-1 tracking-wider">
+                <label htmlFor="radiobase-codigo" className="block text-[11px] font-semibold text-slate-300 uppercase mb-1 tracking-wider">
                   Código Único (Ej: RDB-042) *
                 </label>
                 <input
+                  id="radiobase-codigo"
                   type="text"
                   required
                   value={nuevoCodigo}
@@ -323,10 +331,11 @@ export default function AdminRadiobasesPage() {
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-300 uppercase mb-1 tracking-wider">
+                <label htmlFor="radiobase-nombre" className="block text-[11px] font-semibold text-slate-300 uppercase mb-1 tracking-wider">
                   Nombre Oficial del Sitio *
                 </label>
                 <input
+                  id="radiobase-nombre"
                   type="text"
                   required
                   value={nuevoNombre}
@@ -337,10 +346,11 @@ export default function AdminRadiobasesPage() {
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-300 uppercase mb-1 tracking-wider">
+                <label htmlFor="radiobase-region" className="block text-[11px] font-semibold text-slate-300 uppercase mb-1 tracking-wider">
                   Región Operativa *
                 </label>
                 <select
+                  id="radiobase-region"
                   value={nuevaRegion}
                   onChange={(e) => setNuevaRegion(e.target.value)}
                   className="w-full px-3 py-2 bg-[#0F172A] border border-white/10 rounded-lg text-white focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30 text-xs font-medium"
@@ -354,10 +364,11 @@ export default function AdminRadiobasesPage() {
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-300 uppercase mb-1 tracking-wider">
+                <label htmlFor="radiobase-tecnologia" className="block text-[11px] font-semibold text-slate-300 uppercase mb-1 tracking-wider">
                   Tecnología Predominante *
                 </label>
                 <select
+                  id="radiobase-tecnologia"
                   value={nuevaTecnologia}
                   onChange={(e) => setNuevaTecnologia(e.target.value)}
                   className="w-full px-3 py-2 bg-[#0F172A] border border-white/10 rounded-lg text-white focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30 text-xs font-medium"

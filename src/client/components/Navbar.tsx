@@ -139,14 +139,21 @@ export function Navbar() {
       {/* MODAL DE CAMBIO RÁPIDO DE ROL (SMOKED OBSIDIAN GLASS) */}
       {modalSwitch && (
         <div className="fixed inset-0 bg-[#0A0F1D]/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-[#0A0F1D]/95 backdrop-blur-xl rounded-2xl max-w-md w-full p-6 shadow-2xl border border-white/10 text-white animate-in fade-in zoom-in-95 duration-150">
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-switch-title"
+            className="bg-[#0A0F1D]/95 backdrop-blur-xl rounded-2xl max-w-md w-full p-6 shadow-2xl border border-white/10 text-white animate-in fade-in zoom-in-95 duration-150"
+          >
             <div className="flex items-center justify-between pb-3 border-b border-white/[0.08] mb-4">
               <div>
-                <h3 className="font-bold text-sm text-white">Cambiar Perfil de Operación</h3>
+                <h3 id="modal-switch-title" className="font-bold text-sm text-white">Cambiar Perfil de Operación</h3>
                 <p className="text-xs text-slate-400">Seleccione el entorno y permisos a los que desea conmutar:</p>
               </div>
               <button
+                type="button"
                 onClick={() => setModalSwitch(false)}
+                aria-label="Cerrar ventana modal"
                 className="w-7 h-7 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-slate-400 hover:text-white border border-white/[0.08] font-bold text-xs flex items-center justify-center transition-colors cursor-pointer"
               >
                 <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

@@ -283,12 +283,14 @@ export default function ReportesPage() {
                       <input
                         type="text"
                         value={zona.desc}
+                        aria-label={`Descripción de la zona de seguridad ${zona.id}`}
                         onChange={(e) => handleZonaChange(zona.id, e.target.value, zona.estado)}
                         className="flex-1 min-w-0 bg-slate-950/60 border border-white/10 rounded-lg px-2.5 py-1.5 text-slate-200 text-xs placeholder:text-slate-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500/30"
                         placeholder={`Descripción zona ${zona.id}`}
                       />
                       <select
                         value={zona.estado}
+                        aria-label={`Estado de la zona de seguridad ${zona.id}`}
                         onChange={(e) => handleZonaChange(zona.id, zona.desc, e.target.value)}
                         className={`rounded-lg px-2 py-1.5 font-mono font-semibold text-[10px] border transition-colors shrink-0 ${
                           zona.estado === 'OK'

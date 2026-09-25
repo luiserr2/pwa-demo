@@ -232,19 +232,35 @@ export default function LoginPage() {
             <div className="border-t border-white/[0.08] pt-4">
               <button
                 type="button"
+                aria-expanded={mostrarManual}
+                aria-controls="manual-credentials-form"
                 onClick={() => setMostrarManual(!mostrarManual)}
                 className="text-xs font-medium text-slate-400 hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
               >
-                <span>{mostrarManual ? '▲ Ocultar formulario de credenciales' : '▼ ¿Desea ingresar con correo y contraseña manuales?'}</span>
+                <svg
+                  className={`w-3.5 h-3.5 transition-transform duration-200 ${mostrarManual ? 'rotate-180' : ''}`}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+                <span>{mostrarManual ? 'Ocultar formulario de credenciales' : '¿Desea ingresar con correo y contraseña manuales?'}</span>
               </button>
 
               {mostrarManual && (
-                <form onSubmit={handleManualSubmit} className="mt-4 bg-white/[0.02] p-4 rounded-xl border border-white/[0.08] space-y-3">
+                <form
+                  id="manual-credentials-form"
+                  onSubmit={handleManualSubmit}
+                  className="mt-4 bg-white/[0.02] p-4 rounded-xl border border-white/[0.08] space-y-3"
+                >
                   <div>
-                    <label className="block text-[10px] font-semibold uppercase text-slate-400 mb-1">
+                    <label htmlFor="login-email" className="block text-[10px] font-semibold uppercase text-slate-400 mb-1">
                       Correo Electrónico
                     </label>
                     <input
+                      id="login-email"
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
@@ -254,10 +270,11 @@ export default function LoginPage() {
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-semibold uppercase text-slate-400 mb-1">
+                    <label htmlFor="login-password" className="block text-[10px] font-semibold uppercase text-slate-400 mb-1">
                       Contraseña
                     </label>
                     <input
+                      id="login-password"
                       type="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}

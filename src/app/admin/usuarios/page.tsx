@@ -388,14 +388,21 @@ export default function AdminUsuariosPage() {
       {/* MODAL PARA CREAR NUEVO USUARIO (SMOKED OBSIDIAN SHEET) */}
       {modalCrear && (
         <div className="fixed inset-0 bg-[#0A0F1D]/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-[#0A0F1D]/95 backdrop-blur-xl rounded-2xl max-w-md w-full p-6 shadow-2xl border border-white/10 text-white animate-in fade-in zoom-in-95 duration-150">
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-usuario-title"
+            className="bg-[#0A0F1D]/95 backdrop-blur-xl rounded-2xl max-w-md w-full p-6 shadow-2xl border border-white/10 text-white animate-in fade-in zoom-in-95 duration-150"
+          >
             <div className="flex items-center justify-between pb-3 border-b border-white/[0.08] mb-4">
               <div>
-                <h3 className="font-bold text-sm text-white">Registrar Nuevo Usuario</h3>
+                <h3 id="modal-usuario-title" className="font-bold text-sm text-white">Registrar Nuevo Usuario</h3>
                 <p className="text-xs text-slate-400">Seleccione el rol y asigne permisos operativos:</p>
               </div>
               <button
+                type="button"
                 onClick={() => setModalCrear(false)}
+                aria-label="Cerrar ventana modal"
                 className="w-7 h-7 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-slate-400 hover:text-white border border-white/[0.08] font-bold text-xs flex items-center justify-center transition-colors cursor-pointer"
               >
                 <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -406,10 +413,11 @@ export default function AdminUsuariosPage() {
 
             <form onSubmit={handleCrearUsuario} className="space-y-4 text-xs">
               <div>
-                <label className="block text-[11px] font-semibold text-slate-300 uppercase mb-1 tracking-wider">
+                <label htmlFor="usuario-nombre" className="block text-[11px] font-semibold text-slate-300 uppercase mb-1 tracking-wider">
                   Nombre Completo *
                 </label>
                 <input
+                  id="usuario-nombre"
                   type="text"
                   required
                   placeholder="Ej. Juan Pérez"
@@ -420,10 +428,11 @@ export default function AdminUsuariosPage() {
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-300 uppercase mb-1 tracking-wider">
+                <label htmlFor="usuario-email" className="block text-[11px] font-semibold text-slate-300 uppercase mb-1 tracking-wider">
                   Correo Electrónico Corporativo *
                 </label>
                 <input
+                  id="usuario-email"
                   type="email"
                   required
                   placeholder="ejemplo@sisbirceca.com"
@@ -434,10 +443,11 @@ export default function AdminUsuariosPage() {
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-300 uppercase mb-1 tracking-wider">
+                <label htmlFor="usuario-cedula" className="block text-[11px] font-semibold text-slate-300 uppercase mb-1 tracking-wider">
                   Cédula / Documento de Identidad *
                 </label>
                 <input
+                  id="usuario-cedula"
                   type="text"
                   required
                   placeholder="Ej. V-25.123.456"
@@ -448,10 +458,11 @@ export default function AdminUsuariosPage() {
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-300 uppercase mb-1 tracking-wider">
+                <label htmlFor="usuario-rol" className="block text-[11px] font-semibold text-slate-300 uppercase mb-1 tracking-wider">
                   Rol de Acceso al Sistema *
                 </label>
                 <select
+                  id="usuario-rol"
                   value={formRol}
                   onChange={(e) => setFormRol(e.target.value as 'TECNICO' | 'ADMIN')}
                   className="w-full px-3 py-2 bg-[#0F172A] border border-white/10 rounded-lg text-white focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30 text-xs font-medium"
@@ -465,10 +476,11 @@ export default function AdminUsuariosPage() {
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-300 uppercase mb-1 tracking-wider">
+                <label htmlFor="usuario-cuadrilla" className="block text-[11px] font-semibold text-slate-300 uppercase mb-1 tracking-wider">
                   Cuadrilla / Asignación Regional (Opcional)
                 </label>
                 <input
+                  id="usuario-cuadrilla"
                   type="text"
                   placeholder="Ej. Cuadrilla Centro - AMBA"
                   value={formCuadrilla}
