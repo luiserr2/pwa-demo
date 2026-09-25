@@ -188,20 +188,27 @@ export default function CampoPortalPage() {
                 </span>
               </div>
               <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">
-                Órdenes de Trabajo en Sitio
+                Gestión de Informes de Campo
               </h1>
               <p className="text-slate-500 text-xs mt-1 max-w-xl">
-                Flujo offline-first: Las capturas se comprimen a WebP (&lt; 250 KB) y se encolan automáticamente ante pérdida de señal en la estructura.
+                Módulos de campo independientes: Genere reportes fotográficos, fichas técnicas o unifique ambos en un expediente oficial consolidado.
               </p>
             </div>
 
-            <Link
-              href="/mobile?reporteId=rep-001&site=RDB-001&sitio=Torre%20Puerto%20Madero%20Central"
-              className="bg-slate-900 hover:bg-black text-white font-medium text-xs px-4 py-2.5 rounded-xl shadow-sm transition-all flex items-center gap-2"
-            >
-              <span>Abrir Cámara PWA</span>
-              <span>&rarr;</span>
-            </Link>
+            <div className="flex items-center gap-2">
+              <Link
+                href="/mobile?reporteId=rep-001&site=RDB-001&sitio=Torre%20Puerto%20Madero%20Central&mode=FOTOS"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs px-3.5 py-2.5 rounded-xl shadow-sm transition-all flex items-center gap-1.5"
+              >
+                <span>📸 Cámara Fotos</span>
+              </Link>
+              <Link
+                href="/mobile?reporteId=rep-001&site=RDB-001&sitio=Torre%20Puerto%20Madero%20Central&mode=ZONAS"
+                className="bg-emerald-700 hover:bg-emerald-800 text-white font-medium text-xs px-3.5 py-2.5 rounded-xl shadow-sm transition-all flex items-center gap-1.5"
+              >
+                <span>📋 Zonas y Equipos</span>
+              </Link>
+            </div>
           </div>
         </div>
 
@@ -289,51 +296,91 @@ export default function CampoPortalPage() {
                     {sitio.tipo} &middot; <span className="font-medium text-slate-600">{sitio.region}</span>
                   </p>
 
-                  {/* BARRA DE PROGRESO */}
-                  <div className="mb-4">
-                    <div className="flex justify-between text-xs mb-1.5">
-                      <span className="text-slate-500 font-medium">Slots fotográficos</span>
-                      <span className="font-mono font-semibold text-slate-700">
-                        {sitio.slotsCompletados} / {sitio.slotsTotales} ({porcentaje}%)
-                      </span>
+                  {/* METRICAS DE ENTREGABLES MODULARES */}
+                  <div className="grid grid-cols-2 gap-3 mb-4 text-xs">
+                    <div className="p-2.5 rounded-xl border border-slate-200 bg-slate-50/70">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="font-semibold text-slate-700 flex items-center gap-1">
+                          <span>📸</span> Reporte Fotográfico
+                        </span>
+                        <span className="font-mono font-bold text-slate-800 text-[11px]">
+                          {sitio.slotsCompletados}/{sitio.slotsTotales} pares
+                        </span>
+                      </div>
+                      <div className="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
+                        <div
+                          className="bg-blue-600 h-1.5 rounded-full transition-all"
+                          style={{ width: `${porcentaje}%` }}
+                        ></div>
+                      </div>
                     </div>
-                    <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden border border-slate-200/50">
-                      <div
-                        className={`h-2 rounded-full transition-all duration-300 ${
-                          esCompletado ? 'bg-emerald-600' : 'bg-slate-900'
-                        }`}
-                        style={{ width: `${porcentaje}%` }}
-                      ></div>
+
+                    <div className="p-2.5 rounded-xl border border-slate-200 bg-slate-50/70">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="font-semibold text-slate-700 flex items-center gap-1">
+                          <span>📋</span> Ficha Técnica
+                        </span>
+                        <span className="font-mono font-bold text-emerald-700 text-[11px]">
+                          48/48 zonas
+                        </span>
+                      </div>
+                      <div className="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
+                        <div className="bg-emerald-600 h-1.5 rounded-full w-full"></div>
+                      </div>
                     </div>
                   </div>
 
-                  {/* ACCIÓN PRINCIPAL */}
-                  <div className="pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
-                    <span className="text-[11px] text-slate-400 font-mono hidden sm:inline">
-                      {sitio.codigo}
-                    </span>
-
-                    <div className="flex items-center gap-2 w-full sm:w-auto">
-                      {sitio.slotsCompletados > 0 && (
+                  {/* HERRAMIENTAS Y ENTREGABLES MODULARES */}
+                  <div className="pt-3 border-t border-slate-100 space-y-2.5">
+                    {/* ACCIONES DE LEVANTAMIENTO */}
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                        Levantamiento en Sitio:
+                      </span>
+                      <div className="flex items-center gap-2 flex-wrap">
                         <Link
-                          href={`/reportes/${sitio.id}/pdf`}
-                          className="text-xs font-semibold text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 px-3 py-2.5 rounded-xl border border-slate-200 transition-colors inline-flex items-center gap-1 flex-1 sm:flex-initial justify-center"
+                          href={`/mobile?reporteId=${sitio.id}&site=${sitio.siteCodigo}&sitio=${encodeURIComponent(sitio.nombre)}&mode=FOTOS`}
+                          className="bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs px-3 py-1.5 rounded-lg shadow-sm transition-all flex items-center gap-1 cursor-pointer"
                         >
-                          📄 <span>Ver PDF</span>
+                          <span>📸 Tomar Fotos</span>
                         </Link>
-                      )}
 
-                      <Link
-                        href={`/mobile?reporteId=${sitio.id}&site=${sitio.siteCodigo}&sitio=${encodeURIComponent(sitio.nombre)}`}
-                        className={`flex-1 sm:flex-initial text-center font-medium text-xs px-4 py-2.5 rounded-xl shadow-sm transition-all flex items-center justify-center gap-1.5 ${
-                          esCompletado
-                            ? 'bg-slate-800 hover:bg-slate-900 text-white'
-                            : 'bg-slate-900 hover:bg-black text-white'
-                        }`}
-                      >
-                        <span>{esCompletado ? 'Ver / Modificar Fotos' : sitio.estado === 'EN_PROGRESO' ? 'Continuar Levantamiento' : 'Iniciar Levantamiento'}</span>
-                        <span>&rarr;</span>
-                      </Link>
+                        <Link
+                          href={`/mobile?reporteId=${sitio.id}&site=${sitio.siteCodigo}&sitio=${encodeURIComponent(sitio.nombre)}&mode=ZONAS`}
+                          className="bg-emerald-700 hover:bg-emerald-800 text-white font-medium text-xs px-3 py-1.5 rounded-lg shadow-sm transition-all flex items-center gap-1 cursor-pointer"
+                        >
+                          <span>📋 Llenar Zonas</span>
+                        </Link>
+                      </div>
+                    </div>
+
+                    {/* ENTREGABLES (SEPARADOS O UNIFICADOS) */}
+                    <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100">
+                      <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                        Ver / Exportar:
+                      </span>
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <Link
+                          href={`/reportes/${sitio.id}/pdf?vista=FOTOS`}
+                          className="text-[11px] font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 px-2.5 py-1 rounded-md border border-blue-200 transition-colors"
+                        >
+                          📸 Solo Fotos
+                        </Link>
+
+                        <Link
+                          href={`/reportes/${sitio.id}/pdf?vista=TECNICO`}
+                          className="text-[11px] font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 px-2.5 py-1 rounded-md border border-emerald-200 transition-colors"
+                        >
+                          📋 Solo Ficha Técnica
+                        </Link>
+
+                        <Link
+                          href={`/reportes/${sitio.id}/pdf?vista=UNIFICADO`}
+                          className="text-[11px] font-bold text-white bg-slate-900 hover:bg-black px-3 py-1 rounded-md transition-colors shadow-xs flex items-center gap-1"
+                        >
+                          <span>📑 Unir en Informe Completo</span>
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>

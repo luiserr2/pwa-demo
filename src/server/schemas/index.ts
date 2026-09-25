@@ -79,6 +79,7 @@ export const SincronizarOfflineSchema = z.object({
   reporteId: z.string(),
   tecnicoId: z.string(),
   radiobaseId: z.string(),
+  tipoReporte: z.enum(['FOTOGRAFICO', 'TECNICO', 'UNIFICADO']).optional(),
   evidencias: z.array(
     z.object({
       slotNumero: z.number().int(),

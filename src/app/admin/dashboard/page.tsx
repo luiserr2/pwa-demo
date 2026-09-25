@@ -367,12 +367,31 @@ export default function AdminDashboardPage() {
                   </td>
                   <td className="p-3 font-mono text-slate-500 text-[11px]">{item.fecha}</td>
                   <td className="p-3 pr-5 text-right">
-                    <Link
-                      href={`/reportes/${item.id}/pdf`}
-                      className="bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold px-3 py-1.5 rounded-lg text-xs transition-colors border border-slate-200 shadow-sm inline-flex items-center gap-1.5"
-                    >
-                      <span>📄 Ver PDF</span>
-                    </Link>
+                    <div className="inline-flex items-center gap-1">
+                      <Link
+                        href={`/reportes/${item.id}/pdf?vista=FOTOS`}
+                        className="text-[11px] font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 px-2 py-1 rounded-md border border-blue-200 transition-colors"
+                        title="Ver solo Álbum Fotográfico"
+                      >
+                        📸 Fotos
+                      </Link>
+
+                      <Link
+                        href={`/reportes/${item.id}/pdf?vista=TECNICO`}
+                        className="text-[11px] font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 px-2 py-1 rounded-md border border-emerald-200 transition-colors"
+                        title="Ver solo Ficha Técnica"
+                      >
+                        📋 Ficha
+                      </Link>
+
+                      <Link
+                        href={`/reportes/${item.id}/pdf?vista=UNIFICADO`}
+                        className="text-[11px] font-bold text-white bg-slate-900 hover:bg-black px-2.5 py-1 rounded-md transition-colors shadow-2xs"
+                        title="Ver Informe Unificado Completo"
+                      >
+                        📑 Unificado
+                      </Link>
+                    </div>
                   </td>
                 </tr>
               ))}

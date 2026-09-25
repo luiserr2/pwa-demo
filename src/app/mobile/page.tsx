@@ -51,6 +51,7 @@ function MobileContent() {
   const reporteId = searchParams.get('reporteId') || 'rep-001';
   const siteCodigo = searchParams.get('site') || 'RDB-001';
   const siteNombre = searchParams.get('sitio') || 'Torre Puerto Madero Central';
+  const modeParam = searchParams.get('mode');
 
   const [slots, setSlots] = useState<SlotData[]>(SLOTS_INICIALES);
   const [zonas, setZonas] = useState<ZonaData[]>(() =>
@@ -61,7 +62,10 @@ function MobileContent() {
     }))
   );
 
-  const [tabActiva, setTabActiva] = useState<'FOTOS' | 'ZONAS'>('FOTOS');
+  const [tabActiva, setTabActiva] = useState<'FOTOS' | 'ZONAS'>(() =>
+    modeParam === 'ZONAS' ? 'ZONAS' : 'FOTOS'
+  );
+  const [tipoReporteGuardado, setTipoReporteGuardado] = useState<'FOTOGRAFICO' | 'TECNICO' | 'UNIFICADO'>('UNIFICADO');
   const [isOnline, setIsOnline] = useState(true);
   const [mensajeExito, setMensajeExito] = useState<string | null>(null);
   const [comprimiendo, setComprimiendo] = useState(false);
@@ -193,13 +197,16 @@ function MobileContent() {
     );
   };
 
-  const finalizarYEnviarReporte = async () => {
-    const totalFotos = slots.filter((s) => s.fotoAntes && s.fotoDespues).length;
-    if (totalFotos === 0) {
-      alert('Debe registrar al menos un par de fotos (Antes y Después) antes de enviar el reporte.');
-      return;
+  const finalizarYEnviarReporte = async (tipo: 'FOTOGRAFICO' | 'TECNICO' | 'UNIFICADO' = 'UNIFICADO') => {
+    if (tipo === 'FOTOGRAFICO') {
+      const totalFotos = slots.filter((s) => s.fotoAntes).length;
+      if (totalFotos === 0) {
+        alert('Debe registrar al menos una foto de evidencia para el Reporte Fotográfico.');
+        return;
+      }
     }
 
+    setTipoReporteGuardado(tipo);
     setEnviando(true);
     try {
       // Sincronizar o actualizar estado
@@ -210,12 +217,14 @@ function MobileContent() {
           reporteId,
           tecnicoId: '00000000-0000-0000-0000-000000000001',
           radiobaseId: '11111111-1111-1111-1111-111111111111',
+          tipoReporte: tipo,
           evidencias: slots.filter((s) => s.fotoAntes).map((s) => ({
             slotNumero: s.id,
             tipoEquipo: s.tipoEquipo,
             momento: 'ANTES',
             urlImagen: s.fotoAntes || '',
           })),
+          zonas: tipo !== 'FOTOGRAFICO' ? zonas : [],
         }),
       }).catch(() => {});
 
@@ -499,7 +508,7 @@ function MobileContent() {
 
       </div>
 
-      {/* BARRA INFERIOR FIJA DE ACCIÓN (FINALIZAR REPORTE) */}
+      {/* BARRA INFERIOR FIJA DE ACCIÓN (MODULAR SEGÚN PESTAÑA) */}
       <div className="fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-md border-t border-slate-200 p-3 sm:p-4 z-40">
         <div className="max-w-2xl mx-auto flex items-center justify-between gap-3">
           <div className="text-xs leading-tight">
@@ -509,18 +518,49 @@ function MobileContent() {
             </span>
           </div>
 
-          <button
-            onClick={finalizarYEnviarReporte}
-            disabled={enviando || fotosCompletas === 0}
-            className="bg-slate-900 hover:bg-black text-white font-semibold text-xs px-5 py-3 rounded-xl shadow-md transition-all disabled:opacity-50 flex items-center gap-2 cursor-pointer active:scale-95"
-          >
-            <span>{enviando ? 'Guardando...' : 'Guardar y Completar Reporte'}</span>
-            <span>&rarr;</span>
-          </button>
+          <div className="flex items-center gap-2">
+            {tabActiva === 'FOTOS' ? (
+              <>
+                <button
+                  onClick={() => finalizarYEnviarReporte('FOTOGRAFICO')}
+                  disabled={enviando || slots.filter((s) => s.fotoAntes).length === 0}
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs px-4 py-2.5 rounded-xl shadow-md transition-all disabled:opacity-50 flex items-center gap-1.5 cursor-pointer active:scale-95"
+                >
+                  <span>{enviando ? 'Guardando...' : '📸 Guardar Reporte Fotográfico'}</span>
+                </button>
+                <button
+                  onClick={() => finalizarYEnviarReporte('UNIFICADO')}
+                  disabled={enviando}
+                  className="bg-slate-900 hover:bg-black text-white font-semibold text-xs px-3 py-2.5 rounded-xl shadow-md transition-all disabled:opacity-50 hidden sm:flex items-center gap-1 cursor-pointer active:scale-95"
+                  title="Guardar expediente completo (Fotos + Zonas)"
+                >
+                  <span>📑 Guardar Todo</span>
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={() => finalizarYEnviarReporte('TECNICO')}
+                  disabled={enviando}
+                  className="bg-emerald-700 hover:bg-emerald-800 text-white font-semibold text-xs px-4 py-2.5 rounded-xl shadow-md transition-all disabled:opacity-50 flex items-center gap-1.5 cursor-pointer active:scale-95"
+                >
+                  <span>{enviando ? 'Guardando...' : '📋 Guardar Ficha Técnica'}</span>
+                </button>
+                <button
+                  onClick={() => finalizarYEnviarReporte('UNIFICADO')}
+                  disabled={enviando}
+                  className="bg-slate-900 hover:bg-black text-white font-semibold text-xs px-3 py-2.5 rounded-xl shadow-md transition-all disabled:opacity-50 hidden sm:flex items-center gap-1 cursor-pointer active:scale-95"
+                  title="Guardar expediente completo (Fotos + Zonas)"
+                >
+                  <span>📑 Guardar Todo</span>
+                </button>
+              </>
+            )}
+          </div>
         </div>
       </div>
 
-      {/* MODAL DE ÉXITO OPERATIVO (CIERRE SIN LIMBO) */}
+      {/* MODAL DE ÉXITO OPERATIVO (CIERRE MODULAR) */}
       {modalCompletado && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-200 text-slate-900 text-center animate-in fade-in zoom-in-95 duration-150">
@@ -529,23 +569,34 @@ function MobileContent() {
             </div>
 
             <h3 className="font-bold text-base text-slate-900 mb-1">
-              ¡Reporte Guardado Exitosamente!
+              {tipoReporteGuardado === 'FOTOGRAFICO'
+                ? '¡Reporte Fotográfico Guardado!'
+                : tipoReporteGuardado === 'TECNICO'
+                ? '¡Ficha Técnica Guardada!'
+                : '¡Informe Unificado Guardado!'}
             </h3>
             <p className="text-xs text-slate-500 mb-4">
-              La inspección para <strong>{siteNombre}</strong> ({siteCodigo}) ha sido registrada y finalizada con éxito. Estado: <span className="font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-bold">COMPLETADO</span>.
+              La entrega para <strong>{siteNombre}</strong> ({siteCodigo}) ha sido registrada con éxito. Estado: <span className="font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-bold">COMPLETADO</span>.
             </p>
 
             <div className="space-y-2">
               <Link
-                href={`/reportes/${reporteId}/pdf`}
+                href={`/reportes/${reporteId}/pdf?vista=${tipoReporteGuardado === 'FOTOGRAFICO' ? 'FOTOS' : tipoReporteGuardado === 'TECNICO' ? 'TECNICO' : 'UNIFICADO'}`}
                 className="w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-black text-white font-semibold text-xs transition-colors flex items-center justify-center gap-2"
               >
-                <span>📄 Ver Reporte Oficial (PDF)</span>
+                <span>📄 Ver este Entregable (PDF)</span>
+              </Link>
+
+              <Link
+                href={`/reportes/${reporteId}/pdf?vista=UNIFICADO`}
+                className="w-full py-2 px-4 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-800 font-semibold text-xs transition-colors flex items-center justify-center gap-1.5 border border-blue-200"
+              >
+                <span>📑 Ver Informe Unificado (Completo)</span>
               </Link>
 
               <Link
                 href="/campo"
-                className="w-full py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition-colors flex items-center justify-center gap-1.5"
+                className="w-full py-2 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition-colors flex items-center justify-center gap-1.5"
               >
                 <span>&larr; Volver a mis Asignaciones</span>
               </Link>

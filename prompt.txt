@@ -9,46 +9,37 @@
 #    EXCLUSIVAMENTE en este proyecto: gerson-sisbirceca.
 # ==============================================================================================
 
-# ESTADO ACTUAL: GERSON-SISBIRCECA v3.0.0 (FLUJO CONTINUO SIN APROBACIÓN & PANEL ADMIN FOCALIZADO)
-- CERO BUROCRACIA / SIN FLUJO DE APROBACIÓN:
-  * Estados operativos unificados: PENDIENTE, EN_PROGRESO y COMPLETADO.
-  * El técnico completa la orden en torre y el reporte queda inmediatamente COMPLETADO.
-  * Eliminadas todas las trabas burocráticas de supervisión, aprobación y estados en limbo.
+# ESTADO ACTUAL: GERSON-SISBIRCECA v3.5.0 (ARQUITECTURA DE REPORTES MODULARES: SEPARADOS O UNIFICADOS)
+- REPORTES MODULARES POR SEPARADO Y FUSIÓN INTEGRAL:
+  * Entregable 1: Reporte Fotográfico (Álbum de Evidencias Antes vs Después con compresión WebP < 250 KB).
+  * Entregable 2: Reporte Técnico (Acta de Homologación con conectividad IP, equipos y matriz de 48 zonas).
+  * Entregable 3: Informe Unificado (Fusión consolidada de ambos módulos en un único expediente oficial).
 
-- PANEL ADMINISTRATIVO ENFOCADO EN EXACTAMENTE 2 FUNCIONALIDADES:
-  * Funcionalidad 1: Estadísticas de Operaciones (`/admin/dashboard`):
-    - 4 KPIs de infraestructura y cobertura.
-    - Distribución tecnológica (4G/5G/Microondas) y conteo real de reportes por estado.
-    - Registro de Intervenciones con acceso directo e instantáneo a:
-      * `📄 Ver PDF` (`/reportes/[id]/pdf`).
-    - Botón superior directo `👥 Administrar Técnicos de Campo →`.
-  * Funcionalidad 2: Administración de Personal Técnico (`/admin/usuarios`):
-    - Directorio de cuadrillas y técnicos de campo.
-    - Modal de registro de nuevos técnicos.
-    - Acciones por fila: alternar estado activo/inactivo y eliminación permanente.
-    - Enlace de retorno `← Volver a Estadísticas`.
+- EXPERIENCIA DEL OPERADOR DE CAMPO (`/campo` y `/mobile`):
+  * En `/campo`:
+    - Métricas claras por sitio: slots fotográficos y avance de matriz de 48 zonas.
+    - Dos herramientas directas de levantamiento: `📸 Tomar Fotos` y `📋 Llenar Zonas`.
+    - Tres accesos inmediatos a entregables: `📸 Solo Fotos`, `📋 Solo Ficha Técnica` y `📑 Unir en Informe Completo`.
+  * En `/mobile`:
+    - Enrutamiento por modo contextual (`mode=FOTOS` o `mode=ZONAS`).
+    - Cierre modular según pestaña activa:
+      * `📸 Guardar Reporte Fotográfico`
+      * `📋 Guardar Ficha Técnica`
+      * `📑 Guardar Todo (Unificado)`
+    - Modal de confirmación con enlaces directos al entregable específico o al expediente completo.
 
-- APP DE REPORTES TÉCNICOS (FLUJO CONTINUO EN TORRE):
-  * Continuidad de Contexto `/campo` -> `/mobile`:
-    - Selección de orden de trabajo pasa parámetros dinámicos (`reporteId`, `site`, `sitio`).
-    - Cabecera en `/mobile` refleja el sitio exacto, orden técnica y cuadrilla activa.
-  * Pestañas en `/mobile`:
-    - Pestaña 1: Evidencias Fotográficas (Slots 1 a 6 con bloqueo Antes/Después, compresión WebP < 250 KB y encolado Dexie).
-    - Pestaña 2: Matriz Técnica de 48 Zonas con botón rápido `⚡ Certificar 48 Zonas Normales` (1 clic).
-  * Cierre Operativo Directo:
-    - Botón de acción: `Guardar y Completar Reporte`.
-    - Modal de éxito: Estado `COMPLETADO` con botones directos:
-      * `📄 Ver Reporte Oficial (PDF)` (`/reportes/[id]/pdf`).
-      * `⬅️ Volver a mis Asignaciones` (`/campo`).
+- VISOR Y EXPORTADOR PDF OFICIAL (`/reportes/[id]/pdf`):
+  * Selector segmentado de vista en tiempo real (print:hidden):
+    - `📑 Informe Unificado (Completo)`
+    - `📸 Solo Álbum Fotográfico`
+    - `📋 Solo Acta Técnica`
+  * Renderizado condicional estricto: oculta o muestra tablas y fotos según el entregable deseado.
+  * Impresión y exportación A4 sincronizada con la vista activa.
+  * Firma digital del técnico instalador y Sello Criptográfico SHA-256 presentes en todos los formatos.
 
-- EXPEDIENTE TÉCNICO OFICIAL (`/reportes/[id]/pdf`):
-  * Carátula oficial con estado `COMPLETADO`.
-  * Eliminada la firma de supervisor; consolidado el Sello Digital Criptográfico de Cierre con Hash SHA-256 inmutable y firma del técnico instalador.
-  * Botón inteligente de navegación: `← Volver al Panel`.
-
-- ENRUTAMIENTO Y SEGURIDAD (`middleware.ts`):
-  * Rutas obsoletas `/supervisor` y `/reportes` redirigidas automáticamente al dashboard respectivo según el rol.
-  * Barra de navegación (`Navbar.tsx`): 2 enlaces para Admin (Estadísticas y Técnicos) y 2 para Técnico (Asignaciones y Cámara PWA).
+- PANEL ADMINISTRATIVO (`/admin/dashboard`):
+  * Foco en 2 funciones: Estadísticas y Técnicos de Campo.
+  * En la tabla de intervenciones: accesos directos por fila para `📸 Fotos`, `📋 Ficha` y `📑 Unificado`.
 
 - SUITE DE PRUEBAS & CERTIFICACIÓN:
   * Jest: 34/34 tests unitarios pasando al 100%.
