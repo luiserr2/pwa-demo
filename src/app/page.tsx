@@ -12,8 +12,6 @@ export default function RootPage() {
       window.location.href = '/login';
     } else if (user.rol === 'ADMIN') {
       window.location.href = '/admin/dashboard';
-    } else if (user.rol === 'SUPERVISOR') {
-      window.location.href = '/supervisor';
     } else {
       window.location.href = '/campo';
     }

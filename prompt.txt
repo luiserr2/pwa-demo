@@ -9,46 +9,34 @@
 #    EXCLUSIVAMENTE en este proyecto: gerson-sisbirceca.
 # ==============================================================================================
 
-# ESTADO ACTUAL: GERSON-SISBIRCECA v3.7.0 (SISTEMA DE DISEÑO CANÓNICO DESIGN.MD & STITCH DESIGN TASTE)
-- SISTEMA DE DISEÑO CANÓNICO SSOT (`DESIGN.md`):
-  * Gobernanza visual anti-slop según el skill `stitch-design-taste`:
-    - Erradicación total de orbes difusos de neón (`blur-[120px]`) y sombras de resplandor artificial (`shadow-[0_0_20px_...]`).
-    - Erradicación absoluta de emojis en toda la interfaz administrativa: sustitución por micro-SVGs vectoriales de 14-16px.
-    - Eliminación de filas clónicas de 3 tarjetas: transición a Bento Grid Asimétrico y franjas de telemetría de alta densidad.
-  * Tokens de Color & Superficies:
-    - Lienzo: Deep Obsidian Canvas (`#0A0F1D`) con retícula arquitectónica sutil `[size:40px_40px]`.
-    - Superficies: Smoked Glass (`rgba(15, 23, 42, 0.65)` / `bg-slate-900/60 backdrop-blur-md border border-white/[0.08]`).
-    - Acento Singular: Telecom Cobalt (`#2563EB`, saturación 76% < 80%) para CTAs, tabs activos y anillos de enfoque.
-    - Semántica Monocromática: Esmeralda (`#10B981`), Ámbar (`#F59E0B`), Rosa (`#F43F5E`) sin saturación circense.
-  * Tipografía & Monospace:
-    - Display Sans-serif track-tight con jerarquía por peso.
-    - `font-mono` obligatorio en todos los números, KPIs, coordenadas GPS, códigos de sitio y hashes criptográficos.
-  * Componentes & Físicas Táctiles:
-    - Botones con retroalimentación física de pulsación (`active:translate-y-[1px]`).
-    - Modales en lámina Smoked Obsidian (`bg-[#0A0F1D]/95 backdrop-blur-xl border border-white/10`).
-    - Tablas de alta densidad con thead traslúcido y enlaces directos a entregables oficiales.
+# ESTADO ACTUAL: GERSON-SISBIRCECA v3.8.0 (UNIFICACIÓN TOTAL SMOKED OBSIDIAN GLASS & RESOLUCIÓN AUDITORÍA IMPECCABLE)
+- ARQUITECTURA DE ROLES ESTRICTA (2 ROLES CANÓNICOS):
+  * Rol 1: TECNICO (Operaciones de Campo, PWA /campo y /mobile).
+  * Rol 2: ADMIN (Dirección de Operaciones, /admin/*, tabulación, gestión y auditoría técnica).
+  * Erradicación de Supervisor: Eliminado del flujo de trabajo activo según especificación del usuario. Rutas /supervisor y /reportes redirigen de forma transparente y canónica.
+
+- GOBERNANZA VISUAL & SISTEMA DE DISEÑO SSOT (`DESIGN.md` & `PRODUCT.md`):
+  * Ejecución completa de la auditoría Impeccable en 100% de las pantallas:
+    - `/login`: Consola unificada Smoked Obsidian Glass de 2 terminales RBAC, formulario dark y cero emojis.
+    - `/admin/dashboard`: Bento grid asimétrico (5:4:3 cols), pipeline integrado y telemetría monoespaciada.
+    - `/admin/usuarios`: Franja asimétrica de cuentas y modal en Obsidian Sheet.
+    - `/admin/radiobases`: Filtros Telecom Cobalt y telemetría de sitios.
+    - `/campo`: Smoked Obsidian Glass, touch targets ergonomicos >= 48px, micro-SVGs de captura y modo sol.
+    - `/mobile`: PWA de campo con Smoked Obsidian Glass, micro-SVGs, botones táctiles >= 48px y modal Obsidian.
+    - `/reportes`: Smoked Obsidian Glass, Telecom Cobalt, y contenedor blindado con `overflow-x-auto w-full` para la matriz de 48 zonas.
+    - `/reportes/[id]/pdf`: Selector de entregables técnicos con micro-SVGs, cero emojis y soporte A4 pulcro en impresión.
+  * Erradicación total de AI Tells:
+    - 0 emojis en todo el árbol de código `src/` (sustituidos al 100% por micro-SVGs de 14-16px).
+    - 0 orbes difusos de neón (`blur-[120px]`) y 0 sombras incandescentes circenses (`shadow-[0_0_20px_...]`).
+    - Paleta canónica: Deep Obsidian `#0A0F1D`, Smoked Glass `bg-slate-900/60 border-white/[0.08]` y Telecom Cobalt `#2563EB` (saturación < 80%).
 
 - REPORTES MODULARES POR SEPARADO Y FUSIÓN INTEGRAL:
   * Entregable 1: Reporte Fotográfico (Álbum de Evidencias Antes vs Después con compresión WebP < 250 KB).
   * Entregable 2: Reporte Técnico (Acta de Homologación con conectividad IP, equipos y matriz de 48 zonas).
   * Entregable 3: Informe Unificado (Fusión consolidada de ambos módulos en un único expediente oficial).
 
-- EXPERIENCIA DEL OPERADOR DE CAMPO (`/campo` y `/mobile`):
-  * En `/campo`:
-    - Métricas claras por sitio: slots fotográficos y avance de matriz de 48 zonas.
-    - Dos herramientas directas de levantamiento: `📸 Tomar Fotos` y `📋 Llenar Zonas`.
-    - Tres accesos inmediatos a entregables: `📸 Solo Fotos`, `📋 Solo Ficha Técnica` y `📑 Unir en Informe Completo`.
-  * En `/mobile`:
-    - Enrutamiento por modo contextual (`mode=FOTOS` o `mode=ZONAS`).
-    - Cierre modular según pestaña activa (`📸 Guardar Reporte Fotográfico`, `📋 Guardar Ficha Técnica`, `📑 Guardar Todo`).
-
-- VISOR Y EXPORTADOR PDF OFICIAL (`/reportes/[id]/pdf`):
-  * Selector segmentado de vista en tiempo real (print:hidden).
-  * Renderizado condicional estricto e impresión A4 sincronizada.
-  * Firma digital del técnico instalador y Sello Criptográfico SHA-256 presentes en todos los formatos.
-
 - SUITE DE PRUEBAS & CERTIFICACIÓN:
-  * Jest: 34/34 tests unitarios pasando al 100%.
+  * Jest: 34/34 tests unitarios y de dominio pasando al 100%.
   * TypeScript: 0 errores (`tsc --noEmit` código 0).
-  * Build de producción Next.js: Compilación limpia exitosa (código 0).
-  * Servidor Standalone: Operativo en http://localhost:3000.
+  * Next.js Production Build: 19/19 rutas compiladas exitosamente (código 0).
+  * Servidor Standalone: Operativo en http://localhost:3000 con HTTP 200 en todas las terminales.

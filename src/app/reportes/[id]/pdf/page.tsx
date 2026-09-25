@@ -91,62 +91,80 @@ function ReportePDFContent({ params }: { params: { id: string } }) {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 py-6 px-4">
+    <div className="min-h-screen bg-[#0A0F1D] text-slate-100 py-6 px-4 print:bg-white print:text-black print:p-0">
       {/* BARRA DE CONTROL SUPERIOR (OCULTA AL IMPRIMIR) */}
       <div className="max-w-4xl mx-auto mb-6 flex flex-wrap items-center justify-between gap-3 print:hidden">
         <button
           onClick={() => (window.history.length > 1 ? window.history.back() : (window.location.href = '/campo'))}
-          className="text-xs font-semibold text-slate-600 hover:text-slate-900 hover:underline flex items-center gap-1 cursor-pointer"
+          className="text-xs font-medium text-slate-400 hover:text-white transition-colors flex items-center gap-1 cursor-pointer"
         >
           &larr; Volver
         </button>
 
-        {/* SELECTOR SEGMENTADO DE ENTREGABLES MODULARES */}
-        <div className="flex items-center gap-1 bg-white p-1 rounded-xl border border-slate-200 shadow-xs">
+        {/* SELECTOR SEGMENTADO DE ENTREGABLES MODULARES (SVGS SIN EMOJIS) */}
+        <div className="flex items-center gap-1 bg-white/[0.03] p-1 rounded-xl border border-white/[0.08] shadow-xs">
           <button
             onClick={() => setVista('UNIFICADO')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+            className={`min-h-[40px] px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer flex items-center gap-1.5 ${
               vista === 'UNIFICADO'
-                ? 'bg-slate-900 text-white shadow-xs'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                ? 'bg-blue-600 text-white font-semibold shadow-xs'
+                : 'text-slate-400 hover:text-white'
             }`}
           >
-            📑 Informe Unificado
+            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <polygon points="12 2 2 7 12 12 22 7 12 2" />
+              <polyline points="2 17 12 22 22 17" />
+              <polyline points="2 12 12 17 22 12" />
+            </svg>
+            <span>Informe Unificado</span>
           </button>
 
           <button
             onClick={() => setVista('FOTOS')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+            className={`min-h-[40px] px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer flex items-center gap-1.5 ${
               vista === 'FOTOS'
-                ? 'bg-blue-600 text-white shadow-xs'
-                : 'text-slate-600 hover:text-blue-700 hover:bg-blue-50'
+                ? 'bg-blue-600 text-white font-semibold shadow-xs'
+                : 'text-slate-400 hover:text-white'
             }`}
           >
-            📸 Solo Fotos
+            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+              <circle cx="12" cy="13" r="4" />
+            </svg>
+            <span>Solo Fotos</span>
           </button>
 
           <button
             onClick={() => setVista('TECNICO')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+            className={`min-h-[40px] px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer flex items-center gap-1.5 ${
               vista === 'TECNICO'
-                ? 'bg-emerald-700 text-white shadow-xs'
-                : 'text-slate-600 hover:text-emerald-700 hover:bg-emerald-50'
+                ? 'bg-blue-600 text-white font-semibold shadow-xs'
+                : 'text-slate-400 hover:text-white'
             }`}
           >
-            📋 Solo Ficha Técnica
+            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+            </svg>
+            <span>Solo Ficha</span>
           </button>
         </div>
 
         <button
           onClick={() => window.print()}
-          className="bg-slate-900 hover:bg-black text-white text-xs font-semibold px-4 py-2 rounded-xl shadow-xs transition-all flex items-center gap-2 cursor-pointer"
+          className="min-h-[40px] bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium px-4 py-2 rounded-lg shadow-sm transition-all flex items-center gap-2 cursor-pointer active:translate-y-[1px]"
         >
-          <span>Imprimir / Exportar PDF</span>
+          <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <polyline points="6 9 6 2 18 2 18 9" />
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+            <rect x="6" y="14" width="12" height="8" />
+          </svg>
+          <span>Imprimir / Exportar A4</span>
         </button>
       </div>
 
-      {/* DOCUMENTO FORMAL IMPRESO */}
-      <div className="max-w-4xl mx-auto bg-white p-8 sm:p-12 rounded-xl shadow-lg border border-slate-200 print:shadow-none print:border-none print:p-0">
+      {/* DOCUMENTO FORMAL A4 (FONDO BLANCO PULCRO PARA IMPRESIÓN OFICIAL) */}
+      <div className="max-w-4xl mx-auto bg-white text-slate-900 p-8 sm:p-12 rounded-xl shadow-2xl border border-slate-200 print:shadow-none print:border-none print:p-0">
         {/* HEADER INSTITUCIONAL */}
         <div className="border-b border-slate-200 pb-6 mb-6 flex items-start justify-between">
           <div>
@@ -154,7 +172,7 @@ function ReportePDFContent({ params }: { params: { id: string } }) {
               <span className="bg-slate-900 text-white font-mono font-bold text-xs px-2.5 py-1 rounded">
                 SISBIRCECA
               </span>
-              <span className="text-xs font-bold text-emerald-700 tracking-wider uppercase font-mono">
+              <span className="text-xs font-bold text-blue-700 tracking-wider uppercase font-mono">
                 {vista === 'UNIFICADO'
                   ? 'Expediente Oficial Integrado'
                   : vista === 'FOTOS'
@@ -175,8 +193,11 @@ function ReportePDFContent({ params }: { params: { id: string } }) {
           </div>
 
           <div className="text-right">
-            <span className="inline-block bg-emerald-50 text-emerald-800 border border-emerald-300 text-xs font-bold uppercase px-3 py-1 rounded-md mb-1 font-mono">
-              ✓ {reporte.estado}
+            <span className="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-800 border border-emerald-300 text-xs font-bold uppercase px-3 py-1 rounded-md mb-1 font-mono">
+              <svg className="w-3 h-3 text-emerald-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span>{reporte.estado}</span>
             </span>
             <div className="text-[10px] text-slate-400 font-mono">
               SHA-256: {reporte.hashSha256.substring(0, 16)}...
@@ -281,8 +302,11 @@ function ReportePDFContent({ params }: { params: { id: string } }) {
                     <span className="text-xs font-bold text-slate-900">
                       Slot #{ev.slot}: {ev.nombre} ({ev.tipo})
                     </span>
-                    <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                      ✓ Validado Visualmente
+                    <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                      <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                      <span>Validado Visualmente</span>
                     </span>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
@@ -342,7 +366,11 @@ function ReportePDFContent({ params }: { params: { id: string } }) {
 
           <div className="flex flex-col items-center justify-center p-4 rounded-xl border border-dashed border-emerald-300 bg-emerald-50/50">
             <div className="flex items-center gap-1.5 text-emerald-800 font-bold font-mono text-[11px] mb-1">
-              <span>🔒 SELLO DIGITAL DE CIERRE</span>
+              <svg className="w-3.5 h-3.5 text-emerald-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+              <span>SELLO DIGITAL DE CIERRE</span>
             </div>
             <p className="font-mono text-[9px] text-slate-600 break-all max-w-xs">
               HASH: {reporte.hashSha256}
@@ -363,7 +391,7 @@ function ReportePDFContent({ params }: { params: { id: string } }) {
 
 export default function ReportePDFPage({ params }: { params: { id: string } }) {
   return (
-    <Suspense fallback={<div className="p-8 text-center text-xs text-slate-500">Cargando documento técnico...</div>}>
+    <Suspense fallback={<div className="min-h-screen bg-[#0A0F1D] p-8 text-center text-xs text-slate-400 font-mono">Cargando documento técnico...</div>}>
       <ReportePDFContent params={params} />
     </Suspense>
   );
