@@ -182,22 +182,25 @@ export default function AdminUsuariosPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full pb-20">
-      {/* HEADER DE PÁGINA (GLASS STYLE) */}
-      <div className="flex flex-wrap items-center justify-between gap-4 mb-7 pb-6 border-b border-white/10">
+      {/* HEADER DE PÁGINA (STITCH SPEC) */}
+      <div className="flex flex-wrap items-center justify-between gap-4 mb-7 pb-6 border-b border-white/[0.08]">
         <div>
           <div className="flex items-center gap-2 mb-2">
             <Link
               href="/admin/dashboard"
-              className="text-xs font-semibold text-cyan-400 hover:text-cyan-300 transition-colors flex items-center gap-1 group"
+              className="text-xs font-medium text-slate-400 hover:text-white transition-colors flex items-center gap-1 group"
             >
-              <span className="transition-transform group-hover:-translate-x-0.5">&larr;</span> Volver a Estadísticas
+              <svg className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+              </svg>
+              <span>Volver a Estadísticas</span>
             </Link>
             <span className="text-slate-600">&middot;</span>
-            <span className="bg-white/5 text-cyan-300 text-[10px] font-mono uppercase px-3 py-0.5 rounded-full tracking-widest border border-cyan-500/20 backdrop-blur-md font-semibold shadow-[0_0_15px_rgba(6,182,212,0.15)]">
+            <span className="bg-white/[0.04] text-blue-400 text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-md tracking-wider border border-blue-500/25 font-semibold">
               Gestión de Personal
             </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight drop-shadow-sm">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
             Directorio y Administración de Personal Técnico
           </h1>
           <p className="text-slate-400 text-xs sm:text-sm mt-0.5">
@@ -208,9 +211,12 @@ export default function AdminUsuariosPage() {
         <div className="flex items-center gap-2.5">
           <button
             onClick={() => setModalCrear(true)}
-            className="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 text-xs font-semibold px-4 py-2.5 rounded-xl shadow-[0_0_20px_rgba(6,182,212,0.2)] backdrop-blur-xl transition-all flex items-center gap-2 cursor-pointer active:scale-95 hover:border-cyan-400/60"
+            className="bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs px-4 py-2.5 rounded-lg shadow-sm transition-all flex items-center gap-2 cursor-pointer active:translate-y-[1px]"
           >
-            <span className="text-base font-bold leading-none">+</span>
+            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
             <span>Registrar Técnico</span>
           </button>
         </div>
@@ -219,75 +225,107 @@ export default function AdminUsuariosPage() {
       {/* BANNER DE NOTIFICACIONES */}
       {mensaje && (
         <div
-          className={`mb-6 p-4 rounded-xl text-xs font-semibold flex items-center justify-between border backdrop-blur-xl shadow-lg transition-all ${
+          className={`mb-6 p-4 rounded-xl text-xs font-medium flex items-center justify-between border backdrop-blur-md transition-all ${
             mensaje.tipo === 'ok'
-              ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30 shadow-[0_4px_20px_rgba(16,185,129,0.15)]'
-              : 'bg-rose-500/10 text-rose-300 border-rose-500/30 shadow-[0_4px_20px_rgba(244,63,94,0.15)]'
+              ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/25'
+              : 'bg-rose-500/10 text-rose-300 border-rose-500/25'
           }`}
         >
-          <div className="flex items-center gap-2">
-            <span>{mensaje.tipo === 'ok' ? '✓' : '⚠️'}</span>
+          <div className="flex items-center gap-2.5">
+            {mensaje.tipo === 'ok' ? (
+              <svg className="w-4 h-4 text-emerald-400 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            ) : (
+              <svg className="w-4 h-4 text-rose-400 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+              </svg>
+            )}
             <span>{mensaje.texto}</span>
           </div>
           <button
             onClick={() => setMensaje(null)}
-            className="text-xs font-bold px-2 py-0.5 rounded-lg hover:bg-white/10 transition-colors"
+            className="text-xs p-1 rounded-md hover:bg-white/10 text-slate-400 hover:text-white transition-colors cursor-pointer"
           >
-            ✕
+            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
           </button>
         </div>
       )}
 
-      {/* METRICAS RÁPIDAS DE USUARIOS (FROSTED GLASS CARDS) */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-7">
-        <div className="bg-slate-900/40 backdrop-blur-xl p-5 rounded-2xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.4)] hover:border-cyan-500/30 hover:bg-slate-900/60 transition-all duration-300">
-          <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">
-            Total Cuentas
-          </span>
-          <span className="text-2xl sm:text-3xl font-black text-white font-mono tracking-tight block mb-1 drop-shadow-sm">
+      {/* ASYMMETRIC TELEMETRY STRIP (REPLACES 3-EQUAL-CARD SLOP) */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 mb-7">
+        {/* TOTAL CUENTAS (5 COLS) */}
+        <div className="md:col-span-5 bg-slate-900/60 backdrop-blur-md p-5 rounded-xl border border-white/[0.08] shadow-[0_4px_24px_-2px_rgba(10,15,29,0.8)] flex flex-col justify-between">
+          <div className="flex items-center justify-between mb-1">
+            <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+              Total Cuentas Registradas
+            </span>
+            <span className="text-[10px] font-mono bg-white/[0.04] text-slate-300 px-2 py-0.5 rounded-md border border-white/[0.08]">
+              Directorio Activo
+            </span>
+          </div>
+          <div className="text-3xl sm:text-4xl font-extrabold text-white font-mono tracking-tight my-1">
             {usuarios.length}
-          </span>
-          <p className="text-[11px] text-slate-400 font-medium">Personal activo en plataforma</p>
+          </div>
+          <p className="text-xs text-slate-400">
+            Personal con credenciales activas y certificados de acceso a la red.
+          </p>
         </div>
-        <div className="bg-slate-900/40 backdrop-blur-xl p-5 rounded-2xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.4)] hover:border-emerald-500/30 hover:bg-slate-900/60 transition-all duration-300">
-          <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">
-            Técnicos (Campo)
-          </span>
-          <span className="text-2xl sm:text-3xl font-black text-emerald-400 font-mono tracking-tight block mb-1 drop-shadow-sm">
-            {conteoTecnicos}
-          </span>
-          <p className="text-[11px] text-slate-400 font-medium">Habilitados para captura y app móvil</p>
-        </div>
-        <div className="bg-slate-900/40 backdrop-blur-xl p-5 rounded-2xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.4)] hover:border-cyan-500/30 hover:bg-slate-900/60 transition-all duration-300">
-          <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">
-            Administradores (Operaciones)
-          </span>
-          <span className="text-2xl sm:text-3xl font-black text-cyan-400 font-mono tracking-tight block mb-1 drop-shadow-sm">
-            {conteoAdmins}
-          </span>
-          <p className="text-[11px] text-slate-400 font-medium">Gestión de expedientes y cuentas</p>
+
+        {/* ROLE DISTRIBUTION (7 COLS) */}
+        <div className="md:col-span-7 bg-slate-900/60 backdrop-blur-md p-5 rounded-xl border border-white/[0.08] shadow-[0_4px_24px_-2px_rgba(10,15,29,0.8)] flex flex-col justify-between">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+              Distribución por Rol Operativo
+            </span>
+            <span className="text-[11px] font-mono text-slate-400">
+              Arquitectura de 2 Roles Oficiales
+            </span>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3 my-1">
+            <div className="p-3 rounded-lg bg-emerald-500/[0.05] border border-emerald-500/20">
+              <span className="text-[10px] font-mono uppercase text-emerald-400 block mb-0.5">Técnicos (Campo)</span>
+              <div className="text-2xl font-bold font-mono text-emerald-400">{conteoTecnicos}</div>
+              <span className="text-[10px] text-slate-400 mt-0.5 block">Habilitados para captura y PWA</span>
+            </div>
+
+            <div className="p-3 rounded-lg bg-blue-500/[0.05] border border-blue-500/20">
+              <span className="text-[10px] font-mono uppercase text-blue-400 block mb-0.5">Administradores (Operaciones)</span>
+              <div className="text-2xl font-bold font-mono text-blue-400">{conteoAdmins}</div>
+              <span className="text-[10px] text-slate-400 mt-0.5 block">Auditoría y control de expedientes</span>
+            </div>
+          </div>
+
+          <div className="pt-2 text-[10px] text-slate-500 font-mono">
+            * Cero roles innecesarios. Control directo sin intermediación.
+          </div>
         </div>
       </div>
 
-      {/* TABLA PRINCIPAL DE USUARIOS (FROSTED GLASS CONTAINER) */}
-      <div className="bg-slate-900/40 backdrop-blur-xl rounded-2xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.4)] overflow-hidden">
-        <div className="p-4 sm:p-5 border-b border-white/10 flex flex-wrap items-center justify-between gap-3">
+      {/* TABLA PRINCIPAL DE USUARIOS (HIGH DENSITY SMOKED GLASS) */}
+      <div className="bg-slate-900/60 backdrop-blur-md rounded-xl border border-white/[0.08] shadow-[0_4px_24px_-2px_rgba(10,15,29,0.8)] overflow-hidden">
+        <div className="p-4 sm:p-5 border-b border-white/[0.08] flex flex-wrap items-center justify-between gap-3">
           <div>
-            <h2 className="text-base font-bold text-white tracking-tight">
+            <h2 className="text-sm font-bold text-white tracking-tight">
               Directorio de Operadores y Administradores
             </h2>
             <p className="text-xs text-slate-400">
               Listado general con privilegios de acceso y asignación operativa.
             </p>
           </div>
-          <span className="text-xs font-mono font-semibold bg-white/5 text-slate-300 px-3 py-1 rounded-full border border-white/10 backdrop-blur-md">
+          <span className="text-xs font-mono font-semibold bg-white/[0.04] text-slate-300 px-3 py-1 rounded-md border border-white/[0.08]">
             {usuarios.length} Registros Activos
           </span>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-xs text-left">
-            <thead className="bg-white/[0.03] text-slate-400 font-semibold uppercase text-[10px] tracking-wider border-b border-white/10 backdrop-blur-md">
+            <thead className="bg-white/[0.02] text-slate-400 font-mono uppercase text-[10px] tracking-wider border-b border-white/[0.08]">
               <tr>
                 <th className="p-3.5 pl-5">Nombre y Apellido</th>
                 <th className="p-3.5">Correo Corporativo</th>
@@ -298,23 +336,23 @@ export default function AdminUsuariosPage() {
                 <th className="p-3.5 pr-5 text-right">Acciones</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5">
+            <tbody className="divide-y divide-white/[0.04]">
               {usuarios.map((u) => (
-                <tr key={u.id} className="hover:bg-white/[0.04] transition-colors">
+                <tr key={u.id} className="hover:bg-white/[0.02] transition-colors">
                   <td className="p-3.5 pl-5">
                     <span className="font-bold text-white text-xs">{u.nombre}</span>
                   </td>
                   <td className="p-3.5 font-mono text-slate-300 text-[11px]">{u.email}</td>
-                  <td className="p-3.5 text-slate-300 font-medium">{u.cedula}</td>
+                  <td className="p-3.5 text-slate-300 font-medium font-mono">{u.cedula}</td>
                   <td className="p-3.5">
                     <span
-                      className={`text-[10px] font-mono font-semibold uppercase px-2.5 py-1 rounded-full border backdrop-blur-md ${
+                      className={`text-[10px] font-mono font-semibold uppercase px-2 py-0.5 rounded border ${
                         u.rol === 'ADMIN'
-                          ? 'bg-cyan-500/10 text-cyan-300 border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.15)]'
-                          : 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30 shadow-[0_0_10px_rgba(16,185,129,0.15)]'
+                          ? 'bg-blue-500/10 text-blue-400 border-blue-500/25'
+                          : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/25'
                       }`}
                     >
-                      {u.rol === 'ADMIN' ? 'ADMINISTRADOR' : 'TÉCNICO CAMPO'}
+                      {u.rol === 'ADMIN' ? 'Administrador' : 'Técnico Campo'}
                     </span>
                   </td>
                   <td className="p-3.5 text-slate-400 font-medium">{u.cuadrilla}</td>
@@ -322,10 +360,10 @@ export default function AdminUsuariosPage() {
                     <button
                       onClick={() => handleToggleEstado(u.id, u.nombre)}
                       title="Haga clic para alternar estado"
-                      className={`text-[10px] font-mono font-bold px-2.5 py-1 rounded-full border cursor-pointer transition-all ${
+                      className={`text-[10px] font-mono font-bold px-2.5 py-1 rounded-md border cursor-pointer transition-all active:translate-y-[1px] ${
                         u.estado === 'ACTIVO'
-                          ? 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30 hover:bg-emerald-500/20 backdrop-blur-md shadow-[0_0_10px_rgba(16,185,129,0.15)]'
-                          : 'text-slate-400 bg-white/5 border-white/10 hover:bg-white/10 backdrop-blur-md'
+                          ? 'text-emerald-400 bg-emerald-500/10 border-emerald-500/25 hover:bg-emerald-500/20'
+                          : 'text-slate-400 bg-white/[0.04] border-white/[0.08] hover:bg-white/[0.08]'
                       }`}
                     >
                       {u.estado}
@@ -334,7 +372,7 @@ export default function AdminUsuariosPage() {
                   <td className="p-3.5 pr-5 text-right">
                     <button
                       onClick={() => handleEliminarUsuario(u.id, u.nombre)}
-                      className="px-2.5 py-1 text-[11px] font-semibold text-rose-400 hover:text-rose-300 bg-rose-500/10 hover:bg-rose-500/20 rounded-lg transition-colors border border-rose-500/20 hover:border-rose-500/40 backdrop-blur-md cursor-pointer"
+                      className="px-2.5 py-1 text-[11px] font-medium text-rose-400 hover:text-rose-300 bg-rose-500/10 hover:bg-rose-500/20 rounded-md transition-colors border border-rose-500/20 cursor-pointer active:translate-y-[1px]"
                       title="Eliminar usuario permanentemente"
                     >
                       Eliminar
@@ -347,26 +385,28 @@ export default function AdminUsuariosPage() {
         </div>
       </div>
 
-      {/* MODAL PARA CREAR NUEVO USUARIO (FROSTED GLASS MODAL) */}
+      {/* MODAL PARA CREAR NUEVO USUARIO (SMOKED OBSIDIAN SHEET) */}
       {modalCrear && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
-          <div className="bg-slate-950/90 backdrop-blur-2xl rounded-2xl max-w-md w-full p-6 shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-white/15 text-white animate-in fade-in zoom-in-95 duration-150">
-            <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
+        <div className="fixed inset-0 bg-[#0A0F1D]/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-[#0A0F1D]/95 backdrop-blur-xl rounded-2xl max-w-md w-full p-6 shadow-2xl border border-white/10 text-white animate-in fade-in zoom-in-95 duration-150">
+            <div className="flex items-center justify-between pb-3 border-b border-white/[0.08] mb-4">
               <div>
-                <h3 className="font-bold text-base text-white tracking-tight">Registrar Nuevo Usuario</h3>
+                <h3 className="font-bold text-sm text-white">Registrar Nuevo Usuario</h3>
                 <p className="text-xs text-slate-400">Seleccione el rol y asigne permisos operativos:</p>
               </div>
               <button
                 onClick={() => setModalCrear(false)}
-                className="w-7 h-7 rounded-lg bg-white/5 hover:bg-white/15 text-slate-400 hover:text-white border border-white/10 font-bold text-xs flex items-center justify-center transition-colors cursor-pointer"
+                className="w-7 h-7 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-slate-400 hover:text-white border border-white/[0.08] font-bold text-xs flex items-center justify-center transition-colors cursor-pointer"
               >
-                ✕
+                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
               </button>
             </div>
 
             <form onSubmit={handleCrearUsuario} className="space-y-4 text-xs">
               <div>
-                <label className="block text-[11px] font-bold text-slate-300 uppercase mb-1 tracking-wider">
+                <label className="block text-[11px] font-semibold text-slate-300 uppercase mb-1 tracking-wider">
                   Nombre Completo *
                 </label>
                 <input
@@ -375,12 +415,12 @@ export default function AdminUsuariosPage() {
                   placeholder="Ej. Juan Pérez"
                   value={formNombre}
                   onChange={(e) => setFormNombre(e.target.value)}
-                  className="w-full px-3 py-2 bg-white/5 border border-white/15 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 text-xs backdrop-blur-md transition-all"
+                  className="w-full px-3 py-2 bg-white/[0.03] border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30 text-xs transition-all"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold text-slate-300 uppercase mb-1 tracking-wider">
+                <label className="block text-[11px] font-semibold text-slate-300 uppercase mb-1 tracking-wider">
                   Correo Electrónico Corporativo *
                 </label>
                 <input
@@ -389,12 +429,12 @@ export default function AdminUsuariosPage() {
                   placeholder="ejemplo@sisbirceca.com"
                   value={formEmail}
                   onChange={(e) => setFormEmail(e.target.value)}
-                  className="w-full px-3 py-2 bg-white/5 border border-white/15 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 font-mono text-xs backdrop-blur-md transition-all"
+                  className="w-full px-3 py-2 bg-white/[0.03] border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30 font-mono text-xs transition-all"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold text-slate-300 uppercase mb-1 tracking-wider">
+                <label className="block text-[11px] font-semibold text-slate-300 uppercase mb-1 tracking-wider">
                   Cédula / Documento de Identidad *
                 </label>
                 <input
@@ -403,33 +443,29 @@ export default function AdminUsuariosPage() {
                   placeholder="Ej. V-25.123.456"
                   value={formCedula}
                   onChange={(e) => setFormCedula(e.target.value)}
-                  className="w-full px-3 py-2 bg-white/5 border border-white/15 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 text-xs backdrop-blur-md transition-all"
+                  className="w-full px-3 py-2 bg-white/[0.03] border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30 text-xs transition-all font-mono"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold text-slate-300 uppercase mb-1 tracking-wider">
+                <label className="block text-[11px] font-semibold text-slate-300 uppercase mb-1 tracking-wider">
                   Rol de Acceso al Sistema *
                 </label>
                 <select
                   value={formRol}
                   onChange={(e) => setFormRol(e.target.value as 'TECNICO' | 'ADMIN')}
-                  className="w-full px-3 py-2 bg-slate-900 border border-white/15 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 text-xs font-semibold backdrop-blur-md"
+                  className="w-full px-3 py-2 bg-[#0F172A] border border-white/10 rounded-lg text-white focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30 text-xs font-medium"
                 >
-                  <option value="TECNICO" className="bg-slate-900 text-white">
-                    Técnico de Torre (Campo) &middot; Terminal PWA /campo y /mobile
-                  </option>
-                  <option value="ADMIN" className="bg-slate-900 text-white">
-                    Dirección de Operaciones (Admin) &middot; Gestión, Reportes y Validación
-                  </option>
+                  <option value="TECNICO">Técnico de Torre (Campo) &middot; Terminal PWA /campo y /mobile</option>
+                  <option value="ADMIN">Dirección de Operaciones (Admin) &middot; Gestión y Reportes</option>
                 </select>
-                <p className="text-[10px] text-slate-400 mt-1">
-                  * El sistema opera bajo arquitectura de 2 roles. Los administradores auditan y gestionan reportes directamente.
+                <p className="text-[10px] text-slate-500 mt-1">
+                  * Arquitectura de 2 roles. Los administradores auditan y gestionan reportes directamente.
                 </p>
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold text-slate-300 uppercase mb-1 tracking-wider">
+                <label className="block text-[11px] font-semibold text-slate-300 uppercase mb-1 tracking-wider">
                   Cuadrilla / Asignación Regional (Opcional)
                 </label>
                 <input
@@ -437,22 +473,22 @@ export default function AdminUsuariosPage() {
                   placeholder="Ej. Cuadrilla Centro - AMBA"
                   value={formCuadrilla}
                   onChange={(e) => setFormCuadrilla(e.target.value)}
-                  className="w-full px-3 py-2 bg-white/5 border border-white/15 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 text-xs backdrop-blur-md transition-all"
+                  className="w-full px-3 py-2 bg-white/[0.03] border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30 text-xs transition-all"
                 />
               </div>
 
-              <div className="pt-3 flex items-center justify-end gap-2 border-t border-white/10">
+              <div className="pt-3 flex items-center justify-end gap-2 border-t border-white/[0.08]">
                 <button
                   type="button"
                   onClick={() => setModalCrear(false)}
-                  className="px-4 py-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 font-semibold text-xs transition-colors border border-transparent hover:border-white/10 cursor-pointer"
+                  className="px-4 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/[0.05] font-medium text-xs transition-colors cursor-pointer"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
                   disabled={guardando}
-                  className="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 font-semibold text-xs px-5 py-2 rounded-xl border border-cyan-500/40 shadow-[0_0_20px_rgba(6,182,212,0.25)] transition-all disabled:opacity-50 cursor-pointer active:scale-95"
+                  className="bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs px-5 py-2 rounded-lg shadow-sm transition-all disabled:opacity-50 cursor-pointer active:translate-y-[1px]"
                 >
                   {guardando ? 'Guardando...' : 'Crear Usuario'}
                 </button>

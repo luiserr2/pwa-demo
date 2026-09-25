@@ -9,25 +9,24 @@
 #    EXCLUSIVAMENTE en este proyecto: gerson-sisbirceca.
 # ==============================================================================================
 
-# ESTADO ACTUAL: GERSON-SISBIRCECA v3.6.0 (PANEL ADMINISTRATIVO GLASSMORPHISM & REPORTES MODULARES)
-- DISEÑO GLASSMORPHISM DE ALTA GAMA EN PANEL ADMINISTRATIVO:
-  * Layout Envolvente (`/admin/layout.tsx`):
-    - Lienzo midnight obsidian (`bg-slate-950`) con mallas de gradientes radiales luminosos (cyan, emerald, violeta) difuminados (`blur-[120px]`).
-    - Patrón de matriz sutil para proyectar profundidad óptica y refracción realista.
-  * Barra de Navegación (`Navbar.tsx`):
-    - Cabecera en frosted glass (`bg-slate-950/75 backdrop-blur-xl border-b border-white/10`).
-    - Píldoras de navegación translúcidas con inner glow.
-  * Módulo de Estadísticas y Monitoreo (`/admin/dashboard`):
-    - KPI cards en vidrio esmerilado (`bg-slate-900/40 backdrop-blur-xl border border-white/10`).
-    - Paneles de distribución tecnológica y avance de órdenes en glass translúcido.
-    - Tabla de expedientes con thead translúcido y botones de acción rápida (`📸 Fotos`, `📋 Ficha`, `📑 Unificado`).
-  * Directorio de Personal Técnico (`/admin/usuarios`):
-    - Indicadores de personal en tarjetas glass (`Total Cuentas`, `Técnicos`, `Administradores`).
-    - Tabla con hover suave translúcido y badges de rol y estado en pills luminosas (`bg-cyan-500/10`, `bg-emerald-500/10`).
-    - Modal de registro en obsidian glass flotante (`bg-slate-950/90 backdrop-blur-2xl border-white/15`) e inputs traslúcidos.
-  * Catálogo de Infraestructura (`/admin/radiobases`):
-    - Filtro por región y buscador rápido integrados en barra frosted glass.
-    - Tabla de sitios telecom y modal de alta con estética glass coordinada.
+# ESTADO ACTUAL: GERSON-SISBIRCECA v3.7.0 (SISTEMA DE DISEÑO CANÓNICO DESIGN.MD & STITCH DESIGN TASTE)
+- SISTEMA DE DISEÑO CANÓNICO SSOT (`DESIGN.md`):
+  * Gobernanza visual anti-slop según el skill `stitch-design-taste`:
+    - Erradicación total de orbes difusos de neón (`blur-[120px]`) y sombras de resplandor artificial (`shadow-[0_0_20px_...]`).
+    - Erradicación absoluta de emojis en toda la interfaz administrativa: sustitución por micro-SVGs vectoriales de 14-16px.
+    - Eliminación de filas clónicas de 3 tarjetas: transición a Bento Grid Asimétrico y franjas de telemetría de alta densidad.
+  * Tokens de Color & Superficies:
+    - Lienzo: Deep Obsidian Canvas (`#0A0F1D`) con retícula arquitectónica sutil `[size:40px_40px]`.
+    - Superficies: Smoked Glass (`rgba(15, 23, 42, 0.65)` / `bg-slate-900/60 backdrop-blur-md border border-white/[0.08]`).
+    - Acento Singular: Telecom Cobalt (`#2563EB`, saturación 76% < 80%) para CTAs, tabs activos y anillos de enfoque.
+    - Semántica Monocromática: Esmeralda (`#10B981`), Ámbar (`#F59E0B`), Rosa (`#F43F5E`) sin saturación circense.
+  * Tipografía & Monospace:
+    - Display Sans-serif track-tight con jerarquía por peso.
+    - `font-mono` obligatorio en todos los números, KPIs, coordenadas GPS, códigos de sitio y hashes criptográficos.
+  * Componentes & Físicas Táctiles:
+    - Botones con retroalimentación física de pulsación (`active:translate-y-[1px]`).
+    - Modales en lámina Smoked Obsidian (`bg-[#0A0F1D]/95 backdrop-blur-xl border border-white/10`).
+    - Tablas de alta densidad con thead traslúcido y enlaces directos a entregables oficiales.
 
 - REPORTES MODULARES POR SEPARADO Y FUSIÓN INTEGRAL:
   * Entregable 1: Reporte Fotográfico (Álbum de Evidencias Antes vs Después con compresión WebP < 250 KB).
