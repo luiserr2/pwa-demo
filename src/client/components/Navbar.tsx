@@ -85,47 +85,17 @@ export function Navbar() {
                     : 'text-slate-300 hover:text-white hover:bg-slate-800/60 font-medium'
                 }`}
               >
-                Dashboard
-              </Link>
-              <Link
-                href="/supervisor"
-                className={`px-3 py-1.5 rounded-lg text-xs transition-colors ${
-                  pathname === '/supervisor'
-                    ? 'bg-slate-800 text-white font-semibold'
-                    : 'text-slate-300 hover:text-white hover:bg-slate-800/60 font-medium'
-                }`}
-              >
-                Auditoría QA
-              </Link>
-              <Link
-                href="/admin/radiobases"
-                className={`px-3 py-1.5 rounded-lg text-xs transition-colors hidden sm:inline ${
-                  pathname === '/admin/radiobases'
-                    ? 'bg-slate-800 text-white font-semibold'
-                    : 'text-slate-300 hover:text-white hover:bg-slate-800/60 font-medium'
-                }`}
-              >
-                Radiobases
+                Estadísticas
               </Link>
               <Link
                 href="/admin/usuarios"
-                className={`px-3 py-1.5 rounded-lg text-xs transition-colors hidden md:inline ${
+                className={`px-3 py-1.5 rounded-lg text-xs transition-colors ${
                   pathname === '/admin/usuarios'
                     ? 'bg-slate-800 text-white font-semibold'
                     : 'text-slate-300 hover:text-white hover:bg-slate-800/60 font-medium'
                 }`}
               >
-                Personal
-              </Link>
-              <Link
-                href="/reportes"
-                className={`px-3 py-1.5 rounded-lg text-xs transition-colors ${
-                  pathname === '/reportes'
-                    ? 'bg-slate-800 text-white font-semibold'
-                    : 'text-slate-300 hover:text-white hover:bg-slate-800/60 font-medium'
-                }`}
-              >
-                Reportes
+                Técnicos de Campo
               </Link>
             </>
           )}
@@ -201,7 +171,7 @@ export function Navbar() {
                   <span className="font-semibold text-xs text-slate-900">Dirección de Operaciones (Admin)</span>
                   <span className="font-mono text-[10px] text-slate-700 bg-slate-100 px-2 py-0.5 rounded font-medium">/admin</span>
                 </div>
-                <p className="text-[11px] text-slate-500 mt-0.5">Lic. Mariana Fernández &middot; Dashboard KPIs, Reportes y Usuarios</p>
+                <p className="text-[11px] text-slate-500 mt-0.5">Lic. Mariana Fernández &middot; Estadísticas operativas y gestión de técnicos</p>
               </button>
             </div>
 

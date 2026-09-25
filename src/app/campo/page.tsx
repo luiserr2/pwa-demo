@@ -197,7 +197,7 @@ export default function CampoPortalPage() {
             </div>
 
             <Link
-              href="/mobile"
+              href="/mobile?reporteId=rep-001&site=RDB-001&sitio=Torre%20Puerto%20Madero%20Central"
               className="bg-slate-900 hover:bg-black text-white font-medium text-xs px-4 py-2.5 rounded-xl shadow-sm transition-all flex items-center gap-2"
             >
               <span>Abrir Cámara PWA</span>
@@ -319,22 +319,33 @@ export default function CampoPortalPage() {
                   </div>
 
                   {/* ACCIÓN PRINCIPAL */}
-                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-3">
+                  <div className="pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
                     <span className="text-[11px] text-slate-400 font-mono hidden sm:inline">
                       {sitio.codigo}
                     </span>
 
-                    <Link
-                      href={`/mobile?reporteId=${sitio.id}&site=${sitio.siteCodigo}`}
-                      className={`w-full sm:w-auto text-center font-medium text-xs px-4 py-2.5 rounded-xl shadow-sm transition-all flex items-center justify-center gap-1.5 ${
-                        esObservado
-                          ? 'bg-amber-600 hover:bg-amber-700 text-white'
-                          : 'bg-slate-900 hover:bg-black text-white'
-                      }`}
-                    >
-                      <span>{esObservado ? 'Recapturar Foto Observada' : 'Continuar Levantamiento'}</span>
-                      <span>&rarr;</span>
-                    </Link>
+                    <div className="flex items-center gap-2 w-full sm:w-auto">
+                      {sitio.slotsCompletados > 0 && (
+                        <Link
+                          href={`/reportes/${sitio.id}/pdf`}
+                          className="text-xs font-semibold text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 px-3 py-2.5 rounded-xl border border-slate-200 transition-colors inline-flex items-center gap-1 flex-1 sm:flex-initial justify-center"
+                        >
+                          📄 <span>Ver PDF</span>
+                        </Link>
+                      )}
+
+                      <Link
+                        href={`/mobile?reporteId=${sitio.id}&site=${sitio.siteCodigo}&sitio=${encodeURIComponent(sitio.nombre)}`}
+                        className={`flex-1 sm:flex-initial text-center font-medium text-xs px-4 py-2.5 rounded-xl shadow-sm transition-all flex items-center justify-center gap-1.5 ${
+                          esObservado
+                            ? 'bg-amber-600 hover:bg-amber-700 text-white'
+                            : 'bg-slate-900 hover:bg-black text-white'
+                        }`}
+                      >
+                        <span>{esObservado ? 'Recapturar Foto Observada' : 'Continuar Levantamiento'}</span>
+                        <span>&rarr;</span>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               );

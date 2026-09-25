@@ -9,28 +9,39 @@
 #    EXCLUSIVAMENTE en este proyecto: gerson-sisbirceca.
 # ==============================================================================================
 
-# ESTADO ACTUAL: GERSON-SISBIRCECA v2.4.0 (UNIFICACIÓN DE RBAC A 2 ROLES & ABM DE USUARIOS)
-- ARQUITECTURA OFICIAL DE 2 ROLES (ELIMINACIÓN DE SILO ARTIFICIAL DE SUPERVISOR):
-  * Rol 1: TECNICO / EMPLEADO DE CAMPO (Gerson Martínez):
-    - Rutas: `/campo`, `/mobile`.
-    - Funciones: Captura guiada en torre, compresión Canvas WebP (< 250 KB), encolado offline Dexie.js.
-  * Rol 2: DIRECCIÓN DE OPERACIONES / ADMIN (Lic. Mariana Fernández):
-    - Rutas: `/admin/dashboard`, `/admin/radiobases`, `/admin/usuarios`, `/supervisor`, `/reportes`, `/reportes/[id]/pdf`.
-    - Funciones unificadas sin cambio de cuenta: Auditoría fotográfica Antes vs Después, validación/aprobación de reportes con sellado SHA-256, catálogo de radiobases y gestión completa de usuarios.
+# ESTADO ACTUAL: GERSON-SISBIRCECA v2.5.0 (FLUJO CONTINUO DE REPORTES & PANEL ADMIN CON 2 FUNCIONALIDADES)
+- PANEL ADMINISTRATIVO ENFOCADO EN EXACTAMENTE 2 FUNCIONALIDADES:
+  * Funcionalidad 1: Estadísticas de Operaciones (`/admin/dashboard`):
+    - 4 KPIs de infraestructura y cobertura.
+    - Distribución tecnológica (4G/5G/Microondas) y pipeline mensual de reportes.
+    - Registro Auditable de Intervenciones con filtrado por estado y botones directos:
+      * `✓ Aprobar Reporte` (sello SHA-256 en vivo para reportes EN_REVISION).
+      * `Expediente PDF` (`/reportes/[id]/pdf`).
+    - Acceso rápido hacia la administración de técnicos.
+  * Funcionalidad 2: Administración de Personal Técnico (`/admin/usuarios`):
+    - Directorio de cuadrillas y técnicos de campo.
+    - Modal de registro de nuevos técnicos.
+    - Acciones por fila: alternar estado activo/inactivo y eliminación permanente.
 
-- GESTIÓN REAL DE USUARIOS (ABM / CRUD COMPLETO EN /admin/usuarios):
-  * Modal de registro interactivo con asignación exclusiva entre los 2 roles oficiales.
-  * Acciones directas por fila: Alternar estado (ACTIVO / INACTIVO) y eliminación permanente con confirmación.
-  * Handlers en backend: `POST`, `DELETE` y `PATCH` en `/api/usuarios` con persistencia TypeORM y fallback resiliente.
+- APP DE REPORTES TÉCNICOS (EXPERIENCIA FLUIDA EN TORRE SIN FRACTURAS):
+  * Continuidad de Contexto `/campo` -> `/mobile`:
+    - Selección de orden de trabajo pasa parámetros dinámicos (`reporteId`, `site`, `sitio`).
+    - Cabecera en `/mobile` refleja el sitio exacto, orden técnica y cuadrilla activa.
+  * Pestañas en `/mobile`:
+    - Pestaña 1: Evidencias Fotográficas (Slots 1 a 6 con bloqueo Antes/Después, compresión WebP y encolado Dexie).
+    - Pestaña 2: Matriz Técnica de 48 Zonas con botón rápido `⚡ Certificar 48 Zonas Normales` (1 clic).
+  * Modal de Cierre Operativo (Sin Limbo):
+    - Al enviar a revisión, emerge modal de confirmación con dos opciones inmediatas:
+      * `📄 Ver Reporte Oficial (PDF)` (`/reportes/[id]/pdf`).
+      * `⬅️ Volver a mis Asignaciones` (`/campo`).
 
-- EXPERIENCIA DE USUARIO (UX PURGADA DE PERFILES BUROCRÁTICOS):
-  * `Navbar.tsx`: Modal rápido reducido de 3 a 2 opciones (Técnico de Torre y Dirección de Operaciones). Acceso directo a Auditoría QA en el menú de navegación del Administrador.
-  * `/login`: Dos terminales operativas limpias con ingreso directo y formulario manual homologado.
-  * `middleware.ts`: Redirecciones automáticas de 2 vías (`TECNICO` a `/campo` y `ADMIN` a `/admin/dashboard`).
+- NAVEGACIÓN LIMPIA EN NAVBAR (`Navbar.tsx`):
+  * Administrador: Exclusivamente `Estadísticas` y `Técnicos de Campo`.
+  * Técnico: Exclusivamente `Mis Asignaciones` y `Cámara PWA`.
 
 - SUITE DE PRUEBAS & CERTIFICACIÓN:
   * Jest: 34/34 tests unitarios pasando al 100%.
   * TypeScript: 0 errores (`tsc --noEmit` código 0).
 
 ## SIGUIENTE PASO
-- Probar creación y eliminación de usuarios en vivo en `/admin/usuarios` y verificar el selector de roles en `/login` y Navbar.
+- Ejecutar verificación del flujo en vivo entre `/campo`, `/mobile` y `/admin/dashboard`.

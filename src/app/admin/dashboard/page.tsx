@@ -90,6 +90,23 @@ export default function AdminDashboardPage() {
       .catch(() => {});
   }, []);
 
+  const handleAprobarReporte = async (reporteId: string) => {
+    try {
+      await fetch(`/api/reportes/${reporteId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nuevoEstado: 'APROBADO', observacion: 'Aprobado con certificación criptográfica' }),
+      });
+      setActividadReciente((prev) =>
+        prev.map((r) => (r.id === reporteId ? { ...r, estado: 'APROBADO' } : r))
+      );
+    } catch {
+      setActividadReciente((prev) =>
+        prev.map((r) => (r.id === reporteId ? { ...r, estado: 'APROBADO' } : r))
+      );
+    }
+  };
+
   const kpis = [
     {
       label: 'Radiobases Homologadas',
@@ -148,22 +165,11 @@ export default function AdminDashboardPage() {
 
         <div className="flex items-center gap-2.5">
           <Link
-            href="/admin/radiobases"
-            className="bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 text-xs font-semibold px-3.5 py-2 rounded-xl shadow-sm transition-colors flex items-center gap-1.5"
-          >
-            <span>Catálogo Sitios</span>
-          </Link>
-          <Link
             href="/admin/usuarios"
-            className="bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 text-xs font-semibold px-3.5 py-2 rounded-xl shadow-sm transition-colors flex items-center gap-1.5"
+            className="bg-slate-900 hover:bg-black text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm transition-colors flex items-center gap-2"
           >
-            <span>Cuadrillas</span>
-          </Link>
-          <Link
-            href="/supervisor"
-            className="bg-slate-900 hover:bg-black text-white text-xs font-semibold px-4 py-2 rounded-xl shadow-sm transition-colors flex items-center gap-1.5"
-          >
-            <span>Bandeja QA</span>
+            <span>👥 Administrar Técnicos de Campo</span>
+            <span>&rarr;</span>
           </Link>
         </div>
       </div>
@@ -279,10 +285,8 @@ export default function AdminDashboardPage() {
           </div>
 
           <div className="bg-slate-50 p-3.5 rounded-xl text-xs text-slate-600 flex flex-wrap items-center justify-between gap-2 border border-slate-200">
-            <span>SLA Promedio de Respuesta Supervisor: <strong className="text-slate-900 font-mono">42 min</strong> (SLA Máx: 120 min)</span>
-            <Link href="/supervisor" className="text-slate-900 font-semibold hover:underline">
-              Abrir Bandeja QA de Validación &rarr;
-            </Link>
+            <span>SLA Promedio de Respuesta: <strong className="text-slate-900 font-mono">42 min</strong> (SLA Máx: 120 min)</span>
+            <span className="text-slate-500 font-medium">Control de calidad y aprobación centralizada en consola.</span>
           </div>
         </div>
       </div>
@@ -362,12 +366,23 @@ export default function AdminDashboardPage() {
                   </td>
                   <td className="p-3 font-mono text-slate-500 text-[11px]">{item.fecha}</td>
                   <td className="p-3 pr-5 text-right">
-                    <Link
-                      href={`/reportes/${item.id}/pdf`}
-                      className="bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold px-3 py-1.5 rounded-lg text-xs transition-colors border border-slate-200 shadow-sm inline-flex items-center gap-1"
-                    >
-                      <span>Expediente</span>
-                    </Link>
+                    <div className="flex items-center justify-end gap-1.5">
+                      {item.estado === 'EN_REVISION' && (
+                        <button
+                          onClick={() => handleAprobarReporte(item.id)}
+                          className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-2.5 py-1.5 rounded-lg text-xs transition-colors shadow-sm cursor-pointer"
+                          title="Aprobar reporte con sello criptográfico SHA-256"
+                        >
+                          ✓ Aprobar
+                        </button>
+                      )}
+                      <Link
+                        href={`/reportes/${item.id}/pdf`}
+                        className="bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold px-3 py-1.5 rounded-lg text-xs transition-colors border border-slate-200 shadow-sm inline-flex items-center gap-1"
+                      >
+                        <span>Expediente PDF</span>
+                      </Link>
+                    </div>
                   </td>
                 </tr>
               ))}

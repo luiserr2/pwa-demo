@@ -190,14 +190,14 @@ export default function AdminUsuariosPage() {
               href="/admin/dashboard"
               className="text-xs font-semibold text-slate-600 hover:text-slate-900 hover:underline"
             >
-              &larr; Volver al Dashboard
+              &larr; Volver a Estadísticas
             </Link>
           </div>
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-            Gestión de Usuarios y Personal de Campo
+            Directorio y Administración de Personal Técnico
           </h1>
           <p className="text-slate-500 text-xs sm:text-sm">
-            Control de cuentas (RBAC de 2 roles: Técnicos de Torre y Dirección de Operaciones).
+            Control de cuentas de técnicos de campo, asignación de cuadrillas y permisos de captura.
           </p>
         </div>
 
@@ -207,7 +207,7 @@ export default function AdminUsuariosPage() {
             className="bg-slate-900 hover:bg-black text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm transition-all flex items-center gap-2 cursor-pointer active:scale-95"
           >
             <span>+</span>
-            <span>Registrar Usuario</span>
+            <span>Registrar Técnico</span>
           </button>
         </div>
       </div>
