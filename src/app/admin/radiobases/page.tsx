@@ -157,57 +157,61 @@ export default function AdminRadiobasesPage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
-      {/* HEADER */}
-      <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full pb-20">
+      {/* HEADER (GLASS STYLE) */}
+      <div className="flex flex-wrap items-center justify-between gap-4 mb-7 pb-6 border-b border-white/10">
         <div>
-          <div className="flex items-center gap-2 mb-1">
+          <div className="flex items-center gap-2 mb-2">
             <Link
               href="/admin/dashboard"
-              className="text-xs font-semibold text-slate-600 hover:text-slate-900 hover:underline"
+              className="text-xs font-semibold text-cyan-400 hover:text-cyan-300 transition-colors flex items-center gap-1 group"
             >
-              &larr; Volver al Dashboard
+              <span className="transition-transform group-hover:-translate-x-0.5">&larr;</span> Volver al Dashboard
             </Link>
+            <span className="text-slate-600">&middot;</span>
+            <span className="bg-white/5 text-cyan-300 text-[10px] font-mono uppercase px-3 py-0.5 rounded-full tracking-widest border border-cyan-500/20 backdrop-blur-md font-semibold shadow-[0_0_15px_rgba(6,182,212,0.15)]">
+              Catálogo de Infraestructura
+            </span>
           </div>
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight drop-shadow-sm">
             Catálogo Maestro de Radiobases y Torres
           </h1>
-          <p className="text-slate-500 text-xs sm:text-sm">
-            Base de datos homologada de sitios telecom para asignación en campo.
+          <p className="text-slate-400 text-xs sm:text-sm mt-0.5">
+            Base de datos homologada de sitios telecom para asignación e inspección en campo.
           </p>
         </div>
 
         <button
           onClick={() => setModalNuevo(true)}
-          className="bg-slate-900 hover:bg-black text-white text-xs font-semibold px-4 py-2 rounded-xl shadow-sm transition-all flex items-center gap-2"
+          className="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 text-xs font-semibold px-4 py-2.5 rounded-xl shadow-[0_0_20px_rgba(6,182,212,0.2)] backdrop-blur-xl transition-all flex items-center gap-2 cursor-pointer active:scale-95 hover:border-cyan-400/60"
         >
-          <span>+</span>
+          <span className="text-base font-bold leading-none">+</span>
           <span>Dar de Alta Radiobase</span>
         </button>
       </div>
 
-      {/* FILTER BAR */}
-      <div className="bg-white rounded-xl border border-slate-200 p-4 mb-6 shadow-sm flex flex-wrap items-center justify-between gap-3">
+      {/* FILTER BAR (FROSTED GLASS) */}
+      <div className="bg-slate-900/40 backdrop-blur-xl rounded-2xl border border-white/10 p-4 mb-7 shadow-[0_8px_32px_0_rgba(0,0,0,0.4)] flex flex-wrap items-center justify-between gap-3">
         <div className="flex-1 min-w-[240px]">
           <input
             type="text"
             value={busqueda}
             onChange={(e) => setBusqueda(e.target.value)}
             placeholder="Buscar por código o nombre de sitio..."
-            className="w-full text-xs p-2.5 border border-slate-300 rounded-lg bg-slate-50 focus:ring-1 focus:ring-slate-900 focus:outline-none"
+            className="w-full text-xs px-3.5 py-2.5 bg-white/5 border border-white/15 rounded-xl text-white placeholder-slate-500 focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 focus:outline-none backdrop-blur-md transition-all font-medium"
           />
         </div>
 
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-semibold text-slate-500 uppercase">Región:</span>
+        <div className="flex items-center gap-1.5 bg-white/5 p-1 rounded-xl border border-white/10 text-xs backdrop-blur-md">
+          <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider px-2">Región:</span>
           {['TODAS', 'AMBA / CABA', 'Patagonia Norte', 'Centro', 'Cuyo'].map((reg) => (
             <button
               key={reg}
               onClick={() => setFiltroRegion(reg)}
-              className={`text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors ${
+              className={`text-xs font-medium px-3 py-1 rounded-lg transition-all cursor-pointer ${
                 filtroRegion === reg
-                  ? 'bg-slate-900 text-white shadow-sm'
-                  : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                  ? 'bg-white/20 text-white shadow-inner font-semibold border border-white/20'
+                  : 'text-slate-400 hover:text-white hover:bg-white/5'
               }`}
             >
               {reg}
@@ -216,122 +220,158 @@ export default function AdminRadiobasesPage() {
         </div>
       </div>
 
-      {/* TABLA PRINCIPAL */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-        <table className="w-full text-xs text-left">
-          <thead className="bg-slate-100 text-slate-700 font-semibold uppercase text-[11px] tracking-wider border-b border-slate-200">
-            <tr>
-              <th className="p-3.5 pl-5">Código</th>
-              <th className="p-3.5">Nombre de la Torre</th>
-              <th className="p-3.5">Región</th>
-              <th className="p-3.5">Tecnología</th>
-              <th className="p-3.5">Tipo de Estructura</th>
-              <th className="p-3.5">Coordenadas</th>
-              <th className="p-3.5 pr-5 text-center">Estado</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-slate-100">
-            {filtradas.map((r) => (
-              <tr key={r.id} className="hover:bg-slate-50/80 transition-colors">
-                <td className="p-3.5 pl-5 font-mono font-bold text-slate-900">{r.codigo}</td>
-                <td className="p-3.5 font-bold text-slate-900">{r.nombre}</td>
-                <td className="p-3.5 text-slate-600 font-medium">{r.region}</td>
-                <td className="p-3.5 font-semibold text-slate-800">{r.tecnologia}</td>
-                <td className="p-3.5 text-slate-500">{r.tipoTorre}</td>
-                <td className="p-3.5 font-mono text-[10px] text-slate-400">{r.coordenadas}</td>
-                <td className="p-3.5 pr-5 text-center">
-                  <span
-                    className={`text-[10px] font-semibold uppercase px-2 py-0.5 rounded border ${
-                      r.estado === 'ACTIVA'
-                        ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                        : 'bg-amber-50 text-amber-700 border-amber-200'
-                    }`}
-                  >
-                    {r.estado}
-                  </span>
-                </td>
+      {/* TABLA PRINCIPAL (FROSTED GLASS TABLE) */}
+      <div className="bg-slate-900/40 backdrop-blur-xl rounded-2xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.4)] overflow-hidden">
+        <div className="p-4 sm:p-5 border-b border-white/10 flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h2 className="text-base font-bold text-white tracking-tight">
+              Sitios e Infraestructura Homologada
+            </h2>
+            <p className="text-xs text-slate-400">
+              Ubicaciones registradas para auditoría técnica y relevamiento de fotos.
+            </p>
+          </div>
+          <span className="text-xs font-mono font-semibold bg-white/5 text-slate-300 px-3 py-1 rounded-full border border-white/10 backdrop-blur-md">
+            {filtradas.length} Sitios Visibles
+          </span>
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="w-full text-xs text-left">
+            <thead className="bg-white/[0.03] text-slate-400 font-semibold uppercase text-[10px] tracking-wider border-b border-white/10 backdrop-blur-md">
+              <tr>
+                <th className="p-3.5 pl-5">Código</th>
+                <th className="p-3.5">Nombre de la Torre</th>
+                <th className="p-3.5">Región</th>
+                <th className="p-3.5">Tecnología</th>
+                <th className="p-3.5">Tipo de Estructura</th>
+                <th className="p-3.5">Coordenadas</th>
+                <th className="p-3.5 pr-5 text-center">Estado</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-white/5">
+              {filtradas.map((r) => (
+                <tr key={r.id} className="hover:bg-white/[0.04] transition-colors">
+                  <td className="p-3.5 pl-5 font-mono font-bold text-cyan-400">{r.codigo}</td>
+                  <td className="p-3.5 font-bold text-white">{r.nombre}</td>
+                  <td className="p-3.5 text-slate-300 font-medium">{r.region}</td>
+                  <td className="p-3.5 font-semibold text-slate-200">{r.tecnologia}</td>
+                  <td className="p-3.5 text-slate-400">{r.tipoTorre}</td>
+                  <td className="p-3.5 font-mono text-[11px] text-slate-400">{r.coordenadas}</td>
+                  <td className="p-3.5 pr-5 text-center">
+                    <span
+                      className={`text-[10px] font-mono font-semibold uppercase px-2.5 py-1 rounded-full border backdrop-blur-md ${
+                        r.estado === 'ACTIVA'
+                          ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30 shadow-[0_0_10px_rgba(16,185,129,0.15)]'
+                          : r.estado === 'MANTENIMIENTO'
+                          ? 'bg-amber-500/10 text-amber-300 border-amber-500/30 shadow-[0_0_10px_rgba(245,158,11,0.15)]'
+                          : 'bg-slate-500/10 text-slate-400 border-slate-500/30'
+                      }`}
+                    >
+                      {r.estado}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      {/* MODAL ALTA NUEVA RADIOBASE */}
+      {/* MODAL ALTA NUEVA RADIOBASE (FROSTED GLASS MODAL) */}
       {modalNuevo && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl border border-slate-200">
-            <h3 className="text-base font-bold text-slate-900 mb-1">
-              Dar de Alta Nueva Radiobase
-            </h3>
-            <p className="text-xs text-slate-500 mb-4">
-              Ingrese la ficha técnica del nuevo sitio para homologación en la base de datos:
-            </p>
-
-            <form onSubmit={handleCrearRadiobase} className="space-y-3 text-xs">
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 z-50">
+          <div className="bg-slate-950/90 backdrop-blur-2xl rounded-2xl p-6 max-w-md w-full shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-white/15 text-white animate-in fade-in zoom-in-95 duration-150">
+            <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
               <div>
-                <label className="block font-bold text-slate-700 mb-1">Código Único (Ej: RDB-042)</label>
+                <h3 className="text-base font-bold text-white tracking-tight">
+                  Dar de Alta Nueva Radiobase
+                </h3>
+                <p className="text-xs text-slate-400">
+                  Ingrese la ficha técnica del nuevo sitio para homologación:
+                </p>
+              </div>
+              <button
+                onClick={() => setModalNuevo(false)}
+                className="w-7 h-7 rounded-lg bg-white/5 hover:bg-white/15 text-slate-400 hover:text-white border border-white/10 font-bold text-xs flex items-center justify-center transition-colors cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            <form onSubmit={handleCrearRadiobase} className="space-y-4 text-xs">
+              <div>
+                <label className="block text-[11px] font-bold text-slate-300 uppercase mb-1 tracking-wider">
+                  Código Único (Ej: RDB-042) *
+                </label>
                 <input
                   type="text"
                   required
                   value={nuevoCodigo}
                   onChange={(e) => setNuevoCodigo(e.target.value)}
                   placeholder="RDB-042"
-                  className="w-full p-2.5 border rounded-lg bg-slate-50 font-mono font-bold focus:outline-none focus:ring-1 focus:ring-slate-900"
+                  className="w-full px-3 py-2 bg-white/5 border border-white/15 rounded-xl text-white placeholder-slate-500 font-mono font-bold focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 text-xs backdrop-blur-md transition-all uppercase"
                 />
               </div>
 
               <div>
-                <label className="block font-bold text-slate-700 mb-1">Nombre Oficial del Sitio</label>
+                <label className="block text-[11px] font-bold text-slate-300 uppercase mb-1 tracking-wider">
+                  Nombre Oficial del Sitio *
+                </label>
                 <input
                   type="text"
                   required
                   value={nuevoNombre}
                   onChange={(e) => setNuevoNombre(e.target.value)}
                   placeholder="Torre San Telmo Central"
-                  className="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold focus:outline-none focus:ring-1 focus:ring-slate-900"
+                  className="w-full px-3 py-2 bg-white/5 border border-white/15 rounded-xl text-white placeholder-slate-500 font-semibold focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 text-xs backdrop-blur-md transition-all"
                 />
               </div>
 
               <div>
-                <label className="block font-bold text-slate-700 mb-1">Región Operativa</label>
+                <label className="block text-[11px] font-bold text-slate-300 uppercase mb-1 tracking-wider">
+                  Región Operativa *
+                </label>
                 <select
                   value={nuevaRegion}
                   onChange={(e) => setNuevaRegion(e.target.value)}
-                  className="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold focus:outline-none focus:ring-1 focus:ring-slate-900"
+                  className="w-full px-3 py-2 bg-slate-900 border border-white/15 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 text-xs font-semibold backdrop-blur-md"
                 >
-                  <option value="AMBA / CABA">AMBA / CABA</option>
-                  <option value="Patagonia Norte">Patagonia Norte</option>
-                  <option value="Centro">Centro</option>
-                  <option value="Cuyo">Cuyo</option>
-                  <option value="Litoral">Litoral</option>
+                  <option value="AMBA / CABA" className="bg-slate-900 text-white">AMBA / CABA</option>
+                  <option value="Patagonia Norte" className="bg-slate-900 text-white">Patagonia Norte</option>
+                  <option value="Centro" className="bg-slate-900 text-white">Centro</option>
+                  <option value="Cuyo" className="bg-slate-900 text-white">Cuyo</option>
+                  <option value="Litoral" className="bg-slate-900 text-white">Litoral</option>
                 </select>
               </div>
 
               <div>
-                <label className="block font-bold text-slate-700 mb-1">Tecnología Predominante</label>
+                <label className="block text-[11px] font-bold text-slate-300 uppercase mb-1 tracking-wider">
+                  Tecnología Predominante *
+                </label>
                 <select
                   value={nuevaTecnologia}
                   onChange={(e) => setNuevaTecnologia(e.target.value)}
-                  className="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold focus:outline-none focus:ring-1 focus:ring-slate-900"
+                  className="w-full px-3 py-2 bg-slate-900 border border-white/15 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 text-xs font-semibold backdrop-blur-md"
                 >
-                  <option value="4G / 5G LTE Dual">4G / 5G LTE Dual</option>
-                  <option value="5G Ready Standalone">5G Ready Standalone</option>
-                  <option value="Small Cell 5G">Small Cell 5G</option>
-                  <option value="Microondas / Enlace Rural">Microondas / Enlace Rural</option>
+                  <option value="4G / 5G LTE Dual" className="bg-slate-900 text-white">4G / 5G LTE Dual</option>
+                  <option value="5G Ready Standalone" className="bg-slate-900 text-white">5G Ready Standalone</option>
+                  <option value="Small Cell 5G" className="bg-slate-900 text-white">Small Cell 5G</option>
+                  <option value="Microondas / Enlace Rural" className="bg-slate-900 text-white">Microondas / Enlace Rural</option>
                 </select>
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-3 border-t">
+              <div className="pt-3 flex items-center justify-end gap-2 border-t border-white/10">
                 <button
                   type="button"
                   onClick={() => setModalNuevo(false)}
-                  className="px-3 py-2 text-slate-600 font-semibold hover:bg-slate-100 rounded-lg"
+                  className="px-4 py-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 font-semibold text-xs transition-colors border border-transparent hover:border-white/10 cursor-pointer"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="bg-slate-900 hover:bg-black text-white px-4 py-2 font-semibold rounded-lg shadow-sm"
+                  className="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 font-semibold text-xs px-5 py-2 rounded-xl border border-cyan-500/40 shadow-[0_0_20px_rgba(6,182,212,0.25)] transition-all cursor-pointer active:scale-95"
                 >
                   Guardar Radiobase
                 </button>

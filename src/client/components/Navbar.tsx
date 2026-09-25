@@ -31,13 +31,13 @@ export function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-slate-900 text-slate-100 border-b border-slate-800 shadow-sm">
+    <header className="sticky top-0 z-50 bg-slate-950/75 backdrop-blur-xl text-slate-100 border-b border-white/10 shadow-[0_4px_25px_rgba(0,0,0,0.5)] transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
         
         {/* LOGO & PLATAFORMA */}
         <div className="flex items-center space-x-3">
           <Link href="/" className="flex items-center space-x-2.5 group">
-            <span className="bg-emerald-600 text-white font-mono font-bold text-[11px] px-2 py-0.5 rounded tracking-wider uppercase">
+            <span className="bg-emerald-600 text-white font-mono font-bold text-[11px] px-2.5 py-0.5 rounded-lg tracking-wider uppercase shadow-[0_0_15px_rgba(16,185,129,0.35)]">
               SISBIRCECA
             </span>
             <span className="font-semibold text-sm tracking-tight text-slate-200 group-hover:text-white transition-colors hidden sm:inline">
@@ -46,7 +46,7 @@ export function Navbar() {
           </Link>
 
           {rolActivo && (
-            <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">
+            <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-white/5 text-slate-300 border border-white/10 backdrop-blur-md">
               {rolActivo === 'ADMIN' ? 'ADMINISTRADOR' : 'TÉCNICO'}
             </span>
           )}
@@ -79,20 +79,20 @@ export function Navbar() {
             <>
               <Link
                 href="/admin/dashboard"
-                className={`px-3 py-1.5 rounded-lg text-xs transition-colors ${
+                className={`px-3.5 py-1.5 rounded-xl text-xs transition-all ${
                   pathname === '/admin/dashboard'
-                    ? 'bg-slate-800 text-white font-semibold'
-                    : 'text-slate-300 hover:text-white hover:bg-slate-800/60 font-medium'
+                    ? 'bg-white/15 text-white font-semibold shadow-inner border border-white/20 backdrop-blur-md'
+                    : 'text-slate-300 hover:text-white hover:bg-white/10 hover:border-white/10 border border-transparent font-medium'
                 }`}
               >
                 Estadísticas
               </Link>
               <Link
                 href="/admin/usuarios"
-                className={`px-3 py-1.5 rounded-lg text-xs transition-colors ${
+                className={`px-3.5 py-1.5 rounded-xl text-xs transition-all ${
                   pathname === '/admin/usuarios'
-                    ? 'bg-slate-800 text-white font-semibold'
-                    : 'text-slate-300 hover:text-white hover:bg-slate-800/60 font-medium'
+                    ? 'bg-white/15 text-white font-semibold shadow-inner border border-white/20 backdrop-blur-md'
+                    : 'text-slate-300 hover:text-white hover:bg-white/10 hover:border-white/10 border border-transparent font-medium'
                 }`}
               >
                 Técnicos de Campo

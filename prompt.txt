@@ -9,7 +9,26 @@
 #    EXCLUSIVAMENTE en este proyecto: gerson-sisbirceca.
 # ==============================================================================================
 
-# ESTADO ACTUAL: GERSON-SISBIRCECA v3.5.0 (ARQUITECTURA DE REPORTES MODULARES: SEPARADOS O UNIFICADOS)
+# ESTADO ACTUAL: GERSON-SISBIRCECA v3.6.0 (PANEL ADMINISTRATIVO GLASSMORPHISM & REPORTES MODULARES)
+- DISEÑO GLASSMORPHISM DE ALTA GAMA EN PANEL ADMINISTRATIVO:
+  * Layout Envolvente (`/admin/layout.tsx`):
+    - Lienzo midnight obsidian (`bg-slate-950`) con mallas de gradientes radiales luminosos (cyan, emerald, violeta) difuminados (`blur-[120px]`).
+    - Patrón de matriz sutil para proyectar profundidad óptica y refracción realista.
+  * Barra de Navegación (`Navbar.tsx`):
+    - Cabecera en frosted glass (`bg-slate-950/75 backdrop-blur-xl border-b border-white/10`).
+    - Píldoras de navegación translúcidas con inner glow.
+  * Módulo de Estadísticas y Monitoreo (`/admin/dashboard`):
+    - KPI cards en vidrio esmerilado (`bg-slate-900/40 backdrop-blur-xl border border-white/10`).
+    - Paneles de distribución tecnológica y avance de órdenes en glass translúcido.
+    - Tabla de expedientes con thead translúcido y botones de acción rápida (`📸 Fotos`, `📋 Ficha`, `📑 Unificado`).
+  * Directorio de Personal Técnico (`/admin/usuarios`):
+    - Indicadores de personal en tarjetas glass (`Total Cuentas`, `Técnicos`, `Administradores`).
+    - Tabla con hover suave translúcido y badges de rol y estado en pills luminosas (`bg-cyan-500/10`, `bg-emerald-500/10`).
+    - Modal de registro en obsidian glass flotante (`bg-slate-950/90 backdrop-blur-2xl border-white/15`) e inputs traslúcidos.
+  * Catálogo de Infraestructura (`/admin/radiobases`):
+    - Filtro por región y buscador rápido integrados en barra frosted glass.
+    - Tabla de sitios telecom y modal de alta con estética glass coordinada.
+
 - REPORTES MODULARES POR SEPARADO Y FUSIÓN INTEGRAL:
   * Entregable 1: Reporte Fotográfico (Álbum de Evidencias Antes vs Después con compresión WebP < 250 KB).
   * Entregable 2: Reporte Técnico (Acta de Homologación con conectividad IP, equipos y matriz de 48 zonas).
@@ -22,24 +41,12 @@
     - Tres accesos inmediatos a entregables: `📸 Solo Fotos`, `📋 Solo Ficha Técnica` y `📑 Unir en Informe Completo`.
   * En `/mobile`:
     - Enrutamiento por modo contextual (`mode=FOTOS` o `mode=ZONAS`).
-    - Cierre modular según pestaña activa:
-      * `📸 Guardar Reporte Fotográfico`
-      * `📋 Guardar Ficha Técnica`
-      * `📑 Guardar Todo (Unificado)`
-    - Modal de confirmación con enlaces directos al entregable específico o al expediente completo.
+    - Cierre modular según pestaña activa (`📸 Guardar Reporte Fotográfico`, `📋 Guardar Ficha Técnica`, `📑 Guardar Todo`).
 
 - VISOR Y EXPORTADOR PDF OFICIAL (`/reportes/[id]/pdf`):
-  * Selector segmentado de vista en tiempo real (print:hidden):
-    - `📑 Informe Unificado (Completo)`
-    - `📸 Solo Álbum Fotográfico`
-    - `📋 Solo Acta Técnica`
-  * Renderizado condicional estricto: oculta o muestra tablas y fotos según el entregable deseado.
-  * Impresión y exportación A4 sincronizada con la vista activa.
+  * Selector segmentado de vista en tiempo real (print:hidden).
+  * Renderizado condicional estricto e impresión A4 sincronizada.
   * Firma digital del técnico instalador y Sello Criptográfico SHA-256 presentes en todos los formatos.
-
-- PANEL ADMINISTRATIVO (`/admin/dashboard`):
-  * Foco en 2 funciones: Estadísticas y Técnicos de Campo.
-  * En la tabla de intervenciones: accesos directos por fila para `📸 Fotos`, `📋 Ficha` y `📑 Unificado`.
 
 - SUITE DE PRUEBAS & CERTIFICACIÓN:
   * Jest: 34/34 tests unitarios pasando al 100%.
