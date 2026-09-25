@@ -91,24 +91,24 @@ function ReportePDFContent({ params }: { params: { id: string } }) {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0F1D] text-slate-100 py-6 px-4 print:bg-white print:text-black print:p-0">
+    <div className="min-h-screen bg-slate-100 text-slate-800 py-6 px-4 print:bg-white print:text-black print:p-0">
       {/* BARRA DE CONTROL SUPERIOR (OCULTA AL IMPRIMIR) */}
       <div className="max-w-4xl mx-auto mb-6 flex flex-wrap items-center justify-between gap-3 print:hidden">
         <button
           onClick={() => (window.history.length > 1 ? window.history.back() : (window.location.href = '/campo'))}
-          className="text-xs font-medium text-slate-400 hover:text-white transition-colors flex items-center gap-1 cursor-pointer"
+          className="text-xs font-medium text-slate-600 hover:text-slate-900 transition-colors flex items-center gap-1 cursor-pointer"
         >
           &larr; Volver
         </button>
 
         {/* SELECTOR SEGMENTADO DE ENTREGABLES MODULARES (SVGS SIN EMOJIS) */}
-        <div className="flex items-center gap-1 bg-white/[0.03] p-1 rounded-xl border border-white/[0.08] shadow-xs">
+        <div className="flex items-center gap-1 bg-white p-1 rounded-xl border border-slate-200 shadow-xs">
           <button
             onClick={() => setVista('UNIFICADO')}
             className={`min-h-[40px] px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer flex items-center gap-1.5 ${
               vista === 'UNIFICADO'
                 ? 'bg-blue-600 text-white font-semibold shadow-xs'
-                : 'text-slate-400 hover:text-white'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -124,7 +124,7 @@ function ReportePDFContent({ params }: { params: { id: string } }) {
             className={`min-h-[40px] px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer flex items-center gap-1.5 ${
               vista === 'FOTOS'
                 ? 'bg-blue-600 text-white font-semibold shadow-xs'
-                : 'text-slate-400 hover:text-white'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -139,7 +139,7 @@ function ReportePDFContent({ params }: { params: { id: string } }) {
             className={`min-h-[40px] px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer flex items-center gap-1.5 ${
               vista === 'TECNICO'
                 ? 'bg-blue-600 text-white font-semibold shadow-xs'
-                : 'text-slate-400 hover:text-white'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -152,7 +152,7 @@ function ReportePDFContent({ params }: { params: { id: string } }) {
 
         <button
           onClick={() => window.print()}
-          className="min-h-[40px] bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium px-4 py-2 rounded-lg shadow-sm transition-all flex items-center gap-2 cursor-pointer active:translate-y-[1px]"
+          className="min-h-[40px] bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-4 py-2 rounded-lg shadow-xs transition-all flex items-center gap-2 cursor-pointer active:translate-y-[1px]"
         >
           <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <polyline points="6 9 6 2 18 2 18 9" />
@@ -391,7 +391,7 @@ function ReportePDFContent({ params }: { params: { id: string } }) {
 
 export default function ReportePDFPage({ params }: { params: { id: string } }) {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-[#0A0F1D] p-8 text-center text-xs text-slate-400 font-mono">Cargando documento técnico...</div>}>
+    <Suspense fallback={<div className="min-h-screen bg-slate-100 p-8 text-center text-xs text-slate-500 font-mono">Cargando documento técnico...</div>}>
       <ReportePDFContent params={params} />
     </Suspense>
   );

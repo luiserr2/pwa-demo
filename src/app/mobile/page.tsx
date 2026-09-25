@@ -165,36 +165,40 @@ function MobileContent() {
       },
     ];
 
-    setSlots(
-      SLOTS_INICIALES.map((slot, index) => ({
-        ...slot,
-        fotoAntes: fotosDemo[index].antes,
-        fotoDespues: fotosDemo[index].despues,
-        tamanoAntes: '184.2 KB (WebP)',
-        tamanoDespues: '210.6 KB (WebP)',
+    setSlots((prev) =>
+      prev.map((s, idx) => ({
+        ...s,
+        fotoAntes: fotosDemo[idx]?.antes || s.fotoAntes,
+        fotoDespues: fotosDemo[idx]?.despues || s.fotoDespues,
+        tamanoAntes: '185.4 KB WebP',
+        tamanoDespues: '192.1 KB WebP',
       }))
     );
 
-    setMensajeExito('Se han cargado las 6 evidencias con pares Antes/Después listos.');
-    setTimeout(() => setMensajeExito(null), 5000);
-  };
-
-  const certificarTodasZonasNormales = () => {
-    setZonas((prev) => prev.map((z) => ({ ...z, estado: 'NORMAL' })));
-    setMensajeExito('Las 48 zonas han sido certificadas como NORMALES.');
-    setTimeout(() => setMensajeExito(null), 3000);
+    setMensajeExito('Fotos de demostración cargadas. Ahora puede probar la exportación independiente.');
+    setTimeout(() => setMensajeExito(null), 4000);
   };
 
   const toggleEstadoZona = (numero: number) => {
     setZonas((prev) =>
       prev.map((z) => {
         if (z.numero === numero) {
-          const prox = z.estado === 'NORMAL' ? 'OBSERVADO' : z.estado === 'OBSERVADO' ? 'NO_APLICA' : 'NORMAL';
-          return { ...z, estado: prox };
+          const proximoEstado: Record<string, 'NORMAL' | 'OBSERVADO' | 'NO_APLICA'> = {
+            NORMAL: 'OBSERVADO',
+            OBSERVADO: 'NO_APLICA',
+            NO_APLICA: 'NORMAL',
+          };
+          return { ...z, estado: proximoEstado[z.estado] };
         }
         return z;
       })
     );
+  };
+
+  const certificarTodasZonasNormales = () => {
+    setZonas((prev) => prev.map((z) => ({ ...z, estado: 'NORMAL' })));
+    setMensajeExito('Todas las 48 zonas marcadas en estado NORMAL.');
+    setTimeout(() => setMensajeExito(null), 3000);
   };
 
   const finalizarYEnviarReporte = async (tipo: 'FOTOGRAFICO' | 'TECNICO' | 'UNIFICADO' = 'UNIFICADO') => {
@@ -237,12 +241,12 @@ function MobileContent() {
   const zonasNormales = zonas.filter((z) => z.estado === 'NORMAL').length;
 
   return (
-    <div className={`min-h-screen w-full pb-36 ${modoSol ? 'bg-black text-amber-300' : 'bg-[#0A0F1D] text-slate-100'}`}>
+    <div className={`min-h-screen w-full pb-36 ${modoSol ? 'bg-black text-amber-300' : 'bg-slate-50 text-slate-800'}`}>
       <div className="max-w-2xl mx-auto px-4 py-4 w-full">
         
         {/* BARRA SUPERIOR DE CONECTIVIDAD & MODO SOL */}
         <div className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl mb-3 text-xs border ${
-          modoSol ? 'bg-zinc-950 border-amber-500/40 text-amber-300' : 'bg-slate-900/60 border-white/[0.08] text-slate-400 backdrop-blur-md'
+          modoSol ? 'bg-zinc-950 border-amber-500/40 text-amber-300' : 'bg-white border-slate-200 text-slate-600 shadow-xs'
         }`}>
           <div className="flex items-center gap-2">
             <span className={`w-2 h-2 rounded-full ${isOnline ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'}`}></span>
@@ -253,14 +257,14 @@ function MobileContent() {
             <button
               onClick={() => setModoSol(!modoSol)}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all border cursor-pointer active:translate-y-[1px] ${
-                modoSol ? 'bg-amber-400 text-black border-amber-300 font-bold' : 'bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 border-white/[0.08]'
+                modoSol ? 'bg-amber-400 text-black border-amber-300 font-bold' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
               }`}
             >
               {modoSol ? 'Modo Sol Activo' : 'Modo Sol'}
             </button>
             <Link
               href="/campo"
-              className="text-slate-400 hover:text-white text-xs font-medium transition-colors flex items-center gap-1"
+              className="text-slate-500 hover:text-slate-800 text-xs font-medium transition-colors flex items-center gap-1"
             >
               &larr; Asignaciones
             </Link>
@@ -269,29 +273,29 @@ function MobileContent() {
 
         {/* CABECERA VINCULADA DEL SITIO (CONTINUIDAD DE CONTEXTO) */}
         <div className={`p-5 rounded-xl mb-4 border ${
-          modoSol ? 'bg-zinc-950 border-amber-500/30' : 'bg-slate-900/60 border-white/[0.08] backdrop-blur-md shadow-[0_4px_24px_-2px_rgba(10,15,29,0.8)]'
+          modoSol ? 'bg-zinc-950 border-amber-500/30' : 'bg-white border-slate-200 shadow-xs'
         }`}>
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
-              <span className="font-mono text-xs font-bold text-white bg-blue-500/10 text-blue-400 border border-blue-500/25 px-2 py-0.5 rounded">
+              <span className="font-mono text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded">
                 {siteCodigo}
               </span>
-              <h2 className="text-sm font-bold text-white">
+              <h2 className="text-sm font-bold text-slate-900">
                 {siteNombre}
               </h2>
             </div>
-            <span className="text-[10px] font-mono text-slate-400 font-medium">Orden: {reporteId}</span>
+            <span className="text-[10px] font-mono text-slate-500 font-medium">Orden: {reporteId}</span>
           </div>
 
-          <div className="flex items-center justify-between text-xs pt-2.5 border-t border-white/[0.08]">
-            <span className="text-slate-400 text-[11px]">
-              Técnico: <strong className="text-slate-200 font-semibold">Gerson Martínez</strong>
+          <div className="flex items-center justify-between text-xs pt-2.5 border-t border-slate-100">
+            <span className="text-slate-500 text-[11px]">
+              Técnico: <strong className="text-slate-800 font-semibold">Gerson Martínez</strong>
             </span>
             <button
               onClick={cargarEjemploCompleto}
-              className="min-h-[36px] text-xs font-medium text-slate-300 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] px-3 py-1.5 rounded-lg border border-white/[0.08] transition-colors cursor-pointer flex items-center gap-1.5 active:translate-y-[1px]"
+              className="min-h-[36px] text-xs font-medium text-slate-700 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200 transition-colors cursor-pointer flex items-center gap-1.5 active:translate-y-[1px]"
             >
-              <svg className="w-3.5 h-3.5 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg className="w-3.5 h-3.5 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
               </svg>
               <span>Fotos Demo</span>
@@ -300,13 +304,13 @@ function MobileContent() {
         </div>
 
         {/* SELECTOR DE PESTAÑAS (FOTOS VS 48 ZONAS) */}
-        <div className="flex gap-2 p-1 bg-white/[0.03] border border-white/[0.08] rounded-xl mb-4">
+        <div className="flex gap-2 p-1 bg-slate-200/60 border border-slate-200 rounded-xl mb-4">
           <button
             onClick={() => setTabActiva('FOTOS')}
             className={`flex-1 min-h-[44px] py-2 rounded-lg text-xs font-medium transition-all flex items-center justify-center gap-2 cursor-pointer ${
               tabActiva === 'FOTOS'
                 ? 'bg-blue-600 text-white font-semibold shadow-xs'
-                : 'text-slate-400 hover:text-white'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -314,7 +318,7 @@ function MobileContent() {
               <circle cx="12" cy="13" r="4" />
             </svg>
             <span>Fotos Antes / Después</span>
-            <span className="font-mono text-[10px] bg-white/[0.1] px-1.5 py-0.5 rounded">
+            <span className="font-mono text-[10px] bg-white/20 px-1.5 py-0.5 rounded">
               {fotosCompletas}/6
             </span>
           </button>
@@ -324,7 +328,7 @@ function MobileContent() {
             className={`flex-1 min-h-[44px] py-2 rounded-lg text-xs font-medium transition-all flex items-center justify-center gap-2 cursor-pointer ${
               tabActiva === 'ZONAS'
                 ? 'bg-blue-600 text-white font-semibold shadow-xs'
-                : 'text-slate-400 hover:text-white'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -332,7 +336,7 @@ function MobileContent() {
               <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
             </svg>
             <span>Matriz 48 Zonas</span>
-            <span className="font-mono text-[10px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded">
+            <span className="font-mono text-[10px] bg-emerald-50 text-emerald-800 border border-emerald-200 px-1.5 py-0.5 rounded">
               {zonasNormales}/48
             </span>
           </button>
@@ -340,8 +344,8 @@ function MobileContent() {
 
         {/* MENSAJES Y COMPRESIÓN */}
         {mensajeExito && (
-          <div className="mb-4 bg-emerald-500/10 border border-emerald-500/25 text-emerald-300 p-3.5 rounded-xl text-xs font-medium shadow-sm flex items-center gap-2">
-            <svg className="w-4 h-4 text-emerald-400 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <div className="mb-4 bg-emerald-50 border border-emerald-200 text-emerald-800 p-3.5 rounded-xl text-xs font-medium shadow-xs flex items-center gap-2">
+            <svg className="w-4 h-4 text-emerald-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <polyline points="20 6 9 17 4 12" />
             </svg>
             <span>{mensajeExito}</span>
@@ -349,8 +353,8 @@ function MobileContent() {
         )}
 
         {comprimiendo && (
-          <div className="mb-4 bg-slate-900 text-white p-3.5 rounded-xl text-xs font-medium border border-blue-500/30 shadow-sm animate-pulse flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-blue-400 animate-ping"></span>
+          <div className="mb-4 bg-blue-50 text-blue-900 p-3.5 rounded-xl text-xs font-medium border border-blue-200 shadow-xs flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-blue-600 animate-ping"></span>
             <span>Comprimiendo imagen en navegador a WebP (&lt; 250 KB)...</span>
           </div>
         )}
@@ -367,7 +371,7 @@ function MobileContent() {
                   className={`p-4 sm:p-5 rounded-xl border transition-all ${
                     modoSol
                       ? 'bg-zinc-950 border-amber-500/30 text-white'
-                      : 'bg-slate-900/60 border-white/[0.08] backdrop-blur-md shadow-[0_4px_24px_-2px_rgba(10,15,29,0.8)]'
+                      : 'bg-white border-slate-200 shadow-xs'
                   }`}
                 >
                   <div className="flex items-center justify-between mb-3">
@@ -375,9 +379,9 @@ function MobileContent() {
                       <span className="w-6 h-6 rounded-md bg-blue-600 text-white font-mono text-xs font-bold flex items-center justify-center">
                         #{slot.id}
                       </span>
-                      <h3 className="font-bold text-xs sm:text-sm text-white">{slot.nombre}</h3>
+                      <h3 className="font-bold text-xs sm:text-sm text-slate-900">{slot.nombre}</h3>
                     </div>
-                    <span className="text-[10px] font-mono text-slate-400 bg-white/[0.04] px-2 py-0.5 rounded border border-white/[0.08]">
+                    <span className="text-[10px] font-mono text-slate-500 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
                       {slot.tipoEquipo}
                     </span>
                   </div>
@@ -385,18 +389,18 @@ function MobileContent() {
                   {/* CUADRICULA DUAL ANTES / DESPUÉS */}
                   <div className="grid grid-cols-2 gap-3">
                     {/* FOTO ANTES */}
-                    <div className="border border-white/[0.08] rounded-xl p-3 bg-white/[0.02] flex flex-col justify-between">
+                    <div className="border border-slate-200 rounded-xl p-3 bg-slate-50/60 flex flex-col justify-between">
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-[10px] font-mono font-bold text-slate-300 bg-white/[0.06] px-2 py-0.5 rounded">
+                        <span className="text-[10px] font-mono font-bold text-slate-700 bg-slate-200/80 px-2 py-0.5 rounded">
                           ANTES
                         </span>
                         {slot.tamanoAntes && (
-                          <span className="text-[9px] font-mono text-emerald-400">{slot.tamanoAntes}</span>
+                          <span className="text-[9px] font-mono text-emerald-700">{slot.tamanoAntes}</span>
                         )}
                       </div>
 
                       {slot.fotoAntes ? (
-                        <div className="relative rounded-lg overflow-hidden border border-white/[0.1] aspect-video bg-black flex items-center justify-center">
+                        <div className="relative rounded-lg overflow-hidden border border-slate-200 aspect-video bg-black flex items-center justify-center">
                           <img
                             src={slot.fotoAntes}
                             alt={`Antes ${slot.nombre}`}
@@ -404,12 +408,12 @@ function MobileContent() {
                           />
                         </div>
                       ) : (
-                        <label className="min-h-[48px] flex flex-col items-center justify-center aspect-video border-2 border-dashed border-white/[0.15] hover:border-blue-500/50 rounded-lg cursor-pointer bg-white/[0.02] hover:bg-white/[0.04] transition-colors p-2 text-center active:translate-y-[1px]">
+                        <label className="min-h-[48px] flex flex-col items-center justify-center aspect-video border-2 border-dashed border-slate-300 hover:border-blue-500 rounded-lg cursor-pointer bg-white hover:bg-blue-50/40 transition-colors p-2 text-center active:translate-y-[1px]">
                           <svg className="w-6 h-6 text-slate-400 mb-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
                             <circle cx="12" cy="13" r="4" />
                           </svg>
-                          <span className="text-[11px] font-medium text-slate-300">Capturar Antes</span>
+                          <span className="text-[11px] font-medium text-slate-600">Capturar Antes</span>
                           <input
                             type="file"
                             accept="image/*"
@@ -423,18 +427,18 @@ function MobileContent() {
                     </div>
 
                     {/* FOTO DESPUÉS (CON BLOQUEO REACTIVO) */}
-                    <div className="border border-white/[0.08] rounded-xl p-3 bg-white/[0.02] flex flex-col justify-between">
+                    <div className="border border-slate-200 rounded-xl p-3 bg-slate-50/60 flex flex-col justify-between">
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-[10px] font-mono font-bold text-slate-300 bg-white/[0.06] px-2 py-0.5 rounded">
+                        <span className="text-[10px] font-mono font-bold text-slate-700 bg-slate-200/80 px-2 py-0.5 rounded">
                           DESPUÉS
                         </span>
                         {slot.tamanoDespues && (
-                          <span className="text-[9px] font-mono text-emerald-400">{slot.tamanoDespues}</span>
+                          <span className="text-[9px] font-mono text-emerald-700">{slot.tamanoDespues}</span>
                         )}
                       </div>
 
                       {slot.fotoDespues ? (
-                        <div className="relative rounded-lg overflow-hidden border border-white/[0.1] aspect-video bg-black flex items-center justify-center">
+                        <div className="relative rounded-lg overflow-hidden border border-slate-200 aspect-video bg-black flex items-center justify-center">
                           <img
                             src={slot.fotoDespues}
                             alt={`Después ${slot.nombre}`}
@@ -442,12 +446,12 @@ function MobileContent() {
                           />
                         </div>
                       ) : antesListo ? (
-                        <label className="min-h-[48px] flex flex-col items-center justify-center aspect-video border-2 border-dashed border-emerald-500/30 hover:border-emerald-500 rounded-lg cursor-pointer bg-emerald-500/[0.03] hover:bg-emerald-500/[0.06] transition-colors p-2 text-center active:translate-y-[1px]">
-                          <svg className="w-6 h-6 text-emerald-400 mb-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <label className="min-h-[48px] flex flex-col items-center justify-center aspect-video border-2 border-dashed border-emerald-300 hover:border-emerald-500 rounded-lg cursor-pointer bg-emerald-50/40 hover:bg-emerald-50/80 transition-colors p-2 text-center active:translate-y-[1px]">
+                          <svg className="w-6 h-6 text-emerald-600 mb-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
                             <circle cx="12" cy="13" r="4" />
                           </svg>
-                          <span className="text-[11px] font-medium text-emerald-400">Capturar Después</span>
+                          <span className="text-[11px] font-medium text-emerald-700">Capturar Después</span>
                           <input
                             type="file"
                             accept="image/*"
@@ -458,8 +462,8 @@ function MobileContent() {
                           />
                         </label>
                       ) : (
-                        <div className="flex flex-col items-center justify-center aspect-video border border-white/[0.08] rounded-lg bg-white/[0.02] text-slate-500 text-center p-2">
-                          <svg className="w-5 h-5 text-slate-500 mb-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <div className="flex flex-col items-center justify-center aspect-video border border-slate-200 rounded-lg bg-slate-100/70 text-slate-400 text-center p-2">
+                          <svg className="w-5 h-5 text-slate-400 mb-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                             <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                           </svg>
@@ -476,15 +480,15 @@ function MobileContent() {
 
         {/* PESTAÑA 2: MATRIZ DE 48 ZONAS */}
         {tabActiva === 'ZONAS' && (
-          <div className="bg-slate-900/60 backdrop-blur-md rounded-xl border border-white/[0.08] p-5 shadow-[0_4px_24px_-2px_rgba(10,15,29,0.8)]">
-            <div className="flex flex-wrap items-center justify-between gap-3 pb-3 mb-4 border-b border-white/[0.08]">
+          <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-xs">
+            <div className="flex flex-wrap items-center justify-between gap-3 pb-3 mb-4 border-b border-slate-200">
               <div>
-                <h3 className="font-bold text-xs sm:text-sm text-white">Inspección de 48 Zonas Fijas</h3>
-                <p className="text-[11px] text-slate-400">Toque cualquier zona para alternar su estado operativo.</p>
+                <h3 className="font-bold text-xs sm:text-sm text-slate-900">Inspección de 48 Zonas Fijas</h3>
+                <p className="text-[11px] text-slate-500">Toque cualquier zona para alternar su estado operativo.</p>
               </div>
               <button
                 onClick={certificarTodasZonasNormales}
-                className="min-h-[44px] bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs px-3.5 py-2 rounded-lg shadow-sm transition-all cursor-pointer flex items-center gap-1.5 active:translate-y-[1px]"
+                className="min-h-[44px] bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-xs px-3.5 py-2 rounded-lg shadow-xs transition-all cursor-pointer flex items-center gap-1.5 active:translate-y-[1px]"
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <polyline points="20 6 9 17 4 12" />
@@ -500,17 +504,17 @@ function MobileContent() {
                   onClick={() => toggleEstadoZona(z.numero)}
                   className={`min-h-[44px] p-3 rounded-lg border text-xs flex items-center justify-between cursor-pointer transition-all active:translate-y-[1px] ${
                     z.estado === 'NORMAL'
-                      ? 'bg-white/[0.02] border-white/[0.08] hover:bg-white/[0.05]'
+                      ? 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-800'
                       : z.estado === 'OBSERVADO'
-                      ? 'bg-amber-500/10 border-amber-500/30 text-amber-300'
-                      : 'bg-white/[0.04] border-white/[0.1] text-slate-400'
+                      ? 'bg-amber-50 border-amber-200 text-amber-900'
+                      : 'bg-slate-100 border-slate-200 text-slate-500'
                   }`}
                 >
                   <div className="flex items-center gap-2">
-                    <span className="font-mono font-bold text-[10px] text-slate-400 w-5">
+                    <span className="font-mono font-bold text-[10px] text-slate-500 w-5">
                       #{z.numero}
                     </span>
-                    <span className="font-medium text-[11px] leading-tight text-white">
+                    <span className="font-medium text-[11px] leading-tight text-slate-800">
                       {z.descripcion}
                     </span>
                   </div>
@@ -518,10 +522,10 @@ function MobileContent() {
                   <span
                     className={`font-mono text-[9px] font-bold uppercase px-2 py-0.5 rounded border ${
                       z.estado === 'NORMAL'
-                        ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/25'
+                        ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
                         : z.estado === 'OBSERVADO'
-                        ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
-                        : 'bg-white/[0.06] text-slate-400 border-white/[0.1]'
+                        ? 'bg-amber-50 text-amber-800 border-amber-200'
+                        : 'bg-slate-100 text-slate-600 border-slate-200'
                     }`}
                   >
                     {z.estado}
@@ -535,11 +539,11 @@ function MobileContent() {
       </div>
 
       {/* BARRA INFERIOR FIJA DE ACCIÓN (TOUCH TARGETS ERGONÓMICOS >= 48PX) */}
-      <div className="fixed bottom-0 inset-x-0 bg-[#0A0F1D]/90 backdrop-blur-md border-t border-white/[0.08] p-3 sm:p-4 z-40">
+      <div className="fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-md border-t border-slate-200 p-3 sm:p-4 z-40 shadow-lg">
         <div className="max-w-2xl mx-auto flex items-center justify-between gap-3">
           <div className="text-xs leading-tight">
-            <span className="text-slate-400 text-[11px] block">Progreso Técnico:</span>
-            <span className="font-bold text-white font-mono">
+            <span className="text-slate-500 text-[11px] block">Progreso Técnico:</span>
+            <span className="font-bold text-slate-900 font-mono">
               {fotosCompletas}/6 fotos &middot; {zonasNormales}/48 zonas
             </span>
           </div>
@@ -550,7 +554,7 @@ function MobileContent() {
                 <button
                   onClick={() => finalizarYEnviarReporte('FOTOGRAFICO')}
                   disabled={enviando || slots.filter((s) => s.fotoAntes).length === 0}
-                  className="min-h-[48px] bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs px-4 py-2.5 rounded-lg shadow-sm transition-all disabled:opacity-50 flex items-center gap-2 cursor-pointer active:translate-y-[1px]"
+                  className="min-h-[48px] bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs px-4 py-2.5 rounded-lg shadow-xs transition-all disabled:opacity-50 flex items-center gap-2 cursor-pointer active:translate-y-[1px]"
                 >
                   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
@@ -561,7 +565,7 @@ function MobileContent() {
                 <button
                   onClick={() => finalizarYEnviarReporte('UNIFICADO')}
                   disabled={enviando}
-                  className="min-h-[48px] bg-white/[0.06] hover:bg-white/[0.1] text-slate-200 border border-white/[0.1] font-medium text-xs px-4 py-2.5 rounded-lg transition-all disabled:opacity-50 hidden sm:flex items-center gap-2 cursor-pointer active:translate-y-[1px]"
+                  className="min-h-[48px] bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 font-medium text-xs px-4 py-2.5 rounded-lg transition-all disabled:opacity-50 hidden sm:flex items-center gap-2 cursor-pointer active:translate-y-[1px]"
                   title="Guardar expediente completo (Fotos + Zonas)"
                 >
                   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -577,7 +581,7 @@ function MobileContent() {
                 <button
                   onClick={() => finalizarYEnviarReporte('TECNICO')}
                   disabled={enviando}
-                  className="min-h-[48px] bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs px-4 py-2.5 rounded-lg shadow-sm transition-all disabled:opacity-50 flex items-center gap-2 cursor-pointer active:translate-y-[1px]"
+                  className="min-h-[48px] bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs px-4 py-2.5 rounded-lg shadow-xs transition-all disabled:opacity-50 flex items-center gap-2 cursor-pointer active:translate-y-[1px]"
                 >
                   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -588,7 +592,7 @@ function MobileContent() {
                 <button
                   onClick={() => finalizarYEnviarReporte('UNIFICADO')}
                   disabled={enviando}
-                  className="min-h-[48px] bg-white/[0.06] hover:bg-white/[0.1] text-slate-200 border border-white/[0.1] font-medium text-xs px-4 py-2.5 rounded-lg transition-all disabled:opacity-50 hidden sm:flex items-center gap-2 cursor-pointer active:translate-y-[1px]"
+                  className="min-h-[48px] bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 font-medium text-xs px-4 py-2.5 rounded-lg transition-all disabled:opacity-50 hidden sm:flex items-center gap-2 cursor-pointer active:translate-y-[1px]"
                   title="Guardar expediente completo (Fotos + Zonas)"
                 >
                   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -604,36 +608,36 @@ function MobileContent() {
         </div>
       </div>
 
-      {/* MODAL DE ÉXITO OPERATIVO (SMOKED OBSIDIAN SHEET) */}
+      {/* MODAL DE ÉXITO OPERATIVO (SHEET CLARA MODAL) */}
       {modalCompletado && (
-        <div className="fixed inset-0 bg-[#0A0F1D]/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
           <div
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-exito-title"
-            className="bg-[#0A0F1D]/95 backdrop-blur-xl rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-white/10 text-white text-center animate-in fade-in zoom-in-95 duration-150"
+            className="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-200 text-slate-900 text-center animate-in fade-in zoom-in-95 duration-150"
           >
-            <div className="w-12 h-12 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-3">
+            <div className="w-12 h-12 bg-emerald-50 border border-emerald-200 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-3">
               <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <polyline points="20 6 9 17 4 12" />
               </svg>
             </div>
 
-            <h3 id="modal-exito-title" className="font-bold text-base text-white mb-1">
+            <h3 id="modal-exito-title" className="font-bold text-base text-slate-900 mb-1">
               {tipoReporteGuardado === 'FOTOGRAFICO'
                 ? 'Reporte Fotográfico Guardado'
                 : tipoReporteGuardado === 'TECNICO'
                 ? 'Ficha Técnica Guardada'
                 : 'Informe Unificado Guardado'}
             </h3>
-            <p className="text-xs text-slate-400 mb-4">
-              La entrega para <strong className="text-white">{siteNombre}</strong> ({siteCodigo}) ha sido registrada con éxito. Estado: <span className="font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/25 font-bold">COMPLETADO</span>.
+            <p className="text-xs text-slate-600 mb-4">
+              La entrega para <strong className="text-slate-900">{siteNombre}</strong> ({siteCodigo}) ha sido registrada con éxito. Estado: <span className="font-mono text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-bold">COMPLETADO</span>.
             </p>
 
             <div className="space-y-2">
               <Link
                 href={`/reportes/${reporteId}/pdf?vista=${tipoReporteGuardado === 'FOTOGRAFICO' ? 'FOTOS' : tipoReporteGuardado === 'TECNICO' ? 'TECNICO' : 'UNIFICADO'}`}
-                className="w-full min-h-[44px] py-2.5 px-4 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs transition-colors flex items-center justify-center gap-2 active:translate-y-[1px]"
+                className="w-full min-h-[44px] py-2.5 px-4 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs transition-colors flex items-center justify-center gap-2 active:translate-y-[1px]"
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -644,9 +648,9 @@ function MobileContent() {
 
               <Link
                 href={`/reportes/${reporteId}/pdf?vista=UNIFICADO`}
-                className="w-full min-h-[44px] py-2.5 px-4 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-slate-200 font-medium text-xs transition-colors flex items-center justify-center gap-2 border border-white/[0.08] active:translate-y-[1px]"
+                className="w-full min-h-[44px] py-2.5 px-4 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 font-medium text-xs transition-colors flex items-center justify-center gap-2 border border-slate-200 active:translate-y-[1px]"
               >
-                <svg className="w-4 h-4 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <svg className="w-4 h-4 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <polygon points="12 2 2 7 12 12 22 7 12 2" />
                   <polyline points="2 17 12 22 22 17" />
                   <polyline points="2 12 12 17 22 12" />
@@ -656,7 +660,7 @@ function MobileContent() {
 
               <Link
                 href="/campo"
-                className="w-full min-h-[44px] py-2.5 px-4 rounded-lg hover:bg-white/[0.05] text-slate-400 hover:text-white font-medium text-xs transition-colors flex items-center justify-center gap-1.5"
+                className="w-full min-h-[44px] py-2.5 px-4 rounded-lg hover:bg-slate-100 text-slate-600 hover:text-slate-900 font-medium text-xs transition-colors flex items-center justify-center gap-1.5"
               >
                 <span>&larr; Volver a Mis Asignaciones</span>
               </Link>
@@ -670,7 +674,7 @@ function MobileContent() {
 
 export default function MobileFieldPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-[#0A0F1D] p-6 text-center text-xs text-slate-400 font-mono">Cargando terminal de torre...</div>}>
+    <Suspense fallback={<div className="min-h-screen bg-slate-50 p-6 text-center text-xs text-slate-500 font-mono">Cargando terminal de torre...</div>}>
       <MobileContent />
     </Suspense>
   );

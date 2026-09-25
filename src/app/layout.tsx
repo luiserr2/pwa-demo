@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <head>
-        <meta name="theme-color" content="#0f172a" />
+        <meta name="theme-color" content="#ffffff" />
         <link rel="manifest" href="/manifest.webmanifest" />
       </head>
       <body className="min-h-screen flex flex-col bg-slate-50 text-slate-900">

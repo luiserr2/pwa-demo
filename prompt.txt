@@ -9,22 +9,28 @@
 #    EXCLUSIVAMENTE en este proyecto: gerson-sisbirceca.
 # ==============================================================================================
 
-# ESTADO ACTUAL: GERSON-SISBIRCECA v3.9.0 (IMPECCABLE 20/20 & CERTIFICACIÓN WCAG AA / WAI-ARIA)
+# ESTADO ACTUAL: GERSON-SISBIRCECA v4.0.0 (VERSIÓN NORMAL CLARA EMPRESARIAL OFICIAL)
 - ARQUITECTURA DE ROLES ESTRICTA (2 ROLES CANÓNICOS):
   * Rol 1: TECNICO (Operaciones de Campo, PWA /campo y /mobile).
   * Rol 2: ADMIN (Dirección de Operaciones, /admin/*, tabulación, gestión y auditoría técnica).
   * Supervisor erradicado del flujo activo: Redirección canónica transparente hacia /admin/dashboard.
 
 - GOBERNANZA VISUAL & SISTEMA DE DISEÑO SSOT (`DESIGN.md` & `PRODUCT.md`):
-  * Puntaje Impeccable Audit: 20/20 Perfecto (A11y 4/4, Perf 4/4, Theming 4/4, Responsive 4/4, Anti-Patterns 4/4).
-  * Resoluciones de accesibilidad ejecutadas:
+  * Migración total a la VERSIÓN NORMAL EMPRESARIAL (Lienzo claro B2B estándar Stripe/Linear/AWS):
+    - Lienzo: `bg-slate-50` / `bg-slate-100` libre de tintes azulados artificiales.
+    - Tarjetas: Blanco puro `bg-white border border-slate-200 rounded-xl shadow-xs`.
+    - Tipografía: Alto contraste `text-slate-900 font-bold` y metadatos `text-slate-500`/`text-slate-600`.
+    - Botones: Azul Telecom corporativo `bg-blue-600 hover:bg-blue-700 text-white` y neutros `bg-white border-slate-300`.
+    - Badges: Pasteles semánticos muted (`bg-emerald-50 text-emerald-800`, `bg-blue-50 text-blue-800`, `bg-amber-50 text-amber-800`).
+  * Erradicación total de AI Tells y Modo Oscuro Artificial:
+    - 0 instancias de fondo `#0A0F1D` o paneles ahumados de ciencia ficción en todo el árbol de vistas.
+    - 0 emojis en todo el árbol de código `src/` (sustituidos al 100% por micro-SVGs vectoriales de 14-16px).
+    - 0 orbes difusos de neón (`blur-[120px]`) y 0 sombras incandescentes circenses (`shadow-[0_0_20px_...]`).
+  * Accesibilidad & Ergonomía de Campo:
     - Vinculación programática `htmlFor`/`id` en 100% de los formularios (Login, Usuarios, Radiobases).
     - Semántica WAI-ARIA Dialog completa (`role="dialog"`, `aria-modal="true"`, `aria-labelledby`) en todos los modales.
     - Soporte completo para lectores de pantalla con `aria-expanded` en acordeones y `aria-label` en inputs de matriz y fotos.
-  * Erradicación total de AI Tells:
-    - 0 emojis en todo el árbol de código `src/` (sustituidos al 100% por micro-SVGs vectoriales de 14-16px).
-    - 0 orbes difusos de neón (`blur-[120px]`) y 0 sombras incandescentes circenses (`shadow-[0_0_20px_...]`).
-    - Paleta canónica: Deep Obsidian `#0A0F1D`, Smoked Glass `bg-slate-900/60 border-white/[0.08]` y Telecom Cobalt `#2563EB`.
+    - Touch Targets ergonómicos de ≥ 48px para uso en torre con guantes.
 
 - REPORTES MODULARES POR SEPARADO Y FUSIÓN INTEGRAL:
   * Entregable 1: Reporte Fotográfico (Álbum de Evidencias Antes vs Después con compresión WebP < 250 KB).

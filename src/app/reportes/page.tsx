@@ -96,26 +96,23 @@ export default function ReportesPage() {
   };
 
   return (
-    <div className="relative min-h-[calc(100vh-3.5rem)] bg-[#0A0F1D] text-slate-100 flex flex-col py-8">
-      {/* RETÍCULA DE FONDO SMOKED OBSIDIAN */}
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] -z-10" />
-
+    <div className="relative min-h-[calc(100vh-3.5rem)] bg-slate-50 text-slate-800 flex flex-col py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 flex flex-col">
-        {/* CABECERA INDUSTRIAL COBALT */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-5 border-b border-white/[0.08]">
+        {/* CABECERA CORPORATIVA */}
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-5 border-b border-slate-200">
           <div>
             <div className="flex items-center gap-2 mb-1.5">
-              <span className="bg-blue-600/15 text-blue-400 text-[10px] font-mono uppercase px-2 py-0.5 rounded border border-blue-500/30 font-semibold tracking-wider">
+              <span className="bg-blue-50 text-blue-700 text-[10px] font-mono uppercase px-2.5 py-1 rounded-md border border-blue-200 font-semibold tracking-wider">
                 Auditoría & Despliegue SSOT
               </span>
-              <span className="text-xs font-medium text-slate-400">
+              <span className="text-xs font-medium text-slate-500">
                 Módulo de Tabulación Rápida y Matriz 48
               </span>
             </div>
-            <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+            <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
               Gestión de Reportes Técnicos & Matriz de Zonas
             </h1>
-            <p className="text-slate-400 text-xs mt-0.5">
+            <p className="text-slate-500 text-xs mt-0.5">
               Persistencia canónica TypeORM &middot; Flujo integral de ciclo de vida del reporte de radiobase.
             </p>
           </div>
@@ -123,7 +120,7 @@ export default function ReportesPage() {
           <div className="flex items-center gap-2.5">
             <Link
               href="/campo"
-              className="bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold px-4 py-2 rounded-xl border border-blue-400/30 shadow-sm transition-all flex items-center gap-2 cursor-pointer active:translate-y-[1px]"
+              className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-4 py-2 rounded-xl shadow-xs transition-all flex items-center gap-2 cursor-pointer active:translate-y-[1px]"
             >
               <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M12 5v14M5 12h14" />
@@ -135,26 +132,26 @@ export default function ReportesPage() {
 
         {/* FEEDBACK NOTIFICATION */}
         {guardadoFeedback && (
-          <div className="mb-6 p-3.5 rounded-xl text-xs font-medium bg-emerald-950/40 text-emerald-300 border border-emerald-500/30 backdrop-blur-md flex items-center justify-between animate-in fade-in duration-200">
+          <div className="mb-6 p-3.5 rounded-xl text-xs font-medium bg-emerald-50 text-emerald-800 border border-emerald-200 flex items-center justify-between shadow-xs animate-in fade-in duration-200">
             <div className="flex items-center gap-2">
-              <svg className="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg className="w-4 h-4 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M20 6L9 17l-5-5" />
               </svg>
               <span>{guardadoFeedback}</span>
             </div>
             <button
               onClick={() => setGuardadoFeedback(null)}
-              className="text-emerald-400 hover:text-white text-xs font-mono"
+              className="text-emerald-700 hover:text-emerald-900 text-xs font-mono font-medium cursor-pointer"
             >
               Cerrar
             </button>
           </div>
         )}
 
-        {/* BARRA DE FILTROS SMOKED OBSIDIAN */}
-        <div className="bg-slate-900/60 backdrop-blur-md rounded-2xl border border-white/[0.08] p-4 mb-6 shadow-sm flex flex-wrap items-center justify-between gap-3">
+        {/* BARRA DE FILTROS CLARA */}
+        <div className="bg-white rounded-xl border border-slate-200 p-4 mb-6 shadow-xs flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider mr-1">
+            <span className="text-[11px] font-mono text-slate-500 uppercase tracking-wider mr-1">
               Filtrar por:
             </span>
             {['TODOS', 'BORRADOR', 'EN_REVISION', 'OBSERVADO', 'APROBADO'].map((st) => (
@@ -163,8 +160,8 @@ export default function ReportesPage() {
                 onClick={() => setFiltroEstado(st)}
                 className={`text-xs font-semibold px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
                   filtroEstado === st
-                    ? 'bg-blue-600/20 text-blue-300 border border-blue-500/40 shadow-sm'
-                    : 'bg-white/[0.03] hover:bg-white/[0.07] text-slate-300 border border-white/[0.06]'
+                    ? 'bg-blue-50 text-blue-700 border border-blue-200 shadow-xs'
+                    : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200'
                 }`}
               >
                 {st}
@@ -172,8 +169,8 @@ export default function ReportesPage() {
             ))}
           </div>
 
-          <span className="text-xs font-mono text-slate-400">
-            Mostrando <span className="text-white font-semibold">{reportesFiltrados.length}</span> de {reportes.length} reportes
+          <span className="text-xs font-mono text-slate-500">
+            Mostrando <span className="text-slate-900 font-semibold">{reportesFiltrados.length}</span> de {reportes.length} reportes
           </span>
         </div>
 
@@ -182,7 +179,7 @@ export default function ReportesPage() {
           {/* LISTADO DE REPORTES (5 COLS) */}
           <div className="lg:col-span-5 space-y-3">
             <div className="flex items-center justify-between mb-1 px-1">
-              <h2 className="text-xs font-bold text-slate-200 uppercase tracking-wider font-mono">
+              <h2 className="text-xs font-bold text-slate-700 uppercase tracking-wider font-mono">
                 Bandeja de Expedientes
               </h2>
               <span className="text-[11px] font-mono text-slate-400">Seleccionar para editar matriz</span>
@@ -195,43 +192,43 @@ export default function ReportesPage() {
                 <div
                   key={rep.id}
                   onClick={() => setZonaActivaReporte(rep.id)}
-                  className={`bg-slate-900/60 backdrop-blur-md rounded-xl p-4 border transition-all cursor-pointer shadow-sm ${
+                  className={`rounded-xl p-4 border transition-all cursor-pointer shadow-xs ${
                     isSelected
-                      ? 'border-blue-500/50 bg-blue-600/[0.06] ring-1 ring-blue-500/30'
-                      : 'border-white/[0.08] hover:border-white/20 hover:bg-white/[0.03]'
+                      ? 'border-blue-500 bg-blue-50/40 ring-1 ring-blue-500/30'
+                      : 'bg-white hover:bg-slate-50/80 border-slate-200 hover:border-slate-300'
                   }`}
                 >
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-mono text-xs font-bold text-white tracking-wide">
+                    <span className="font-mono text-xs font-bold text-slate-900 tracking-wide">
                       {rep.codigo}
                     </span>
                     <span
                       className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded border font-semibold ${
                         rep.estado === 'APROBADO'
-                          ? 'bg-emerald-950/40 text-emerald-300 border-emerald-500/30'
+                          ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
                           : rep.estado === 'OBSERVADO'
-                          ? 'bg-amber-950/40 text-amber-300 border-amber-500/30'
+                          ? 'bg-amber-50 text-amber-800 border-amber-200'
                           : rep.estado === 'EN_REVISION'
-                          ? 'bg-blue-950/40 text-blue-300 border-blue-500/30'
-                          : 'bg-white/[0.04] text-slate-300 border-white/[0.08]'
+                          ? 'bg-blue-50 text-blue-800 border-blue-200'
+                          : 'bg-slate-100 text-slate-700 border-slate-200'
                       }`}
                     >
                       {rep.estado}
                     </span>
                   </div>
 
-                  <h3 className="font-bold text-slate-100 text-sm mb-1">{rep.radiobase}</h3>
-                  <div className="text-xs text-slate-400 flex items-center justify-between">
-                    <span>Técnico: {rep.tecnico}</span>
-                    <span className="font-mono text-slate-300">{rep.fotosCount} fotos</span>
+                  <h3 className="font-bold text-slate-900 text-sm mb-1">{rep.radiobase}</h3>
+                  <div className="text-xs text-slate-500 flex items-center justify-between">
+                    <span>Técnico: <strong className="text-slate-700 font-medium">{rep.tecnico}</strong></span>
+                    <span className="font-mono text-slate-600">{rep.fotosCount} fotos</span>
                   </div>
 
-                  <div className="mt-3 pt-2.5 border-t border-white/[0.06] flex items-center justify-between text-[11px]">
+                  <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px]">
                     <span className="text-slate-400 font-mono">Fecha: {rep.fechaVisita}</span>
                     <Link
                       href={`/reportes/${rep.id}/pdf`}
                       onClick={(e) => e.stopPropagation()}
-                      className="text-blue-400 hover:text-blue-300 font-medium flex items-center gap-1 transition-colors"
+                      className="text-blue-600 hover:text-blue-800 font-semibold flex items-center gap-1 transition-colors"
                     >
                       <span>Auditoría PDF</span>
                       <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -245,19 +242,19 @@ export default function ReportesPage() {
           </div>
 
           {/* MATRIZ DE 48 ZONAS (7 COLS) */}
-          <div className="lg:col-span-7 bg-slate-900/60 backdrop-blur-md rounded-2xl border border-white/[0.08] p-5 shadow-sm flex flex-col">
-            <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-white/[0.08]">
+          <div className="lg:col-span-7 bg-white rounded-xl border border-slate-200 p-5 shadow-xs flex flex-col">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-slate-200">
               <div>
-                <h2 className="text-sm font-bold text-white tracking-wide">
+                <h2 className="text-sm font-bold text-slate-900 tracking-wide">
                   Matriz Canónica de 48 Zonas (TypeORM)
                 </h2>
-                <p className="text-xs text-slate-400 mt-0.5">
+                <p className="text-xs text-slate-500 mt-0.5">
                   Grid pre-renderizado con 48 entradas obligatorias para auditoría de alarma y sensores.
                 </p>
               </div>
               <button
                 onClick={handleGuardarZonas}
-                className="bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold px-3.5 py-2 rounded-xl border border-blue-400/30 shadow-sm transition-all flex items-center gap-1.5 cursor-pointer active:translate-y-[1px]"
+                className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-3.5 py-2 rounded-xl shadow-xs transition-all flex items-center gap-1.5 cursor-pointer active:translate-y-[1px]"
               >
                 <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
@@ -275,9 +272,9 @@ export default function ReportesPage() {
                   {zonas.map((zona) => (
                     <div
                       key={zona.id}
-                      className="flex items-center gap-2 p-2 rounded-xl border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.04] transition-colors"
+                      className="flex items-center gap-2 p-2 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-slate-100/70 transition-colors"
                     >
-                      <span className="w-7 h-7 rounded-lg bg-slate-950 border border-white/10 text-white font-mono font-bold flex items-center justify-center shrink-0 text-xs">
+                      <span className="w-7 h-7 rounded-lg bg-slate-200 border border-slate-300 text-slate-800 font-mono font-bold flex items-center justify-center shrink-0 text-xs">
                         {zona.id}
                       </span>
                       <input
@@ -285,24 +282,24 @@ export default function ReportesPage() {
                         value={zona.desc}
                         aria-label={`Descripción de la zona de seguridad ${zona.id}`}
                         onChange={(e) => handleZonaChange(zona.id, e.target.value, zona.estado)}
-                        className="flex-1 min-w-0 bg-slate-950/60 border border-white/10 rounded-lg px-2.5 py-1.5 text-slate-200 text-xs placeholder:text-slate-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500/30"
+                        className="flex-1 min-w-0 bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-slate-900 text-xs placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                         placeholder={`Descripción zona ${zona.id}`}
                       />
                       <select
                         value={zona.estado}
                         aria-label={`Estado de la zona de seguridad ${zona.id}`}
                         onChange={(e) => handleZonaChange(zona.id, zona.desc, e.target.value)}
-                        className={`rounded-lg px-2 py-1.5 font-mono font-semibold text-[10px] border transition-colors shrink-0 ${
+                        className={`rounded-lg px-2 py-1.5 font-mono font-semibold text-[10px] border transition-colors shrink-0 bg-white cursor-pointer ${
                           zona.estado === 'OK'
-                            ? 'bg-emerald-950/50 text-emerald-300 border-emerald-500/30'
+                            ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
                             : zona.estado === 'ALARMA'
-                            ? 'bg-rose-950/50 text-rose-300 border-rose-500/30'
-                            : 'bg-amber-950/50 text-amber-300 border-amber-500/30'
+                            ? 'bg-rose-50 text-rose-800 border-rose-300'
+                            : 'bg-amber-50 text-amber-800 border-amber-300'
                         }`}
                       >
-                        <option value="OK" className="bg-[#0A0F1D] text-emerald-300">OK</option>
-                        <option value="ALARMA" className="bg-[#0A0F1D] text-rose-300">ALARMA</option>
-                        <option value="DESCONECTADO" className="bg-[#0A0F1D] text-amber-300">DESCONECTADO</option>
+                        <option value="OK">OK</option>
+                        <option value="ALARMA">ALARMA</option>
+                        <option value="DESCONECTADO">DESCONECTADO</option>
                       </select>
                     </div>
                   ))}

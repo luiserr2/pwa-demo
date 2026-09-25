@@ -158,35 +158,35 @@ export default function AdminRadiobasesPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full pb-20">
-      {/* HEADER (STITCH SPEC) */}
-      <div className="flex flex-wrap items-center justify-between gap-4 mb-7 pb-6 border-b border-white/[0.08]">
+      {/* HEADER */}
+      <div className="flex flex-wrap items-center justify-between gap-4 mb-7 pb-6 border-b border-slate-200">
         <div>
           <div className="flex items-center gap-2 mb-2">
             <Link
               href="/admin/dashboard"
-              className="text-xs font-medium text-slate-400 hover:text-white transition-colors flex items-center gap-1 group"
+              className="text-xs font-medium text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-1 group"
             >
               <svg className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M19 12H5M12 19l-7-7 7-7" />
               </svg>
               <span>Volver al Dashboard</span>
             </Link>
-            <span className="text-slate-600">&middot;</span>
-            <span className="bg-white/[0.04] text-blue-400 text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-md tracking-wider border border-blue-500/25 font-semibold">
+            <span className="text-slate-300">&middot;</span>
+            <span className="bg-slate-100 text-slate-700 text-[10px] font-mono uppercase px-2.5 py-0.5 rounded border border-slate-200 font-semibold tracking-wider">
               Catálogo de Infraestructura
             </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
             Catálogo Maestro de Radiobases y Torres
           </h1>
-          <p className="text-slate-400 text-xs sm:text-sm mt-0.5">
+          <p className="text-slate-500 text-xs sm:text-sm mt-0.5">
             Base de datos homologada de sitios telecom para asignación e inspección en campo.
           </p>
         </div>
 
         <button
           onClick={() => setModalNuevo(true)}
-          className="bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs px-4 py-2.5 rounded-lg shadow-sm transition-all flex items-center gap-2 cursor-pointer active:translate-y-[1px]"
+          className="bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs px-4 py-2.5 rounded-lg shadow-sm transition-colors flex items-center gap-2 cursor-pointer active:translate-y-[1px]"
         >
           <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <line x1="12" y1="5" x2="12" y2="19" />
@@ -196,28 +196,28 @@ export default function AdminRadiobasesPage() {
         </button>
       </div>
 
-      {/* FILTER BAR (SMOKED GLASS) */}
-      <div className="bg-slate-900/60 backdrop-blur-md rounded-xl border border-white/[0.08] p-4 mb-7 shadow-[0_4px_24px_-2px_rgba(10,15,29,0.8)] flex flex-wrap items-center justify-between gap-3">
+      {/* FILTER BAR */}
+      <div className="bg-white rounded-xl border border-slate-200 p-4 mb-7 shadow-sm flex flex-wrap items-center justify-between gap-3">
         <div className="flex-1 min-w-[240px] relative">
           <input
             type="text"
             value={busqueda}
             onChange={(e) => setBusqueda(e.target.value)}
             placeholder="Buscar por código o nombre de sitio..."
-            className="w-full text-xs px-3.5 py-2.5 bg-white/[0.03] border border-white/10 rounded-lg text-white placeholder-slate-500 focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30 focus:outline-none transition-all font-medium"
+            className="w-full text-xs px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 focus:bg-white focus:border-blue-600 focus:ring-1 focus:ring-blue-600 focus:outline-none transition-all font-medium"
           />
         </div>
 
-        <div className="flex items-center gap-1 bg-white/[0.03] p-1 rounded-lg border border-white/[0.08] text-xs">
-          <span className="text-[10px] font-mono uppercase text-slate-400 px-2 tracking-wider">Región:</span>
+        <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-lg border border-slate-200 text-xs">
+          <span className="text-[10px] font-mono uppercase text-slate-500 px-2 tracking-wider">Región:</span>
           {['TODAS', 'AMBA / CABA', 'Patagonia Norte', 'Centro', 'Cuyo'].map((reg) => (
             <button
               key={reg}
               onClick={() => setFiltroRegion(reg)}
               className={`text-xs font-medium px-3 py-1 rounded-md transition-all cursor-pointer ${
                 filtroRegion === reg
-                  ? 'bg-blue-600 text-white font-semibold shadow-xs'
-                  : 'text-slate-400 hover:text-white hover:bg-white/[0.04]'
+                  ? 'bg-white text-slate-900 font-semibold shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               {reg}
@@ -226,25 +226,25 @@ export default function AdminRadiobasesPage() {
         </div>
       </div>
 
-      {/* TABLA PRINCIPAL (HIGH DENSITY SMOKED GLASS) */}
-      <div className="bg-slate-900/60 backdrop-blur-md rounded-xl border border-white/[0.08] shadow-[0_4px_24px_-2px_rgba(10,15,29,0.8)] overflow-hidden">
-        <div className="p-4 sm:p-5 border-b border-white/[0.08] flex flex-wrap items-center justify-between gap-3">
+      {/* TABLA PRINCIPAL */}
+      <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div className="p-4 sm:p-5 border-b border-slate-200 flex flex-wrap items-center justify-between gap-3">
           <div>
-            <h2 className="text-sm font-bold text-white tracking-tight">
+            <h2 className="text-sm font-bold text-slate-900 tracking-tight">
               Sitios e Infraestructura Homologada
             </h2>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-500">
               Ubicaciones registradas para auditoría técnica y relevamiento de fotos.
             </p>
           </div>
-          <span className="text-xs font-mono font-semibold bg-white/[0.04] text-slate-300 px-3 py-1 rounded-md border border-white/[0.08]">
+          <span className="text-xs font-mono font-semibold bg-slate-100 text-slate-700 px-3 py-1 rounded border border-slate-200">
             {filtradas.length} Sitios Visibles
           </span>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-xs text-left">
-            <thead className="bg-white/[0.02] text-slate-400 font-mono uppercase text-[10px] tracking-wider border-b border-white/[0.08]">
+            <thead className="bg-slate-50 text-slate-500 font-mono uppercase text-[10px] tracking-wider border-b border-slate-200">
               <tr>
                 <th className="p-3.5 pl-5">Código</th>
                 <th className="p-3.5">Nombre de la Torre</th>
@@ -255,23 +255,23 @@ export default function AdminRadiobasesPage() {
                 <th className="p-3.5 pr-5 text-center">Estado</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/[0.04]">
+            <tbody className="divide-y divide-slate-100">
               {filtradas.map((r) => (
-                <tr key={r.id} className="hover:bg-white/[0.02] transition-colors">
-                  <td className="p-3.5 pl-5 font-mono font-bold text-white text-xs">{r.codigo}</td>
-                  <td className="p-3.5 font-bold text-white">{r.nombre}</td>
-                  <td className="p-3.5 text-slate-300 font-medium">{r.region}</td>
-                  <td className="p-3.5 font-mono text-[11px] text-slate-300">{r.tecnologia}</td>
-                  <td className="p-3.5 text-slate-400">{r.tipoTorre}</td>
-                  <td className="p-3.5 font-mono text-[11px] text-slate-400">{r.coordenadas}</td>
+                <tr key={r.id} className="hover:bg-slate-50/70 transition-colors">
+                  <td className="p-3.5 pl-5 font-mono font-bold text-slate-900 text-xs">{r.codigo}</td>
+                  <td className="p-3.5 font-bold text-slate-900">{r.nombre}</td>
+                  <td className="p-3.5 text-slate-700 font-medium">{r.region}</td>
+                  <td className="p-3.5 font-mono text-[11px] text-slate-600">{r.tecnologia}</td>
+                  <td className="p-3.5 text-slate-500">{r.tipoTorre}</td>
+                  <td className="p-3.5 font-mono text-[11px] text-slate-500">{r.coordenadas}</td>
                   <td className="p-3.5 pr-5 text-center">
                     <span
                       className={`text-[10px] font-mono font-semibold uppercase px-2 py-0.5 rounded border ${
                         r.estado === 'ACTIVA'
-                          ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/25'
+                          ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
                           : r.estado === 'MANTENIMIENTO'
-                          ? 'bg-amber-500/10 text-amber-400 border-amber-500/25'
-                          : 'bg-slate-500/10 text-slate-400 border-slate-500/25'
+                          ? 'bg-amber-50 text-amber-800 border-amber-200'
+                          : 'bg-slate-100 text-slate-700 border-slate-200'
                       }`}
                     >
                       {r.estado}
@@ -284,21 +284,21 @@ export default function AdminRadiobasesPage() {
         </div>
       </div>
 
-      {/* MODAL ALTA NUEVA RADIOBASE (SMOKED OBSIDIAN SHEET) */}
+      {/* MODAL ALTA NUEVA RADIOBASE */}
       {modalNuevo && (
-        <div className="fixed inset-0 bg-[#0A0F1D]/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 z-50">
           <div
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-radiobase-title"
-            className="bg-[#0A0F1D]/95 backdrop-blur-xl rounded-2xl p-6 max-w-md w-full shadow-2xl border border-white/10 text-white animate-in fade-in zoom-in-95 duration-150"
+            className="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl border border-slate-200 text-slate-900 animate-in fade-in zoom-in-95 duration-150"
           >
-            <div className="flex items-center justify-between pb-3 border-b border-white/[0.08] mb-4">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
               <div>
-                <h3 id="modal-radiobase-title" className="text-sm font-bold text-white tracking-tight">
+                <h3 id="modal-radiobase-title" className="text-sm font-bold text-slate-900 tracking-tight">
                   Dar de Alta Nueva Radiobase
                 </h3>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-slate-500">
                   Ingrese la ficha técnica del nuevo sitio para homologación:
                 </p>
               </div>
@@ -306,7 +306,7 @@ export default function AdminRadiobasesPage() {
                 type="button"
                 onClick={() => setModalNuevo(false)}
                 aria-label="Cerrar ventana modal"
-                className="w-7 h-7 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-slate-400 hover:text-white border border-white/[0.08] font-bold text-xs flex items-center justify-center transition-colors cursor-pointer"
+                className="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900 border border-slate-200 font-bold text-xs flex items-center justify-center transition-colors cursor-pointer"
               >
                 <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M18 6L6 18M6 6l12 12" />
@@ -316,7 +316,7 @@ export default function AdminRadiobasesPage() {
 
             <form onSubmit={handleCrearRadiobase} className="space-y-4 text-xs">
               <div>
-                <label htmlFor="radiobase-codigo" className="block text-[11px] font-semibold text-slate-300 uppercase mb-1 tracking-wider">
+                <label htmlFor="radiobase-codigo" className="block text-[11px] font-semibold text-slate-700 uppercase mb-1 tracking-wider">
                   Código Único (Ej: RDB-042) *
                 </label>
                 <input
@@ -326,12 +326,12 @@ export default function AdminRadiobasesPage() {
                   value={nuevoCodigo}
                   onChange={(e) => setNuevoCodigo(e.target.value)}
                   placeholder="RDB-042"
-                  className="w-full px-3 py-2 bg-white/[0.03] border border-white/10 rounded-lg text-white placeholder-slate-500 font-mono font-bold focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30 text-xs transition-all uppercase"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 font-mono font-bold focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 text-xs transition-all uppercase"
                 />
               </div>
 
               <div>
-                <label htmlFor="radiobase-nombre" className="block text-[11px] font-semibold text-slate-300 uppercase mb-1 tracking-wider">
+                <label htmlFor="radiobase-nombre" className="block text-[11px] font-semibold text-slate-700 uppercase mb-1 tracking-wider">
                   Nombre Oficial del Sitio *
                 </label>
                 <input
@@ -341,19 +341,19 @@ export default function AdminRadiobasesPage() {
                   value={nuevoNombre}
                   onChange={(e) => setNuevoNombre(e.target.value)}
                   placeholder="Torre San Telmo Central"
-                  className="w-full px-3 py-2 bg-white/[0.03] border border-white/10 rounded-lg text-white placeholder-slate-500 font-semibold focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30 text-xs transition-all"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 font-semibold focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 text-xs transition-all"
                 />
               </div>
 
               <div>
-                <label htmlFor="radiobase-region" className="block text-[11px] font-semibold text-slate-300 uppercase mb-1 tracking-wider">
+                <label htmlFor="radiobase-region" className="block text-[11px] font-semibold text-slate-700 uppercase mb-1 tracking-wider">
                   Región Operativa *
                 </label>
                 <select
                   id="radiobase-region"
                   value={nuevaRegion}
                   onChange={(e) => setNuevaRegion(e.target.value)}
-                  className="w-full px-3 py-2 bg-[#0F172A] border border-white/10 rounded-lg text-white focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30 text-xs font-medium"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 text-xs font-medium"
                 >
                   <option value="AMBA / CABA">AMBA / CABA</option>
                   <option value="Patagonia Norte">Patagonia Norte</option>
@@ -364,14 +364,14 @@ export default function AdminRadiobasesPage() {
               </div>
 
               <div>
-                <label htmlFor="radiobase-tecnologia" className="block text-[11px] font-semibold text-slate-300 uppercase mb-1 tracking-wider">
+                <label htmlFor="radiobase-tecnologia" className="block text-[11px] font-semibold text-slate-700 uppercase mb-1 tracking-wider">
                   Tecnología Predominante *
                 </label>
                 <select
                   id="radiobase-tecnologia"
                   value={nuevaTecnologia}
                   onChange={(e) => setNuevaTecnologia(e.target.value)}
-                  className="w-full px-3 py-2 bg-[#0F172A] border border-white/10 rounded-lg text-white focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/30 text-xs font-medium"
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 text-xs font-medium"
                 >
                   <option value="4G / 5G LTE Dual">4G / 5G LTE Dual</option>
                   <option value="5G Ready Standalone">5G Ready Standalone</option>
@@ -380,17 +380,17 @@ export default function AdminRadiobasesPage() {
                 </select>
               </div>
 
-              <div className="pt-3 flex items-center justify-end gap-2 border-t border-white/[0.08]">
+              <div className="pt-3 flex items-center justify-end gap-2 border-t border-slate-100">
                 <button
                   type="button"
                   onClick={() => setModalNuevo(false)}
-                  className="px-4 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/[0.05] font-medium text-xs transition-colors cursor-pointer"
+                  className="px-4 py-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 font-medium text-xs transition-colors cursor-pointer"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs px-5 py-2 rounded-lg shadow-sm transition-all cursor-pointer active:translate-y-[1px]"
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs px-5 py-2 rounded-lg shadow-sm transition-all cursor-pointer active:translate-y-[1px]"
                 >
                   Guardar Radiobase
                 </button>

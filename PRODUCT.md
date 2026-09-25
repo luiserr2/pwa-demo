@@ -30,7 +30,7 @@ SISBIRCECA es una plataforma industrial B2B de grado misión crítica para la ge
 
 1. **Cockpit Density**: Tablas compactas, telemetría estructurada y tipografía monoespaciada para datos duros (IPs, coordenadas GPS, códigos de sitio y hashes).
 2. **Deterministic Integrity**: Cada intervención produce un expediente auditable con firma digital del operador y hash SHA-256 inmutable.
-3. **Single-Accent Restraint**: Base neutral en Smoked Obsidian Glass (`#0A0F1D`) con un único acento funcional de control: Telecom Cobalt (`#2563EB`).
+3. **Single-Accent Restraint**: Base neutral en Lienzo Corporativo Claro (`#F8FAFC`) con tarjetas blancas de alto contraste y un único acento funcional de control: Telecom Cobalt (`#2563EB`).
 4. **Field Ergonomics**: Botones de acción masivos (≥ 48px) para trabajo con guantes en torre, contraste reforzado WCAG AAA para sol directo y sincronización offline PWA.
 
 ## Accessibility & Inclusion
