@@ -12,7 +12,7 @@ const ACTIVIDAD_INICIAL = [
     region: 'AMBA / CABA',
     tecnico: 'Gerson Martínez',
     cuadrilla: 'Cuadrilla 04',
-    estado: 'EN_REVISION',
+    estado: 'COMPLETADO',
     fotosPares: '6/6 pares',
     fecha: '2026-09-22 11:40',
     tecnologia: '4G / 5G LTE Dual',
@@ -25,7 +25,7 @@ const ACTIVIDAD_INICIAL = [
     region: 'Patagonia Norte',
     tecnico: 'Carlos Gómez',
     cuadrilla: 'Cuadrilla 09',
-    estado: 'OBSERVADO',
+    estado: 'EN_PROGRESO',
     fotosPares: '5/6 pares',
     fecha: '2026-09-22 10:15',
     tecnologia: '4G LTE / Microondas',
@@ -38,10 +38,23 @@ const ACTIVIDAD_INICIAL = [
     region: 'Centro',
     tecnico: 'Martín Albornoz',
     cuadrilla: 'Cuadrilla 02',
-    estado: 'APROBADO',
+    estado: 'COMPLETADO',
     fotosPares: '6/6 pares',
     fecha: '2026-09-21 16:30',
     tecnologia: '5G Standalone',
+  },
+  {
+    id: 'rep-004',
+    sitio: 'Palermo Soho Microcelda',
+    codigo: 'RDB-004_20260920',
+    siteCodigo: 'RDB-004',
+    region: 'CABA Norte',
+    tecnico: 'Gerson Martínez',
+    cuadrilla: 'Cuadrilla 04',
+    estado: 'PENDIENTE',
+    fotosPares: '0/6 pares',
+    fecha: '2026-09-20 09:00',
+    tecnologia: '4G LTE',
   },
 ];
 
@@ -52,7 +65,6 @@ export default function AdminDashboardPage() {
     totalRadiobases: number;
     totalTecnicos: number;
     reportesPorEstado: Record<string, number>;
-    tasaAprobacionPorcentaje: string;
   } | null>(null);
 
   useEffect(() => {
@@ -71,70 +83,67 @@ export default function AdminDashboardPage() {
       .then((res) => res.json())
       .then((json) => {
         if (json.ok && Array.isArray(json.data) && json.data.length > 0) {
-          const mapeados = json.data.map((r: any) => ({
-            id: r.id,
-            sitio: r.radiobase?.nombre || 'Radiobase Telecom',
-            codigo: r.codigo,
-            siteCodigo: r.radiobase?.codigo || 'RDB-001',
-            region: r.radiobase?.region || 'AMBA / CABA',
-            tecnico: r.tecnico?.nombre || 'Técnico Especialista',
-            cuadrilla: 'Cuadrilla Operativa',
-            estado: r.estado,
-            fotosPares: `${r.evidencias?.length || 0}/6 pares`,
-            fecha: r.fechaVisita ? new Date(r.fechaVisita).toLocaleDateString('es-VE') : '2026-09-22',
-            tecnologia: r.radiobase?.tecnologia || '4G / 5G LTE Dual',
-          }));
+          const mapeados = json.data.map((r: any) => {
+            const rawEstado = r.estado;
+            const estadoMapeado =
+              rawEstado === 'APROBADO' || rawEstado === 'COMPLETADO'
+                ? 'COMPLETADO'
+                : rawEstado === 'EN_REVISION' || rawEstado === 'EN_PROGRESO'
+                ? 'EN_PROGRESO'
+                : 'PENDIENTE';
+
+            return {
+              id: r.id,
+              sitio: r.radiobase?.nombre || 'Radiobase Telecom',
+              codigo: r.codigo,
+              siteCodigo: r.radiobase?.codigo || 'RDB-001',
+              region: r.radiobase?.region || 'AMBA / CABA',
+              tecnico: r.tecnico?.nombre || 'Gerson Martínez',
+              cuadrilla: 'Cuadrilla Operativa',
+              estado: estadoMapeado,
+              fotosPares: `${r.evidencias?.length || 0}/6 pares`,
+              fecha: r.fechaVisita ? new Date(r.fechaVisita).toLocaleDateString('es-VE') : '2026-09-22',
+              tecnologia: r.radiobase?.tecnologia || '4G / 5G LTE Dual',
+            };
+          });
           setActividadReciente(mapeados);
         }
       })
       .catch(() => {});
   }, []);
 
-  const handleAprobarReporte = async (reporteId: string) => {
-    try {
-      await fetch(`/api/reportes/${reporteId}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nuevoEstado: 'APROBADO', observacion: 'Aprobado con certificación criptográfica' }),
-      });
-      setActividadReciente((prev) =>
-        prev.map((r) => (r.id === reporteId ? { ...r, estado: 'APROBADO' } : r))
-      );
-    } catch {
-      setActividadReciente((prev) =>
-        prev.map((r) => (r.id === reporteId ? { ...r, estado: 'APROBADO' } : r))
-      );
-    }
-  };
+  const totalCompletados = actividadReciente.filter((a) => a.estado === 'COMPLETADO').length;
+  const totalEnProgreso = actividadReciente.filter((a) => a.estado === 'EN_PROGRESO').length;
+  const totalPendientes = actividadReciente.filter((a) => a.estado === 'PENDIENTE').length;
 
   const kpis = [
     {
-      label: 'Radiobases Homologadas',
+      label: 'Radiobases Atendidas',
       value: stats ? `${stats.totalRadiobases} Sitios` : '42 Sitios',
-      sub: 'Monitoreo 100% activo',
-      trend: '+3 este mes',
+      sub: 'Monitoreo e infraestructura activa',
+      trend: '100% Operativo',
       trendColor: 'text-emerald-700 bg-emerald-50 border border-emerald-200',
     },
     {
-      label: 'Reportes Pendientes QA',
-      value: stats ? `${stats.reportesPorEstado.EN_REVISION || 0} Reportes` : '5 Reportes',
-      sub: 'Tiempo medio: 42 min',
-      trend: 'Atención Prioritaria',
-      trendColor: 'text-amber-700 bg-amber-50 border border-amber-200',
-    },
-    {
-      label: 'Tasa Aprobación Visual',
-      value: stats ? stats.tasaAprobacionPorcentaje : '94.2%',
-      sub: 'Sellados con Hash SHA-256',
-      trend: '+1.8% vs histórico',
+      label: 'Reportes Levantados',
+      value: `${actividadReciente.length} Expedientes`,
+      sub: `${totalCompletados} completados en campo`,
+      trend: `${Math.round((totalCompletados / (actividadReciente.length || 1)) * 100)}% Completitud`,
       trendColor: 'text-emerald-700 bg-emerald-50 border border-emerald-200',
     },
     {
-      label: 'Cuadrillas en Campo Hoy',
+      label: 'Técnicos de Campo',
       value: stats ? `${stats.totalTecnicos} Técnicos` : '6 Cuadrillas',
-      sub: 'Cobertura nacional activa',
-      trend: '100% En Línea',
+      sub: 'Personal habilitado para captura',
+      trend: 'Activos en Ruta',
       trendColor: 'text-slate-700 bg-slate-100 border border-slate-200',
+    },
+    {
+      label: 'Eficiencia de Captura',
+      value: '28 min',
+      sub: 'Tiempo promedio por torre',
+      trend: 'WebP Comprimido',
+      trendColor: 'text-blue-700 bg-blue-50 border border-blue-200',
     },
   ];
 
@@ -149,17 +158,17 @@ export default function AdminDashboardPage() {
         <div>
           <div className="flex items-center gap-2 mb-1.5">
             <span className="bg-slate-900 text-white text-[10px] font-mono uppercase px-2.5 py-0.5 rounded tracking-wider border border-slate-700 font-semibold">
-              Dirección Nacional de Operaciones Telecom
+              Dirección de Operaciones Telecom
             </span>
             <span className="text-xs text-slate-500 font-semibold font-mono">
-              SISBIRCECA v1.1.0 &middot; Telemetría en Vivo
+              SISBIRCECA v1.2.0 &middot; Monitoreo en Vivo
             </span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
-            Dashboard Ejecutivo & Control de Calidad
+            Estadísticas y Monitoreo de Reportes
           </h1>
           <p className="text-slate-500 text-xs sm:text-sm mt-0.5">
-            Supervisión integral de levantamientos técnicos, métricas de aprobación visual y estado de red.
+            Supervisión del levantamiento técnico de radiobases y acceso a expedientes en PDF.
           </p>
         </div>
 
@@ -199,7 +208,7 @@ export default function AdminDashboardPage() {
         ))}
       </div>
 
-      {/* PANEL DE DISTRIBUCIÓN DE INFRAESTRUCTURA Y CICLO DE REVISIÓN */}
+      {/* PANEL DE DISTRIBUCIÓN DE INFRAESTRUCTURA Y ESTADO DE ÓRDENES */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-7">
         {/* DISTRIBUCIÓN TECNOLÓGICA */}
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
@@ -247,65 +256,59 @@ export default function AdminDashboardPage() {
           </div>
         </div>
 
-        {/* ESTADO DEL PIPELINE DE LEVANTAMIENTO */}
+        {/* ESTADO OPERATIVO DE ÓRDENES */}
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm lg:col-span-2">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h2 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
-                Pipeline Mensual de Certificaciones Visuales
+                Estatus Operativo de Intervenciones
               </h2>
-              <p className="text-[11px] text-slate-500 mt-0.5">Trazabilidad en tiempo real de intervenciones técnicas en septiembre 2026</p>
+              <p className="text-[11px] text-slate-500 mt-0.5">Avance de órdenes técnicas asignadas en campo</p>
             </div>
             <span className="text-xs font-mono font-semibold bg-slate-100 text-slate-700 px-2.5 py-1 rounded border border-slate-200">
-              Objetivo: 100% Aprobación
+              Total: {actividadReciente.length} Órdenes
             </span>
           </div>
 
-          <div className="grid grid-cols-4 gap-3 text-center mb-4">
-            <div className="bg-slate-50 border border-slate-200 p-3 rounded-xl">
-              <span className="text-[10px] font-semibold text-slate-500 uppercase block">1. Borrador</span>
-              <span className="text-2xl font-bold text-slate-800 font-mono">4</span>
-              <span className="text-[10px] text-slate-400 block mt-0.5">En captura torre</span>
+          <div className="grid grid-cols-3 gap-3 text-center mb-4">
+            <div className="bg-slate-50 border border-slate-200 p-3.5 rounded-xl">
+              <span className="text-[10px] font-semibold text-slate-500 uppercase block">1. Pendientes</span>
+              <span className="text-2xl font-bold text-slate-800 font-mono">{totalPendientes}</span>
+              <span className="text-[10px] text-slate-400 block mt-0.5">Por visitar</span>
             </div>
-            <div className="bg-slate-50 border border-slate-200 p-3 rounded-xl">
-              <span className="text-[10px] font-semibold text-slate-700 uppercase block">2. En Revisión</span>
-              <span className="text-2xl font-bold text-slate-900 font-mono">5</span>
-              <span className="text-[10px] text-slate-500 font-medium block mt-0.5">Bandeja QA</span>
+            <div className="bg-blue-50/60 border border-blue-200 p-3.5 rounded-xl">
+              <span className="text-[10px] font-semibold text-blue-800 uppercase block">2. En Progreso</span>
+              <span className="text-2xl font-bold text-blue-700 font-mono">{totalEnProgreso}</span>
+              <span className="text-[10px] text-blue-700 font-medium block mt-0.5">Captura en torre</span>
             </div>
-            <div className="bg-amber-50/60 border border-amber-200 p-3 rounded-xl">
-              <span className="text-[10px] font-semibold text-amber-800 uppercase block">3. Observados</span>
-              <span className="text-2xl font-bold text-amber-700 font-mono">2</span>
-              <span className="text-[10px] text-amber-800 font-medium block mt-0.5">Por corregir</span>
-            </div>
-            <div className="bg-emerald-50/60 border border-emerald-200 p-3 rounded-xl">
-              <span className="text-[10px] font-semibold text-emerald-800 uppercase block">4. Aprobados</span>
-              <span className="text-2xl font-bold text-emerald-700 font-mono">31</span>
-              <span className="text-[10px] text-emerald-700 font-medium block mt-0.5">Sellados SHA-256</span>
+            <div className="bg-emerald-50/60 border border-emerald-200 p-3.5 rounded-xl">
+              <span className="text-[10px] font-semibold text-emerald-800 uppercase block">3. Completados</span>
+              <span className="text-2xl font-bold text-emerald-700 font-mono">{totalCompletados}</span>
+              <span className="text-[10px] text-emerald-700 font-medium block mt-0.5">Reportes listos</span>
             </div>
           </div>
 
           <div className="bg-slate-50 p-3.5 rounded-xl text-xs text-slate-600 flex flex-wrap items-center justify-between gap-2 border border-slate-200">
-            <span>SLA Promedio de Respuesta: <strong className="text-slate-900 font-mono">42 min</strong> (SLA Máx: 120 min)</span>
-            <span className="text-slate-500 font-medium">Control de calidad y aprobación centralizada en consola.</span>
+            <span>Flujo directo: Los reportes completados por los técnicos están listos de inmediato para consulta o descarga.</span>
           </div>
         </div>
       </div>
 
-      {/* TABLA DE AUDITORÍA Y ACTIVIDAD RECIENTE */}
+      {/* TABLA DE REPORTES Y ACTIVIDAD RECIENTE */}
       <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
         <div className="p-4 sm:p-5 border-b border-slate-200 flex flex-wrap items-center justify-between gap-3">
           <div>
             <h2 className="text-base font-bold text-slate-900">
-              Registro Auditable de Intervenciones
+              Registro de Reportes de Radiobases
             </h2>
             <p className="text-xs text-slate-500">
-              Historial trazable de reportes, cuadrilla asignada y estado de certificación fotográfica.
+              Historial de levantamientos técnicos con acceso directo al documento PDF.
             </p>
           </div>
 
           {/* FILTROS RÁPIDOS POR ESTADO */}
           <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs">
-            {['TODOS', 'EN_REVISION', 'OBSERVADO', 'APROBADO', 'BORRADOR'].map((st) => (
+            {['TODOS', 'COMPLETADO', 'EN_PROGRESO', 'PENDIENTE'].map((st) => (
               <button
                 key={st}
                 onClick={() => setFiltroEstado(st)}
@@ -330,8 +333,8 @@ export default function AdminDashboardPage() {
                 <th className="p-3">Técnico & Cuadrilla</th>
                 <th className="p-3">Tecnología</th>
                 <th className="p-3">Fotos</th>
-                <th className="p-3">Estado</th>
-                <th className="p-3">Fecha y Hora</th>
+                <th className="p-3">Estatus</th>
+                <th className="p-3">Fecha</th>
                 <th className="p-3 pr-5 text-right">Acción</th>
               </tr>
             </thead>
@@ -352,13 +355,11 @@ export default function AdminDashboardPage() {
                   <td className="p-3">
                     <span
                       className={`text-[10px] font-semibold uppercase px-2 py-0.5 rounded border ${
-                        item.estado === 'APROBADO'
+                        item.estado === 'COMPLETADO'
                           ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                          : item.estado === 'OBSERVADO'
-                          ? 'bg-amber-50 text-amber-700 border-amber-200'
-                          : item.estado === 'EN_REVISION'
-                          ? 'bg-slate-100 text-slate-700 border-slate-200'
-                          : 'bg-slate-50 text-slate-600 border-slate-200'
+                          : item.estado === 'EN_PROGRESO'
+                          ? 'bg-blue-50 text-blue-700 border-blue-200'
+                          : 'bg-slate-100 text-slate-600 border-slate-200'
                       }`}
                     >
                       {item.estado}
@@ -366,23 +367,12 @@ export default function AdminDashboardPage() {
                   </td>
                   <td className="p-3 font-mono text-slate-500 text-[11px]">{item.fecha}</td>
                   <td className="p-3 pr-5 text-right">
-                    <div className="flex items-center justify-end gap-1.5">
-                      {item.estado === 'EN_REVISION' && (
-                        <button
-                          onClick={() => handleAprobarReporte(item.id)}
-                          className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-2.5 py-1.5 rounded-lg text-xs transition-colors shadow-sm cursor-pointer"
-                          title="Aprobar reporte con sello criptográfico SHA-256"
-                        >
-                          ✓ Aprobar
-                        </button>
-                      )}
-                      <Link
-                        href={`/reportes/${item.id}/pdf`}
-                        className="bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold px-3 py-1.5 rounded-lg text-xs transition-colors border border-slate-200 shadow-sm inline-flex items-center gap-1"
-                      >
-                        <span>Expediente PDF</span>
-                      </Link>
-                    </div>
+                    <Link
+                      href={`/reportes/${item.id}/pdf`}
+                      className="bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold px-3 py-1.5 rounded-lg text-xs transition-colors border border-slate-200 shadow-sm inline-flex items-center gap-1.5"
+                    >
+                      <span>📄 Ver PDF</span>
+                    </Link>
                   </td>
                 </tr>
               ))}

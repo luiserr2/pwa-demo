@@ -9,39 +9,49 @@
 #    EXCLUSIVAMENTE en este proyecto: gerson-sisbirceca.
 # ==============================================================================================
 
-# ESTADO ACTUAL: GERSON-SISBIRCECA v2.5.0 (FLUJO CONTINUO DE REPORTES & PANEL ADMIN CON 2 FUNCIONALIDADES)
+# ESTADO ACTUAL: GERSON-SISBIRCECA v3.0.0 (FLUJO CONTINUO SIN APROBACIÓN & PANEL ADMIN FOCALIZADO)
+- CERO BUROCRACIA / SIN FLUJO DE APROBACIÓN:
+  * Estados operativos unificados: PENDIENTE, EN_PROGRESO y COMPLETADO.
+  * El técnico completa la orden en torre y el reporte queda inmediatamente COMPLETADO.
+  * Eliminadas todas las trabas burocráticas de supervisión, aprobación y estados en limbo.
+
 - PANEL ADMINISTRATIVO ENFOCADO EN EXACTAMENTE 2 FUNCIONALIDADES:
   * Funcionalidad 1: Estadísticas de Operaciones (`/admin/dashboard`):
     - 4 KPIs de infraestructura y cobertura.
-    - Distribución tecnológica (4G/5G/Microondas) y pipeline mensual de reportes.
-    - Registro Auditable de Intervenciones con filtrado por estado y botones directos:
-      * `✓ Aprobar Reporte` (sello SHA-256 en vivo para reportes EN_REVISION).
-      * `Expediente PDF` (`/reportes/[id]/pdf`).
-    - Acceso rápido hacia la administración de técnicos.
+    - Distribución tecnológica (4G/5G/Microondas) y conteo real de reportes por estado.
+    - Registro de Intervenciones con acceso directo e instantáneo a:
+      * `📄 Ver PDF` (`/reportes/[id]/pdf`).
+    - Botón superior directo `👥 Administrar Técnicos de Campo →`.
   * Funcionalidad 2: Administración de Personal Técnico (`/admin/usuarios`):
     - Directorio de cuadrillas y técnicos de campo.
     - Modal de registro de nuevos técnicos.
     - Acciones por fila: alternar estado activo/inactivo y eliminación permanente.
+    - Enlace de retorno `← Volver a Estadísticas`.
 
-- APP DE REPORTES TÉCNICOS (EXPERIENCIA FLUIDA EN TORRE SIN FRACTURAS):
+- APP DE REPORTES TÉCNICOS (FLUJO CONTINUO EN TORRE):
   * Continuidad de Contexto `/campo` -> `/mobile`:
     - Selección de orden de trabajo pasa parámetros dinámicos (`reporteId`, `site`, `sitio`).
     - Cabecera en `/mobile` refleja el sitio exacto, orden técnica y cuadrilla activa.
   * Pestañas en `/mobile`:
-    - Pestaña 1: Evidencias Fotográficas (Slots 1 a 6 con bloqueo Antes/Después, compresión WebP y encolado Dexie).
+    - Pestaña 1: Evidencias Fotográficas (Slots 1 a 6 con bloqueo Antes/Después, compresión WebP < 250 KB y encolado Dexie).
     - Pestaña 2: Matriz Técnica de 48 Zonas con botón rápido `⚡ Certificar 48 Zonas Normales` (1 clic).
-  * Modal de Cierre Operativo (Sin Limbo):
-    - Al enviar a revisión, emerge modal de confirmación con dos opciones inmediatas:
+  * Cierre Operativo Directo:
+    - Botón de acción: `Guardar y Completar Reporte`.
+    - Modal de éxito: Estado `COMPLETADO` con botones directos:
       * `📄 Ver Reporte Oficial (PDF)` (`/reportes/[id]/pdf`).
       * `⬅️ Volver a mis Asignaciones` (`/campo`).
 
-- NAVEGACIÓN LIMPIA EN NAVBAR (`Navbar.tsx`):
-  * Administrador: Exclusivamente `Estadísticas` y `Técnicos de Campo`.
-  * Técnico: Exclusivamente `Mis Asignaciones` y `Cámara PWA`.
+- EXPEDIENTE TÉCNICO OFICIAL (`/reportes/[id]/pdf`):
+  * Carátula oficial con estado `COMPLETADO`.
+  * Eliminada la firma de supervisor; consolidado el Sello Digital Criptográfico de Cierre con Hash SHA-256 inmutable y firma del técnico instalador.
+  * Botón inteligente de navegación: `← Volver al Panel`.
+
+- ENRUTAMIENTO Y SEGURIDAD (`middleware.ts`):
+  * Rutas obsoletas `/supervisor` y `/reportes` redirigidas automáticamente al dashboard respectivo según el rol.
+  * Barra de navegación (`Navbar.tsx`): 2 enlaces para Admin (Estadísticas y Técnicos) y 2 para Técnico (Asignaciones y Cámara PWA).
 
 - SUITE DE PRUEBAS & CERTIFICACIÓN:
   * Jest: 34/34 tests unitarios pasando al 100%.
   * TypeScript: 0 errores (`tsc --noEmit` código 0).
-
-## SIGUIENTE PASO
-- Ejecutar verificación del flujo en vivo entre `/campo`, `/mobile` y `/admin/dashboard`.
+  * Build de producción Next.js: Compilación limpia exitosa (código 0).
+  * Servidor Standalone: Operativo en http://localhost:3000.

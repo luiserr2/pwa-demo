@@ -107,7 +107,7 @@ export default function CampoPortalPage() {
       coordenadas: '-34.6118, -58.3635',
       tipo: 'Mantenimiento Preventivo & Fotos 48 Zonas',
       prioridad: 'ALTA',
-      estado: 'EN_PROGRESO',
+      estado: 'COMPLETADO',
       slotsCompletados: 6,
       slotsTotales: 6,
       fotosPendientes: 0,
@@ -119,13 +119,12 @@ export default function CampoPortalPage() {
       nombre: 'Cerro Catedral Repetidor',
       region: 'Patagonia Norte',
       coordenadas: '-41.1714, -71.4392',
-      tipo: 'Subsanación de Foto Observada por QA',
-      prioridad: 'URGENTE',
-      estado: 'OBSERVADO',
+      tipo: 'Inspección de Equipos y Enlaces Microondas',
+      prioridad: 'ALTA',
+      estado: 'EN_PROGRESO',
       slotsCompletados: 5,
       slotsTotales: 6,
       fotosPendientes: 1,
-      observacionQA: 'Slot #2 (PIR): Foto desenfocada por reflejo solar. Tomar desde ángulo izquierdo.',
     },
     {
       id: 'rep-004',
@@ -235,7 +234,7 @@ export default function CampoPortalPage() {
           <div className="space-y-4">
             {asignacionesHoy.map((sitio) => {
               const porcentaje = Math.round((sitio.slotsCompletados / sitio.slotsTotales) * 100);
-              const esObservado = sitio.estado === 'OBSERVADO';
+              const esCompletado = sitio.estado === 'COMPLETADO';
 
               return (
                 <div
@@ -243,8 +242,6 @@ export default function CampoPortalPage() {
                   className={`rounded-2xl p-5 border transition-all ${
                     modoSol
                       ? 'bg-zinc-900 border-zinc-800 text-white'
-                      : esObservado
-                      ? 'bg-white border-amber-300 shadow-sm'
                       : 'bg-white border-slate-200 shadow-sm hover:border-slate-300'
                   }`}
                 >
@@ -267,17 +264,17 @@ export default function CampoPortalPage() {
                     <div className="flex items-center gap-1.5">
                       <span
                         className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded border font-semibold ${
-                          sitio.prioridad === 'URGENTE'
-                            ? 'bg-rose-50 text-rose-700 border-rose-200'
-                            : 'bg-amber-50 text-amber-700 border-amber-200'
+                          sitio.prioridad === 'URGENTE' || sitio.prioridad === 'ALTA'
+                            ? 'bg-amber-50 text-amber-700 border-amber-200'
+                            : 'bg-slate-100 text-slate-600 border-slate-200'
                         }`}
                       >
                         {sitio.prioridad}
                       </span>
                       <span
                         className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded border font-semibold ${
-                          esObservado
-                            ? 'bg-amber-50 text-amber-800 border-amber-300'
+                          esCompletado
+                            ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
                             : sitio.estado === 'EN_PROGRESO'
                             ? 'bg-blue-50 text-blue-700 border-blue-200'
                             : 'bg-slate-100 text-slate-600 border-slate-200'
@@ -292,14 +289,6 @@ export default function CampoPortalPage() {
                     {sitio.tipo} &middot; <span className="font-medium text-slate-600">{sitio.region}</span>
                   </p>
 
-                  {/* ALERTA DE RECHAZO TÉCNICO */}
-                  {esObservado && (
-                    <div className="bg-amber-50/80 border border-amber-200 text-amber-900 p-3 rounded-xl mb-4 text-xs">
-                      <span className="font-semibold block mb-0.5">Observación del Supervisor QA:</span>
-                      <span>{sitio.observacionQA}</span>
-                    </div>
-                  )}
-
                   {/* BARRA DE PROGRESO */}
                   <div className="mb-4">
                     <div className="flex justify-between text-xs mb-1.5">
@@ -311,7 +300,7 @@ export default function CampoPortalPage() {
                     <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden border border-slate-200/50">
                       <div
                         className={`h-2 rounded-full transition-all duration-300 ${
-                          esObservado ? 'bg-amber-600' : 'bg-slate-900'
+                          esCompletado ? 'bg-emerald-600' : 'bg-slate-900'
                         }`}
                         style={{ width: `${porcentaje}%` }}
                       ></div>
@@ -337,12 +326,12 @@ export default function CampoPortalPage() {
                       <Link
                         href={`/mobile?reporteId=${sitio.id}&site=${sitio.siteCodigo}&sitio=${encodeURIComponent(sitio.nombre)}`}
                         className={`flex-1 sm:flex-initial text-center font-medium text-xs px-4 py-2.5 rounded-xl shadow-sm transition-all flex items-center justify-center gap-1.5 ${
-                          esObservado
-                            ? 'bg-amber-600 hover:bg-amber-700 text-white'
+                          esCompletado
+                            ? 'bg-slate-800 hover:bg-slate-900 text-white'
                             : 'bg-slate-900 hover:bg-black text-white'
                         }`}
                       >
-                        <span>{esObservado ? 'Recapturar Foto Observada' : 'Continuar Levantamiento'}</span>
+                        <span>{esCompletado ? 'Ver / Modificar Fotos' : sitio.estado === 'EN_PROGRESO' ? 'Continuar Levantamiento' : 'Iniciar Levantamiento'}</span>
                         <span>&rarr;</span>
                       </Link>
                     </div>

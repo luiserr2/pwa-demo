@@ -514,7 +514,7 @@ function MobileContent() {
             disabled={enviando || fotosCompletas === 0}
             className="bg-slate-900 hover:bg-black text-white font-semibold text-xs px-5 py-3 rounded-xl shadow-md transition-all disabled:opacity-50 flex items-center gap-2 cursor-pointer active:scale-95"
           >
-            <span>{enviando ? 'Guardando...' : 'Finalizar y Enviar Reporte'}</span>
+            <span>{enviando ? 'Guardando...' : 'Guardar y Completar Reporte'}</span>
             <span>&rarr;</span>
           </button>
         </div>
@@ -529,10 +529,10 @@ function MobileContent() {
             </div>
 
             <h3 className="font-bold text-base text-slate-900 mb-1">
-              ¡Reporte Enviado a Control Central!
+              ¡Reporte Guardado Exitosamente!
             </h3>
             <p className="text-xs text-slate-500 mb-4">
-              La inspección para <strong>{siteNombre}</strong> ({siteCodigo}) ha sido registrada en cola segura. Estado: <span className="font-mono text-slate-800 font-bold">EN REVISIÓN</span>.
+              La inspección para <strong>{siteNombre}</strong> ({siteCodigo}) ha sido registrada y finalizada con éxito. Estado: <span className="font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-bold">COMPLETADO</span>.
             </p>
 
             <div className="space-y-2">

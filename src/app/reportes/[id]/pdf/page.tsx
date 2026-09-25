@@ -14,10 +14,9 @@ export default function ReportePDFPage({ params }: { params: { id: string } }) {
     tipoTorre: 'Mástil Autosoportado',
     tecnico: 'Gerson Martínez',
     cedulaTecnico: 'V-24.891.203',
-    supervisor: 'Ing. Roberto Silva',
-    cedulaSupervisor: 'V-18.442.109',
+    cuadrilla: 'Cuadrilla Técnica #04',
     fecha: '2026-09-22',
-    estado: 'APROBADO',
+    estado: 'COMPLETADO',
     hashSha256: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
     datosRed: {
       ipWan: '190.210.45.12',
@@ -41,7 +40,7 @@ export default function ReportePDFPage({ params }: { params: { id: string } }) {
         nombre: 'Cámara Domo Perimetral',
         antes: 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=600&auto=format&fit=crop&q=80',
         despues: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&auto=format&fit=crop&q=80',
-        estado: 'APROBADO',
+        estado: 'COMPLETADO',
       },
       {
         slot: 2,
@@ -49,7 +48,7 @@ export default function ReportePDFPage({ params }: { params: { id: string } }) {
         nombre: 'Sensor PIR Infrarrojo',
         antes: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600&auto=format&fit=crop&q=80',
         despues: 'https://images.unsplash.com/photo-1581092335397-9583fe92d232?w=600&auto=format&fit=crop&q=80',
-        estado: 'APROBADO',
+        estado: 'COMPLETADO',
       },
       {
         slot: 3,
@@ -57,7 +56,7 @@ export default function ReportePDFPage({ params }: { params: { id: string } }) {
         nombre: 'Botón de Pánico Baliza',
         antes: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&auto=format&fit=crop&q=80',
         despues: 'https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=600&auto=format&fit=crop&q=80',
-        estado: 'APROBADO',
+        estado: 'COMPLETADO',
       },
       {
         slot: 4,
@@ -65,7 +64,7 @@ export default function ReportePDFPage({ params }: { params: { id: string } }) {
         nombre: 'Teclado de Alarma y Acceso',
         antes: 'https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=600&auto=format&fit=crop&q=80',
         despues: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&auto=format&fit=crop&q=80',
-        estado: 'APROBADO',
+        estado: 'COMPLETADO',
       },
       {
         slot: 5,
@@ -73,7 +72,7 @@ export default function ReportePDFPage({ params }: { params: { id: string } }) {
         nombre: 'DVR / Grabador NVR',
         antes: 'https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?w=600&auto=format&fit=crop&q=80',
         despues: 'https://images.unsplash.com/photo-1581092162384-8987c1d64718?w=600&auto=format&fit=crop&q=80',
-        estado: 'APROBADO',
+        estado: 'COMPLETADO',
       },
       {
         slot: 6,
@@ -81,7 +80,7 @@ export default function ReportePDFPage({ params }: { params: { id: string } }) {
         nombre: 'Tablero Eléctrico Principal',
         antes: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&auto=format&fit=crop&q=80',
         despues: 'https://images.unsplash.com/photo-1581092787765-7351c2807e3d?w=600&auto=format&fit=crop&q=80',
-        estado: 'APROBADO',
+        estado: 'COMPLETADO',
       },
     ],
   };
@@ -90,15 +89,15 @@ export default function ReportePDFPage({ params }: { params: { id: string } }) {
     <div className="min-h-screen bg-slate-100 py-6 px-4">
       {/* BARRA DE CONTROL SUPERIOR (OCULTA AL IMPRIMIR) */}
       <div className="max-w-4xl mx-auto mb-6 flex items-center justify-between print:hidden">
-        <Link
-          href="/reportes"
-          className="text-xs font-semibold text-slate-600 hover:text-slate-900 hover:underline flex items-center gap-1"
+        <button
+          onClick={() => (window.history.length > 1 ? window.history.back() : (window.location.href = '/admin/dashboard'))}
+          className="text-xs font-semibold text-slate-600 hover:text-slate-900 hover:underline flex items-center gap-1 cursor-pointer"
         >
-          &larr; Volver al Panel de Reportes
-        </Link>
+          &larr; Volver al Panel
+        </button>
         <button
           onClick={() => window.print()}
-          className="bg-slate-900 hover:bg-black text-white text-xs font-semibold px-4 py-2 rounded-lg shadow-sm transition-all flex items-center gap-2"
+          className="bg-slate-900 hover:bg-black text-white text-xs font-semibold px-4 py-2 rounded-lg shadow-sm transition-all flex items-center gap-2 cursor-pointer"
         >
           <span>Imprimir / Exportar a PDF</span>
         </button>
@@ -146,12 +145,12 @@ export default function ReportePDFPage({ params }: { params: { id: string } }) {
             <span className="font-bold text-slate-900">{reporte.region} ({reporte.tipoTorre})</span>
           </div>
           <div>
-            <span className="block text-[10px] font-bold text-slate-500 uppercase">Técnico</span>
+            <span className="block text-[10px] font-bold text-slate-500 uppercase">Técnico Certificado</span>
             <span className="font-bold text-slate-900">{reporte.tecnico} ({reporte.cedulaTecnico})</span>
           </div>
           <div>
-            <span className="block text-[10px] font-bold text-slate-500 uppercase">Supervisor QA</span>
-            <span className="font-bold text-slate-900">{reporte.supervisor}</span>
+            <span className="block text-[10px] font-bold text-slate-500 uppercase">Cuadrilla Asignada</span>
+            <span className="font-bold text-slate-900">{reporte.cuadrilla}</span>
           </div>
         </div>
 
@@ -274,21 +273,25 @@ export default function ReportePDFPage({ params }: { params: { id: string } }) {
         </div>
 
         {/* FIRMAS Y SELLO INMUTABLE */}
-        <div className="pt-8 border-t-2 border-slate-200 grid grid-cols-2 gap-8 text-center text-xs">
-          <div className="flex flex-col items-center">
-            <div className="w-48 border-b-2 border-slate-400 mb-2 pb-1 font-signature text-base text-slate-700">
+        <div className="pt-8 border-t-2 border-slate-200 grid grid-cols-1 sm:grid-cols-2 gap-8 text-center text-xs">
+          <div className="flex flex-col items-center justify-end">
+            <div className="w-52 border-b-2 border-slate-400 mb-2 pb-1 font-signature text-base text-slate-800">
               Gerson Martínez
             </div>
             <span className="font-extrabold text-slate-900">{reporte.tecnico}</span>
-            <span className="text-[10px] text-slate-500">Técnico Instalador Certificado</span>
+            <span className="text-[10px] text-slate-500">Técnico Instalador Certificado &middot; C.I. {reporte.cedulaTecnico}</span>
           </div>
 
-          <div className="flex flex-col items-center">
-            <div className="w-48 border-b-2 border-slate-800 mb-2 pb-1 font-signature text-base text-slate-800 font-bold">
-              Ing. Roberto Silva
+          <div className="flex flex-col items-center justify-center p-4 rounded-xl border border-dashed border-emerald-300 bg-emerald-50/50">
+            <div className="flex items-center gap-1.5 text-emerald-800 font-bold font-mono text-[11px] mb-1">
+              <span>🔒 SELLO DIGITAL DE CIERRE</span>
             </div>
-            <span className="font-extrabold text-slate-900">{reporte.supervisor}</span>
-            <span className="text-[10px] text-slate-500">Supervisor de Calidad & Operaciones</span>
+            <p className="font-mono text-[9px] text-slate-600 break-all max-w-xs">
+              HASH: {reporte.hashSha256}
+            </p>
+            <span className="text-[9px] text-emerald-700 font-semibold mt-1">
+              Expediente Finalizado &middot; Integridad Criptográfica Verificada
+            </span>
           </div>
         </div>
       </div>

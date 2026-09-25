@@ -73,11 +73,11 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  // 2. Jurisdicción de Auditoría / Validación: /supervisor
-  if (pathname.startsWith('/supervisor')) {
-    if (user.rol !== RolUsuario.ADMIN && user.rol !== RolUsuario.SUPERVISOR) {
-      return NextResponse.redirect(new URL('/campo', request.url));
-    }
+  // 2. Redirección de rutas legadas (/supervisor y /reportes)
+  if (pathname === '/reportes' || pathname.startsWith('/supervisor')) {
+    return NextResponse.redirect(
+      new URL(user.rol === RolUsuario.ADMIN ? '/admin/dashboard' : '/campo', request.url)
+    );
   }
 
   // 3. Jurisdicción TÉCNICO: /campo y /mobile
