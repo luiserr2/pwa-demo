@@ -150,7 +150,7 @@ export default function LoginPage() {
                         </span>
                       </div>
                       <p className="text-xs font-semibold text-slate-700">
-                        Gerson Martínez <span className="text-slate-400 font-mono font-normal">&middot; V-24.891.203</span>
+                        Gerson Martínez <span className="text-slate-500 font-mono font-normal">&middot; V-24.891.203</span>
                       </p>
                       <p className="text-[11px] text-slate-500 mt-1">
                         Captura fotográfica guiada de 6 slots, compresión WebP y encolado offline en torre.
@@ -196,7 +196,7 @@ export default function LoginPage() {
                         </span>
                       </div>
                       <p className="text-xs font-semibold text-slate-700">
-                        Lic. Mariana Fernández <span className="text-slate-400 font-mono font-normal">&middot; V-15.320.841</span>
+                        Lic. Mariana Fernández <span className="text-slate-500 font-mono font-normal">&middot; V-15.320.841</span>
                       </p>
                       <p className="text-[11px] text-slate-500 mt-1">
                         Control general: Monitoreo de radiobases, auditoría de expedientes y gestión de técnicos.
@@ -289,7 +289,7 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <div className="mt-6 text-center text-[11px] text-slate-400 font-mono">
+          <div className="mt-6 text-center text-[11px] text-slate-500 font-mono">
             SISBIRCECA Enterprise &middot; Entorno Certificado de Producción
           </div>
         </div>

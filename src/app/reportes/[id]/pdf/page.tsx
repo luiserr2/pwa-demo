@@ -199,7 +199,7 @@ function ReportePDFContent({ params }: { params: { id: string } }) {
               </svg>
               <span>{reporte.estado}</span>
             </span>
-            <div className="text-[10px] text-slate-400 font-mono">
+            <div className="text-[10px] text-slate-500 font-mono">
               SHA-256: {reporte.hashSha256.substring(0, 16)}...
             </div>
           </div>

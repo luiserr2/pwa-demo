@@ -182,7 +182,7 @@ export default function ReportesPage() {
               <h2 className="text-xs font-bold text-slate-700 uppercase tracking-wider font-mono">
                 Bandeja de Expedientes
               </h2>
-              <span className="text-[11px] font-mono text-slate-400">Seleccionar para editar matriz</span>
+              <span className="text-[11px] font-mono text-slate-500">Seleccionar para editar matriz</span>
             </div>
 
             {reportesFiltrados.map((rep) => {
@@ -224,7 +224,7 @@ export default function ReportesPage() {
                   </div>
 
                   <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px]">
-                    <span className="text-slate-400 font-mono">Fecha: {rep.fechaVisita}</span>
+                    <span className="text-slate-500 font-mono">Fecha: {rep.fechaVisita}</span>
                     <Link
                       href={`/reportes/${rep.id}/pdf`}
                       onClick={(e) => e.stopPropagation()}

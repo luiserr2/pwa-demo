@@ -304,7 +304,7 @@ export default function AdminUsuariosPage() {
             </div>
           </div>
 
-          <div className="pt-2 text-[10px] text-slate-400 font-mono">
+          <div className="pt-2 text-[10px] text-slate-500 font-mono">
             * Cero roles innecesarios. Control directo sin intermediación.
           </div>
         </div>

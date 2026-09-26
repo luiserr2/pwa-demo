@@ -261,7 +261,7 @@ export default function CampoPortalPage() {
                         <span className="font-mono text-xs font-bold text-slate-800 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
                           {sitio.siteCodigo}
                         </span>
-                        <span className="font-mono text-[11px] text-slate-400">
+                        <span className="font-mono text-[11px] text-slate-500">
                           {sitio.coordenadas}
                         </span>
                       </div>
@@ -449,7 +449,7 @@ export default function CampoPortalPage() {
             )}
 
             {offlineEvidencias.length === 0 ? (
-              <div className="text-center py-8 text-slate-400 text-xs font-mono">
+              <div className="text-center py-8 text-slate-500 text-xs font-mono">
                 No hay fotos pendientes de sincronización en este dispositivo.
               </div>
             ) : (
