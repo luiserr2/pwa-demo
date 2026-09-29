@@ -1,7 +1,7 @@
-const CACHE_NAME = 'sisbirceca-pwa-v1';
+const CACHE_NAME = 'sisbirceca-pwa-v2';
 const STATIC_ASSETS = [
-  '/',
-  '/mobile',
+  '/login',
+  '/campo',
   '/manifest.webmanifest',
 ];
 
@@ -27,13 +27,40 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
+  
+  // Estrategia Stale-While-Revalidate o Network-First para navegación
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          return caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, response.clone());
+            return response;
+          });
+        })
+        .catch(() => {
+          return caches.match(event.request).then((cachedResponse) => {
+            if (cachedResponse) return cachedResponse;
+            return caches.match('/login');
+          });
+        })
+    );
+    return;
+  }
+
+  // Cache-First para recursos estáticos
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) return cachedResponse;
-      return fetch(event.request).catch(() => {
-        if (event.request.mode === 'navigate') {
-          return caches.match('/mobile');
+      return fetch(event.request).then((response) => {
+        // Solo cachear recursos estáticos exitosos de nuestro dominio
+        if (response && response.status === 200 && response.type === 'basic') {
+          const responseToCache = response.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseToCache);
+          });
         }
+        return response;
       });
     })
   );

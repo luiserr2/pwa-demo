@@ -1,4 +1,4 @@
-# 🛡️ GOBERNANZA ACTIVA: PROYECTO OFICIAL DE PRODUCCIÓN (SISBIRCECA)
+# 🚀 GOBERNANZA ACTIVA: PROYECTO OFICIAL DE PRODUCCIÓN (SISBIRCECA)
 # ==============================================================================================
 # REGLA SUPREMA DE DESARROLLO (SSOT):
 # 1. Este repositorio (c:\Users\luiserr\Videos\gerson-sisbirceca) es la ÚNICA FUENTE DE VERDAD ACTIVA.
@@ -9,11 +9,14 @@
 #    EXCLUSIVAMENTE en este proyecto: gerson-sisbirceca.
 # ==============================================================================================
 
-# ESTADO ACTUAL: GERSON-SISBIRCECA v4.0.0 (VERSIÓN NORMAL CLARA EMPRESARIAL OFICIAL)
+# ESTADO ACTUAL: GERSON-SISBIRCECA v4.1.0 (VERSIÓN NORMAL CLARA EMPRESARIAL OFICIAL + B2B LOGIN)
 - ARQUITECTURA DE ROLES ESTRICTA (2 ROLES CANÓNICOS):
   * Rol 1: TECNICO (Operaciones de Campo, PWA /campo y /mobile).
   * Rol 2: ADMIN (Dirección de Operaciones, /admin/*, tabulación, gestión y auditoría técnica).
-  * Supervisor erradicado del flujo activo: Redirección canónica transparente hacia /admin/dashboard.
+
+- UX B2B ENTERPRISE:
+  * El sistema ahora cuenta con un Formulario de Login tradicional (Correo/Contraseña) libre de mockups "Wizards" para seleccionar roles. La redirección es automática post-auth al dashboard correspondiente.
+  * Root Page transparente que intercepta el estado de `useAuth` y redirige sin parpadeos ni "UI de consola falsa" (eliminando el AI Slop residual).
 
 - GOBERNANZA VISUAL & SISTEMA DE DISEÑO SSOT (`DESIGN.md` & `PRODUCT.md`):
   * Migración total a la VERSIÓN NORMAL EMPRESARIAL (Lienzo claro B2B estándar Stripe/Linear/AWS):
@@ -21,24 +24,10 @@
     - Tarjetas: Blanco puro `bg-white border border-slate-200 rounded-xl shadow-xs`.
     - Tipografía: Alto contraste `text-slate-900 font-bold` y metadatos `text-slate-500`/`text-slate-600`.
     - Botones: Azul Telecom corporativo `bg-blue-600 hover:bg-blue-700 text-white` y neutros `bg-white border-slate-300`.
-    - Badges: Pasteles semánticos muted (`bg-emerald-50 text-emerald-800`, `bg-blue-50 text-blue-800`, `bg-amber-50 text-amber-800`).
   * Erradicación total de AI Tells y Modo Oscuro Artificial:
-    - 0 instancias de fondo `#0A0F1D` o paneles ahumados de ciencia ficción en todo el árbol de vistas.
-    - 0 emojis en todo el árbol de código `src/` (sustituidos al 100% por micro-SVGs vectoriales de 14-16px).
-    - 0 orbes difusos de neón (`blur-[120px]`) y 0 sombras incandescentes circenses (`shadow-[0_0_20px_...]`).
-  * Accesibilidad & Ergonomía de Campo:
-    - Vinculación programática `htmlFor`/`id` en 100% de los formularios (Login, Usuarios, Radiobases).
-    - Semántica WAI-ARIA Dialog completa (`role="dialog"`, `aria-modal="true"`, `aria-labelledby`) en todos los modales.
-    - Soporte completo para lectores de pantalla con `aria-expanded` en acordeones y `aria-label` en inputs de matriz y fotos.
-    - Touch Targets ergonómicos de ≥ 48px para uso en torre con guantes.
+    - 0 instancias de fondo `#0A0F1D`.
+    - 0 emojis.
+    - 0 orbes difusos de neón (`blur-[120px]`).
 
-- REPORTES MODULARES POR SEPARADO Y FUSIÓN INTEGRAL:
-  * Entregable 1: Reporte Fotográfico (Álbum de Evidencias Antes vs Después con compresión WebP < 250 KB).
-  * Entregable 2: Reporte Técnico (Acta de Homologación con conectividad IP, equipos y matriz de 48 zonas).
-  * Entregable 3: Informe Unificado (Fusión consolidada de ambos módulos en un único expediente oficial).
-
-- SUITE DE PRUEBAS & CERTIFICACIÓN:
-  * Jest: 34/34 tests unitarios y de dominio pasando al 100%.
-  * TypeScript: 0 errores (`tsc --noEmit` código 0).
-  * Next.js Production Build: 19/19 rutas compiladas exitosamente (código 0).
-  * Servidor Standalone: Operativo en http://localhost:3000 con HTTP 200 en todas las terminales.
+- SIGUIENTE PASO ESTRATÉGICO:
+  * Conectar el formulario B2B a TypeORM Auth o avanzar a despliegue productivo.

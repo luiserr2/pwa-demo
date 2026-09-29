@@ -10,8 +10,8 @@ export function Navbar() {
   const pathname = usePathname();
   const [modalSwitch, setModalSwitch] = useState(false);
 
-  // En login y mobile no se muestra el navbar de escritorio
-  if (pathname === '/login' || pathname === '/mobile') {
+  // En login, mobile, admin y campo no se muestra el navbar global de escritorio
+  if (pathname === '/login' || pathname === '/mobile' || pathname.startsWith('/admin') || pathname.startsWith('/campo')) {
     return null;
   }
 
