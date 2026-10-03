@@ -72,11 +72,12 @@ Mecanismos de respaldo forense para auditorías de operadoras y entes regulatori
 La contratación bajo la modalidad **"Llave en Mano"** incluye:
 1. **Plataforma Desplegada y Operativa:** Servidor en producción bajo contenedor Docker, con certificado de seguridad SSL (HTTPS) y dominio corporativo configurado.
 2. **Base de Datos PostgreSQL 16 Normalizada:** Esquema relacional optimizado con rutina de respaldos automáticos diarios.
-3. **Código Fuente Completo:** Repositorio Git privado con código estructurado en TypeScript, sin deuda técnica y con 34 pruebas automatizadas passing.
-4. **Capacitación Operativa (2 Sesiones):**
+3. **Licencia de Uso Empresarial (EULA B2B):** Otorgamiento de una Licencia de Uso Comercial, No Exclusiva e Intransferible, para la operación y gestión técnica de hasta 10 usuarios concurrentes en la infraestructura de LA EMPRESA.
+4. **Propiedad Intelectual y Reserva Estricta de Código Fuente:** La totalidad de la arquitectura, código fuente, algoritmos matemáticos de compresión y sellado SHA-256, esquemas y derechos patrimoniales son y permanecerán bajo la propiedad intelectual exclusiva del EQUIPO DESARROLLADOR. El presente acuerdo no constituye venta de software ni cesión de derechos de autor; se prohíbe taxativamente la ingeniería inversa, descompilación, sublicenciamiento, copia o cesión a terceros.
+5. **Capacitación Operativa (2 Sesiones):**
    * *Sesión 1:* Inducción técnica a cuadrillas de campo sobre el uso de la PWA offline en smartphone.
    * *Sesión 2:* Capacitación a supervisores y jefes de proyecto sobre la consola NOC, filtros y emisión de actas PDF.
-5. **Manuales de Usuario en PDF:** Guía ilustrada de campo y manual de administración del sistema.
+6. **Manuales de Usuario en PDF:** Guía ilustrada de campo y manual de administración del sistema.
 
 **Exclusiones del Alcance:**
 * Provisión de teléfonos inteligentes, tablets o computadoras de escritorio.
@@ -106,15 +107,20 @@ La contratación bajo la modalidad **"Llave en Mano"** incluye:
 | **Hito 2: Consola NOC, Filtros Dinámicos & Webhooks** | 28 hrs | $35 USD | $980.00 |
 | **Hito 3: Auditoría Append-Only & Certificación PDF** | 26 hrs | $35 USD | $910.00 |
 | **Hito 4: Despliegue Cloud, CI/CD, SSL & Capacitación** | 18 hrs | $35 USD | $630.00 |
-| **TOTAL IMPLEMENTACIÓN LLAVE EN MANO:** | **96 hrs** | — | **$3,360.00 USD** |
+| **TARIFA ÚNICA DE IMPLEMENTACIÓN Y SETUP:** | **96 hrs** | — | **$3,360.00 USD** |
 
-#### B. Forma de Pago por Hitos de Avance
+#### B. Forma de Pago del Setup (Escalonada por Hitos)
 * **Anticipo Inicial (30%):** **$1,008.00 USD** al firmar la orden de servicio e iniciar la Fase 1.
 * **Pago Intermedio (30%):** **$1,008.00 USD** contra demostración funcional en staging de los Hitos 1 y 2 (Semana 3).
-* **Finiquito de Cierre (40%):** **$1,344.00 USD** contra entrega del sistema en producción, capacitación al personal y firma del acta de recepción (Semana 5).
+* **Finiquito de Cierre y Activación (40%):** **$1,344.00 USD** contra entrega del sistema en producción, capacitación al personal y firma del acta de recepción (Semana 5).
 
-#### C. Costo Operativo Mensual de Infraestructura Cloud
-Para la etapa inicial de hasta 10 usuarios concurrentes, el hosting y almacenamiento cloud tienen un costo estimado de **$20.00 a $45.00 USD mensuales** (facturados directamente por el proveedor de nube AWS o Google Cloud), incluyendo respaldos automatizados diarios y alta velocidad de transferencia.
+#### C. Canon Mensual de Licenciamiento de Uso, Infraestructura y Soporte
+A partir de la puesta en marcha en producción (posterior a los 30 días de garantía gratuita inicial), el servicio continuará operativo bajo un **Canon Mensual de Servicio Integral**:
+* **Plan Mensual Corporativo (Hasta 10 Usuarios Activos):** **$180.00 USD / mes**
+  * Incluye derecho de uso ininterrumpido de la plataforma PWA y Consola NOC (EULA).
+  * Incluye hosting Cloud de alta velocidad y respaldos bancarios diarios automatizados.
+  * Incluye almacenamiento de hasta 20,000 fotografías de evidencias y actas técnicas en PDF.
+  * Incluye mantenimiento preventivo, parches de seguridad y soporte técnico Nivel 2.
 
 ---
 
