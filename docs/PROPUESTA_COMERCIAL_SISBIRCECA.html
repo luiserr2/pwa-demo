@@ -3,639 +3,376 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Propuesta Comercial y Técnica — Sistema SISBIRCECA</title>
+  <title>Contrato de Licenciamiento y Prestación de Servicios Tecnológicos — SISBIRCECA</title>
   <style>
     :root {
-      --bg-body: #f8fafc;
-      --bg-card: #ffffff;
-      --text-main: #0f172a;
+      --bg-page: #f1f5f9;
+      --bg-sheet: #ffffff;
+      --text-dark: #0f172a;
+      --text-body: #1e293b;
       --text-muted: #475569;
-      --text-light: #64748b;
-      --primary: #0284c7;
-      --primary-dark: #0369a1;
-      --primary-light: #f0f9ff;
-      --primary-border: #bae6fd;
-      --slate-900: #0f172a;
-      --slate-800: #1e293b;
-      --slate-100: #f1f5f9;
-      --border-subtle: #e2e8f0;
-      --border-strong: #cbd5e1;
-      --success: #059669;
-      --success-light: #ecfdf5;
-      --radius-sm: 6px;
-      --radius-md: 10px;
-      --radius-lg: 14px;
+      --border-color: #cbd5e1;
+      --primary: #0f172a;
+      --accent: #0369a1;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg-body);
-      color: var(--text-main);
-      line-height: 1.6;
-      padding: 40px 20px;
+      background-color: var(--bg-page);
+      font-family: "Georgia", "Cambria", "Times New Roman", serif;
+      color: var(--text-body);
+      line-height: 1.7;
+      padding: 40px 15px;
       -webkit-font-smoothing: antialiased;
     }
-    .document-container {
-      max-width: 960px;
-      margin: 0 auto;
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-      overflow: hidden;
-    }
-    .top-action-bar {
-      background: var(--slate-900);
-      color: #ffffff;
-      padding: 12px 32px;
+
+    .toolbar-actions {
+      max-width: 850px;
+      margin: 0 auto 20px auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      background: #0f172a;
+      padding: 12px 24px;
+      border-radius: 6px;
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       font-size: 13px;
     }
-    .badge-confidential {
-      background: #0284c7;
-      color: #ffffff;
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-    .btn-print {
+
+    .toolbar-actions button {
       background: #0284c7;
       color: #ffffff;
       border: none;
-      padding: 6px 14px;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
+      padding: 8px 16px;
+      border-radius: 4px;
       font-weight: 600;
+      cursor: pointer;
       font-size: 12px;
     }
-    .btn-print:hover { background: #0369a1; }
-    .header-hero {
-      padding: 48px 48px 32px;
-      border-bottom: 1px solid var(--border-subtle);
-      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    .toolbar-actions button:hover { background: #0369a1; }
+
+    .contract-sheet {
+      max-width: 850px;
+      margin: 0 auto;
+      background: var(--bg-sheet);
+      padding: 70px 80px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
     }
-    .org-tag {
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 1.2px;
+
+    /* HEADER NOTARIAL / LEGAL */
+    .contract-header {
+      text-align: center;
+      border-bottom: 2px solid var(--text-dark);
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+    }
+
+    .contract-title {
+      font-size: 17px;
+      font-weight: bold;
       text-transform: uppercase;
-      color: var(--primary);
-      margin-bottom: 12px;
-    }
-    .header-title {
-      font-size: 28px;
-      font-weight: 800;
-      color: var(--slate-900);
-      line-height: 1.3;
+      letter-spacing: 0.8px;
+      color: var(--text-dark);
       margin-bottom: 8px;
-      letter-spacing: -0.5px;
+      line-height: 1.4;
     }
-    .header-subtitle {
-      font-size: 15px;
-      color: var(--text-muted);
-      max-width: 780px;
-      margin-bottom: 28px;
-    }
-    .control-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      background: #ffffff;
-      border: 1px solid var(--border-subtle);
-      padding: 16px 20px;
-      border-radius: var(--radius-md);
-    }
-    .control-item { display: flex; flex-direction: column; }
-    .control-label {
+
+    .contract-reference {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       font-size: 11px;
+      color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--text-light);
-      font-weight: 700;
-      margin-bottom: 4px;
+      letter-spacing: 1px;
     }
-    .control-value { font-size: 13px; font-weight: 600; color: var(--text-main); }
-    .content-body { padding: 40px 48px; }
-    .section-title {
-      font-size: 18px;
-      font-weight: 800;
-      color: var(--slate-900);
-      margin-top: 36px;
-      margin-bottom: 12px;
-      padding-bottom: 8px;
-      border-bottom: 2px solid var(--border-subtle);
-      display: flex;
-      align-items: center;
-      gap: 10px;
+
+    .preamble {
+      font-size: 13.5px;
+      text-align: justify;
+      margin-bottom: 24px;
+      line-height: 1.75;
     }
-    .section-title:first-of-type { margin-top: 0; }
-    .section-num {
-      background: var(--slate-900);
-      color: #fff;
-      font-size: 12px;
-      font-weight: 800;
-      width: 24px;
-      height: 24px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
+
+    .clause {
+      margin-bottom: 22px;
+      text-align: justify;
+      font-size: 13.5px;
+      line-height: 1.75;
     }
-    p, li { font-size: 14px; color: #334155; line-height: 1.65; }
-    p { margin-bottom: 14px; }
-    .highlight-box {
-      background: var(--primary-light);
-      border-left: 4px solid var(--primary);
-      padding: 18px 22px;
-      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-      margin: 20px 0;
+
+    .clause-title {
+      font-weight: bold;
+      color: var(--text-dark);
+      text-transform: uppercase;
     }
-    .highlight-box h4 {
-      font-size: 14px;
-      font-weight: 800;
-      color: var(--primary-dark);
+
+    ul.contract-list {
+      margin: 10px 0 10px 24px;
+      font-size: 13.5px;
+    }
+
+    ul.contract-list li {
       margin-bottom: 6px;
     }
-    .comparison-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin: 24px 0;
-    }
-    .card-pain {
-      background: #fef2f2;
-      border: 1px solid #fecaca;
-      border-radius: var(--radius-md);
-      padding: 20px;
-    }
-    .card-pain h4 { color: #991b1b; font-size: 14px; font-weight: 800; margin-bottom: 10px; }
-    .card-solution {
-      background: #f0fdf4;
-      border: 1px solid #bbf7d0;
-      border-radius: var(--radius-md);
-      padding: 20px;
-    }
-    .card-solution h4 { color: #166534; font-size: 14px; font-weight: 800; margin-bottom: 10px; }
-    .module-card {
-      background: #ffffff;
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 22px;
-      margin-bottom: 20px;
-      transition: border-color 0.2s;
-    }
-    .module-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-    }
-    .module-tag {
-      font-size: 11px;
-      font-weight: 800;
-      background: var(--slate-100);
-      color: var(--slate-800);
-      padding: 3px 8px;
-      border-radius: 4px;
-      text-transform: uppercase;
-    }
-    .module-name { font-size: 16px; font-weight: 800; color: var(--slate-900); }
-    ul.check-list { list-style: none; margin-top: 10px; }
-    ul.check-list li {
-      padding: 5px 0 5px 22px;
-      position: relative;
-    }
-    ul.check-list li::before {
-      content: "✓";
-      color: var(--primary);
-      position: absolute;
-      left: 0;
-      font-weight: 800;
-    }
-    table.data-table {
+
+    /* TABLAS LEGALES SOBRIAS */
+    table.legal-table {
       width: 100%;
       border-collapse: collapse;
-      margin: 20px 0;
-      font-size: 13px;
+      margin: 16px 0;
+      font-size: 12.5px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
-    table.data-table th {
-      background: #f1f5f9;
-      color: var(--slate-900);
-      font-weight: 700;
-      padding: 12px 16px;
+
+    table.legal-table th, table.legal-table td {
+      border: 1px solid var(--border-color);
+      padding: 10px 12px;
       text-align: left;
-      border-bottom: 1px solid var(--border-strong);
+    }
+
+    table.legal-table th {
+      background-color: #f8fafc;
+      font-weight: 700;
+      color: var(--text-dark);
       text-transform: uppercase;
       font-size: 11px;
-      letter-spacing: 0.5px;
     }
-    table.data-table td {
-      padding: 12px 16px;
-      border-bottom: 1px solid var(--border-subtle);
-      color: var(--text-main);
+
+    table.legal-table tr.total-row td {
+      background-color: #f8fafc;
+      font-weight: bold;
     }
-    table.data-table tr.total-row {
+
+    .highlight-clause {
+      border: 1px solid #cbd5e1;
       background: #f8fafc;
-      font-weight: 800;
-      font-size: 14px;
+      padding: 14px 18px;
+      margin: 14px 0;
+      border-left: 4px solid var(--text-dark);
+      font-size: 13px;
     }
-    .timeline-item {
-      display: flex;
-      gap: 16px;
-      margin-bottom: 16px;
-      align-items: flex-start;
-    }
-    .timeline-week {
-      background: var(--slate-900);
-      color: #fff;
-      font-weight: 800;
-      font-size: 11px;
-      padding: 6px 10px;
-      border-radius: var(--radius-sm);
-      white-space: nowrap;
-      min-width: 80px;
-      text-align: center;
-    }
-    .signature-grid {
+
+    /* FIRMAS FORMALES */
+    .signatures-block {
+      margin-top: 50px;
+      padding-top: 30px;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      margin-top: 48px;
-      padding-top: 24px;
-      border-top: 1px solid var(--border-subtle);
+      gap: 50px;
+      page-break-inside: avoid;
     }
-    .signature-box { display: flex; flex-direction: column; }
-    .signature-line {
-      border-bottom: 1px solid var(--slate-800);
-      height: 60px;
-      margin-bottom: 8px;
-    }
-    .signature-name { font-size: 13px; font-weight: 800; color: var(--slate-900); }
-    .signature-role { font-size: 12px; color: var(--text-light); }
-    .footer-bar {
-      border-top: 1px solid var(--border-subtle);
-      padding: 20px 48px;
-      background: #f8fafc;
+
+    .sign-box {
       display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      color: var(--text-light);
+      flex-direction: column;
     }
+
+    .sign-line {
+      border-bottom: 1px solid #000;
+      height: 60px;
+      margin-bottom: 10px;
+    }
+
+    .sign-party {
+      font-weight: bold;
+      font-size: 13px;
+      color: var(--text-dark);
+      text-transform: uppercase;
+    }
+
+    .sign-details {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-top: 4px;
+    }
+
     @media print {
-      body { padding: 0; background: #fff; }
-      .top-action-bar { display: none; }
-      .document-container { border: none; box-shadow: none; max-width: 100%; }
-      .content-body, .header-hero { padding: 24px; }
-      .signature-grid { page-break-inside: avoid; }
+      body { background: #fff; padding: 0; }
+      .toolbar-actions { display: none; }
+      .contract-sheet { border: none; box-shadow: none; padding: 40px; max-width: 100%; }
+      .signatures-block { page-break-inside: avoid; }
     }
   </style>
 </head>
 <body>
 
-<div class="document-container">
-
-  <div class="top-action-bar">
-    <div style="display: flex; align-items: center; gap: 10px;">
-      <span class="badge-confidential">Documento Comercial Confidencial</span>
-      <span>SISBIRCECA Telecom Suite</span>
-    </div>
-    <button class="btn-print" onclick="window.print()">Imprimir / Guardar en PDF</button>
+<div class="toolbar-actions">
+  <div>
+    <strong>DOCUMENTO LEGAL VINCULANTE:</strong> Contrato de Licenciamiento y Servicios SISBIRCECA
   </div>
+  <button onclick="window.print()">Imprimir / Guardar en PDF</button>
+</div>
 
-  <header class="header-hero">
-    <div class="org-tag">Ingeniería de Software & Auditoría Operativa Telecom</div>
-    <h1 class="header-title">Propuesta Comercial y Técnica: Implementación de la Plataforma PWA de Reportes Técnicos y Gestión de Radiobases (SISBIRCECA)</h1>
-    <p class="header-subtitle">
-      Solución tecnológica integral para la captura móvil offline, seguimiento centralizado en sala NOC, blindaje criptográfico contra fraude fotográfico y homologación técnica de infraestructura celular.
-    </p>
+<div class="contract-sheet">
 
-    <div class="control-grid">
-      <div class="control-item">
-        <span class="control-label">Documento</span>
-        <span class="control-value">Dossier Técnico-Comercial</span>
-      </div>
-      <div class="control-item">
-        <span class="control-label">Versión</span>
-        <span class="control-value">v1.0 Oficial (Producción)</span>
-      </div>
-      <div class="control-item">
-        <span class="control-label">Vigencia</span>
-        <span class="control-value">30 Días Calendario</span>
-      </div>
-      <div class="control-item">
-        <span class="control-label">Moneda</span>
-        <span class="control-value">USD (Dólares Americanos)</span>
-      </div>
-    </div>
+  <header class="contract-header">
+    <div class="contract-reference">INSTRUMENTO PRIVADO VINCULANTE &middot; REF: CONTRATO-SISBIRCECA-2026-001</div>
+    <h1 class="contract-title">
+      CONTRATO MARCO DE PRESTACIÓN DE SERVICIOS TECNOLÓGICOS, PARAMETRIZACIÓN Y LICENCIAMIENTO DE SOFTWARE
+    </h1>
   </header>
 
-  <main class="content-body">
+  <p class="preamble">
+    Entre las partes que a continuación se identifican: por una parte, <strong>EL PROVEEDOR TECNOLÓGICO</strong>, persona natural/jurídica en pleno ejercicio de sus derechos de propiedad intelectual sobre el software denominado <strong>SISBIRCECA</strong>; y por la otra parte, <strong>LA EMPRESA CONTRATANTE</strong>, entidad jurídica dedicada a la prestación de servicios de infraestructura y mantenimiento en telecomunicaciones, se conviene en celebrar el presente Contrato de Servicios Tecnológicos y Licenciamiento Comercial, el cual se regirá por las siguientes cláusulas:
+  </p>
 
-    <!-- SECCION 1 -->
-    <h2 class="section-title"><span class="section-num">1</span> Resumen Ejecutivo y Diagnóstico Operativo</h2>
-    <p>
-      La gestión operativa y mantenimiento de sitios de telecomunicaciones (torres autosoportadas, monopolos urbanos y repetidores rurales) enfrenta cuellos de botella severos que impactan directamente los costos y la relación contractual con los operadores móviles:
-    </p>
+  <!-- CLAUSULA PRIMERA -->
+  <div class="clause">
+    <span class="clause-title">CLÁUSULA PRIMERA: OBJETO DEL CONTRATO.</span>
+    El presente contrato tiene por objeto regular los términos y condiciones bajo los cuales <strong>EL PROVEEDOR</strong> ejecutará los servicios de configuración, parametrización técnica y puesta en producción del sistema informático <strong>SISBIRCECA</strong> (Sistema de Información para la Supervisión y Generación de Reportes Técnicos de Radiobases), así como el otorgamiento a <strong>LA EMPRESA</strong> de una Licencia de Uso Comercial para su explotación operativa en inspecciones de infraestructura de telecomunicaciones.
+  </div>
 
-    <div class="comparison-grid">
-      <div class="card-pain">
-        <h4>Operación Tradicional (Estado Actual)</h4>
-        <ul style="margin-left: 18px; font-size: 13px; color: #7f1d1d;">
-          <li>Reportes manuales en hojas de cálculo (Excel) propensas a errores.</li>
-          <li>Desorden de evidencias fotográficas dispersas en grupos de WhatsApp.</li>
-          <li>Retrasos de 3 a 5 días hábiles para consolidar un expediente y facturar.</li>
-          <li>Riesgo constante de reciclaje de fotografías antiguas o falsificación de visitas a torre.</li>
-          <li>Pérdida de trazabilidad ante auditorías regulatorias o reclamos de operadoras.</li>
-        </ul>
-      </div>
-      <div class="card-solution">
-        <h4>Plataforma SISBIRCECA (Solución Propuesta)</h4>
-        <ul style="margin-left: 18px; font-size: 13px; color: #14532d;">
-          <li>PWA móvil de captura 100% funcional en zonas sin cobertura celular (offline).</li>
-          <li>Generación automática del expediente consolidado y acta PDF en menos de 5 minutos.</li>
-          <li>Compresión inteligente en el dispositivo móvil (< 250 KB) que reduce el 78% del consumo de datos.</li>
-          <li>Bloqueo estricto <em>Antes vs. Después</em> y geocerca GPS satelital (&plusmn;100 m).</li>
-          <li>Sellado determinístico SHA-256 que garantiza inmutabilidad legal para auditoría.</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="highlight-box">
-      <h4>Retorno de Inversión Inmediato (ROI)</h4>
-      <p style="margin: 0; font-size: 13px; color: #0c4a6e;">
-        Al erradicar la confección manual de reportes, el tiempo técnico invertido por cuadrilla pasa de <strong>4 horas de oficina a 5 minutos en sitio</strong>, acelerando el flujo de cobro con la operadora y eliminando rechazos por fotos incompletas o ilegibles.
-      </p>
-    </div>
-
-    <!-- SECCION 2 -->
-    <h2 class="section-title"><span class="section-num">2</span> Alcance Modular de la Plataforma</h2>
-    <p>
-      El sistema se compone de cuatro módulos especializados, desacoplados e interconectados bajo arquitectura de alta disponibilidad:
-    </p>
-
-    <!-- MODULO 1 -->
-    <div class="module-card">
-      <div class="module-header">
-        <span class="module-name">Módulo 1: Herramienta PWA de Captura en Campo</span>
-        <span class="module-tag">Operaciones en Torre</span>
-      </div>
-      <p>
-        Aplicación Web Progresiva instalable en smartphones Android/iOS, diseñada ergonómicamente con botones de gran tamaño (≥48px) para manipulación con guantes de seguridad industrial.
-      </p>
-      <ul class="check-list">
-        <li><strong>Modo 100% Offline con Dexie.js (IndexedDB):</strong> Permite completar la inspección completa en sitios remotos sin señal; los datos y fotografías se resguardan de forma segura en la memoria interna del teléfono.</li>
-        <li><strong>Compresión Inteligente WebP en Navegador:</strong> Reduce imágenes de 8-12 MB a menos de 250 KB sin pérdida de nitidez antes de almacenarlas o transmitirlas.</li>
-        <li><strong>Matriz Técnica de 48 Zonas Fijas:</strong> Formulario de homologación con selectores rápidos de estado (Normal, Alarma, Falla) y campo de observaciones técnicas.</li>
-        <li><strong>Inventario de Conectividad y Hardware:</strong> Registro de equipos instalados, marcas, modelos, números de serie y parámetros IP.</li>
-        <li><strong>Regla de Oro Antes vs. Después:</strong> Bloqueo programático que impide capturar o subir la foto de solución si previamente no se registró la evidencia fotográfica del estado inicial.</li>
-        <li><strong>Sincronización Automática por Lotes:</strong> Al detectar conexión Wi-Fi o datos móviles, la aplicación sube el paquete y purga la memoria del dispositivo solo tras confirmación del servidor.</li>
-      </ul>
-    </div>
-
-    <!-- MODULO 2 -->
-    <div class="module-card">
-      <div class="module-header">
-        <span class="module-name">Módulo 2: Consola de Control NOC y Seguimiento en Vivo</span>
-        <span class="module-tag">Supervisión Central</span>
-      </div>
-      <p>
-        Portal administrativo y de despacho para coordinadores de proyecto, jefes de operaciones y supervisores de calidad.
-      </p>
-      <ul class="check-list">
-        <li><strong>Dashboard Central con KPIs en Tiempo Real:</strong> Conteo de reportes por estado (Borrador, En Revisión, Aprobado, Observado) y gráficos de rendimiento operativo.</li>
-        <li><strong>Monitoreo de SLA con Semáforo Visual:</strong> Alerta automática cuando una cuadrilla supera el tiempo estándar de validación (120 minutos), previniendo sobrecostos operativos.</li>
-        <li><strong>Mapa Satelital Interactivo con Leaflet:</strong> Visualización geográfica de todas las radiobases del parque de antenas con pines codificados por estado de operatividad.</li>
-        <li><strong>Bandeja QA de Aprobación/Rechazo:</strong> Permite al supervisor aprobar o rechazar fotos individuales con notas de observación técnica en tiempo real.</li>
-        <li><strong>Historial Cronológico de Expedientes:</strong> Ficha técnica unificada por torre con el histórico de todas las intervenciones realizadas a lo largo del año.</li>
-      </ul>
-    </div>
-
-    <!-- MODULO 3 -->
-    <div class="module-card">
-      <div class="module-header">
-        <span class="module-name">Módulo 3: Motor de Auditoría, Criptografía y Certificación Legal</span>
-        <span class="module-tag">Compliance & Seguridad</span>
-      </div>
-      <p>
-        Mecanismos de respaldo forense para garantizar la validez probatoria de cada intervención ante auditorías de telecomunicaciones.
-      </p>
-      <ul class="check-list">
-        <li><strong>Sellado Criptográfico Determinístico SHA-256 (FIPS 180-4):</strong> Generación de un hash criptográfico único por cada foto y reporte. Si un archivo es modificado por un byte, el sello se rompe automáticamente.</li>
-        <li><strong>Geocerca Satelital (&plusmn;100 m):</strong> Validación de coordenadas GPS para certificar que el técnico tomó la foto dentro del perímetro físico de la radiobase asignada.</li>
-        <li><strong>Estampado Canvas Anti-Photoshop:</strong> Inscripción indeleble en la imagen de coordenadas, fecha, hora, usuario y código de estación.</li>
-        <li><strong>Generador de Dictamen y Acta PDF Institucional:</strong> Exportación a un clic de actas en formato A4 homologado con código QR de verificación pública, firmas de conformidad y maquetación editorial lista para facturar.</li>
-        <li><strong>Bitácora de Auditoría Append-Only:</strong> Registro inmutable en base de datos de quién aprobó, observó o modificó un reporte, desde qué dirección IP y en qué segundo exacto.</li>
-      </ul>
-    </div>
-
-    <!-- MODULO 4 -->
-    <div class="module-card">
-      <div class="module-header">
-        <span class="module-name">Módulo 4: Carga Masiva y Gestión de Catálogo de Activos</span>
-        <span class="module-tag">Administración</span>
-      </div>
-      <p>
-        Herramientas para la configuración ágil de la infraestructura inicial y mantenimiento continuo.
-      </p>
-      <ul class="check-list">
-        <li><strong>Importador Masivo de Radiobases por Excel (.xlsx) y CSV:</strong> Ingesta masiva del catálogo de 100 a 1,000 torres en segundos con validación de geocoordenadas duplicadas.</li>
-        <li><strong>Escaneo de Código de Barras / QR con la Cámara:</strong> Captura inmediata de números de serie de radios, switches y antenas para erradicar errores de tipeo manual.</li>
-        <li><strong>Gestión de Usuarios y Roles (RBAC):</strong> Control de acceso estricto delimitado en 2 roles canónicos: Técnicos de Campo y Administradores NOC.</li>
-      </ul>
-    </div>
-
-    <!-- SECCION 3 -->
-    <h2 class="section-title"><span class="section-num">3</span> Entregables Concretos y Capacitación</h2>
-    <p>
-      La contratación bajo la modalidad <strong>"Llave en Mano"</strong> comprende los siguientes entregables verificables:
-    </p>
-    <ul class="check-list">
-      <li><strong>Plataforma Desplegada y Operativa:</strong> Sistema en producción bajo contenedor Docker con certificado de seguridad SSL (HTTPS) y dominio corporativo.</li>
-      <li><strong>Base de Datos Relacional PostgreSQL 16:</strong> Esquema normalizado con respaldos automáticos programados diarios.</li>
-      <li><strong>Licencia de Uso Empresarial (EULA B2B):</strong> Otorgamiento de una Licencia de Uso Comercial, No Exclusiva e Intransferible, para la operación y gestión técnica de hasta 10 usuarios concurrentes en la infraestructura de LA EMPRESA.</li>
-      <li><strong>Propiedad Intelectual y Reserva Estricta de Código Fuente:</strong> La totalidad de la arquitectura, código fuente, algoritmos matemáticos de compresión y sellado SHA-256, esquemas y derechos patrimoniales son y permanecerán bajo la propiedad intelectual exclusiva del EQUIPO DESARROLLADOR. El presente acuerdo no constituye venta de software ni cesión de derechos de autor; se prohíbe taxativamente la ingeniería inversa, descompilación, sublicenciamiento, copia o cesión a terceros.</li>
-      <li><strong>Capacitación Operativa (2 Sesiones Virtuales/Presenciales):</strong>
-        <ul style="margin-left: 20px; margin-top: 6px; font-size: 13px;">
-          <li>Sesión 1: Capacitación práctica a técnicos de campo sobre el uso de la PWA offline en smartphone.</li>
-          <li>Sesión 2: Capacitación a supervisores y directores sobre uso de la consola NOC, aprobación de reportes y exportación de actas.</li>
-        </ul>
-      </li>
-      <li><strong>Manuales de Usuario en PDF:</strong> Guía rápida ilustrada de campo y manual de administración del sistema.</li>
+  <!-- CLAUSULA SEGUNDA -->
+  <div class="clause">
+    <span class="clause-title">CLÁUSULA SEGUNDA: ALCANCE TÉCNICO Y MÓDULOS INCLUIDOS (CORE OPERATIVO).</span>
+    El sistema aprovisionado y puesto en marcha comprende estrictamente los siguientes componentes funcionales garantizados:
+    <ul class="contract-list">
+      <li><strong>1. Aplicación Web Progresiva (PWA Móvil de Campo):</strong> Aplicación instalable en teléfonos inteligentes con arquitectura de almacenamiento local indexado (Dexie.js / IndexedDB), diseñada para operar al 100% en zonas remotas desprovistas de cobertura celular (Modo Offline).</li>
+      <li><strong>2. Matriz Técnica Homologada de 48 Zonas:</strong> Formulario técnico de inspección con registro de estados estandarizados (Normal, Alarma, Falla) y campo descriptivo de incidencias.</li>
+      <li><strong>3. Motor Fotográfico Inteligente y Regla "Antes vs. Después":</strong> Bloqueo programático que supedita la captura de la evidencia de solución a la preexistencia obligatoria de la foto del estado inicial. Incluye algoritmo de compresión WebP en el dispositivo móvil (< 250 KB por fotografía) para minimización de consumo de datos celulares.</li>
+      <li><strong>4. Consola Administrativa y Bandeja QA de Supervisión:</strong> Portal web centralizado para supervisores con flujo de validación foto por foto, emisión de observaciones técnicas y control de estados (Borrador, En Revisión, Aprobado y Observado).</li>
+      <li><strong>5. Motor de Emisión de Actas Oficiales en PDF:</strong> Generación instantánea a un clic de actas técnicas homologadas y expedientes fotográficos maquetados en formato A4 listos para facturación y cobro ante el operador de telecomunicaciones contratante.</li>
+      <li><strong>6. Seguridad y Perfiles de Acceso (RBAC):</strong> Control de acceso criptográfico mediante tokens de sesión y asignación de dos (2) roles canónicos: Técnicos de Campo y Administradores/Supervisores.</li>
     </ul>
+  </div>
 
-    <div class="highlight-box" style="background:#fffbeb; border-color:#d97706;">
-      <h4 style="color:#92400e;">Exclusiones Claras del Alcance</h4>
-      <p style="margin: 0; font-size: 13px; color: #78350f;">
-        No incluye provisión de hardware físico (smartphones, tablets o computadoras), planes de datos móviles de telefonía celular, ni integraciones directas con sistemas ERP legados que no cuenten con APIs REST documentadas.
-      </p>
+  <!-- CLAUSULA TERCERA -->
+  <div class="clause">
+    <span class="clause-title">CLÁUSULA TERCERA: RÉGIMEN DE PROPIEDAD INTELECTUAL Y RESERVA DE CÓDIGO FUENTE.</span>
+    Queda expresamente estipulado entre las partes que <strong>LA TOTALIDAD DEL CÓDIGO FUENTE, ARQUITECTURA DE SOFTWARE, DISEÑO, ALGORITMOS DE COMPRESIÓN, MODELOS DE DATOS Y DERECHOS DE AUTOR MORALES Y PATRIMONIALES</strong> de la plataforma SISBIRCECA son y continuarán siendo de la <strong>PROPIEDAD ÚNICA Y EXCLUSIVA DEL PROVEEDOR</strong>.
+    <div class="highlight-clause">
+      <strong>RESERVA EXPRESA:</strong> En ningún momento el presente contrato constituye venta de software, cesión de activos intangibles ni transferencia de propiedad intelectual. <strong>EL PROVEEDOR NO ENTREGARÁ CÓDIGO FUENTE</strong> ni accesos a repositorios de desarrollo. <strong>LA EMPRESA</strong> se compromete a no intentar descompilar, realizar ingeniería inversa, copiar, duplicar, ceder, transferir ni comercializar el software a terceros bajo pena de indemnización por daños y perjuicios.
     </div>
+  </div>
 
-    <!-- SECCION 4 -->
-    <h2 class="section-title"><span class="section-num">4</span> Cronograma de Ejecución por Fases (4 a 5 Semanas)</h2>
-    <p>
-      Plan de trabajo estructurado para garantizar un despliegue seguro sin interrumpir las operaciones en curso:
-    </p>
+  <!-- CLAUSULA CUARTA -->
+  <div class="clause">
+    <span class="clause-title">CLÁUSULA CUARTA: OTORGAMIENTO DE LICENCIA DE USO (EULA B2B).</span>
+    En virtud del cumplimiento de los pagos acordados, <strong>EL PROVEEDOR</strong> otorga a <strong>LA EMPRESA</strong> una <strong>LICENCIA DE USO COMERCIAL, NO EXCLUSIVA, INTRANSFERIBLE Y TEMPORAL</strong> para acceder y operar la plataforma únicamente en sus operaciones ordinarias internas, con un límite inicial de hasta diez (10) usuarios técnicos/administrativos concurrentes.
+  </div>
 
-    <div style="margin: 20px 0;">
-      <div class="timeline-item">
-        <span class="timeline-week">SEMANA 1</span>
-        <div>
-          <strong style="color:var(--slate-900); font-size:14px;">Fase 1: Configuración de Entorno e Ingesta Masiva</strong>
-          <p style="font-size:13px; color:var(--text-muted); margin:2px 0 0;">
-            Aprovisionamiento de base de datos PostgreSQL, importador masivo Excel de las radiobases iniciales y configuración de esquemas de validación de catálogos.
-          </p>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <span class="timeline-week">SEMANA 2</span>
-        <div>
-          <strong style="color:var(--slate-900); font-size:14px;">Fase 2: PWA de Campo, Captura Offline y Escáner QR</strong>
-          <p style="font-size:13px; color:var(--text-muted); margin:2px 0 0;">
-            Blindaje de sincronización IndexedDB en smartphone, motor de compresión WebP, regla de bloqueo Antes vs Después e integración del escáner de activos con cámara.
-          </p>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <span class="timeline-week">SEMANA 3</span>
-        <div>
-          <strong style="color:var(--slate-900); font-size:14px;">Fase 3: Consola NOC, Mapa Satelital y Auditoría Forense</strong>
-          <p style="font-size:13px; color:var(--text-muted); margin:2px 0 0;">
-            Configuración de filtros de expedientes, mapa satelital Leaflet, semáforo de SLA, tabla inmutable de auditoría Append-Only y generación de acta PDF oficial.
-          </p>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <span class="timeline-week">SEMANA 4 - 5</span>
-        <div>
-          <strong style="color:var(--slate-900); font-size:14px;">Fase 4: Despliegue en Servidor, Pruebas Piloto y Capacitación</strong>
-          <p style="font-size:13px; color:var(--text-muted); margin:2px 0 0;">
-            Puesta en marcha en servidor de producción, ejecución de prueba piloto con 2 cuadrillas en torre real, capacitación formal a personal y firma de recepción.
-          </p>
-        </div>
-      </div>
-    </div>
+  <!-- CLAUSULA QUINTA -->
+  <div class="clause">
+    <span class="clause-title">CLÁUSULA QUINTA: CONDICIONES ECONÓMICAS Y FORMA DE PAGO.</span>
+    El régimen financiero del presente acuerdo se divide en dos conceptos claramente diferenciados:
+    
+    <p style="margin-top: 10px; font-weight: bold;">A. Tarifa Única de Parametrización, Implementación y Puesta en Marcha (Setup Fee):</p>
+    Por la configuración inicial, parametrización de catálogos, despliegue del servidor en la nube y capacitación del personal, <strong>LA EMPRESA</strong> abonará la cantidad fija de <strong>UN MIL SEISCIENTOS CINCUENTA DÓLARES AMERICANOS ($1,650.00 USD)</strong>, liquidada mediante el siguiente cronograma de pagos:
 
-    <!-- SECCION 5 -->
-    <h2 class="section-title"><span class="section-num">5</span> Condiciones Económicas e Inversión</h2>
-
-    <p>
-      Se presenta la cotización consolidada para el desarrollo, hardening y puesta en producción del sistema:
-    </p>
-
-    <table class="data-table">
+    <table class="legal-table">
       <thead>
         <tr>
-          <th>Concepto / Paquete de Trabajo</th>
-          <th>Esfuerzo</th>
-          <th>Tarifa Hora</th>
-          <th style="text-align: right;">Subtotal (USD)</th>
+          <th>Hito de Facturación</th>
+          <th>Condición de Exigibilidad</th>
+          <th style="text-align: right;">Porcentaje</th>
+          <th style="text-align: right;">Monto (USD)</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>
-            <strong>Hito 1: Ingesta Masiva & Escáner QR de Activos</strong><br>
-            <small style="color:var(--text-light)">Importador Excel/CSV, validador de coordenadas, lector QR/Barcode en PWA.</small>
-          </td>
-          <td>24 hrs</td>
-          <td>$35 USD</td>
-          <td style="text-align: right; font-weight:700;">$840.00</td>
+          <td><strong>Anticipo Inicial de Firma</strong></td>
+          <td>A la firma y suscripción del presente contrato (Kick-off).</td>
+          <td style="text-align: right;">33.33%</td>
+          <td style="text-align: right;"><strong>$550.00</strong></td>
         </tr>
         <tr>
-          <td>
-            <strong>Hito 2: Consola NOC, Filtros Dinámicos & Webhooks</strong><br>
-            <small style="color:var(--text-light)">Filtros multi-criterio, exportador de actas a Excel, mapa Leaflet y alertas de SLA.</small>
-          </td>
-          <td>28 hrs</td>
-          <td>$35 USD</td>
-          <td style="text-align: right; font-weight:700;">$980.00</td>
+          <td><strong>Entrega Funcional en Staging</strong></td>
+          <td>A la demostración de la PWA offline, matriz de 48 zonas y flujo Antes/Después en ambiente de pruebas.</td>
+          <td style="text-align: right;">33.33%</td>
+          <td style="text-align: right;"><strong>$550.00</strong></td>
         </tr>
         <tr>
-          <td>
-            <strong>Hito 3: Auditoría Append-Only & Certificación PDF</strong><br>
-            <small style="color:var(--text-light)">Tabla AuditLog inmutable, firma criptográfica SHA-256 en PDF y descarga masiva ZIP.</small>
-          </td>
-          <td>26 hrs</td>
-          <td>$35 USD</td>
-          <td style="text-align: right; font-weight:700;">$910.00</td>
-        </tr>
-        <tr>
-          <td>
-            <strong>Hito 4: Despliegue Cloud, CI/CD, SSL & Capacitación</strong><br>
-            <small style="color:var(--text-light)">Aprovisionamiento de servidor, dominio HTTPS, backups automáticos y manuales.</small>
-          </td>
-          <td>18 hrs</td>
-          <td>$35 USD</td>
-          <td style="text-align: right; font-weight:700;">$630.00</td>
+          <td><strong>Pase a Producción y Cierre</strong></td>
+          <td>A la activación del sistema en el servidor final en producción y culminación de las sesiones de capacitación.</td>
+          <td style="text-align: right;">33.34%</td>
+          <td style="text-align: right;"><strong>$550.00</strong></td>
         </tr>
         <tr class="total-row">
-          <td colspan="3" style="text-align: right; padding-right: 20px;">TARIFA ÚNICA DE IMPLEMENTACIÓN Y SETUP:</td>
-          <td style="text-align: right; color: var(--primary); font-size: 16px;">$3,360.00 USD</td>
+          <td colspan="2">TOTAL INVERSIÓN SETUP E IMPLEMENTACIÓN:</td>
+          <td style="text-align: right;">100.00%</td>
+          <td style="text-align: right; color: var(--accent); font-size: 13px;">$1,650.00 USD</td>
         </tr>
       </tbody>
     </table>
 
-    <h3 style="font-size:14px; font-weight:800; color:var(--slate-900); margin: 24px 0 10px;">Forma de Pago del Setup (Escalonada por Hitos):</h3>
-    <ul class="check-list">
-      <li><strong>Anticipo Inicial (30%):</strong> <strong>$1,008.00 USD</strong> al firmar la orden de servicio e iniciar la Fase 1.</li>
-      <li><strong>Pago Intermedio (30%):</strong> <strong>$1,008.00 USD</strong> contra entrega y validación funcional en staging de los Hitos 1 y 2 (Semana 3).</li>
-      <li><strong>Finiquito de Cierre y Activación (40%):</strong> <strong>$1,344.00 USD</strong> contra entrega de la plataforma en producción, capacitación formal y acta de entrega (Semana 5).</li>
+    <p style="margin-top: 14px; font-weight: bold;">B. Canon Mensual de Servicio Integral (Licenciamiento, Nube y Soporte):</p>
+    A partir de la puesta en producción y tras expirar los primeros treinta (30) días de garantía técnica gratuita, <strong>LA EMPRESA</strong> pagará un canon mensual vencido y no reembolsable de <strong>CIENTO VEINTE DÓLARES AMERICANOS ($120.00 USD / mes)</strong>, el cual ampara:
+    <ul class="contract-list">
+      <li>Licencia de uso activa ininterrumpida de la PWA móvil y Consola NOC para hasta 10 usuarios.</li>
+      <li>Costo del servidor en la nube de alta disponibilidad y bases de datos relacionales PostgreSQL.</li>
+      <li>Respaldos automatizados diarios de datos e imágenes para contingencias ante pérdidas de información.</li>
+      <li>Capacidad de almacenamiento en la nube de hasta 15,000 fotografías de evidencias técnicas.</li>
+      <li>Mantenimiento preventivo de software y soporte técnico especializado Nivel 2.</li>
     </ul>
+  </div>
 
-    <h3 style="font-size:14px; font-weight:800; color:var(--slate-900); margin: 24px 0 10px;">Canon Mensual de Licenciamiento de Uso, Infraestructura y Soporte:</h3>
-    <p style="font-size: 13px; margin-bottom: 8px;">
-      A partir del pase a producción (posterior a los 30 días de garantía gratuita inicial), el servicio continuará operativo bajo un <strong>Canon Mensual de Servicio Integral</strong>:
-    </p>
-    <div style="background: #f8fafc; border: 1px solid var(--border-subtle); padding: 16px 20px; border-radius: var(--radius-md); margin-bottom: 16px;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-        <strong style="color:var(--slate-900); font-size:14px;">Plan Mensual Corporativo (Hasta 10 Usuarios Activos):</strong>
-        <span style="font-size:16px; font-weight:900; color:var(--primary);">$180.00 USD / mes</span>
+  <!-- CLAUSULA SEXTA -->
+  <div class="clause">
+    <span class="clause-title">CLÁUSULA SEXTA: CRONOGRAMA DE EJECUCIÓN Y ENTREGABLES.</span>
+    El plazo total para la puesta en marcha definitiva es de <strong>tres (3) a cuatro (4) semanas</strong> contadas a partir de la recepción del anticipo inicial, estructurándose en tres fases:
+    <ul class="contract-list">
+      <li><strong>Fase I (Semana 1):</strong> Despliegue de la infraestructura de base de datos, configuración de catálogos y parametrización de las 48 zonas.</li>
+      <li><strong>Fase II (Semana 2):</strong> Puesta a punto de la PWA móvil offline, verificación de compresión fotográfica y pruebas de sincronización.</li>
+      <li><strong>Fase III (Semana 3-4):</strong> Activación en servidor de producción con certificado SSL HTTPS, dos (2) sesiones de capacitación formal al personal y firma de recepción.</li>
+    </ul>
+  </div>
+
+  <!-- CLAUSULA SEPTIMA -->
+  <div class="clause">
+    <span class="clause-title">CLÁUSULA SÉPTIMA: GARANTÍA TÉCNICA Y ACUERDO DE SERVICIO (SLA).</span>
+    <strong>EL PROVEEDOR</strong> concede una <strong>Garantía de Estabilidad de treinta (30) días continuos</strong> a partir de la firma del acta de entrega en producción. Durante este lapso, cualquier desperfecto, error de programación (bug) o incompatibilidad demostrada con el alcance pactado será subsanado sin costo adicional. Para fallas de criticidad alta (sistema inoperativo), el tiempo máximo de respuesta técnica garantizado será menor a cuatro (4) horas laborables.
+  </div>
+
+  <!-- CLAUSULA OCTAVA -->
+  <div class="clause">
+    <span class="clause-title">CLÁUSULA OCTAVA: EXCLUSIONES Y CONDICIONES DE OPERACIÓN.</span>
+    No forman parte de las obligaciones del PROVEEDOR: la entrega de hardware (dispositivos celulares o computadoras), la contratación de planes de datos celulares para los técnicos, ni desarrollos a la medida no tipificados en el Core Operativo.
+  </div>
+
+  <!-- CLAUSULA NOVENA -->
+  <div class="clause">
+    <span class="clause-title">CLÁUSULA NOVENA: CONFIDENCIALIDAD DE DATOS OPERATIVOS.</span>
+    <strong>EL PROVEEDOR</strong> se compromete a guardar estricta confidencialidad respecto a la información operativa, nombres de radiobases, clientes y evidencias fotográficas ingresadas por <strong>LA EMPRESA</strong> en la plataforma, las cuales son de propiedad exclusiva de <strong>LA EMPRESA</strong>.
+  </div>
+
+  <!-- CLAUSULA DECIMA -->
+  <div class="clause">
+    <span class="clause-title">CLÁUSULA DÉCIMA: SUSPENSIÓN POR MORA Y RESCISIÓN.</span>
+    La falta de pago del canon mensual por un lapso superior a quince (15) días continuos facultará al PROVEEDOR a suspender temporalmente el acceso a la plataforma hasta tanto se subsane la morosidad, sin que ello genere responsabilidad por lucro cesante.
+  </div>
+
+  <!-- CLAUSULA UNDECIMA -->
+  <div class="clause">
+    <span class="clause-title">CLÁUSULA UNDÉCIMA: CONFORMIDAD Y FIRMAS.</span>
+    En prueba de plena conformidad con todas y cada una de las cláusulas del presente contrato, las partes lo suscriben en dos (2) ejemplares de idéntico tenor y efecto, a los ____ días del mes de Octubre del año 2026.
+  </div>
+
+  <!-- BLOQUE DE FIRMAS -->
+  <div class="signatures-block">
+    <div class="sign-box">
+      <div class="sign-line"></div>
+      <span class="sign-party">POR EL PROVEEDOR TECNOLÓGICO</span>
+      <div class="sign-details">
+        <strong>Nombre:</strong> ____________________________________<br>
+        <strong>C.I. / RIF:</strong> ____________________________________<br>
+        <strong>Cargo:</strong> Titular & Arquitecto Líder SISBIRCECA
       </div>
-      <ul style="font-size: 12px; color: var(--text-muted); margin-left: 18px; line-height: 1.6;">
-        <li>Derecho de uso ininterrumpido de la plataforma PWA y Consola NOC (EULA).</li>
-        <li>Alojamiento en infraestructura Cloud de alta velocidad con respaldo diario automatizado.</li>
-        <li>Almacenamiento de hasta 20,000 fotografías de evidencias y actas técnicas en formato PDF.</li>
-        <li>Mantenimiento preventivo, aplicación de parches de seguridad y soporte técnico Nivel 2.</li>
-      </ul>
     </div>
-
-    <!-- SECCION 6 -->
-    <h2 class="section-title"><span class="section-num">6</span> Garantía Técnica y Nivel de Servicio (SLA)</h2>
-    <p>
-      El proyecto incluye una <strong>Garantía de Calidad de 30 días continuos</strong> a partir de la firma de recepción definitiva en producción. Durante este período, cualquier anomalía, bug o comportamiento divergente de las especificaciones pactadas será corregido sin costo adicional con un tiempo de respuesta menor a 4 horas laborables para incidencias críticas.
-    </p>
-
-    <!-- SECCION 7 -->
-    <h2 class="section-title"><span class="section-num">7</span> Aceptación y Conformidad</h2>
-    <p>
-      La firma del presente documento constituye la aprobación formal del alcance, cronograma y condiciones económicas para la ejecución del proyecto:
-    </p>
-
-    <div class="signature-grid">
-      <div class="signature-box">
-        <div class="signature-line"></div>
-        <span class="signature-name">Por la Empresa Contratante</span>
-        <span class="signature-role">Dirección de Operaciones / Infraestructura</span>
-      </div>
-      <div class="signature-box">
-        <div class="signature-line"></div>
-        <span class="signature-name">Por el Equipo Consultor SISBIRCECA</span>
-        <span class="signature-role">Líder de Proyecto & Arquitectura Técnica</span>
+    <div class="sign-box">
+      <div class="sign-line"></div>
+      <span class="sign-party">POR LA EMPRESA CONTRATANTE</span>
+      <div class="sign-details">
+        <strong>Razón Social:</strong> ________________________________<br>
+        <strong>RIF / Registro:</strong> ________________________________<br>
+        <strong>Representante:</strong> ________________________________<br>
+        <strong>C.I.:</strong> ________________________________________
       </div>
     </div>
-
-  </main>
-
-  <footer class="footer-bar">
-    <span>SISBIRCECA — Plataforma Certificada de Gestión de Radiobases</span>
-    <span>Documento Oficial de Contratación &middot; Octubre 2026</span>
-  </footer>
+  </div>
 
 </div>
 
