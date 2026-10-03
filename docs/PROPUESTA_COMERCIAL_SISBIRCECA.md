@@ -61,6 +61,14 @@ A partir de la puesta en producción y tras expirar los primeros treinta (30) d�
 * Capacidad de almacenamiento en la nube de hasta 15,000 fotografías de evidencias técnicas.
 * Mantenimiento preventivo de software y soporte técnico especializado Nivel 2.
 
+#### C. Régimen de Soporte Técnico Ocasional / Bajo Demanda (Sin Póliza Mensual)
+En caso de que **LA EMPRESA** decida no acogerse al Canon Mensual de Servicio Integral o este sea rescindido, el software continuará operando de manera autónoma bajo exclusiva custodia de LA EMPRESA. Cualquier requerimiento futuro de asistencia técnica, diagnóstico, restauración de respaldos, configuración o resolución de incidencias será provisto bajo la modalidad **Bajo Demanda (Ad-Hoc)**, sujeto a las siguientes condiciones:
+* **Tarifa Horaria Estándar:** **CUARENTA DÓLARES AMERICANOS ($40.00 USD) por hora hombre** para intervenciones en días laborables y horario diurno (Lunes a Viernes, 8:00 AM a 5:00 PM).
+* **Tarifa de Emergencia / Horario Inhábil:** **CINCUENTA DÓLARES AMERICANOS ($50.00 USD) por hora hombre** para requerimientos en horario nocturno, fines de semana o días feriados.
+* **Cargo Mínimo Facturable:** Toda solicitud de intervención técnica bajo demanda devengará un cargo mínimo de **dos (2) horas de servicio** ($80.00 USD en horario hábil / $100.00 USD en horario inhábil).
+* **Tiempo de Respuesta (SLA Ocasional):** Al no existir una suscripción mensual activa con disponibilidad reservada, la atención técnica estará sujeta a la agenda del PROVEEDOR, estimándose una respuesta en un lapso de **24 a 48 horas laborables**.
+* **Condición de Pago:** Las solicitudes bajo demanda deberán ser canceladas de contado antes o inmediatamente después de ejecutada la intervención.
+
 ---
 
 ### CLÁUSULA SEXTA: CRONOGRAMA DE EJECUCIÓN Y ENTREGABLES
