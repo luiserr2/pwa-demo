@@ -76,22 +76,44 @@ El plazo total para la puesta en marcha definitiva es de **tres (3) a cuatro (4)
 
 ---
 
-### CLÁUSULA OCTAVA: EXCLUSIONES Y CONDICIONES DE OPERACIÓN
-No forman parte de las obligaciones del PROVEEDOR: la entrega de hardware (dispositivos celulares o computadoras), la contratación de planes de datos celulares para los técnicos, ni desarrollos a la medida no tipificados en el Core Operativo.
+### CLÁUSULA OCTAVA: EXONERACIÓN TOTAL POR MANIPULACIÓN, ALTERACIÓN O INTERVENCIÓN NO AUTORIZADA
+Queda expresamente convenido que si **LA EMPRESA**, sus empleados, dependientes o cualquier tercero no autorizado accede al servidor, manipula o altera los archivos de código fuente, ejecuta sentencias o modificaciones manuales en la base de datos PostgreSQL, altera las configuraciones del contenedor Docker o vulnera los componentes de la plataforma:
+* **a)** Cesará de forma inmediata, automática e irrevocable toda garantía técnica y soporte ofrecido por **EL PROVEEDOR**.
+* **b)** **EL PROVEEDOR quedará 100% exonerado de cualquier responsabilidad** por errores de cálculo, inconsistencias en reportes, caída del servicio, corrupción de bases de datos o pérdida parcial o total de información y fotografías.
+* **c)** Cualquier asistencia técnica requerida para auditar, reparar o restablecer el sistema tras una alteración no autorizada no estará cubierta por el presente contrato y se facturará bajo tarifa técnica extraordinaria de emergencia a razón de **CINCUENTA DÓLARES AMERICANOS ($50.00 USD) por hora hombre**, previa aprobación de fondos por parte de **LA EMPRESA**.
 
 ---
 
-### CLÁUSULA NOVENA: CONFIDENCIALIDAD DE DATOS OPERATIVOS
+### CLÁUSULA NOVENA: DESLINDE DE RESPONSABILIDAD OPERATIVA, LUCRO CESANTE Y LÍMITE MÁXIMO INDEMNIZATORIO (LIABILITY CAP)
+El software SISBIRCECA se suministra como una herramienta informática de asistencia técnica y gestión de campo:
+1. **Inexistencia de Responsabilidad por Sanciones Externas:** **EL PROVEEDOR** no asume responsabilidad alguna por multas, penalizaciones contractuales, retrasos de pago, cancelaciones de contratos o reclamos que terceros, operadoras de telecomunicaciones (Digitel, Movistar, Cantv, Movilnet, entre otras) o entes regulatorios gubernamentales impongan a **LA EMPRESA** con motivo de sus trabajos de campo o la presentación de sus reportes.
+2. **Exclusión de Lucro Cesante:** En ningún caso **EL PROVEEDOR** responderá por lucro cesante, pérdidas comerciales, daño emergente, pérdida de ingresos o daños indirectos derivados del uso o de la imposibilidad de uso del software.
+3. **Límite Máximo Indemnizatorio:** En el supuesto no consentido de que un tribunal o autoridad competente determine alguna responsabilidad imputable a **EL PROVEEDOR**, la responsabilidad patrimonial máxima acumulada frente a **LA EMPRESA** estará expresamente limitada al monto total efectivamente percibido por **EL PROVEEDOR** por concepto de la Tarifa de Setup inicial ($1,650.00 USD), renunciando **LA EMPRESA** a reclamar cualquier indemnización superior.
+
+---
+
+### CLÁUSULA DÉCIMA: ENTREGA DEFINITIVA, RECEPCIÓN "TAL CUAL" (AS-IS) Y CESE DE OBLIGACIONES
+Una vez cumplido el plazo de garantía técnica de treinta (30) días y suscrita el Acta de Entrega y Recepción Final en producción:
+> **ENTREGA DEFINITIVA Y CESE DE VINCULACIÓN:** El software se considerará formalmente aceptado a entera y total satisfacción de **LA EMPRESA** en su estado "TAL CUAL" (*AS-IS*). A partir de dicho hito, **EL PROVEEDOR se considerará completamente desvinculado de la operación técnica, comercial y laboral de LA EMPRESA**, no existiendo obligación de permanencia, asesoría, soporte ni desarrollos adicionales, salvo que las partes suscriban una adenda contractual independiente. En caso de que LA EMPRESA no contrate el servicio de hosting y soporte mensual, la custodia integral de la infraestructura, respaldos de datos y mantenimiento del servidor recaerá bajo la exclusiva y única responsabilidad de **LA EMPRESA**.
+
+---
+
+### CLÁUSULA UNDÉCIMA: EXCLUSIONES Y CONDICIONES DE OPERACIÓN
+No forman parte de las obligaciones del PROVEEDOR: la entrega de hardware (dispositivos celulares o computadoras), la contratación de planes de datos celulares para los técnicos, la recuperación de fotos borradas voluntariamente por los técnicos en sus teléfonos móviles, ni desarrollos a la medida no tipificados en el Core Operativo.
+
+---
+
+### CLÁUSULA DUODÉCIMA: CONFIDENCIALIDAD DE DATOS OPERATIVOS
 **EL PROVEEDOR** se compromete a guardar estricta confidencialidad respecto a la información operativa, nombres de radiobases, clientes y evidencias fotográficas ingresadas por **LA EMPRESA** en la plataforma, las cuales son de propiedad exclusiva de **LA EMPRESA**.
 
 ---
 
-### CLÁUSULA DÉCIMA: SUSPENSIÓN POR MORA Y RESCISIÓN
-La falta de pago del canon mensual por un lapso superior a quince (15) días continuos facultará al PROVEEDOR a suspender temporalmente el acceso a la plataforma hasta tanto se subsane la morosidad, sin que ello genere responsabilidad por lucro cesante.
+### CLÁUSULA DÉCIMO TERCERA: SUSPENSIÓN POR MORA Y RESCISIÓN
+En caso de acogerse al servicio mensual de hosting y soporte, la falta de pago del canon mensual por un lapso superior a quince (15) días continuos facultará al PROVEEDOR a suspender temporalmente el acceso a la plataforma hasta tanto se subsane la morosidad, sin que ello genere responsabilidad por lucro cesante.
 
 ---
 
-### CLÁUSULA UNDÉCIMA: CONFORMIDAD Y FIRMAS
+### CLÁUSULA DÉCIMO CUARTA: CONFORMIDAD Y FIRMAS
 En prueba de plena conformidad con todas y cada una de las cláusulas del presente contrato, las partes lo suscriben en dos (2) ejemplares de idéntico tenor y efecto, a los ____ días del mes de Octubre del año 2026.
 
 ```
