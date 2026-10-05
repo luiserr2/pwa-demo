@@ -30,8 +30,8 @@ La plataforma se organiza en tres (3) módulos diseñados para la función exact
   Desarrollada bajo tecnología Web Progresiva con base de datos local `IndexedDB (Dexie.js)`. Permite realizar inspecciones completas en zonas rurales o dentro de shelters metálicos sin señal celular. Los datos y fotos se guardan en el dispositivo y se sincronizan automáticamente en segundo plano al recuperar señal 3G/4G o Wi-Fi.
 * **Funcionalidad B — Matriz Técnica Homologada de 48 Zonas:**
   Formulario secuencial guiado para los 5 subsistemas normativos (Torre y Estructura, Shelter y Clima, Energía DC y Bancos de Baterías, Radiofrecuencia y Enlaces, y Sistema de Aterramiento). Evaluación ágil mediante estados: `NORMAL`, `ALARMA` o `FALLA` con notas de campo obligatorias.
-* **Funcionalidad C — Motor Fotográfico Inteligente Antes / Después:**
-  Regla de avance obligatoria por software que impide registrar la evidencia de solución ("DESPUÉS") si no existe previamente la fotografía de la anomalía inicial ("ANTES"). Procesa las imágenes en formato **WebP (< 250 KB)** con estampado indeleble de telemetría (Coordenadas GPS satelitales, fecha/hora atómica y código de torre).
+* **Funcionalidad C — Motor Fotográfico Adaptativo por Tipo de Misión:**
+  Soporta flujo de **Evidencia Única** para obras nuevas, swaps o puestas en marcha donde solo se requiere la fotografía final de instalación, y flujo dual **Antes / Después** para mantenimientos correctivos. Comprime automáticamente en formato **WebP (< 250 KB)** con estampado indeleble de telemetría (Coordenadas GPS satelitales, fecha/hora atómica, código de torre y técnico responsable).
 
 ---
 
@@ -39,7 +39,7 @@ La plataforma se organiza en tres (3) módulos diseñados para la función exact
 *Diseñado para coordinadores de operaciones, analistas de calidad y supervisores de mesa.*
 
 * **Funcionalidad A — Bandeja QA de Validación Foto a Foto:**
-  Consola de inspección par a par (Antes vs. Después) en alta resolución. El supervisor puede aprobar individualmente cada evidencia o rechazarla con una observación puntual para que el técnico la subsane de inmediato en sitio.
+  Consola de inspección de evidencias en alta resolución (tanto de instalaciones únicas como de pares Antes/Después). El supervisor puede aprobar individualmente cada evidencia o rechazarla con una observación puntual para que el técnico la subsane de inmediato en sitio.
 * **Funcionalidad B — Geofencing Perimetral Satelital (< 100 metros):**
   Algoritmo de detección geográfica en tiempo real que valida que el dispositivo del técnico esté efectivamente en la estación celular asignada. Si la foto se dispara a más de 100 metros de la torre oficial, el sistema bloquea la acción y emite una alerta por presunto intento de fraude.
 * **Funcionalidad C — Control de Tiempos SLA y Visado del Expediente:**
