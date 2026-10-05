@@ -713,42 +713,42 @@
         </div>
       </div>
 
-      <!-- MODULO 2: SEGUIMIENTO Y SUPERVISION -->
+      <!-- MODULO 2: SEGUIMIENTO Y COORDINACION -->
       <div class="role-card">
         <div class="role-card-header">
           <div style="display: flex; align-items: center; gap: 10px;">
             <span class="role-badge badge-supervisor">Módulo 2</span>
-            <strong style="color: var(--slate-900); font-size: 14px;">MÓDULO DE SEGUIMIENTO (SUPERVISOR / QA / NOC)</strong>
+            <strong style="color: var(--slate-900); font-size: 14px;">MÓDULO DE SEGUIMIENTO (COORDINACIÓN, VISADO Y HES)</strong>
           </div>
-          <span class="role-target-user">Perfil: Coordinadores de Operaciones y Control de Calidad</span>
+          <span class="role-target-user">Perfil: Persona de Seguimiento / Coordinador de Operaciones</span>
         </div>
         <div class="role-card-body">
           <p class="role-card-intro">
-            Consola centralizada para verificar la fidelidad de las inspecciones en tiempo real, rechazar fallas a tiempo y evitar que expedientes con errores lleguen a manos de la operadora.
+            Consola de gestión del ciclo de vida operativo (Pipeline): acompaña el expediente desde que la cuadrilla entrega el informe técnico en campo, pasando por el control de calidad interno, la radicación formal ante el cliente, la obtención del visado, la tramitación de la HES y el pase definitivo a facturación.
           </p>
 
           <div class="features-list">
             <div class="feature-item">
               <span class="feature-tag">Funcionalidad A</span>
-              <div class="feature-title">Bandeja QA de Validación Foto a Foto</div>
+              <div class="feature-title">Revisión Interna de Informes (QA)</div>
               <p class="feature-detail">
-                Revisión de evidencias fotográficas en alta resolución (tanto de instalaciones únicas como de pares de mantenimiento). Capacidad de aprobar fotos individualmente o rechazarlas con observaciones específicas para subsanación inmediata.
+                Bandeja de recepción de informes entregados por cuadrillas (<code>REVISION_INTERNA</code>). Auditoría de las 48 zonas y verificación fotográfica antes de salir de la empresa. Devolución inmediata a campo con observaciones o aprobación para radicación.
               </p>
             </div>
 
             <div class="feature-item">
               <span class="feature-tag">Funcionalidad B</span>
-              <div class="feature-title">Geofencing Satelital (&lt; 100m)</div>
+              <div class="feature-title">Envío al Cliente y Gestión de Visado</div>
               <p class="feature-detail">
-                Detección perimetral automática. El sistema detecta y bloquea preventivamente cualquier intento de captura fotográfica ejecutado a más de 100 metros del radio oficial de la estación.
+                Control del pipeline operativo: paso a <code>ENVIADO_AL_CLIENTE</code> (Digitel / Operadora). Monitoreo continuo de los tiempos de respuesta del inspector de la operadora y atención de observaciones hasta la obtención formal del <code>VISADO</code> (Aprobado).
               </p>
             </div>
 
             <div class="feature-item">
               <span class="feature-tag">Funcionalidad C</span>
-              <div class="feature-title">Control de SLA y Visado Técnico</div>
+              <div class="feature-title">Gestión de HES y Pase a Facturación</div>
               <p class="feature-detail">
-                Cronometraje exacto del tiempo de resolución en sitio. Aprobación final del supervisor que bloquea el informe contra modificaciones y estampa la firma digital del dictamen.
+                Una vez visado el informe, registro y seguimiento de la solicitud de la Hoja de Entrada de Servicios (<code>HES_SOLICITADA</code>) en el portal de la operadora (SAP Digitel). Traslado administrativo inmediato para cambio a <code>FACTURADO</code> y cobranza final.
               </p>
             </div>
           </div>

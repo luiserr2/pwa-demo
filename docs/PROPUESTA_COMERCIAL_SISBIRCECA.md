@@ -35,15 +35,15 @@ La plataforma se organiza en tres (3) módulos diseñados para la función exact
 
 ---
 
-### B. MÓDULO DE SEGUIMIENTO (SUPERVISOR / QA / NOC)
-*Diseñado para coordinadores de operaciones, analistas de calidad y supervisores de mesa.*
+### B. MÓDULO DE SEGUIMIENTO (COORDINACIÓN, VISADO Y HES)
+*Diseñado para la persona de seguimiento, coordinadores de operaciones y control de facturación técnica.*
 
-* **Funcionalidad A — Bandeja QA de Validación Foto a Foto:**
-  Consola de inspección de evidencias en alta resolución (tanto de instalaciones únicas como de pares Antes/Después). El supervisor puede aprobar individualmente cada evidencia o rechazarla con una observación puntual para que el técnico la subsane de inmediato en sitio.
-* **Funcionalidad B — Geofencing Perimetral Satelital (< 100 metros):**
-  Algoritmo de detección geográfica en tiempo real que valida que el dispositivo del técnico esté efectivamente en la estación celular asignada. Si la foto se dispara a más de 100 metros de la torre oficial, el sistema bloquea la acción y emite una alerta por presunto intento de fraude.
-* **Funcionalidad C — Control de Tiempos SLA y Visado del Expediente:**
-  Monitoreo del tiempo de resolución de cada intervención frente a los acuerdos de nivel de servicio. Al concluir la validación, el supervisor estampa su visado digital, congelando el reporte contra cualquier modificación futura.
+* **Funcionalidad A — Revisión Interna de Informes y Control de Calidad (QA):**
+  Bandeja de recepción de informes entregados por las cuadrillas de campo (`REVISION_INTERNA`). Auditoría técnica de las 48 zonas y verificación fotográfica antes de emitir el documento hacia el cliente. En caso de inconsistencias, se devuelve de inmediato a la cuadrilla con observaciones; si está conforme, se aprueba internamente para radicación.
+* **Funcionalidad B — Gestión de Pipeline y Envío al Cliente (Digitel / Operadora):**
+  Tablero de control del ciclo de vida operativo: avance de la orden a `ENVIADO_AL_CLIENTE`. Monitoreo continuo de los tiempos de respuesta del inspector de la operadora, solventando comentarios u observaciones hasta lograr el `VISADO` formal (Aprobación definitiva del cliente).
+* **Funcionalidad C — Tramitación de HES (Hoja de Entrada de Servicios) y Pase a Facturación:**
+  Una vez obtenido el visado de la operadora, registro y seguimiento de la solicitud de HES (`HES_SOLICITADA`) en el sistema del cliente (ej. SAP Digitel). Aprobada la HES, se marca el expediente como `FACTURADO` y se traslada a administración para el cobro correspondiente.
 
 ---
 
