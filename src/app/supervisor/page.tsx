@@ -489,7 +489,7 @@ export default function SupervisorAuditoriaPage() {
 
               <button
                 type="button"
-                onClick={() => alert(`Expediente ${expedienteSeleccionado.codigoExpediente} certificado y listo para envío al cliente.`)}
+                onClick={() => alert(`Expediente ${expedienteSeleccionado.codigoExpediente} certificado y registrado para seguimiento de radicación.`)}
                 className="px-4 py-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors shadow-sm inline-flex items-center gap-2 whitespace-nowrap"
               >
                 <Check className="w-4 h-4" /> Certificar y Aprobar Documento
