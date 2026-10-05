@@ -37,11 +37,11 @@ export function Navbar() {
         {/* LOGO & PLATAFORMA */}
         <div className="flex items-center space-x-3">
           <Link href="/" className="flex items-center space-x-2.5 group">
-            <span className="bg-blue-600 hover:bg-blue-700 text-white font-mono font-bold text-[11px] px-2.5 py-0.5 rounded-md tracking-wider uppercase transition-colors">
-              SISBIR
+            <span className="bg-blue-600 hover:bg-blue-700 text-white font-mono font-bold text-[12px] px-2.5 py-0.5 rounded-md tracking-wider uppercase transition-colors">
+              VERTEX
             </span>
             <span className="font-bold text-sm tracking-tight text-slate-900 group-hover:text-blue-600 transition-colors hidden sm:inline">
-              Telecom Platform
+              Plataforma Operativa
             </span>
           </Link>
 

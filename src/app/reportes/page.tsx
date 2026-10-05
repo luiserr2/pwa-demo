@@ -80,7 +80,7 @@ export default function KanbanPipelinePage() {
   return (
     <div className="min-h-screen bg-slate-50/50 p-6">
       <header className="mb-8">
-        <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Pipeline de Órdenes (SISBIR)</h1>
+        <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Pipeline de Órdenes (VERTEX)</h1>
         <p className="text-sm text-slate-500 mt-1">Gestión operativa estilo Notion. Arrastra las tarjetas para avanzar el proceso.</p>
       </header>
 

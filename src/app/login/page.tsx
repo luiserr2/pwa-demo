@@ -13,8 +13,8 @@ export default function LoginPage() {
   const [procesando, setProcesando] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const setAdmin = () => { setEmail('admin@sisbirceca.com'); setPassword('admin123'); };
-  const setTecnico = () => { setEmail('tecnico@sisbirceca.com'); setPassword('tecnico123'); };
+  const setAdmin = () => { setEmail('admin@vertex.com'); setPassword('admin123'); };
+  const setTecnico = () => { setEmail('tecnico@vertex.com'); setPassword('tecnico123'); };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,7 +25,7 @@ export default function LoginPage() {
       const success = await login(email);
       
       if (!success) {
-        setError('Credenciales inválidas (intente admin@sisbirceca.com o tecnico@sisbirceca.com)');
+        setError('Credenciales inválidas (intente admin@vertex.com o tecnico@vertex.com)');
         setProcesando(false);
         return;
       }
@@ -56,7 +56,7 @@ export default function LoginPage() {
         <div className="relative hidden lg:flex lg:w-1/2 flex-col justify-between p-10 overflow-hidden">
           <Image
             src="/login-cover.jpg"
-            alt="Telecom Security Infrastructure"
+            alt="VERTEX Infrastructure"
             fill
             className="absolute inset-0 h-full w-full object-cover scale-105"
             priority
@@ -143,7 +143,7 @@ export default function LoginPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="block w-full rounded-xl border-0 py-3.5 px-4 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 bg-slate-50/50 hover:bg-white placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm font-medium transition-all"
-                    placeholder="usuario@sisbirceca.com"
+                    placeholder="usuario@vertex.com"
                   />
                 </div>
               </div>

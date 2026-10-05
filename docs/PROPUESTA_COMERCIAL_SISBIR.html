@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Propuesta Técnico-Comercial B2B — VERTEX Telecom</title>
+  <title>Propuesta Técnico-Comercial B2B — VERTEX</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
@@ -69,7 +69,158 @@
       overflow: hidden;
     }
 
-    /* TOP EYEBROW */
+    /* PORTADA ESPECÍFICA */
+    .sheet.cover-sheet {
+      padding: 24mm 24mm 18mm 24mm;
+      justify-content: space-between;
+    }
+
+    .cover-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--text-main);
+      padding-bottom: 12px;
+      margin-bottom: 34px;
+    }
+
+    .cover-badge {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--blue);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .cover-badge::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      background: var(--blue);
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .cover-ref {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .cover-brand-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .cover-logo-icon {
+      background: var(--text-main);
+      color: #ffffff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.3);
+    }
+
+    .cover-brand-name {
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      color: var(--text-main);
+      line-height: 1;
+    }
+
+    .cover-doc-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.2;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .cover-tagline {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 620px;
+    }
+
+    .cover-divider {
+      width: 72px;
+      height: 4px;
+      background: var(--blue);
+      margin: 24px 0 28px 0;
+      border-radius: 2px;
+    }
+
+    .cover-dossier-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--surface-subtle);
+    }
+
+    .cover-dossier-table td {
+      padding: 10.5px 16px;
+      font-size: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cover-dossier-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .cover-dossier-label {
+      width: 32%;
+      color: var(--text-light);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 10.5px;
+      letter-spacing: 0.5px;
+    }
+
+    .cover-dossier-value {
+      width: 68%;
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    .cover-notice {
+      padding: 12px 16px;
+      border-left: 3px solid var(--text-main);
+      background: #f1f5f9;
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .cover-footer {
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 10.5px;
+      color: var(--text-light);
+      font-weight: 600;
+    }
+
+    /* TOP EYEBROW COMÚN */
     .top-eyebrow {
       display: flex;
       justify-content: space-between;
@@ -220,45 +371,6 @@
       font-size: 12.5px;
       color: var(--text-body);
       line-height: 1.55;
-    }
-
-    /* KPI STRIP */
-    .kpi-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      border-top: 1px solid var(--border);
-      padding-top: 18px;
-      margin-top: auto;
-    }
-
-    .kpi-block {
-      border-left: 2px solid var(--border-subtle);
-      padding-left: 14px;
-    }
-
-    .kpi-value {
-      font-size: 26px;
-      font-weight: 800;
-      color: var(--text-main);
-      line-height: 1;
-      margin-bottom: 4px;
-      letter-spacing: -0.5px;
-    }
-
-    .kpi-label {
-      font-size: 11.5px;
-      font-weight: 700;
-      color: var(--text-main);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 3px;
-    }
-
-    .kpi-caption {
-      font-size: 11px;
-      color: var(--text-light);
-      line-height: 1.4;
     }
 
     /* MODULE CARDS (OPEN EDITORIAL STYLE) */
@@ -574,7 +686,83 @@
 <div class="container">
 
   <!-- ========================================== -->
-  <!-- PÁGINA 1: DIAGNÓSTICO Y JUSTIFICACIÓN      -->
+  <!-- PÁGINA 1: PORTADA EJECUTIVA                -->
+  <!-- ========================================== -->
+  <div class="sheet cover-sheet">
+    <div>
+      <!-- TOP PORTADA -->
+      <div class="cover-top">
+        <div class="cover-badge">Documento Privado y Confidencial</div>
+        <div class="cover-ref">PROP-VTX-2026-01</div>
+      </div>
+
+      <!-- HERO DE LA PORTADA -->
+      <div class="cover-hero">
+        <div class="cover-brand-mark">
+          <div class="cover-logo-icon">V</div>
+          <span class="cover-brand-name">VERTEX</span>
+        </div>
+
+        <h1 class="cover-doc-title">Propuesta Técnico-Comercial B2B</h1>
+        <p class="cover-tagline">
+          Plataforma Integral de Supervisión Técnica de Infraestructura Celular, Matriz de 48 Zonas y Certificación Forense Criptográfica.
+        </p>
+
+        <div class="cover-divider"></div>
+      </div>
+
+      <!-- TABLA DOSSIER DE METADATOS -->
+      <table class="cover-dossier-table">
+        <tbody>
+          <tr>
+            <td class="cover-dossier-label">Entidad Destinataria</td>
+            <td class="cover-dossier-value">Empresa Contratista de Infraestructura y Servicios</td>
+          </tr>
+          <tr>
+            <td class="cover-dossier-label">Proyecto Técnico</td>
+            <td class="cover-dossier-value">Estandarización de Reportes, Actas Homologadas y Visado Digital</td>
+          </tr>
+          <tr>
+            <td class="cover-dossier-label">Modalidad</td>
+            <td class="cover-dossier-value">Setup Llave en Mano + Licenciamiento Perpetuo (EULA)</td>
+          </tr>
+          <tr>
+            <td class="cover-dossier-label">Fecha de Emisión</td>
+            <td class="cover-dossier-value">Octubre de 2026</td>
+          </tr>
+          <tr>
+            <td class="cover-dossier-label">Validez de Oferta</td>
+            <td class="cover-dossier-value">15 Días Continuos a partir de la emisión</td>
+          </tr>
+          <tr>
+            <td class="cover-dossier-label">Régimen Fiscal</td>
+            <td class="cover-dossier-value">Precios Netos en USD (+ IVA de ley aplicable)</td>
+          </tr>
+          <tr>
+            <td class="cover-dossier-label">Estado del Dossier</td>
+            <td class="cover-dossier-value">Versión Ejecutiva para Evaluación y Aprobación</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div>
+      <!-- AVISO DE CONFIDENCIALIDAD -->
+      <div class="cover-notice">
+        <strong>Aviso de Confidencialidad y Propiedad:</strong> La información técnica, funcional y comercial contenida en este dossier es de carácter estrictamente confidencial. Queda prohibida su reproducción, divulgación o entrega a terceros sin autorización expresa de las partes involucradas.
+      </div>
+
+      <!-- FOOTER PORTADA -->
+      <div class="cover-footer">
+        <span>VERTEX &bull; Soluciones de Ingeniería de Software</span>
+        <span>Dossier Comercial &bull; 2026</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- PÁGINA 2: DIAGNÓSTICO Y JUSTIFICACIÓN      -->
   <!-- ========================================== -->
   <div class="sheet">
     <div>
@@ -587,7 +775,7 @@
       <!-- HEADER -->
       <div class="header-layout">
         <div>
-          <h1 class="doc-title">VERTEX Telecom</h1>
+          <h1 class="doc-title">VERTEX</h1>
           <p class="doc-subtitle">
             Plataforma Integral de Supervisión Técnica de Infraestructura Celular, Matriz de 48 Zonas y Certificación Forense Criptográfica.
           </p>
@@ -622,7 +810,7 @@
       <div class="callout-box">
         <span class="callout-title">Diagnóstico de Margen en Empresas Contratistas</span>
         <p class="callout-text">
-          Las empresas contratistas de mantenimiento e infraestructura en telecomunicaciones pierden en promedio entre un <strong>15% y un 25% de su margen operativo</strong> debido a glosas administrativas, demoras en el visado y rechazos de actas técnicas por parte de las operadoras clientes. <strong>VERTEX</strong> estandariza el flujo integral de punta a punta, erradicando rechazos técnicos y acelerando la radicación de carpetas para facturación.
+          Las empresas contratistas de mantenimiento e infraestructura pierden en promedio entre un <strong>15% y un 25% de su margen operativo</strong> debido a glosas administrativas, demoras en el visado y rechazos de actas técnicas por parte de las operadoras clientes. <strong>VERTEX</strong> estandariza el flujo integral de punta a punta, erradicando rechazos técnicos y acelerando la radicación de carpetas para facturación.
         </p>
       </div>
 
@@ -687,22 +875,22 @@
     <div>
       <!-- FOOTER -->
       <div class="sheet-footer">
-        <span>VERTEX TELECOM &bull; Propuesta Técnico-Comercial B2B</span>
-        <span>Documento Privado y Confidencial &bull; Página 1 de 6</span>
+        <span>VERTEX &bull; Propuesta Técnico-Comercial B2B</span>
+        <span>Documento Privado y Confidencial &bull; Página 2 de 7</span>
       </div>
     </div>
   </div>
 
 
   <!-- ========================================== -->
-  <!-- PÁGINA 2: ARQUITECTURA MODULAR (PARTE I)   -->
+  <!-- PÁGINA 3: ARQUITECTURA MODULAR (PARTE I)   -->
   <!-- ========================================== -->
   <div class="sheet">
     <div>
       <!-- TOP EYEBROW -->
       <div class="top-eyebrow">
         <span>Alcance Técnico y Arquitectura Funcional</span>
-        <span>VERTEX TELECOM</span>
+        <span>VERTEX</span>
       </div>
 
       <!-- SECTION 2 -->
@@ -805,22 +993,22 @@
 
       <!-- FOOTER -->
       <div class="sheet-footer">
-        <span>VERTEX TELECOM &bull; Propuesta Técnico-Comercial B2B</span>
-        <span>Documento Privado y Confidencial &bull; Página 2 de 6</span>
+        <span>VERTEX &bull; Propuesta Técnico-Comercial B2B</span>
+        <span>Documento Privado y Confidencial &bull; Página 3 de 7</span>
       </div>
     </div>
   </div>
 
 
   <!-- ========================================== -->
-  <!-- PÁGINA 3: ARQUITECTURA MODULAR (PARTE II)  -->
+  <!-- PÁGINA 4: ARQUITECTURA MODULAR (PARTE II)  -->
   <!-- ========================================== -->
   <div class="sheet">
     <div>
       <!-- TOP EYEBROW -->
       <div class="top-eyebrow">
         <span>Alcance Técnico y Arquitectura Funcional</span>
-        <span>VERTEX TELECOM</span>
+        <span>VERTEX</span>
       </div>
 
       <!-- SECTION 2 CONT -->
@@ -923,22 +1111,22 @@
 
       <!-- FOOTER -->
       <div class="sheet-footer">
-        <span>VERTEX TELECOM &bull; Propuesta Técnico-Comercial B2B</span>
-        <span>Documento Privado y Confidencial &bull; Página 3 de 6</span>
+        <span>VERTEX &bull; Propuesta Técnico-Comercial B2B</span>
+        <span>Documento Privado y Confidencial &bull; Página 4 de 7</span>
       </div>
     </div>
   </div>
 
 
   <!-- ========================================== -->
-  <!-- PÁGINA 4: INFRAESTRUCTURA CLOUD GCP & TCO  -->
+  <!-- PÁGINA 5: INFRAESTRUCTURA CLOUD GCP & TCO  -->
   <!-- ========================================== -->
   <div class="sheet">
     <div>
       <!-- TOP EYEBROW -->
       <div class="top-eyebrow">
         <span>Arquitectura Cloud y Transparencia de Costos</span>
-        <span>VERTEX TELECOM</span>
+        <span>VERTEX</span>
       </div>
 
       <!-- SECTION 3 -->
@@ -1015,22 +1203,22 @@
     <div>
       <!-- FOOTER -->
       <div class="sheet-footer">
-        <span>VERTEX TELECOM &bull; Propuesta Técnico-Comercial B2B</span>
-        <span>Documento Privado y Confidencial &bull; Página 4 de 6</span>
+        <span>VERTEX &bull; Propuesta Técnico-Comercial B2B</span>
+        <span>Documento Privado y Confidencial &bull; Página 5 de 7</span>
       </div>
     </div>
   </div>
 
 
   <!-- ========================================== -->
-  <!-- PÁGINA 5: PROPUESTA ECONÓMICA Y GARANTÍA   -->
+  <!-- PÁGINA 6: PROPUESTA ECONÓMICA Y GARANTÍA   -->
   <!-- ========================================== -->
   <div class="sheet">
     <div>
       <!-- TOP EYEBROW -->
       <div class="top-eyebrow">
         <span>Condiciones Económicas e Inversión</span>
-        <span>VERTEX TELECOM</span>
+        <span>VERTEX</span>
       </div>
 
       <!-- SECTION 4 -->
@@ -1137,22 +1325,22 @@
 
       <!-- FOOTER -->
       <div class="sheet-footer">
-        <span>VERTEX TELECOM &bull; Propuesta Técnico-Comercial B2B</span>
-        <span>Documento Privado y Confidencial &bull; Página 5 de 6</span>
+        <span>VERTEX &bull; Propuesta Técnico-Comercial B2B</span>
+        <span>Documento Privado y Confidencial &bull; Página 6 de 7</span>
       </div>
     </div>
   </div>
 
 
   <!-- ========================================== -->
-  <!-- PÁGINA 6: MARCO JURÍDICO Y ACEPTACIÓN      -->
+  <!-- PÁGINA 7: MARCO JURÍDICO Y ACEPTACIÓN      -->
   <!-- ========================================== -->
   <div class="sheet">
     <div>
       <!-- TOP EYEBROW -->
       <div class="top-eyebrow">
         <span>Marco Jurídico y Formalización</span>
-        <span>VERTEX TELECOM</span>
+        <span>VERTEX</span>
       </div>
 
       <!-- SECTION 5 -->
@@ -1201,7 +1389,7 @@
         <div class="sig-col">
           <div class="sig-party">Por el Proveedor de Tecnología</div>
           <div class="sig-line"></div>
-          <div class="sig-name">VERTEX Telecom &bull; Dirección Técnica</div>
+          <div class="sig-name">VERTEX &bull; Dirección Técnica</div>
           <div class="sig-meta">
             Arquitectura de Software e Infraestructura Cloud<br>
             Fecha: ____________________
@@ -1221,8 +1409,8 @@
 
       <!-- FOOTER -->
       <div class="sheet-footer">
-        <span>VERTEX TELECOM &bull; Propuesta Técnico-Comercial B2B</span>
-        <span>Documento Privado y Confidencial &bull; Página 6 de 6</span>
+        <span>VERTEX &bull; Propuesta Técnico-Comercial B2B</span>
+        <span>Documento Privado y Confidencial &bull; Página 7 de 7</span>
       </div>
     </div>
   </div>

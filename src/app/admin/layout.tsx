@@ -45,8 +45,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <Server className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-black text-slate-900 tracking-tight leading-none">SISBIR</h1>
-              <p className="text-[10px] font-mono text-slate-500 uppercase font-semibold mt-1">Telecom Platform &middot; Admin</p>
+              <h1 className="text-xl font-black text-slate-900 tracking-tight leading-none">VERTEX</h1>
+              <p className="text-[10px] font-mono text-slate-500 uppercase font-semibold mt-1">Plataforma Operativa &middot; Admin</p>
             </div>
           </div>
         </div>

@@ -4,8 +4,8 @@ import { AuthProvider } from '@/client/context/AuthContext';
 import { Navbar } from '@/client/components/Navbar';
 
 export const metadata: Metadata = {
-  title: 'SISBIR — Sistema de Reportes Técnicos de Radiobases',
-  description: 'PWA de grado de producción con TypeORM, Next.js y flujo de validación visual',
+  title: 'VERTEX — Plataforma de Supervisión y Reportes Técnicos',
+  description: 'Plataforma PWA de grado de producción con TypeORM, Next.js y certificación forense de infraestructura',
   manifest: '/manifest.webmanifest',
 };
 
