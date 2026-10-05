@@ -41,7 +41,7 @@ La plataforma se organiza en tres (3) módulos diseñados para la función exact
 * **2. Revisión Interna de Informes y Control de Calidad (QA):** Bandeja de recepción de informes entregados por las cuadrillas de campo (`REVISION_INTERNA`). Auditoría técnica de las 48 zonas y verificación fotográfica antes de emitir hacia el cliente.
 * **3. Control y Subsanación Inmediata:** Visor de evidencias en alta resolución. Capacidad de aprobar fotos o devolver el informe a la cuadrilla con observaciones puntuales para corrección inmediata antes de radicar.
 * **4. Envío al Cliente y Radicación Formal:** Registro del paso a `ENVIADO_AL_CLIENTE` (Digitel / Operadora). Trazabilidad de fecha y canal de entrega, monitoreando tiempos de respuesta del inspector de la operadora.
-* **5. Gestión y Registro de Visado Oficial:** Monitoreo continuo de observaciones hasta la obtención formal del `VISADO` aprobatorio emitido por el cliente. Congelamiento del reporte con firma y sello digital.
+* **5. Gestión y Registro de Visado del Cliente:** Seguimiento de correcciones hasta la obtención del visto bueno formal (`VISADO`) por parte del cliente. Registro del soporte o acta de aprobación y bloqueo del expediente para impedir modificaciones posteriores.
 * **6. Tramitación de HES y Cierre a Facturación:** Registro de la solicitud de Hoja de Entrada de Servicios (`HES_SOLICITADA`) en el portal del cliente (SAP Digitel). Traslado administrativo inmediato para cambio a `FACTURADO` y cobranza final.
 
 ---
