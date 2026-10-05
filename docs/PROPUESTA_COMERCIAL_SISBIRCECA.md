@@ -23,40 +23,39 @@ Las empresas contratistas de mantenimiento e infraestructura en telecomunicacion
 
 La plataforma se organiza en tres (3) módulos diseñados para la función exacta de cada miembro de la organización:
 
-### A. MÓDULO DE CAMPO (TÉCNICO EN TORRE)
-*Diseñado para técnicos e inspectores que operan en condiciones severas de campo.*
+### A. MÓDULO DE CAMPO (TÉCNICO EN TORRE / OPERACIONES EN SITIO)
+*Diseñado para técnicos de campo, cuadrillas de mantenimiento e instaladores.*
 
-* **Funcionalidad A — PWA Offline-First (Sin Conexión):**
-  Desarrollada bajo tecnología Web Progresiva con base de datos local `IndexedDB (Dexie.js)`. Permite realizar inspecciones completas en zonas rurales o dentro de shelters metálicos sin señal celular. Los datos y fotos se guardan en el dispositivo y se sincronizan automáticamente en segundo plano al recuperar señal 3G/4G o Wi-Fi.
-* **Funcionalidad B — Matriz Técnica Homologada de 48 Zonas:**
-  Formulario secuencial guiado para los 5 subsistemas normativos (Torre y Estructura, Shelter y Clima, Energía DC y Bancos de Baterías, Radiofrecuencia y Enlaces, y Sistema de Aterramiento). Evaluación ágil mediante estados: `NORMAL`, `ALARMA` o `FALLA` con notas de campo obligatorias.
-* **Funcionalidad C — Motor Fotográfico Adaptativo por Tipo de Misión:**
-  Soporta flujo de **Evidencia Única** para obras nuevas, swaps o puestas en marcha donde solo se requiere la fotografía final de instalación, y flujo dual **Antes / Después** para mantenimientos correctivos. Comprime automáticamente en formato **WebP (< 250 KB)** con estampado indeleble de telemetría (Coordenadas GPS satelitales, fecha/hora atómica, código de torre y técnico responsable).
+* **1. PWA Offline-First (Sin Conexión):** Base de datos local indexada `IndexedDB (Dexie.js)`. Permite realizar levantamientos íntegros sin cobertura celular en zonas rurales o shelters apantallados. Cero riesgo de pantallas en blanco o pérdida de sesión.
+* **2. Sincronización Automática Bidireccional:** Detección de conectividad (3G/4G/Wi-Fi) con reintentos exponenciales y cola visual de sincronización en segundo plano para asegurar que ningún reporte quede atrapado en el teléfono.
+* **3. Matriz Técnica Homologada de 48 Zonas:** Formulario secuencial guiado para los 5 subsistemas normativos (Torre, Shelter, Energía DC, Microondas y Puesta a Tierra). Evaluación (`NORMAL`, `ALARMA`, `FALLA`) con notas de campo obligatorias.
+* **4. Motor Fotográfico Adaptativo por Tipo de Misión:** Soporta flujo de **Evidencia Única** para obras nuevas, swaps o auditorías, y flujo dual **Antes / Después** para mantenimientos correctivos. Compresión automática WebP (< 250 KB por foto).
+* **5. Estampado Canvas y Sello Satelital:** Incrustación indeleble en los píxeles de cada foto: Coordenadas GPS en tiempo real, marca temporal atómica UTC, código oficial de la radiobase y nombre del técnico responsable.
+* **6. Geofencing Perimetral y Modo Sol:** Validación de proximidad geográfica que asegura la presencia física del técnico al pie de la torre (< 100m). Modo Sol de alto contraste y botones táctiles sobredimensionados (≥ 48px) para operar con guantes.
 
 ---
 
 ### B. MÓDULO DE SEGUIMIENTO (COORDINACIÓN, VISADO Y HES)
 *Diseñado para la persona de seguimiento, coordinadores de operaciones y control de facturación técnica.*
 
-* **Funcionalidad A — Revisión Interna de Informes y Control de Calidad (QA):**
-  Bandeja de recepción de informes entregados por las cuadrillas de campo (`REVISION_INTERNA`). Auditoría técnica de las 48 zonas y verificación fotográfica antes de emitir el documento hacia el cliente. En caso de inconsistencias, se devuelve de inmediato a la cuadrilla con observaciones; si está conforme, se aprueba internamente para radicación.
-* **Funcionalidad B — Gestión de Pipeline y Envío al Cliente (Digitel / Operadora):**
-  Tablero de control del ciclo de vida operativo: avance de la orden a `ENVIADO_AL_CLIENTE`. Monitoreo continuo de los tiempos de respuesta del inspector de la operadora, solventando comentarios u observaciones hasta lograr el `VISADO` formal (Aprobación definitiva del cliente).
-* **Funcionalidad C — Tramitación de HES (Hoja de Entrada de Servicios) y Pase a Facturación:**
-  Una vez obtenido el visado de la operadora, registro y seguimiento de la solicitud de HES (`HES_SOLICITADA`) en el sistema del cliente (ej. SAP Digitel). Aprobada la HES, se marca el expediente como `FACTURADO` y se traslada a administración para el cobro correspondiente.
+* **1. Pipeline Operativo Visual (8 Fases Kanban):** Tablero integral que rastrea cada orden: `SIN_EMPEZAR` &rarr; `EN_VISITA` &rarr; `ELABORANDO_INFORME` &rarr; `REVISION_INTERNA` &rarr; `ENVIADO_AL_CLIENTE` &rarr; `VISADO` &rarr; `HES_SOLICITADA` &rarr; `FACTURADO`.
+* **2. Revisión Interna de Informes y Control de Calidad (QA):** Bandeja de recepción de informes entregados por las cuadrillas de campo (`REVISION_INTERNA`). Auditoría técnica de las 48 zonas y verificación fotográfica antes de emitir hacia el cliente.
+* **3. Control y Subsanación Inmediata:** Visor de evidencias en alta resolución. Capacidad de aprobar fotos o devolver el informe a la cuadrilla con observaciones puntuales para corrección inmediata antes de radicar.
+* **4. Envío al Cliente y Radicación Formal:** Registro del paso a `ENVIADO_AL_CLIENTE` (Digitel / Operadora). Trazabilidad de fecha y canal de entrega, monitoreando tiempos de respuesta del inspector de la operadora.
+* **5. Gestión y Registro de Visado Oficial:** Monitoreo continuo de observaciones hasta la obtención formal del `VISADO` aprobatorio emitido por el cliente. Congelamiento del reporte con firma y sello digital.
+* **6. Tramitación de HES y Cierre a Facturación:** Registro de la solicitud de Hoja de Entrada de Servicios (`HES_SOLICITADA`) en el portal del cliente (SAP Digitel). Traslado administrativo inmediato para cambio a `FACTURADO` y cobranza final.
 
 ---
 
-### C. MÓDULO ADMINISTRATIVO (GERENCIA Y CONTROL)
+### C. MÓDULO ADMINISTRATIVO (GERENCIA, AUDITORÍA Y COMPLIANCE)
 *Diseñado para directores generales, gerentes de operaciones y auditores corporativos.*
 
-* **Funcionalidad A — Dashboard Ejecutivo y Telemetría Operativa:**
-  Indicadores clave de rendimiento (KPIs) en tiempo real: volumen mensual de radiobases inspeccionadas, tasa de rechazo por cuadrilla, radiobases con mayor recurrencia de alarmas críticas y porcentaje de cumplimiento de metas contractuales.
-* **Funcionalidad B — Gestión Centralizada de Sitios, Cuadrillas y Accesos (RBAC):**
-  Administración del catálogo de radiobases georreferenciadas, altas y bajas de personal técnico/supervisor, y control de seguridad mediante tokens criptográficos de sesión.
-* **Funcionalidad C — Generador de Actas Técnicas PDF y Bitácora Forense SHA-256:**
-  * Compilación a un solo clic de actas homologadas en formato A4 listas para radicar y facturar ante la operadora (con membrete de la empresa, firmas y códigos QR).
-  * Libro mayor inmutable *append-only* (FIPS 180-4) con verificación matemática de integridad para peritajes judiciales o resolución de disputas comerciales.
+* **1. Dashboard Ejecutivo y Telemetría Operativa:** Métricas en tiempo real: volumen mensual de radiobases atendidas, tasa de rechazo interno vs. cliente, sitios con mayor recurrencia de alarmas críticas y cumplimiento de metas contractuales.
+* **2. Gestión Centralizada del Parque de Radiobases:** Catálogo maestro de estaciones celulares con código único, región geográfica, coordenadas satelitales oficiales, tipo de estructura y tecnología instalada (4G/LTE, 5G, Microondas).
+* **3. Directorio de Cuadrillas y Seguridad RBAC:** Administración de usuarios y segregación estricta de roles (Técnico, Seguimiento, Administrador). Seguridad Zero-Trust con tokens de sesión criptográficos HMAC-SHA256.
+* **4. Generador de Actas Técnicas PDF A4 Homologadas:** Compilación a 1 clic de expedientes técnicos en formato A4 listos para cobrar, con membrete corporativo, resumen de 48 zonas, galería en alta resolución y código QR de validación.
+* **5. Bitácora Forense y Auditoría Criptográfica SHA-256:** Libro mayor inmutable *append-only* (FIPS 180-4) con hashes encadenados. Verificación matemática de integridad al 100% y descarga en CSV/JSON para peritajes judiciales o auditorías externas.
+* **6. Configuración Global del Sistema y Políticas NOC:** Calibración de tolerancias de geocerca en metros por región geográfica, políticas de retención documental, respaldos automatizados y notificaciones automáticas del sistema.
 
 ---
 

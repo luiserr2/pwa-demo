@@ -676,37 +676,61 @@
         <div class="role-card-header">
           <div style="display: flex; align-items: center; gap: 10px;">
             <span class="role-badge badge-tecnico">Módulo 1</span>
-            <strong style="color: var(--slate-900); font-size: 14px;">MÓDULO DE CAMPO (TÉCNICO EN TORRE)</strong>
+            <strong style="color: var(--slate-900); font-size: 14px;">MÓDULO DE CAMPO (TÉCNICO EN TORRE / OPERACIONES EN SITIO)</strong>
           </div>
-          <span class="role-target-user">Perfil: Técnicos e Inspectores de Radiobase</span>
+          <span class="role-target-user">Perfil: Técnicos de Campo, Cuadrillas de Mantenimiento e Instaladores</span>
         </div>
         <div class="role-card-body">
           <p class="role-card-intro">
-            Aplicación PWA móvil optimizada para terminales táctiles, diseñada para operar en condiciones extremas de campo con visibilidad bajo luz solar y consumo mínimo de batería.
+            Aplicación PWA móvil optimizada para terminales táctiles, diseñada para operar en condiciones severas de campo con visibilidad bajo luz solar directa, cero dependencia de cobertura celular y consumo mínimo de batería.
           </p>
 
           <div class="features-list">
             <div class="feature-item">
-              <span class="feature-tag">Funcionalidad A</span>
-              <div class="feature-title">PWA Offline-First (Sin Internet)</div>
+              <span class="feature-tag">Capacidad 01</span>
+              <div class="feature-title">PWA Offline-First (Sin Conexión)</div>
               <p class="feature-detail">
-                Arquitectura de base de datos local <code>IndexedDB / Dexie.js</code>. El técnico realiza el levantamiento íntegro sin cobertura celular y sincroniza de forma segura al conectar a 3G/4G o Wi-Fi.
+                Base de datos local indexada <code>IndexedDB / Dexie.js</code>. Levantamientos íntegros sin internet en zonas rurales o shelters metálicos apantallados. Cero riesgo de pantallas en blanco.
               </p>
             </div>
 
             <div class="feature-item">
-              <span class="feature-tag">Funcionalidad B</span>
-              <div class="feature-title">Matriz Técnica de 48 Zonas</div>
+              <span class="feature-tag">Capacidad 02</span>
+              <div class="feature-title">Sincronización Automática Bidireccional</div>
               <p class="feature-detail">
-                Formulario guiado paso a paso con los 5 subsistemas normativos (Torre, Shelter, Energía DC, Microondas y Tierra). Evaluación categórica: <code>NORMAL</code>, <code>ALARMA</code> o <code>FALLA</code> con notas técnicas.
+                Detección inteligente de red (3G/4G/Wi-Fi) con reintentos exponenciales y cola de sincronización visual en segundo plano para asegurar que ningún informe se quede retenido en el teléfono.
               </p>
             </div>
 
             <div class="feature-item">
-              <span class="feature-tag">Funcionalidad C</span>
+              <span class="feature-tag">Capacidad 03</span>
+              <div class="feature-title">Matriz Técnica de 48 Zonas (5 Subsistemas)</div>
+              <p class="feature-detail">
+                Formulario secuencial guiado para Torre, Shelter, Energía DC/Baterías, Radiofrecuencia y Sistema de Tierra. Evaluación (<code>NORMAL</code>, <code>ALARMA</code>, <code>FALLA</code>) con notas obligatorias.
+              </p>
+            </div>
+
+            <div class="feature-item">
+              <span class="feature-tag">Capacidad 04</span>
               <div class="feature-title">Motor Fotográfico Adaptativo por Misión</div>
               <p class="feature-detail">
-                Soporta flujo de <strong>Evidencia Única</strong> para instalaciones nuevas, swaps o puestas en marcha, y flujo dual <strong>Antes / Después</strong> para mantenimientos correctivos. Compresión WebP en el teléfono (&lt; 250 KB) con estampado indeleble de coordenadas GPS, fecha atómica y código de torre.
+                Soporta flujo de <strong>Evidencia Única</strong> para instalaciones nuevas, swaps o auditorías, y flujo dual <strong>Antes / Después</strong> para mantenimientos correctivos. Compresión WebP (&lt; 250 KB).
+              </p>
+            </div>
+
+            <div class="feature-item">
+              <span class="feature-tag">Capacidad 05</span>
+              <div class="feature-title">Estampado Canvas y Sello Satelital</div>
+              <p class="feature-detail">
+                Incrustación indeleble en los píxeles de cada foto: Coordenadas GPS satelitales en tiempo real, marca temporal atómica UTC, código oficial de la radiobase y nombre del técnico responsable.
+              </p>
+            </div>
+
+            <div class="feature-item">
+              <span class="feature-tag">Capacidad 06</span>
+              <div class="feature-title">Geofencing Perimetral y Modo Sol</div>
+              <p class="feature-detail">
+                Validación perimetral que certifica que el técnico esté al pie de la torre (&lt; 100m). Modo Sol de alto contraste y botones táctiles sobredimensionados (&ge; 48px) para operar con guantes.
               </p>
             </div>
           </div>
@@ -720,7 +744,7 @@
             <span class="role-badge badge-supervisor">Módulo 2</span>
             <strong style="color: var(--slate-900); font-size: 14px;">MÓDULO DE SEGUIMIENTO (COORDINACIÓN, VISADO Y HES)</strong>
           </div>
-          <span class="role-target-user">Perfil: Persona de Seguimiento / Coordinador de Operaciones</span>
+          <span class="role-target-user">Perfil: Persona de Seguimiento / Coordinador de Operaciones y Facturación Técnica</span>
         </div>
         <div class="role-card-body">
           <p class="role-card-intro">
@@ -729,26 +753,50 @@
 
           <div class="features-list">
             <div class="feature-item">
-              <span class="feature-tag">Funcionalidad A</span>
+              <span class="feature-tag">Capacidad 01</span>
+              <div class="feature-title">Pipeline Operativo Visual (8 Fases)</div>
+              <p class="feature-detail">
+                Tablero integral que rastrea cada orden: <code>SIN_EMPEZAR</code> &rarr; <code>EN_VISITA</code> &rarr; <code>ELABORANDO_INFORME</code> &rarr; <code>REVISION_INTERNA</code> &rarr; <code>ENVIADO_AL_CLIENTE</code> &rarr; <code>VISADO</code> &rarr; <code>HES_SOLICITADA</code> &rarr; <code>FACTURADO</code>.
+              </p>
+            </div>
+
+            <div class="feature-item">
+              <span class="feature-tag">Capacidad 02</span>
               <div class="feature-title">Revisión Interna de Informes (QA)</div>
               <p class="feature-detail">
-                Bandeja de recepción de informes entregados por cuadrillas (<code>REVISION_INTERNA</code>). Auditoría de las 48 zonas y verificación fotográfica antes de salir de la empresa. Devolución inmediata a campo con observaciones o aprobación para radicación.
+                Bandeja de recepción de informes entregados por cuadrillas (<code>REVISION_INTERNA</code>). Auditoría técnica de las 48 zonas y verificación fotográfica antes de salir hacia el cliente.
               </p>
             </div>
 
             <div class="feature-item">
-              <span class="feature-tag">Funcionalidad B</span>
-              <div class="feature-title">Envío al Cliente y Gestión de Visado</div>
+              <span class="feature-tag">Capacidad 03</span>
+              <div class="feature-title">Control y Subsanación Inmediata</div>
               <p class="feature-detail">
-                Control del pipeline operativo: paso a <code>ENVIADO_AL_CLIENTE</code> (Digitel / Operadora). Monitoreo continuo de los tiempos de respuesta del inspector de la operadora y atención de observaciones hasta la obtención formal del <code>VISADO</code> (Aprobado).
+                Visor de evidencias en alta resolución. Capacidad de aprobar fotos o devolver el informe a la cuadrilla con observaciones puntuales para corrección inmediata antes de radicar.
               </p>
             </div>
 
             <div class="feature-item">
-              <span class="feature-tag">Funcionalidad C</span>
-              <div class="feature-title">Gestión de HES y Pase a Facturación</div>
+              <span class="feature-tag">Capacidad 04</span>
+              <div class="feature-title">Envío al Cliente y Radicación Formal</div>
               <p class="feature-detail">
-                Una vez visado el informe, registro y seguimiento de la solicitud de la Hoja de Entrada de Servicios (<code>HES_SOLICITADA</code>) en el portal de la operadora (SAP Digitel). Traslado administrativo inmediato para cambio a <code>FACTURADO</code> y cobranza final.
+                Registro del paso a <code>ENVIADO_AL_CLIENTE</code> (Digitel / Operadora). Trazabilidad de fecha y canal de entrega, monitoreando tiempos de respuesta del inspector de la operadora.
+              </p>
+            </div>
+
+            <div class="feature-item">
+              <span class="feature-tag">Capacidad 05</span>
+              <div class="feature-title">Gestión y Registro de Visado Oficial</div>
+              <p class="feature-detail">
+                Monitoreo continuo de observaciones hasta la obtención formal del <code>VISADO</code> aprobatorio emitido por el cliente. Congelamiento del reporte con firma y sello digital.
+              </p>
+            </div>
+
+            <div class="feature-item">
+              <span class="feature-tag">Capacidad 06</span>
+              <div class="feature-title">Gestión de HES y Cierre a Facturación</div>
+              <p class="feature-detail">
+                Registro de la solicitud de Hoja de Entrada de Servicios (<code>HES_SOLICITADA</code>) en el portal del cliente (SAP Digitel). Pase administrativo inmediato a <code>FACTURADO</code> para cobro.
               </p>
             </div>
           </div>
@@ -760,37 +808,61 @@
         <div class="role-card-header">
           <div style="display: flex; align-items: center; gap: 10px;">
             <span class="role-badge badge-admin">Módulo 3</span>
-            <strong style="color: var(--slate-900); font-size: 14px;">MÓDULO ADMINISTRATIVO (GERENCIA Y CONTROL)</strong>
+            <strong style="color: var(--slate-900); font-size: 14px;">MÓDULO ADMINISTRATIVO (GERENCIA, AUDITORÍA Y COMPLIANCE)</strong>
           </div>
-          <span class="role-target-user">Perfil: Directores, Gerentes Generales y Auditores</span>
+          <span class="role-target-user">Perfil: Directores Generales, Gerentes de Operaciones y Auditores Corporativos</span>
         </div>
         <div class="role-card-body">
           <p class="role-card-intro">
-            Herramientas ejecutivas para la toma de decisiones, control del catálogo de activos, gestión de facturación y respaldo legal inmutable ante inspecciones externas.
+            Centro de control ejecutivo para la toma de decisiones estratégicas, supervisión del parque de infraestructura, control de accesos, certificación legal y liquidación comercial de servicios.
           </p>
 
           <div class="features-list">
             <div class="feature-item">
-              <span class="feature-tag">Funcionalidad A</span>
+              <span class="feature-tag">Capacidad 01</span>
               <div class="feature-title">Dashboard Ejecutivo & Telemetría</div>
               <p class="feature-detail">
-                Métricas globales de cuadrillas, volumen mensual de inspecciones terminadas, radiobases con mayor recurrencia de alarmas críticas y porcentaje de cumplimiento de contratos.
+                Métricas en tiempo real: volumen mensual de radiobases atendidas, tasa de rechazo interno vs. cliente, sitios con mayor recurrencia de alarmas críticas y cumplimiento de metas contractuales.
               </p>
             </div>
 
             <div class="feature-item">
-              <span class="feature-tag">Funcionalidad B</span>
-              <div class="feature-title">Gestión de Sitios, Cuadrillas y RBAC</div>
+              <span class="feature-tag">Capacidad 02</span>
+              <div class="feature-title">Gestión de Infraestructura de Radiobases</div>
               <p class="feature-detail">
-                Administración central de radiobases georreferenciadas, creación de credenciales de técnicos/supervisores y control de acceso basado en roles con tokens criptográficos.
+                Catálogo maestro de estaciones celulares con código único, región geográfica, coordenadas oficiales, tipo de estructura y tecnología instalada (4G/LTE, 5G, Microondas).
               </p>
             </div>
 
             <div class="feature-item">
-              <span class="feature-tag">Funcionalidad C</span>
-              <div class="feature-title">Actas PDF y Bitácora Forense SHA-256</div>
+              <span class="feature-tag">Capacidad 03</span>
+              <div class="feature-title">Directorio de Cuadrillas y RBAC</div>
               <p class="feature-detail">
-                Generador de actas formales A4 listas para cobrar y libro mayor <em>append-only</em> (FIPS 180-4) con verificación matemática de integridad para peritajes judiciales o reclamos.
+                Administración de usuarios y segregación estricta de roles (Técnico, Seguimiento, Administrador). Seguridad Zero-Trust con tokens criptográficos de sesión HMAC-SHA256.
+              </p>
+            </div>
+
+            <div class="feature-item">
+              <span class="feature-tag">Capacidad 04</span>
+              <div class="feature-title">Generador de Actas Técnicas PDF A4</div>
+              <p class="feature-detail">
+                Compilación a 1 clic de expedientes técnicos homologados listos para cobrar, con membrete corporativo, resumen de 48 zonas, galería en alta resolución y código QR de validación.
+              </p>
+            </div>
+
+            <div class="feature-item">
+              <span class="feature-tag">Capacidad 05</span>
+              <div class="feature-title">Bitácora Forense SHA-256 (FIPS 180-4)</div>
+              <p class="feature-detail">
+                Libro mayor inmutable <em>append-only</em> con hashes encadenados. Verificación matemática de integridad al 100% y descarga en CSV/JSON para peritajes judiciales o auditorías externas.
+              </p>
+            </div>
+
+            <div class="feature-item">
+              <span class="feature-tag">Capacidad 06</span>
+              <div class="feature-title">Configuración Global y Políticas NOC</div>
+              <p class="feature-detail">
+                Calibración de tolerancias de geocerca en metros por región geográfica, políticas de retención documental, respaldos automatizados y notificaciones del sistema.
               </p>
             </div>
           </div>
