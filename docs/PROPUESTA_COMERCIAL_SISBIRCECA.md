@@ -5,6 +5,7 @@
 **MODALIDAD:** Implementación, Bolsa de Adecuaciones y Licenciamiento Comercial (B2B)  
 **FECHA:** Octubre de 2026  
 **VALIDEZ DE OFERTA:** 15 Días Continuos  
+**RÉGIMEN FISCAL:** Precios netos expresados en Dólares Americanos (USD), más impuestos de ley (IVA).  
 
 ---
 
@@ -88,9 +89,9 @@ Para asegurar una transición sin fricción con los formatos existentes de su em
 
 Para garantizar un **99.9% de disponibilidad operativa**, respaldo diario y soberanía sobre los datos, la solución se despliega en centros de datos Tier-3 de **Google Cloud Platform (GCP)** en Estados Unidos (Iowa / Carolina del Sur). 
 
-A continuación se transparenta la estructura real de costos de la infraestructura y el valor del servicio gestionado:
+A continuación se transparenta la estructura real de costos de la infraestructura y el valor del servicio gestionado (valores netos en USD + impuestos):
 
-| Componente Google Cloud (GCP) | Métrica de Consumo Mensual | Función en la Plataforma | Costo Neto GCP |
+| Componente Google Cloud (GCP) | Métrica de Consumo Mensual | Función en la Plataforma | Costo Neto GCP (+ IVA) |
 | :--- | :--- | :--- | :---: |
 | **Google Cloud Run (Serverless)** | 1 vCPU, 1 GB RAM, ~100k peticiones/mes | Ejecución de Next.js PWA, API REST y compilador de PDFs | **$15.00 USD** |
 | **Google Cloud SQL for PostgreSQL** | Instancia db-f1-micro / e2-micro (20 GB SSD) | Base de datos relacional ACID con backups diarios automáticos | **$18.50 USD** |
@@ -107,7 +108,7 @@ A continuación se transparenta la estructura real de costos de la infraestructu
 
 ## 5. CUADRO RESUMEN EJECUTIVO DE LA PROPUESTA
 
-| Concepto | Detalle de Entregables | Condición / Forma de Pago | Inversión (USD) |
+| Concepto | Detalle de Entregables | Condición / Forma de Pago | Inversión Neta (USD) + IVA |
 | :--- | :--- | :--- | :---: |
 | **1. Setup e Implementación Base** | Despliegue de los 4 Módulos (Campo, Seguimiento, Administración y Gestor de Plantillas), configuración de catálogos y capacitación de personal. | 3 pagos fraccionados de **$550.00 USD**:<br>&bull; 33.3% Firma / Kick-off<br>&bull; 33.3% Demostración Staging<br>&bull; 33.4% Pase a Producción | **$1,650.00 USD**<br>*(Pago Único)* |
 | **2. Bolsa de Adecuaciones Libres** | **20 horas hombre de ingeniería** para personalizar planillas de 48 zonas, diseño del PDF con logo y reglas de validación técnica. | **100% Bonificado** dentro del Setup inicial. | **INCLUIDO** |
@@ -117,6 +118,8 @@ A continuación se transparenta la estructura real de costos de la infraestructu
 | **6. Tiempo de Ejecución Total** | Despliegue, parametrización, pruebas en campo y 2 sesiones formales de capacitación al personal. | Cronograma cerrado de **3 a 4 semanas** desde el anticipo inicial. | **Garantizado** |
 | **7. Soporte Post-Implementación** | **1 mes continuo (30 días)** de soporte de estabilización para corrección exclusiva de fallas sobre funcionalidades delimitadas en el contrato.<br>*(Cualquier modificación de fondo o cambio de alcance tras la aprobación del sistema será cotizada adicionalmente).* | A partir del pase formal a producción y entrega del sistema. | **INCLUIDO**<br>*(30 Días)* |
 | **8. Licencia y Términos Contractuales** | Licencia de uso comercial perpetua (sin cobro mensual por usuario), exoneración total por modificación de código y límite de responsabilidad. | Protección jurídica mutua para ambas entidades. | **Incluido** |
+
+> **CONDICIÓN FISCAL:** Todos los montos, cánones y tarifas presentadas en esta propuesta económica corresponden a valores netos en Dólares Americanos (USD). A cada pago o facturación se le adicionará el Impuesto al Valor Agregado (IVA) correspondiente de acuerdo con la legislación tributaria aplicable al momento de la facturación formal.
 
 ---
 
@@ -132,6 +135,7 @@ A continuación se transparenta la estructura real de costos de la infraestructu
    * EL PROVEEDOR queda **completamente exonerado de toda responsabilidad** por pérdida de información, corrupción de datos, fallas operativas, no disponibilidad del servicio, inconsistencias ante clientes o daños y perjuicios directos o indirectos.
    * Cualquier labor técnica orientada a diagnosticar, restaurar o reparar los daños derivados de la alteración externa será cotizada como servicio extraordinario a la tarifa de soporte aplicable ($50.00 USD/h) y pagadera de forma previa a la intervención.
 4. **Límite Máximo de Responsabilidad (Liability Cap):** La responsabilidad patrimonial máxima acumulada del PROVEEDOR ante cualquier reclamo o eventualidad estará expresamente limitada al monto efectivamente percibido por concepto de la tarifa inicial de Setup ($1,650.00 USD).
+5. **Régimen Tributario e Impuestos de Ley:** La totalidad de las tarifas, montos de implementación, cánones de infraestructura y honorarios técnicos estipulados en la presente propuesta y sus anexos corresponden a **valores netos expresados en Dólares Americanos (USD)**. En consecuencia, sobre cada pago o facturación se adicionará y devengará el Impuesto al Valor Agregado (IVA) o gravamen tributario aplicable conforme a la normativa fiscal vigente a la fecha de emisión de cada factura legal correspondiente.
 
 ---
 
