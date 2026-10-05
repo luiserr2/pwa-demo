@@ -741,31 +741,31 @@
         </div>
         <div class="role-card-body">
           <p class="role-card-intro">
-            Consola de gestión del ciclo de vida operativo (Pipeline): acompaña el expediente desde que la cuadrilla entrega el informe técnico en campo, pasando por el control de calidad interno, la radicación formal ante el cliente, la obtención del visado, la tramitación de la HES y el pase definitivo a facturación.
+            Consola central de operaciones: permite cargar las órdenes de salida desde plantillas Excel, hacer seguimiento al avance de las cuadrillas en campo, supervisar el control de calidad técnico, dar seguimiento a la radicación y visado ante el cliente, y registrar la HES para facturación.
           </p>
 
           <div class="features-list">
             <div class="feature-item">
               <span class="feature-tag">Capacidad 01</span>
-              <div class="feature-title">Pipeline Operativo Visual (8 Fases)</div>
+              <div class="feature-title">Carga de Órdenes desde Excel</div>
               <p class="feature-detail">
-                Tablero integral que rastrea cada orden: <code>SIN_EMPEZAR</code> &rarr; <code>EN_VISITA</code> &rarr; <code>ELABORANDO_INFORME</code> &rarr; <code>REVISION_INTERNA</code> &rarr; <code>ENVIADO_AL_CLIENTE</code> &rarr; <code>VISADO</code> &rarr; <code>HES_SOLICITADA</code> &rarr; <code>FACTURADO</code>.
+                Importación rápida de órdenes de salida o trabajo mediante una plantilla estándar en Excel (código de radiobase, tipo de servicio, fecha y cuadrilla asignada), evitando la carga manual individual.
               </p>
             </div>
 
             <div class="feature-item">
               <span class="feature-tag">Capacidad 02</span>
-              <div class="feature-title">Revisión Interna de Informes (QA)</div>
+              <div class="feature-title">Pipeline de Seguimiento Operativo</div>
               <p class="feature-detail">
-                Bandeja de recepción de informes entregados por cuadrillas (<code>REVISION_INTERNA</code>). Auditoría técnica de las 48 zonas y verificación fotográfica antes de salir hacia el cliente.
+                Tablero visual para monitorear el estatus de cada orden a lo largo de su ciclo: <code>SIN_EMPEZAR</code> &rarr; <code>EN_VISITA</code> &rarr; <code>ELABORANDO_INFORME</code> &rarr; <code>REVISION_INTERNA</code> &rarr; <code>ENVIADO_AL_CLIENTE</code> &rarr; <code>VISADO</code> &rarr; <code>HES_SOLICITADA</code> &rarr; <code>FACTURADO</code>.
               </p>
             </div>
 
             <div class="feature-item">
               <span class="feature-tag">Capacidad 03</span>
-              <div class="feature-title">Control y Subsanación Inmediata</div>
+              <div class="feature-title">Revisión y Control de Calidad (QA)</div>
               <p class="feature-detail">
-                Visor de evidencias en alta resolución. Capacidad de aprobar fotos o devolver el informe a la cuadrilla con observaciones puntuales para corrección inmediata antes de radicar.
+                Bandeja de auditoría interna para revisar las 48 zonas y la calidad de las fotos cargadas por el técnico, con potestad de aprobar el informe o solicitar subsanaciones inmediatas a la cuadrilla.
               </p>
             </div>
 
@@ -773,31 +773,23 @@
               <span class="feature-tag">Capacidad 04</span>
               <div class="feature-title">Seguimiento de Entrega y Radicación</div>
               <p class="feature-detail">
-                El sistema no realiza envíos externos; permite al coordinador registrar y controlar el estatus de radicación (<code>ENVIADO_AL_CLIENTE</code>), documentando canal de entrega, número de ticket y monitoreando los tiempos de respuesta del inspector de la operadora.
+                Registro del estado de entrega del informe al cliente (<code>ENVIADO_AL_CLIENTE</code>), documentando canal de entrega, número de ticket y tiempos de respuesta del inspector de la operadora.
               </p>
             </div>
 
             <div class="feature-item">
               <span class="feature-tag">Capacidad 05</span>
-              <div class="feature-title">Gestión y Registro de Visado del Cliente</div>
+              <div class="feature-title">Visado del Cliente y Gestión de HES</div>
               <p class="feature-detail">
-                Seguimiento de correcciones hasta la obtención del visto bueno formal (<code>VISADO</code>) por parte del cliente. Registro del soporte o acta de aprobación y bloqueo del expediente para impedir modificaciones posteriores.
+                Registro del visto bueno del cliente (<code>VISADO</code>), bloqueo del informe para impedir modificaciones y registro de la Hoja de Entrada de Servicios (<code>HES_SOLICITADA</code> en SAP) para habilitar el cobro.
               </p>
             </div>
 
             <div class="feature-item">
               <span class="feature-tag">Capacidad 06</span>
-              <div class="feature-title">Gestión de HES y Cierre a Facturación</div>
+              <div class="feature-title">Historial de Modificaciones y Auditoría</div>
               <p class="feature-detail">
-                Registro de la solicitud de Hoja de Entrada de Servicios (<code>HES_SOLICITADA</code>) en el portal del cliente (SAP Digitel). Pase administrativo inmediato a <code>FACTURADO</code> para cobro.
-              </p>
-            </div>
-
-            <div class="feature-item">
-              <span class="feature-tag">Capacidad 07</span>
-              <div class="feature-title">Auditoría y Trazabilidad de Edición de Documentos</div>
-              <p class="feature-detail">
-                Bitácora organizada para el supervisor que registra cada edición sobre los informes técnicos: <strong>quién</strong> modificó el documento (usuario y rol), <strong>cuándo</strong> (fecha y hora exacta) y <strong>cómo</strong> lo editó (comparativa del dato anterior vs. dato nuevo, fotos sustituidas o notas corregidas). Permite al supervisor verificar la autenticidad antes de enviar al cliente.
+                Bitácora organizada que registra quién editó el documento, fecha y hora, y el cambio puntual realizado (dato anterior vs. nuevo), garantizando total control antes de la entrega final.
               </p>
             </div>
           </div>
