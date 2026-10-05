@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+const fs = require('fs');
+
+const html = `<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -646,45 +648,34 @@
       border: 1px solid var(--navy);
       border-radius: 8px;
       overflow: hidden;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
-    .summary-table-box .summary-table-header {
+    .summary-table-header {
       background: var(--navy);
       color: #ffffff;
-      padding: 7px 12px;
+      padding: 10px 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    .summary-table-box .summary-table-title {
-      font-size: 11.5px;
+    .summary-table-title {
+      font-size: 12.5px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-    }
-
-    .summary-table-box table.table-clean th {
-      padding: 5px 8px;
-      font-size: 9px;
-    }
-
-    .summary-table-box table.table-clean td {
-      padding: 4px 8px;
-      font-size: 9.8px;
-      line-height: 1.25;
     }
 
     .fiscal-pill-row {
       background: #faf5ff;
       border: 1px solid #e9d5ff;
       border-radius: 6px;
-      padding: 6px 10px;
-      font-size: 9px;
+      padding: 8px 12px;
+      font-size: 10.5px;
       color: #581c87;
       font-weight: 600;
-      line-height: 1.35;
+      line-height: 1.4;
     }
 
     /* CLÁUSULAS CONTRACTUALES Y FIRMAS (PÁGINA 8) */
@@ -1600,3 +1591,7 @@
 
 </body>
 </html>
+`;
+
+fs.writeFileSync('docs/PROPUESTA_COMERCIAL_SISBIR.html', html, 'utf8');
+console.log('Restored full master proposal into docs/PROPUESTA_COMERCIAL_SISBIR.html');
