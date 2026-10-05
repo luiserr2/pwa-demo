@@ -3,66 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Propuesta Técnico-Comercial B2B — Plataforma VERTEX</title>
+  <title>Propuesta Técnico-Comercial B2B — Plataforma VERTEX Telecom</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #0f172a;
-      --primary-light: #1e293b;
-      --accent: #2563eb;
-      --accent-soft: #eff6ff;
-      --accent-border: #bfdbfe;
-      --emerald: #059669;
-      --emerald-soft: #ecfdf5;
-      --emerald-border: #a7f3d0;
-      --amber: #d97706;
-      --amber-soft: #fffbeb;
-      --amber-border: #fde68a;
-      --rose: #dc2626;
-      --rose-soft: #fef2f2;
-      --rose-border: #fecaca;
-      --purple: #7c3aed;
-      --purple-soft: #faf5ff;
-      --purple-border: #e9d5ff;
-      --slate-50: #f8fafc;
-      --slate-100: #f1f5f9;
-      --slate-200: #e2e8f0;
-      --slate-300: #cbd5e1;
-      --slate-400: #94a3b8;
-      --slate-500: #64748b;
-      --slate-600: #475569;
-      --slate-700: #334155;
-      --slate-800: #1e293b;
-      --slate-900: #0f172a;
+      --ink: #090d16;
+      --charcoal: #1e293b;
+      --slate: #475569;
+      --muted: #64748b;
+      --light-slate: #94a3b8;
+      --border: #e2e8f0;
+      --border-dark: #cbd5e1;
+      --surface: #ffffff;
+      --surface-subtle: #f8fafc;
+      --navy: #0f2744;
+      --navy-light: #1e3a8a;
+      --navy-subtle: #f0f4f9;
+      --emerald-dark: #065f46;
+      --emerald-subtle: #ecfdf5;
+      --amber-dark: #92400e;
+      --amber-subtle: #fffbeb;
+      --accent: #1e40af;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background-color: #0b1120;
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      color: var(--slate-700);
-      line-height: 1.5;
-      padding: 30px 15px 60px 15px;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--charcoal);
+      line-height: 1.45;
+      padding: 30px 15px;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* BARRA SUPERIOR DE ACCIONES */
+    /* BARRA SUPERIOR DE ACCIONES WEB */
     .toolbar-actions {
       max-width: 860px;
-      margin: 0 auto 24px auto;
+      margin: 0 auto 20px auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
       background: rgba(15, 23, 42, 0.95);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       backdrop-filter: blur(8px);
-      padding: 12px 24px;
-      border-radius: 12px;
+      padding: 10px 20px;
+      border-radius: 8px;
       color: #ffffff;
-      font-size: 13px;
+      font-size: 12.5px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     }
 
@@ -70,52 +60,52 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(16, 185, 129, 0.2);
+      background: rgba(16, 185, 129, 0.15);
       color: #34d399;
-      padding: 4px 10px;
-      border-radius: 999px;
+      padding: 3px 8px;
+      border-radius: 4px;
       font-weight: 700;
-      font-size: 11px;
+      font-size: 10.5px;
+      font-family: 'JetBrains Mono', monospace;
       letter-spacing: 0.5px;
     }
 
     .toolbar-actions button {
-      background: var(--accent);
+      background: var(--navy-light);
       color: #ffffff;
-      border: none;
-      padding: 8px 18px;
-      border-radius: 8px;
-      font-weight: 700;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-weight: 600;
       cursor: pointer;
-      font-size: 12.5px;
+      font-size: 12px;
       display: inline-flex;
       align-items: center;
       gap: 6px;
       transition: all 0.2s ease;
-      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
     }
-    .toolbar-actions button:hover { background: #1d4ed8; transform: translateY(-1px); }
+    .toolbar-actions button:hover { background: #1d4ed8; }
 
-    /* CONTENEDOR MULTI-PÁGINA */
+    /* CONTENEDOR MULTI-LÁMINA A4 */
     .proposal-container {
       max-width: 860px;
       margin: 0 auto;
     }
 
-    /* PÁGINA A4 INDIVIDUAL (PAGE BUDGETING) */
     .doc-page {
-      background: #ffffff;
+      background: var(--surface);
       width: 100%;
-      min-height: 1170px;
-      padding: 44px 48px 36px 48px;
+      min-height: 1080px;
+      padding: 26px 40px 18px 40px;
       margin-bottom: 30px;
-      border-radius: 12px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      border-radius: 4px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       position: relative;
       box-sizing: border-box;
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .page-main-content {
@@ -124,593 +114,571 @@
       flex-direction: column;
     }
 
-    /* PIE DE PÁGINA EDITORIAL */
-    .page-footer {
-      border-top: 1px solid var(--slate-200);
-      padding-top: 12px;
-      margin-top: 20px;
+    /* TOP BAR EDITORIAL */
+    .doc-top-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 10.5px;
-      color: var(--slate-400);
-      font-weight: 600;
-      letter-spacing: 0.3px;
-    }
-
-    .page-footer .footer-brand {
-      color: var(--slate-800);
-      font-weight: 800;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .page-footer .page-number {
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 700;
-      color: var(--slate-600);
-      background: var(--slate-100);
-      padding: 2px 8px;
-      border-radius: 4px;
-    }
-
-    /* ENCABEZADOS Y METADATOS (PÁGINA 1) */
-    .proposal-header {
-      border-bottom: 2px solid var(--slate-100);
-      padding-bottom: 24px;
-      margin-bottom: 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 20px;
-    }
-
-    .brand-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 10.5px;
-      font-weight: 800;
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-      color: var(--accent);
-      background: var(--accent-soft);
-      padding: 4px 10px;
-      border-radius: 6px;
-      margin-bottom: 10px;
-      border: 1px solid var(--accent-border);
-    }
-
-    .proposal-title {
-      font-size: 32px;
-      font-weight: 900;
-      color: var(--slate-900);
-      line-height: 1.15;
-      letter-spacing: -0.8px;
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .proposal-title .title-accent {
-      color: var(--accent);
-    }
-
-    .proposal-subtitle {
-      font-size: 13.5px;
-      color: var(--slate-600);
-      font-weight: 500;
-      max-width: 480px;
-      line-height: 1.45;
-    }
-
-    .meta-box {
-      background: var(--slate-50);
-      border: 1px solid var(--slate-200);
-      border-radius: 10px;
-      padding: 12px 16px;
-      font-size: 11px;
-      min-width: 250px;
-      line-height: 1.6;
-    }
-
-    .meta-box div {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 3px;
-    }
-    .meta-box div:last-child { margin-bottom: 0; }
-    .meta-label { color: var(--slate-500); font-weight: 500; }
-    .meta-val { color: var(--slate-900); font-weight: 700; text-align: right; }
-
-    /* SECCIONES Y ENCABEZADOS DE BLOQUE */
-    .section-header {
+      padding-bottom: 7px;
+      border-bottom: 1px solid var(--border);
       margin-bottom: 14px;
+      font-size: 8.5px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--muted);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    .doc-top-bar .doc-classification {
+      color: var(--navy-light);
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* HEADER HOJA 1 */
+    .proposal-header {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 14px;
+      align-items: center;
+    }
+
+    .brand-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -0.6px;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+
+    .brand-subtitle {
+      font-size: 11px;
+      color: var(--slate);
+      line-height: 1.45;
+      font-weight: 400;
+    }
+
+    .meta-table-box {
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 9px 12px;
+      font-size: 10px;
+      line-height: 1.5;
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+      padding: 1.5px 0;
+    }
+    .meta-row:last-child { border-bottom: none; }
+    .meta-label { color: var(--muted); font-size: 9px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+    .meta-value { color: var(--ink); font-weight: 700; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; }
+
+    /* ENCABEZADOS DE SECCIÓN */
+    .section-title-wrap {
+      margin-bottom: 10px;
     }
 
     .section-title {
-      font-size: 15px;
-      font-weight: 900;
-      color: var(--slate-900);
+      font-size: 12px;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.6px;
+      letter-spacing: 0.8px;
+      color: var(--ink);
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-bottom: 6px;
     }
 
-    .section-title .section-number {
-      background: var(--slate-900);
-      color: #fff;
-      font-size: 11px;
-      width: 22px;
-      height: 22px;
-      border-radius: 6px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      flex-shrink: 0;
+    .section-title::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 13px;
+      background: var(--navy);
+      border-radius: 1px;
     }
 
-    .section-desc {
-      font-size: 12px;
-      color: var(--slate-600);
-      line-height: 1.5;
+    .section-intro-text {
+      font-size: 10.5px;
+      color: var(--slate);
+      line-height: 1.4;
+      margin-top: 2px;
     }
 
-    /* PÁGINA 1: CASO DE NEGOCIO (DIAGNÓSTICO PSICOLÓGICO) */
-    .executive-loss-banner {
-      background: #fff1f2;
-      border: 1px solid #fecdd3;
-      border-left: 4px solid var(--rose);
-      border-radius: 8px;
-      padding: 12px 16px;
-      margin-bottom: 16px;
-      font-size: 12px;
-      color: #9f1239;
-      line-height: 1.5;
+    /* PULL QUOTE DE RIESGO FINANCIERO (HOJA 1) */
+    .executive-quote {
+      background: #fbfcfe;
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--navy);
+      border-radius: 0 4px 4px 0;
+      padding: 9px 12px;
+      margin-bottom: 12px;
     }
 
-    .executive-loss-banner strong {
-      color: #881337;
+    .quote-badge {
+      font-size: 8.5px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--navy-light);
+      display: block;
+      margin-bottom: 2px;
     }
 
-    .executive-summary-grid {
+    .quote-body {
+      font-size: 10.5px;
+      color: var(--charcoal);
+      line-height: 1.45;
+    }
+
+    .quote-body strong {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    /* MATRIZ DE TRANSFORMACIÓN (HOJA 1) */
+    .matrix-container {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-bottom: 18px;
+      gap: 12px;
+      margin-bottom: 12px;
     }
 
-    .summary-card {
-      padding: 16px 18px;
-      border-radius: 10px;
-      border: 1px solid var(--slate-200);
-    }
-    .card-pain {
-      background: #fffafa;
-      border-color: #fed7aa;
-    }
-    .card-gain {
-      background: #f0fdf4;
-      border-color: #bbf7d0;
+    .matrix-col {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      background: #ffffff;
     }
 
-    .summary-card-title {
-      font-size: 12px;
+    .col-header {
+      padding: 6px 10px;
+      font-size: 9.5px;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 10px;
+      letter-spacing: 0.7px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .col-header-problem {
+      background: #fafaf9;
+      color: #78350f;
+      border-left: 3px solid #b45309;
+    }
+
+    .col-header-solution {
+      background: var(--navy-subtle);
+      color: var(--navy);
+      border-left: 3px solid var(--navy);
+    }
+
+    .matrix-list {
+      padding: 8px 10px;
+      list-style: none;
       display: flex;
-      align-items: center;
+      flex-direction: column;
       gap: 6px;
     }
-    .card-pain .summary-card-title { color: #c2410c; }
-    .card-gain .summary-card-title { color: #15803d; }
 
-    .summary-card ul {
-      list-style: none;
-      font-size: 11.5px;
-      line-height: 1.55;
-    }
-    .summary-card ul li {
-      margin-bottom: 8px;
-      position: relative;
-      padding-left: 18px;
-      color: var(--slate-700);
-    }
-    .summary-card ul li:last-child { margin-bottom: 0; }
-    .card-pain ul li::before {
-      content: "✕";
-      position: absolute;
-      left: 0;
-      color: #ea580c;
-      font-weight: 800;
-    }
-    .card-gain ul li::before {
-      content: "✓";
-      position: absolute;
-      left: 0;
-      color: #16a34a;
-      font-weight: 800;
+    .matrix-item {
+      font-size: 10px;
+      line-height: 1.35;
+      color: var(--charcoal);
     }
 
-    /* PÁGINA 1: VALUE METRICS STRIP */
-    .metrics-strip {
+    .matrix-item .item-role {
+      font-weight: 700;
+      color: var(--ink);
+      font-size: 9.5px;
+      display: block;
+      margin-bottom: 1px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    /* BARRA DE MÉTRICAS (HOJA 1) */
+    .metrics-bar {
+      border: 1px solid var(--border);
+      background: var(--surface-subtle);
+      border-radius: 4px;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      background: var(--slate-900);
-      border-radius: 10px;
-      padding: 16px 20px;
-      color: #ffffff;
+      padding: 9px 14px;
+      gap: 10px;
       margin-top: auto;
     }
 
-    .metric-item {
-      text-align: center;
-      border-right: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 0 10px;
+    .metric-cell {
+      border-right: 1px solid var(--border);
+      padding-right: 8px;
     }
-    .metric-item:last-child { border-right: none; }
+    .metric-cell:last-child {
+      border-right: none;
+      padding-right: 0;
+    }
 
-    .metric-value {
+    .metric-num {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 20px;
+      font-size: 19px;
       font-weight: 800;
-      color: #38bdf8;
-      line-height: 1.2;
-      margin-bottom: 4px;
+      color: var(--navy);
+      line-height: 1.1;
+      margin-bottom: 1px;
     }
+
     .metric-title {
-      font-size: 11px;
-      font-weight: 700;
+      font-size: 9px;
+      font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      color: #e2e8f0;
-      margin-bottom: 2px;
+      color: var(--ink);
+      margin-bottom: 1px;
     }
+
     .metric-desc {
-      font-size: 10px;
-      color: #94a3b8;
-      line-height: 1.35;
+      font-size: 8.5px;
+      color: var(--muted);
+      line-height: 1.25;
     }
 
-    /* TARJETAS DE MÓDULOS (PÁGINAS 2 Y 3) */
-    .role-card {
-      background: #ffffff;
-      border: 1px solid var(--slate-200);
-      border-radius: 10px;
+    /* PANELES DE MÓDULOS TÉCNICOS (HOJAS 2 Y 3) */
+    .module-panel {
+      border: 1px solid var(--border);
+      border-radius: 4px;
       overflow: hidden;
-      margin-bottom: 14px;
+      margin-bottom: 10px;
+      background: #ffffff;
     }
-    .role-card:last-child { margin-bottom: 0; }
+    .module-panel:last-child { margin-bottom: 0; }
 
-    .role-card-header {
-      background: var(--slate-50);
-      padding: 10px 16px;
-      border-bottom: 1px solid var(--slate-200);
+    .module-panel-header {
+      background: var(--surface-subtle);
+      padding: 7px 12px;
+      border-bottom: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
       gap: 8px;
     }
 
-    .role-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 10px;
+    .module-code-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
       font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      padding: 3px 8px;
-      border-radius: 5px;
+      color: var(--navy);
+      background: #ffffff;
+      border: 1px solid var(--border);
+      padding: 1.5px 6px;
+      border-radius: 3px;
+      letter-spacing: 0.4px;
     }
-    .badge-tecnico { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
-    .badge-supervisor { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
-    .badge-admin { background: #f3e8ff; color: #6b21a8; border: 1px solid #e9d5ff; }
-    .badge-plantillas { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
 
-    .role-title {
-      font-size: 12.5px;
+    .module-panel-title {
+      font-size: 11px;
       font-weight: 800;
-      color: var(--slate-900);
+      color: var(--ink);
       letter-spacing: 0.3px;
     }
 
-    .role-target-user {
-      font-size: 10.5px;
-      color: var(--slate-500);
+    .module-target-role {
+      font-size: 9px;
+      color: var(--muted);
       font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
     }
 
-    .role-card-body {
-      padding: 12px 16px;
+    .module-panel-body {
+      padding: 9px 12px;
     }
 
-    .role-card-intro {
-      font-size: 11px;
-      color: var(--slate-600);
-      margin-bottom: 10px;
-      line-height: 1.45;
+    .module-intro-line {
+      font-size: 10px;
+      color: var(--slate);
+      margin-bottom: 8px;
+      line-height: 1.35;
     }
 
     .features-grid-3 {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
+      gap: 7px;
     }
 
     .features-grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    .feature-item {
-      background: var(--slate-50);
-      border: 1px solid var(--slate-200);
-      border-radius: 7px;
-      padding: 8px 10px;
-    }
-
-    .feature-tag {
-      font-size: 9px;
-      font-weight: 800;
-      text-transform: uppercase;
-      color: var(--accent);
-      letter-spacing: 0.5px;
-      display: block;
-      margin-bottom: 3px;
-    }
-
-    .feature-title {
-      font-size: 11px;
-      font-weight: 800;
-      color: var(--slate-900);
-      margin-bottom: 3px;
-      line-height: 1.3;
-    }
-
-    .feature-detail {
-      font-size: 10px;
-      color: var(--slate-500);
-      line-height: 1.4;
-    }
-
-    /* PÁGINA 3: BOLSA DE HORAS INCLUIDA */
-    .included-scope-banner {
-      background: #eff6ff;
-      border: 1px solid var(--accent-border);
-      border-radius: 10px;
-      padding: 14px 18px;
-      margin-top: 12px;
-    }
-
-    .included-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
-    }
-
-    .included-title {
-      font-size: 13px;
-      font-weight: 900;
-      color: var(--slate-900);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .included-badge {
-      background: var(--accent);
-      color: #fff;
-      font-size: 9.5px;
-      font-weight: 800;
-      padding: 2px 8px;
-      border-radius: 999px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .included-desc {
-      font-size: 11px;
-      color: var(--slate-600);
-      line-height: 1.45;
-      margin-bottom: 10px;
-    }
-
-    .included-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-    }
-
-    .included-box {
-      background: #ffffff;
-      border: 1px solid var(--accent-border);
-      border-radius: 7px;
-      padding: 8px 10px;
-    }
-
-    .included-box-title {
-      font-size: 10.5px;
-      font-weight: 800;
-      color: var(--slate-900);
-      margin-bottom: 3px;
-    }
-
-    .included-box-text {
-      font-size: 9.5px;
-      color: var(--slate-500);
-      line-height: 1.35;
-    }
-
-    /* PÁGINAS 4 Y 5: TABLAS DE DATOS */
-    .table-container-card {
-      border: 1px solid var(--slate-200);
-      border-radius: 10px;
-      overflow: hidden;
-      background: #ffffff;
-      margin-bottom: 12px;
-    }
-
-    .table-card-header {
-      background: var(--slate-900);
-      color: #ffffff;
-      padding: 12px 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .table-card-title {
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 0.4px;
-      text-transform: uppercase;
-    }
-
-    .table-card-tag {
-      font-size: 10px;
-      background: rgba(255, 255, 255, 0.15);
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-weight: 600;
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    table.data-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 11px;
-    }
-
-    table.data-table th, table.data-table td {
-      padding: 8px 12px;
-      text-align: left;
-      border-bottom: 1px solid var(--slate-200);
-    }
-
-    table.data-table th {
-      background: var(--slate-50);
-      font-weight: 800;
-      color: var(--slate-700);
-      font-size: 9.5px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    table.data-table tr:last-child td {
-      border-bottom: none;
-    }
-
-    .cost-col {
-      text-align: right !important;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--slate-900);
-      white-space: nowrap;
-    }
-
-    .row-highlight {
-      background: var(--slate-50);
-    }
-
-    .row-total {
-      background: #eff6ff;
-      border-top: 2px solid var(--accent);
-    }
-    .row-total td {
-      font-size: 11.5px;
-      font-weight: 900;
-      color: #1e3a8a;
-    }
-
-    .clause-box {
-      background: var(--slate-50);
-      border-left: 3px solid var(--accent);
-      padding: 10px 14px;
-      font-size: 10.5px;
-      color: var(--slate-600);
-      border-radius: 0 6px 6px 0;
-      line-height: 1.5;
-      margin-top: 10px;
-    }
-
-    /* PÁGINA 5: MARCO LEGAL Y FIRMAS */
-    .legal-conditions-box {
-      background: var(--slate-50);
-      border: 1px solid var(--slate-200);
-      border-radius: 9px;
-      padding: 12px 16px;
-      font-size: 10.5px;
-      line-height: 1.5;
-      color: var(--slate-700);
-      margin-bottom: 16px;
-    }
-
-    .legal-conditions-box ol {
-      margin: 0;
-      padding-left: 16px;
-      display: flex;
-      flex-direction: column;
       gap: 7px;
     }
 
-    .legal-conditions-box ol li strong {
-      color: var(--slate-900);
+    .feature-card {
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 6px 8px;
     }
 
-    .legal-conditions-box ul {
-      margin-top: 3px;
-      padding-left: 14px;
-      list-style-type: disc;
-    }
-
-    .signatures-block {
-      border-top: 1px solid var(--slate-200);
-      padding-top: 14px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      margin-top: auto;
-    }
-
-    .sign-box {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .sign-line {
-      border-bottom: 1px solid var(--slate-400);
-      height: 36px;
-      margin-bottom: 8px;
-    }
-
-    .sign-party {
+    .feature-id-tag {
+      font-size: 8px;
+      font-family: 'JetBrains Mono', monospace;
       font-weight: 800;
-      font-size: 10.5px;
-      color: var(--slate-900);
       text-transform: uppercase;
-      letter-spacing: 0.4px;
+      color: var(--navy-light);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .feature-name {
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 2px;
+      line-height: 1.25;
+    }
+
+    .feature-text {
+      font-size: 9px;
+      color: var(--muted);
+      line-height: 1.3;
+    }
+
+    /* BOLSA DE HORAS (HOJA 3) */
+    .hours-panel {
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--navy-light);
+      border-radius: 0 4px 4px 0;
+      background: #fbfcfe;
+      padding: 10px 14px;
+      margin-top: 10px;
+    }
+
+    .hours-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 4px;
     }
 
-    .sign-details {
-      font-size: 9.5px;
-      color: var(--slate-500);
-      line-height: 1.45;
+    .hours-title {
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--ink);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
+
+    .hours-status {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8.5px;
+      font-weight: 800;
+      background: var(--emerald-subtle);
+      color: var(--emerald-dark);
+      border: 1px solid #a7f3d0;
+      padding: 1.5px 6px;
+      border-radius: 3px;
+    }
+
+    .hours-desc {
+      font-size: 10px;
+      color: var(--slate);
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .hours-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 7px;
+    }
+
+    .hours-item {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 6px 8px;
+    }
+
+    .hours-item-title {
+      font-size: 9.5px;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+
+    .hours-item-text {
+      font-size: 8.5px;
+      color: var(--muted);
+      line-height: 1.25;
+    }
+
+    /* TABLAS TÉCNICAS (HOJAS 4 Y 5) */
+    .technical-table-card {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      background: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .technical-table-header {
+      background: var(--navy);
+      color: #ffffff;
+      padding: 8px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .technical-table-title {
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .technical-table-badge {
+      font-size: 8.5px;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    table.spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 9.5px;
+    }
+
+    table.spec-table th, table.spec-table td {
+      padding: 5px 8px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    table.spec-table th {
+      background: var(--surface-subtle);
+      font-weight: 800;
+      color: var(--slate);
+      font-size: 8.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    table.spec-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .mono-cost {
+      text-align: right !important;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    .row-highlight { background: var(--surface-subtle); }
+    .row-total {
+      background: var(--navy-subtle);
+      border-top: 2px solid var(--navy-light);
+    }
+    .row-total td {
+      font-size: 10.5px;
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    .legal-clause-note {
+      background: var(--surface-subtle);
+      border-left: 3px solid var(--navy-light);
+      padding: 7px 10px;
+      font-size: 9px;
+      color: var(--slate);
+      border-radius: 0 4px 4px 0;
+      line-height: 1.4;
+      margin-top: 6px;
+    }
+
+    /* MARCO LEGAL EN CUADRÍCULA (HOJA 5) */
+    .legal-grid-box {
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 7px 10px;
+      margin-bottom: 8px;
+    }
+
+    .legal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+      font-size: 8.5px;
+      line-height: 1.35;
+      color: var(--slate);
+    }
+
+    .legal-grid strong {
+      color: var(--ink);
+    }
+
+    /* FIRMAS (HOJA 5) */
+    .signatures-block {
+      border-top: 1px solid var(--border);
+      padding-top: 8px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      margin-top: auto;
+    }
+
+    .sign-box { display: flex; flex-direction: column; }
+    .sign-line {
+      border-bottom: 1px solid var(--slate);
+      height: 28px;
+      margin-bottom: 5px;
+    }
+    .sign-party {
+      font-weight: 800;
+      font-size: 9.5px;
+      color: var(--ink);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 3px;
+    }
+    .sign-details {
+      font-size: 8.5px;
+      color: var(--muted);
+      line-height: 1.35;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* PIE DE PÁGINA EDITORIAL */
+    .page-footer {
+      border-top: 1px solid var(--border);
+      padding-top: 7px;
+      margin-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 8.5px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--muted);
+      letter-spacing: 0.5px;
+    }
+
+    .footer-left strong { color: var(--ink); }
 
     /* ESTILOS EXACTOS DE IMPRESIÓN Y PAGE BUDGETING A4 */
     @page {
@@ -735,9 +703,9 @@
       .doc-page {
         page-break-after: always !important;
         break-after: page !important;
-        min-height: 275mm !important;
-        max-height: 275mm !important;
+        min-height: auto !important;
         height: 275mm !important;
+        max-height: 275mm !important;
         box-shadow: none !important;
         border: none !important;
         border-radius: 0 !important;
@@ -749,10 +717,6 @@
       .doc-page:last-child {
         page-break-after: auto !important;
         break-after: auto !important;
-      }
-      .page-footer {
-        padding-top: 8px !important;
-        margin-top: 10px !important;
       }
     }
   </style>
@@ -775,212 +739,246 @@
 <div class="proposal-container">
 
   <!-- ========================================== -->
-  <!-- HOJA 1: RESUMEN EJECUTIVO & PROPUESTA VALOR -->
+  <!-- HOJA 1: RESUMEN EJECUTIVO & VALOR B2B      -->
   <!-- ========================================== -->
   <div class="doc-page">
     <div class="page-main-content">
+      <!-- TOP METADATA BAR -->
+      <div class="doc-top-bar">
+        <span>DOCUMENTO DE PROPUESTA TÉCNICO-COMERCIAL // B2B LICENSING</span>
+        <span class="doc-classification">● CLASIFICACIÓN: COMERCIAL EN CONFIDENCIA</span>
+      </div>
+
       <!-- HEADER -->
       <header class="proposal-header">
         <div>
-          <span class="brand-tag">PROPUESTA DE LICENCIAMIENTO &amp; SERVICIOS B2B</span>
-          <h1 class="proposal-title">SISTEMA <span class="title-accent">VERTEX</span></h1>
-          <p class="proposal-subtitle">
-            Plataforma Integral de Supervisión, Matriz Técnica de 48 Zonas y Certificación Forense para Cuadrillas de Telecomunicaciones.
+          <h1 class="brand-title">VERTEX TELECOM</h1>
+          <p class="brand-subtitle">
+            Plataforma Integral de Supervisión Técnica de Infraestructura Celular, Matriz de 48 Zonas y Certificación Forense Criptográfica.
           </p>
         </div>
 
-        <div class="meta-box">
-          <div>
-            <span class="meta-label">Referencia:</span>
-            <span class="meta-val">PROP-VTX-2026-01</span>
+        <div class="meta-table-box">
+          <div class="meta-row">
+            <span class="meta-label">Referencia</span>
+            <span class="meta-value">PROP-VTX-2026-01</span>
           </div>
-          <div>
-            <span class="meta-label">Fecha de Emisión:</span>
-            <span class="meta-val">Octubre 2026</span>
+          <div class="meta-row">
+            <span class="meta-label">Fecha de Emisión</span>
+            <span class="meta-value">Octubre 2026</span>
           </div>
-          <div>
-            <span class="meta-label">Validez de Oferta:</span>
-            <span class="meta-val">15 Días Continuos</span>
+          <div class="meta-row">
+            <span class="meta-label">Validez de Oferta</span>
+            <span class="meta-value">15 Días Continuos</span>
           </div>
-          <div>
-            <span class="meta-label">Modalidad:</span>
-            <span class="meta-val">Setup Único + EULA B2B</span>
+          <div class="meta-row">
+            <span class="meta-label">Modalidad</span>
+            <span class="meta-value">Setup + EULA Perpetua</span>
           </div>
-          <div>
-            <span class="meta-label">Régimen Fiscal:</span>
-            <span class="meta-val">Precios Netos (+ IVA)</span>
+          <div class="meta-row">
+            <span class="meta-label">Régimen Fiscal</span>
+            <span class="meta-value">Precios Netos (+ IVA)</span>
           </div>
         </div>
       </header>
 
-      <!-- SECCION 1: DIAGNÓSTICO PSICOLÓGICO Y PROPUESTA DE VALOR -->
-      <div class="section-header">
-        <div class="section-title">
-          <span class="section-number">1</span>
-          Resumen Ejecutivo: Diagnóstico y Retorno de Inversión
-        </div>
+      <!-- SECTION 1 -->
+      <div class="section-title-wrap">
+        <h2 class="section-title">1. Diagnóstico Operativo y Justificación Financiera</h2>
       </div>
 
-      <div class="executive-loss-banner">
-        ⚠️ <strong>Impacto Financiero Oculto:</strong> Las empresas contratistas de telecomunicaciones pierden en promedio entre un <strong>15% y un 25% de su margen operativo</strong> debido a glosas, retrasos en la facturación y rechazos de actas de mantenimiento por parte de las operadoras clientes. La plataforma <strong>VERTEX</strong> estandariza el flujo integral de punta a punta, eliminando rechazos técnicos y acelerando la liquidación de HES.
+      <!-- EXECUTIVE PULL QUOTE -->
+      <div class="executive-quote">
+        <span class="quote-badge">Auditoría de Impacto Financiero en Contratistas</span>
+        <p class="quote-body">
+          Las empresas contratistas de mantenimiento e infraestructura en telecomunicaciones pierden en promedio entre un <strong>15% y un 25% de su margen operativo</strong> debido a glosas administrativas, retrasos en la radicación de carpetas y rechazos de actas de mantenimiento por parte de las operadoras clientes. <strong>VERTEX</strong> estandariza el flujo integral de punta a punta, eliminando rechazos técnicos y acelerando la liquidación de HES.
+        </p>
       </div>
 
-      <div class="executive-summary-grid">
-        <div class="summary-card card-pain">
-          <div class="summary-card-title">Situación Actual (Sin Plataforma)</div>
-          <ul>
-            <li><strong>En Campo:</strong> Evidencias desordenadas en chats de WhatsApp, fotos borrosas, descontrol en torre y pérdida de datos por falta de señal.</li>
-            <li><strong>En Coordinación:</strong> Carga manual lenta de órdenes, descontrol de visados, retrasos en trámite de HES y falta de auditoría de cambios.</li>
-            <li><strong>En Gerencia:</strong> Días perdidos maquetando actas en Word/Excel, falta de visibilidad en tiempo real y riesgo ante reclamos o glosas.</li>
-            <li><strong>En Operaciones:</strong> Formatos rígidos difíciles de adaptar ante los continuos cambios de exigencias de cada operadora cliente.</li>
+      <!-- TRANSFORMATION MATRIX -->
+      <div class="matrix-container">
+        <!-- COLUMNA 1: RIESGO TRADICIONAL -->
+        <div class="matrix-col">
+          <div class="col-header col-header-problem">
+            Vulnerabilidades del Modelo Tradicional
+          </div>
+          <ul class="matrix-list">
+            <li class="matrix-item">
+              <span class="item-role">01. Cuadrillas en Campo</span>
+              Evidencias desorganizadas en canales de WhatsApp, fotografías borrosas, descontrol de visado en torre y pérdida de datos ante la falta de cobertura celular.
+            </li>
+            <li class="matrix-item">
+              <span class="item-role">02. Despacho y Coordinación</span>
+              Carga manual individual de órdenes, retrasos en el trámite de HES y ausencia de trazabilidad sobre quién modificó los valores técnicos del informe.
+            </li>
+            <li class="matrix-item">
+              <span class="item-role">03. Dirección de Operaciones</span>
+              Días invertidos en maquetación manual de actas en Word/Excel, falta de visibilidad en tiempo real y vulnerabilidad jurídica ante reclamos del cliente.
+            </li>
+            <li class="matrix-item">
+              <span class="item-role">04. Gestión de Plantillas</span>
+              Formatos estáticos rígidos con incapacidad de adaptación ágil ante cambios en los requerimientos normativos de cada operadora cliente.
+            </li>
           </ul>
         </div>
 
-        <div class="summary-card card-gain">
-          <div class="summary-card-title">Impacto con VERTEX</div>
-          <ul>
-            <li><strong>Campo (Técnicos):</strong> Captura técnica 100% offline, modo sol de alto contraste y motor fotográfico adaptativo (foto única o Antes/Después).</li>
-            <li><strong>Seguimiento (Coordinación):</strong> Carga masiva desde Excel, pipeline visual de 8 fases con control de visado/HES y registro de quién editó qué.</li>
-            <li><strong>Administración (Gerencia):</strong> Telemetría ejecutiva en vivo, actas PDF homologadas compiladas a 1 clic y bitácora forense SHA-256.</li>
-            <li><strong>Plantillas (Operaciones):</strong> Flexibilidad total para configurar formularios, requerimientos de fotos y diseño de actas sin tocar código.</li>
+        <!-- COLUMNA 2: TRANSFORMACIÓN VERTEX -->
+        <div class="matrix-col">
+          <div class="col-header col-header-solution">
+            Capacidades Operativas con Sistema VERTEX
+          </div>
+          <ul class="matrix-list">
+            <li class="matrix-item">
+              <span class="item-role">01. Cuadrillas en Campo</span>
+              Captura técnica 100% offline (IndexedDB), interfaz de alto contraste (Modo Sol) y motor fotográfico con compresión WebP automática.
+            </li>
+            <li class="matrix-item">
+              <span class="item-role">02. Despacho y Coordinación</span>
+              Importación masiva de órdenes vía Excel, pipeline visual de 8 fases con control estricto de visado/HES y bitácora de autoría dato anterior vs. nuevo.
+            </li>
+            <li class="matrix-item">
+              <span class="item-role">03. Dirección de Operaciones</span>
+              Telemetría ejecutiva en vivo, compilación de expedientes técnicos PDF A4 a 1 clic y certificación forense inmutable con hashes SHA-256 (FIPS 180-4).
+            </li>
+            <li class="matrix-item">
+              <span class="item-role">04. Gestión de Plantillas</span>
+              Módulo de plantillas dinámicas para calibrar formularios, preguntas y reglas de fotos por misión sin intervención de programación.
+            </li>
           </ul>
         </div>
       </div>
 
-      <!-- VALUE METRICS STRIP -->
-      <div class="metrics-strip">
-        <div class="metric-item">
-          <div class="metric-value">-85%</div>
+      <!-- METRICS BAR -->
+      <div class="metrics-bar">
+        <div class="metric-cell">
+          <div class="metric-num">-85%</div>
           <div class="metric-title">Tiempo en Actas</div>
-          <div class="metric-desc">Compilación de expedientes técnicos en segundos en lugar de días de trabajo manual.</div>
+          <div class="metric-desc">Compilación de expedientes técnicos homologados en segundos vía motor serverless.</div>
         </div>
-        <div class="metric-item">
-          <div class="metric-value">0%</div>
-          <div class="metric-title">Pérdida de Evidencias</div>
-          <div class="metric-desc">Almacenamiento IndexedDB offline y sincronización en cola en segundo plano.</div>
+        <div class="metric-cell">
+          <div class="metric-num">0%</div>
+          <div class="metric-title">Pérdida de Datos</div>
+          <div class="metric-desc">Persistencia IndexedDB local y cola de sincronización visual en segundo plano.</div>
         </div>
-        <div class="metric-item">
-          <div class="metric-value">100%</div>
-          <div class="metric-title">Blindaje Criptográfico</div>
-          <div class="metric-desc">Trazabilidad inalterable SHA-256 (FIPS 180-4) para defender cobros ante el cliente.</div>
+        <div class="metric-cell">
+          <div class="metric-num">100%</div>
+          <div class="metric-title">Blindaje Forense</div>
+          <div class="metric-desc">Trazabilidad matemática SHA-256 inalterable para defensa técnica de cobros.</div>
         </div>
       </div>
     </div>
 
     <!-- FOOTER HOJA 1 -->
     <footer class="page-footer">
-      <span class="footer-brand">VERTEX TELECOM &bull; Propuesta Técnico-Comercial B2B</span>
-      <span class="page-number">Página 1 de 5</span>
+      <span class="footer-left"><strong>VERTEX TELECOM</strong> &bull; PROPUESTA TÉCNICO-COMERCIAL B2B</span>
+      <span class="footer-right">PROP-VTX-2026-01 &bull; PÁGINA 1 DE 5</span>
     </footer>
   </div>
 
 
   <!-- ========================================== -->
-  <!-- HOJA 2: ARQUITECTURA TÉCNICA (MODULOS 1 Y 2) -->
+  <!-- HOJA 2: MÓDULOS OPERATIVOS (CAMPO & DESPACHO)-->
   <!-- ========================================== -->
   <div class="doc-page">
     <div class="page-main-content">
-      <div class="section-header">
-        <div class="section-title">
-          <span class="section-number">2</span>
-          Estructura de la Solución: Módulos Operativos (Campo y Despacho)
-        </div>
-        <p class="section-desc">
-          Módulos diseñados específicamente para resolver la fricción técnica del trabajo de campo y la coordinación de cuadrillas:
+      <div class="section-title-wrap">
+        <h2 class="section-title">2. Módulos Operativos: Captura en Sitio y Despacho</h2>
+        <p class="section-intro-text">
+          Arquitectura orientada a erradicar la fricción en campo y asegurar trazabilidad absoluta antes de la radicación final:
         </p>
       </div>
 
-      <!-- MODULO 1: TECNICO DE CAMPO -->
-      <div class="role-card">
-        <div class="role-card-header">
+      <!-- MODULO 1: CAMPO -->
+      <div class="module-panel">
+        <div class="module-panel-header">
           <div style="display: flex; align-items: center; gap: 8px;">
-            <span class="role-badge badge-tecnico">Módulo 1</span>
-            <span class="role-title">MÓDULO DE CAMPO (TÉCNICO EN SITIO / CUADRILLAS EN TORRE)</span>
+            <span class="module-code-badge">MOD-01</span>
+            <span class="module-panel-title">MÓDULO DE CAMPO (TÉCNICO EN SITIO / CUADRILLAS EN TORRE)</span>
           </div>
-          <span class="role-target-user">Perfil: Técnicos de Campo, Cuadrillas de Mantenimiento e Instaladores</span>
+          <span class="module-target-role">PERFIL: TÉCNICOS DE CAMPO E INSTALADORES</span>
         </div>
-        <div class="role-card-body">
-          <p class="role-card-intro">
-            Aplicación móvil PWA táctil de alto rendimiento, diseñada para operar en condiciones severas de campo con visibilidad bajo luz solar directa, cero dependencia de cobertura celular y consumo mínimo de batería.
+        <div class="module-panel-body">
+          <p class="module-intro-line">
+            Aplicación móvil PWA táctil de alto rendimiento, diseñada para operar en condiciones severas con luz solar directa, cero cobertura celular y bajo consumo de batería.
           </p>
 
           <div class="features-grid-3">
-            <div class="feature-item">
-              <span class="feature-tag">Capacidad 01</span>
-              <div class="feature-title">PWA Offline-First (Sin Conexión)</div>
-              <p class="feature-detail">Base local indexada <code>IndexedDB / Dexie.js</code>. Levantamientos íntegros sin internet en zonas rurales o shelters apantallados.</p>
+            <div class="feature-card">
+              <span class="feature-id-tag">CAPACIDAD 01</span>
+              <div class="feature-name">PWA Offline-First (Sin Conexión)</div>
+              <p class="feature-text">Base local indexada <code>IndexedDB / Dexie.js</code>. Levantamientos íntegros sin internet en zonas rurales o shelters apantallados.</p>
             </div>
-            <div class="feature-item">
-              <span class="feature-tag">Capacidad 02</span>
-              <div class="feature-title">Sincronización Bidireccional</div>
-              <p class="feature-detail">Detección de red (3G/4G/Wi-Fi) con reintentos exponenciales y cola visual en segundo plano para garantizar transmisión.</p>
+            <div class="feature-card">
+              <span class="feature-id-tag">CAPACIDAD 02</span>
+              <div class="feature-name">Sincronización Bidireccional</div>
+              <p class="feature-text">Detección de red con reintentos exponenciales y cola visual en segundo plano para garantizar transmisión de informes.</p>
             </div>
-            <div class="feature-item">
-              <span class="feature-tag">Capacidad 03</span>
-              <div class="feature-title">Matriz Técnica de 48 Zonas</div>
-              <p class="feature-detail">Formulario secuencial guiado para Torre, Shelter, Energía DC, RF y Tierra con evaluación (<code>NORMAL</code>, <code>ALARMA</code>, <code>FALLA</code>).</p>
+            <div class="feature-card">
+              <span class="feature-id-tag">CAPACIDAD 03</span>
+              <div class="feature-name">Matriz Técnica de 48 Zonas</div>
+              <p class="feature-text">Formulario secuencial guiado para Torre, Shelter, Energía DC, RF y Tierra con evaluación (<code>NORMAL</code>, <code>ALARMA</code>, <code>FALLA</code>).</p>
             </div>
           </div>
 
-          <div class="features-grid-2" style="margin-top: 8px;">
-            <div class="feature-item">
-              <span class="feature-tag">Capacidad 04</span>
-              <div class="feature-title">Motor Fotográfico Adaptativo por Misión</div>
-              <p class="feature-detail">Flujo de <strong>Evidencia Única</strong> para instalaciones o swaps, y flujo dual <strong>Antes / Después</strong> para mantenimientos. Compresión WebP (&lt; 250 KB).</p>
+          <div class="features-grid-2" style="margin-top: 7px;">
+            <div class="feature-card">
+              <span class="feature-id-tag">CAPACIDAD 04</span>
+              <div class="feature-name">Motor Fotográfico Adaptativo</div>
+              <p class="feature-text">Soporte de flujo de <strong>Evidencia Única</strong> para instalaciones o swaps, y flujo dual <strong>Antes / Después</strong> para correctivos. Compresión WebP (&lt; 250 KB).</p>
             </div>
-            <div class="feature-item">
-              <span class="feature-tag">Capacidad 05</span>
-              <div class="feature-title">Modo Sol de Alto Contraste</div>
-              <p class="feature-detail">Interfaz de alto contraste con botones sobredimensionados (&ge; 48px) para operar bajo luz solar intensa y con guantes de seguridad.</p>
+            <div class="feature-card">
+              <span class="feature-id-tag">CAPACIDAD 05</span>
+              <div class="feature-name">Modo Sol de Alto Contraste</div>
+              <p class="feature-text">Interfaz de alto contraste con botones sobredimensionados (&ge; 48px) para operar bajo luz solar intensa y con guantes de seguridad.</p>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- MODULO 2: SEGUIMIENTO Y COORDINACION -->
-      <div class="role-card">
-        <div class="role-card-header">
+      <!-- MODULO 2: SEGUIMIENTO Y COORDINACIÓN -->
+      <div class="module-panel">
+        <div class="module-panel-header">
           <div style="display: flex; align-items: center; gap: 8px;">
-            <span class="role-badge badge-supervisor">Módulo 2</span>
-            <span class="role-title">MÓDULO DE SEGUIMIENTO (COORDINACIÓN, VISADO Y HES)</span>
+            <span class="module-code-badge">MOD-02</span>
+            <span class="module-panel-title">MÓDULO DE SEGUIMIENTO (COORDINACIÓN, VISADO Y HES)</span>
           </div>
-          <span class="role-target-user">Perfil: Persona de Seguimiento, Coordinadores de Operaciones y Facturación Técnica</span>
+          <span class="module-target-role">PERFIL: COORDINADORES Y FACTURACIÓN TÉCNICA</span>
         </div>
-        <div class="role-card-body">
-          <p class="role-card-intro">
-            Consola central de despacho y control: asignación ágil de órdenes, supervisión del avance de cuadrillas en campo, auditoría técnica QA, radicación ante el cliente y gestión de HES para habilitar facturación.
+        <div class="module-panel-body">
+          <p class="module-intro-line">
+            Consola central de despacho y control: asignación ágil de órdenes, supervisión del avance de cuadrillas en campo, auditoría QA, radicación ante el cliente y gestión de HES.
           </p>
 
           <div class="features-grid-3">
-            <div class="feature-item">
-              <span class="feature-tag">Capacidad 01</span>
-              <div class="feature-title">Carga de Órdenes desde Excel</div>
-              <p class="feature-detail">Importación ágil de órdenes de salida mediante plantilla estándar en Excel (sitio, servicio, fecha y cuadrilla), evitando la carga individual.</p>
+            <div class="feature-card">
+              <span class="feature-id-tag">CAPACIDAD 01</span>
+              <div class="feature-name">Carga Masiva desde Excel</div>
+              <p class="feature-text">Importación ágil de órdenes de salida mediante plantilla estándar en Excel (sitio, servicio, fecha y cuadrilla), evitando la carga manual.</p>
             </div>
-            <div class="feature-item">
-              <span class="feature-tag">Capacidad 02</span>
-              <div class="feature-title">Pipeline Operativo de 8 Fases</div>
-              <p class="feature-detail">Monitoreo visual del ciclo: <code>SIN_EMPEZAR</code> &rarr; <code>EN_VISITA</code> &rarr; <code>ELABORANDO</code> &rarr; <code>REVISION_QA</code> &rarr; <code>VISADO</code> &rarr; <code>HES_SOLICITADA</code>.</p>
+            <div class="feature-card">
+              <span class="feature-id-tag">CAPACIDAD 02</span>
+              <div class="feature-name">Pipeline Operativo de 8 Fases</div>
+              <p class="feature-text">Monitoreo visual del ciclo: <code>SIN_EMPEZAR</code> &rarr; <code>EN_VISITA</code> &rarr; <code>ELABORANDO</code> &rarr; <code>REVISION_QA</code> &rarr; <code>VISADO</code> &rarr; <code>HES_SOLICITADA</code>.</p>
             </div>
-            <div class="feature-item">
-              <span class="feature-tag">Capacidad 03</span>
-              <div class="feature-title">Revisión y Control de Calidad (QA)</div>
-              <p class="feature-detail">Bandeja de auditoría previa para validar las 48 zonas y calidad de fotos, con potestad de aprobar o solicitar subsanaciones inmediatas.</p>
+            <div class="feature-card">
+              <span class="feature-id-tag">CAPACIDAD 03</span>
+              <div class="feature-name">Control de Calidad (QA)</div>
+              <p class="feature-text">Bandeja de auditoría previa para validar las 48 zonas y calidad de fotos, con potestad de aprobar o solicitar subsanaciones inmediatas.</p>
             </div>
-            <div class="feature-item">
-              <span class="feature-tag">Capacidad 04</span>
-              <div class="feature-title">Seguimiento de Entrega / Radicación</div>
-              <p class="feature-detail">Registro de entrega al cliente (<code>ENVIADO_AL_CLIENTE</code>), documentando canal, número de ticket y tiempos de respuesta del inspector.</p>
+            <div class="feature-card">
+              <span class="feature-id-tag">CAPACIDAD 04</span>
+              <div class="feature-name">Seguimiento de Radicación</div>
+              <p class="feature-text">Registro de entrega al cliente (<code>ENVIADO_AL_CLIENTE</code>), documentando canal, número de ticket y tiempos de respuesta del inspector.</p>
             </div>
-            <div class="feature-item">
-              <span class="feature-tag">Capacidad 05</span>
-              <div class="feature-title">Visado del Cliente y Gestión HES</div>
-              <p class="feature-detail">Registro de conformidad (<code>VISADO</code>), congelamiento de informe y registro de HES (SAP) requerida para la cobranza formal.</p>
+            <div class="feature-card">
+              <span class="feature-id-tag">CAPACIDAD 05</span>
+              <div class="feature-name">Visado y Gestión de HES</div>
+              <p class="feature-text">Registro de visto bueno (<code>VISADO</code>), congelamiento de informe y registro de HES (SAP) requerida para la cobranza formal.</p>
             </div>
-            <div class="feature-item">
-              <span class="feature-tag">Capacidad 06</span>
-              <div class="feature-title">Historial de Modificaciones y Auditoría</div>
-              <p class="feature-detail">Bitácora exhaustiva que registra usuario, fecha, hora y cambio exacto realizado (dato previo vs nuevo) antes de la entrega final.</p>
+            <div class="feature-card">
+              <span class="feature-id-tag">CAPACIDAD 06</span>
+              <div class="feature-name">Historial y Auditoría de Cambios</div>
+              <p class="feature-text">Bitácora que registra usuario, fecha, hora y cambio exacto realizado (dato previo vs. nuevo) antes de la entrega final.</p>
             </div>
           </div>
         </div>
@@ -989,136 +987,131 @@
 
     <!-- FOOTER HOJA 2 -->
     <footer class="page-footer">
-      <span class="footer-brand">VERTEX TELECOM &bull; Propuesta Técnico-Comercial B2B</span>
-      <span class="page-number">Página 2 de 5</span>
+      <span class="footer-left"><strong>VERTEX TELECOM</strong> &bull; PROPUESTA TÉCNICO-COMERCIAL B2B</span>
+      <span class="footer-right">PROP-VTX-2026-01 &bull; PÁGINA 2 DE 5</span>
     </footer>
   </div>
 
 
   <!-- ========================================== -->
-  <!-- HOJA 3: GERENCIA, PLANTILLAS & BOLSA HORAS -->
+  <!-- HOJA 3: CONTROL GERENCIAL, PLANTILLAS & BOLSA-->
   <!-- ========================================== -->
   <div class="doc-page">
     <div class="page-main-content">
-      <div class="section-header">
-        <div class="section-title">
-          <span class="section-number">3</span>
-          Módulos Gerenciales y Personalización del Sistema
-        </div>
-        <p class="section-desc">
-          Herramientas de control ejecutivo para la dirección y flexibilidad de parametrización sin depender de desarrollo:
+      <div class="section-title-wrap">
+        <h2 class="section-title">3. Control Directivo, Plantillas y Personalización</h2>
+        <p class="section-intro-text">
+          Herramientas de supervisión ejecutiva para la dirección y flexibilidad de parametrización sin depender de desarrollo de software:
         </p>
       </div>
 
       <!-- MODULO 3: ADMINISTRATIVO Y GERENCIAL -->
-      <div class="role-card">
-        <div class="role-card-header">
+      <div class="module-panel">
+        <div class="module-panel-header">
           <div style="display: flex; align-items: center; gap: 8px;">
-            <span class="role-badge badge-admin">Módulo 3</span>
-            <span class="role-title">MÓDULO ADMINISTRATIVO (GERENCIA, AUDITORÍA Y COMPLIANCE)</span>
+            <span class="module-code-badge">MOD-03</span>
+            <span class="module-panel-title">MÓDULO ADMINISTRATIVO (GERENCIA, AUDITORÍA Y COMPLIANCE)</span>
           </div>
-          <span class="role-target-user">Perfil: Directores Generales, Gerentes de Operaciones y Auditores Corporativos</span>
+          <span class="module-target-role">PERFIL: DIRECTORES GENERALES Y AUDITORES</span>
         </div>
-        <div class="role-card-body">
-          <p class="role-card-intro">
-            Centro de comando ejecutivo para la toma de decisiones estratégicas, supervisión del parque de infraestructura, segregación de accesos, certificación legal y liquidación comercial.
+        <div class="module-panel-body">
+          <p class="module-intro-line">
+            Centro de comando ejecutivo para toma de decisiones, supervisión del parque de infraestructura, control de accesos, certificación legal y liquidación comercial.
           </p>
 
           <div class="features-grid-3">
-            <div class="feature-item">
-              <span class="feature-tag">Capacidad 01</span>
-              <div class="feature-title">Dashboard &amp; Telemetría</div>
-              <p class="feature-detail">Métricas en tiempo real: volumen mensual de radiobases atendidas, tasa de rechazo interno vs cliente y cumplimiento de metas.</p>
+            <div class="feature-card">
+              <span class="feature-id-tag">CAPACIDAD 01</span>
+              <div class="feature-name">Dashboard &amp; Telemetría</div>
+              <p class="feature-text">Métricas en tiempo real: volumen de radiobases atendidas, tasa de rechazo interno vs cliente y cumplimiento de metas.</p>
             </div>
-            <div class="feature-item">
-              <span class="feature-tag">Capacidad 02</span>
-              <div class="feature-title">Catálogo de Radiobases</div>
-              <p class="feature-detail">Inventario maestro con código único, región, coordenadas oficiales, tipo de estructura y tecnología (4G/LTE, 5G, Microondas).</p>
+            <div class="feature-card">
+              <span class="feature-id-tag">CAPACIDAD 02</span>
+              <div class="feature-name">Catálogo de Radiobases</div>
+              <p class="feature-text">Inventario maestro con código único, región, coordenadas oficiales, tipo de estructura y tecnología (4G/LTE, 5G, Microondas).</p>
             </div>
-            <div class="feature-item">
-              <span class="feature-tag">Capacidad 03</span>
-              <div class="feature-title">Directorio Cuadrillas &amp; RBAC</div>
-              <p class="feature-detail">Control de roles (Técnico, Seguimiento, Administrador) bajo arquitectura Zero-Trust con tokens de sesión HMAC-SHA256.</p>
+            <div class="feature-card">
+              <span class="feature-id-tag">CAPACIDAD 03</span>
+              <div class="feature-name">Directorio Cuadrillas &amp; RBAC</div>
+              <p class="feature-text">Control de roles (Técnico, Seguimiento, Administrador) bajo arquitectura Zero-Trust con tokens de sesión HMAC-SHA256.</p>
             </div>
           </div>
 
-          <div class="features-grid-2" style="margin-top: 8px;">
-            <div class="feature-item">
-              <span class="feature-tag">Capacidad 04</span>
-              <div class="feature-title">Generador de Actas Técnicas PDF A4</div>
-              <p class="feature-detail">Compilación a 1 clic de expedientes técnicos homologados con membrete corporativo, resumen de 48 zonas, galería HD y código QR.</p>
+          <div class="features-grid-2" style="margin-top: 7px;">
+            <div class="feature-card">
+              <span class="feature-id-tag">CAPACIDAD 04</span>
+              <div class="feature-name">Generador de Actas PDF A4</div>
+              <p class="feature-text">Compilación a 1 clic de expedientes técnicos homologados con membrete corporativo, resumen de 48 zonas, galería HD y código QR.</p>
             </div>
-            <div class="feature-item">
-              <span class="feature-tag">Capacidad 05</span>
-              <div class="feature-title">Bitácora Forense SHA-256 (FIPS 180-4)</div>
-              <p class="feature-detail">Libro mayor inmutable append-only con hashes encadenados. Verificación matemática de integridad al 100% para blindaje legal.</p>
+            <div class="feature-card">
+              <span class="feature-id-tag">CAPACIDAD 05</span>
+              <div class="feature-name">Bitácora Forense SHA-256 (FIPS 180-4)</div>
+              <p class="feature-text">Libro mayor inmutable append-only con hashes encadenados. Verificación matemática de integridad al 100% para blindaje legal.</p>
             </div>
           </div>
         </div>
       </div>
 
       <!-- MODULO 4: GESTOR DE PLANTILLAS -->
-      <div class="role-card">
-        <div class="role-card-header">
+      <div class="module-panel">
+        <div class="module-panel-header">
           <div style="display: flex; align-items: center; gap: 8px;">
-            <span class="role-badge badge-plantillas">Módulo 4</span>
-            <span class="role-title">MÓDULO DE PLANTILLAS (FORMULARIOS Y REPORTES DINÁMICOS)</span>
+            <span class="module-code-badge">MOD-04</span>
+            <span class="module-panel-title">MÓDULO DE PLANTILLAS (FORMULARIOS Y REPORTES DINÁMICOS)</span>
           </div>
-          <span class="role-target-user">Perfil: Administradores de Sistema y Coordinadores de Operaciones</span>
+          <span class="module-target-role">PERFIL: ADMINISTRADORES Y COORDINADORES</span>
         </div>
-        <div class="role-card-body">
-          <p class="role-card-intro">
+        <div class="module-panel-body">
+          <p class="module-intro-line">
             Gestión visual de plantillas operativas para adaptar formularios y reportes PDF a las especificaciones cambiantes de cada operadora cliente:
           </p>
 
           <div class="features-grid-3">
-            <div class="feature-item">
-              <span class="feature-tag">Capacidad 01</span>
-              <div class="feature-title">Plantillas de Formularios</div>
-              <p class="feature-detail">Configuración de campos, preguntas técnicas y datos requeridos según el tipo de servicio o protocolo del cliente.</p>
+            <div class="feature-card">
+              <span class="feature-id-tag">CAPACIDAD 01</span>
+              <div class="feature-name">Plantillas de Formularios</div>
+              <p class="feature-text">Configuración de campos, preguntas técnicas y datos requeridos según el tipo de servicio o protocolo del cliente.</p>
             </div>
-            <div class="feature-item">
-              <span class="feature-tag">Capacidad 02</span>
-              <div class="feature-title">Plantillas de Informes PDF</div>
-              <p class="feature-detail">Generación de reportes PDF estructurados con logo institucional, membretes y tablas automáticas organizadas.</p>
+            <div class="feature-card">
+              <span class="feature-id-tag">CAPACIDAD 02</span>
+              <div class="feature-name">Plantillas de Informes PDF</div>
+              <p class="feature-text">Generación de reportes PDF estructurados con logo institucional, membretes y tablas automáticas organizadas.</p>
             </div>
-            <div class="feature-item">
-              <span class="feature-tag">Capacidad 03</span>
-              <div class="feature-title">Requerimiento de Fotos</div>
-              <p class="feature-detail">Definición de evidencias fotográficas obligatorias (evidencia individual para instalación o par Antes/Después para correctivos).</p>
+            <div class="feature-card">
+              <span class="feature-id-tag">CAPACIDAD 03</span>
+              <div class="feature-name">Requerimiento de Fotos</div>
+              <p class="feature-text">Definición de evidencias fotográficas obligatorias (evidencia individual para instalación o par Antes/Después para correctivos).</p>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- BOLSA DE 20 HORAS DE ADECUACIONES -->
-      <div class="included-scope-banner">
-        <div class="included-header">
-          <div class="included-title">
-            ⭐ Bolsa de 20 Horas de Adecuación Técnica Incluidas
-          </div>
-          <span class="included-badge">100% Bonificado en Setup</span>
+      <!-- BOLSA DE HORAS INCLUIDA -->
+      <div class="hours-panel">
+        <div class="hours-header">
+          <span class="hours-title">Bolsa de 20 Horas Hombre de Ingeniería Incluidas en el Setup</span>
+          <span class="hours-status">100% BONIFICADO EN SETUP</span>
         </div>
-        <p class="included-desc">
+        <p class="hours-desc">
           La tarifa de implementación inicial de <strong>$1,650.00 USD</strong> incluye <strong>veinte (20) horas hombre de ingeniería</strong> sin costo adicional para ajustar la plataforma a las directrices de su operación:
         </p>
 
-        <div class="included-grid">
-          <div class="included-box">
-            <div class="included-box-title">1. Adaptación de Planilla</div>
-            <p class="included-box-text">Ajuste de nomenclaturas o ítems de las 48 zonas al estándar de su operadora cliente.</p>
+        <div class="hours-grid">
+          <div class="hours-item">
+            <div class="hours-item-title">1. Adaptación de Planilla</div>
+            <p class="hours-item-text">Ajuste de nomenclaturas o ítems de las 48 zonas al estándar de su operadora cliente.</p>
           </div>
-          <div class="included-box">
-            <div class="included-box-title">2. Identidad en Actas PDF</div>
-            <p class="included-box-text">Inclusión de logo, datos fiscales, tipografías y maquetación personalizada de actas.</p>
+          <div class="hours-item">
+            <div class="hours-item-title">2. Identidad en Actas PDF</div>
+            <p class="hours-item-text">Inclusión de logo, datos fiscales, tipografías y maquetación personalizada de actas.</p>
           </div>
-          <div class="included-box">
-            <div class="included-box-title">3. Carga de Catálogos</div>
-            <p class="included-box-text">Importación inicial del inventario oficial de radiobases y coordenadas del cliente.</p>
+          <div class="hours-item">
+            <div class="hours-item-title">3. Carga de Catálogos</div>
+            <p class="hours-item-text">Importación inicial del inventario oficial de radiobases y coordenadas del cliente.</p>
           </div>
-          <div class="included-box">
-            <div class="included-box-title">4. Ajuste de Parámetros</div>
-            <p class="included-box-text">Calibración de campos obligatorios, umbrales técnicos y reglas de validación interna.</p>
+          <div class="hours-item">
+            <div class="hours-item-title">4. Ajuste de Parámetros</div>
+            <p class="hours-item-text">Calibración de campos obligatorios, umbrales técnicos y reglas de validación interna.</p>
           </div>
         </div>
       </div>
@@ -1126,8 +1119,8 @@
 
     <!-- FOOTER HOJA 3 -->
     <footer class="page-footer">
-      <span class="footer-brand">VERTEX TELECOM &bull; Propuesta Técnico-Comercial B2B</span>
-      <span class="page-number">Página 3 de 5</span>
+      <span class="footer-left"><strong>VERTEX TELECOM</strong> &bull; PROPUESTA TÉCNICO-COMERCIAL B2B</span>
+      <span class="footer-right">PROP-VTX-2026-01 &bull; PÁGINA 3 DE 5</span>
     </footer>
   </div>
 
@@ -1137,29 +1130,26 @@
   <!-- ========================================== -->
   <div class="doc-page">
     <div class="page-main-content">
-      <div class="section-header">
-        <div class="section-title">
-          <span class="section-number">4</span>
-          Infraestructura Cloud de Nivel Empresarial (Google Cloud Platform)
-        </div>
-        <p class="section-desc">
+      <div class="section-title-wrap">
+        <h2 class="section-title">4. Infraestructura Cloud de Grado Empresarial (Google Cloud Platform)</h2>
+        <p class="section-intro-text">
           Para garantizar 99.9% de disponibilidad, soberanía documental y velocidad de respuesta sin caídas de servidor, la plataforma se hospeda en centros de datos Google Cloud Platform (Tier-3 en EE.UU.):
         </p>
       </div>
 
-      <div class="table-container-card">
-        <div class="table-card-header">
-          <span class="table-card-title">Desglose de Costos de Infraestructura y Mantenimiento</span>
-          <span class="table-card-tag">Centros de Datos GCP EE.UU. (Iowa / Carolina)</span>
+      <div class="technical-table-card">
+        <div class="technical-table-header">
+          <span class="technical-table-title">Desglose de Costos de Infraestructura y Mantenimiento</span>
+          <span class="technical-table-badge">GCP DATACENTERS // IOWA &amp; S. CAROLINA</span>
         </div>
 
-        <table class="data-table">
+        <table class="spec-table">
           <thead>
             <tr>
               <th>Servicio Cloud (GCP)</th>
               <th>Función Operativa</th>
               <th>Consumo Mensual Estimado</th>
-              <th class="cost-col">Costo Nube GCP</th>
+              <th class="mono-cost">Costo Nube GCP</th>
             </tr>
           </thead>
           <tbody>
@@ -1167,66 +1157,66 @@
               <td><strong>Google Cloud Run</strong></td>
               <td>Instancia serverless para PWA, API REST y motor de PDFs (1 vCPU, 1 GB RAM).</td>
               <td>~100,000 peticiones / mes (0 cold-start garantizado).</td>
-              <td class="cost-col">$15.00 USD</td>
+              <td class="mono-cost">$15.00 USD</td>
             </tr>
             <tr>
               <td><strong>Cloud SQL for PostgreSQL</strong></td>
               <td>Base de datos transaccional PostgreSQL multi-zona con almacenamiento SSD.</td>
               <td>Instancia db-f1-micro / e2-micro (20 GB SSD).</td>
-              <td class="cost-col">$18.50 USD</td>
+              <td class="mono-cost">$18.50 USD</td>
             </tr>
             <tr>
               <td><strong>Google Cloud Storage (GCS)</strong></td>
               <td>Repositorio redundante multi-regional para fotos WebP de alta seguridad.</td>
               <td>Hasta 15,000 fotografías activas (~3.5 GB).</td>
-              <td class="cost-col">$2.50 USD</td>
+              <td class="mono-cost">$2.50 USD</td>
             </tr>
             <tr>
               <td><strong>Cloud Armor, DNS y SSL</strong></td>
               <td>Resolución DNS ultra-rápida, mitigación DDoS y certificados TLS 1.3 gestionados.</td>
               <td>Zona DNS + Tráfico saliente seguro (&lt; 20 GB).</td>
-              <td class="cost-col">$2.50 USD</td>
+              <td class="mono-cost">$2.50 USD</td>
             </tr>
             <tr>
               <td><strong>Cloud Logging &amp; Monitoring</strong></td>
               <td>Telemetría SRE, detección proactiva de incidencias y alertas al NOC.</td>
               <td>Retención a 30 días de eventos de auditoría.</td>
-              <td class="cost-col">$1.50 USD</td>
+              <td class="mono-cost">$1.50 USD</td>
             </tr>
 
             <tr class="row-highlight">
               <td colspan="3">
                 <strong>SUBTOTAL CONSUMO BASE DE NUBE GOOGLE CLOUD:</strong><br>
-                <span style="font-size: 10px; color: var(--slate-500); font-weight: normal;">
+                <span style="font-size: 8.5px; color: var(--muted); font-weight: normal;">
                   Costo directo de infraestructura (ampara hasta 10 técnicos, 15,000 fotos y 20 GB de transferencia). <em>El gasto en la nube aumentará proporcionalmente si hay más tráfico, almacenamiento o técnicos del estimado base.</em>
                 </span>
               </td>
-              <td class="cost-col" style="font-size: 11.5px; color: var(--slate-900);">
-                $40.00 USD / mes<br><span style="font-size: 9px; color: var(--slate-400); font-weight: normal;">(Sujeto a consumo)</span>
+              <td class="mono-cost" style="font-size: 10.5px;">
+                $40.00 USD / mes<br><span style="font-size: 8px; color: var(--muted); font-weight: normal;">(Base consumo)</span>
               </td>
             </tr>
 
             <tr>
               <td colspan="3">
                 <strong>Servicio Gestionado DevOps, Mantenimiento Preventivo y Soporte Nivel 2:</strong>
-                <span style="display: inline-block; background: #e0f2fe; color: #0369a1; font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle;">OPCIONAL</span><br>
-                <span style="font-size: 10px; color: var(--slate-500);">
+                <span style="display: inline-block; background: var(--navy-subtle); color: var(--navy-light); font-size: 8px; font-weight: 800; padding: 1px 5px; border-radius: 3px; margin-left: 4px; vertical-align: middle;">OPCIONAL</span><br>
+                <span style="font-size: 8.5px; color: var(--muted);">
                   Administración proactiva de infraestructura, aplicación de parches de seguridad, optimización de consultas SQL y soporte técnico especializado continuo.
                 </span>
               </td>
-              <td class="cost-col" style="color: var(--accent); font-size: 11.5px;">
-                $80.00 USD / mes<br><span style="font-size: 9px; color: var(--slate-400); font-weight: normal;">(Opcional)</span>
+              <td class="mono-cost" style="color: var(--navy-light); font-size: 10.5px;">
+                $80.00 USD / mes<br><span style="font-size: 8px; color: var(--muted); font-weight: normal;">(Opcional)</span>
               </td>
             </tr>
 
             <tr class="row-total">
               <td colspan="3">
                 PAQUETE INTEGRAL RECOMENDADO (NUBE BASE + DEVOPS + SOPORTE L2):<br>
-                <span style="font-size: 10px; color: #2563eb; font-weight: normal;">
+                <span style="font-size: 8.5px; color: var(--navy-light); font-weight: normal;">
                   (Si la empresa opta por prescindir del servicio opcional de DevOps/Soporte L2, la facturación mensual será únicamente el costo neto de nube de $40.00 USD base).
                 </span>
               </td>
-              <td class="cost-col" style="color: #1e3a8a; font-size: 13px;">
+              <td class="mono-cost" style="color: var(--navy); font-size: 11.5px;">
                 $120.00 USD / mes
               </td>
             </tr>
@@ -1234,15 +1224,15 @@
         </table>
       </div>
 
-      <div class="clause-box">
+      <div class="legal-clause-note">
         <strong>CLÁUSULA DE ESCALABILIDAD CLOUD Y CONDICIONES DE SERVICIO:</strong> La estimación base de $40.00 USD ampara con holgura hasta diez (10) cuadrillas concurrentes, 15,000 fotos en la nube y 20 GB de transferencia mensual. <strong>El gasto en la nube aumentará si hay más tráfico, mayor volumen de almacenamiento o más técnicos concurrentes del definido previamente</strong>, facturándose a costo neto de la factura oficial de Google Cloud (+ 15% de gastos administrativos en caso de gestión intermediada). Por su parte, el <strong>Servicio Gestionado DevOps y Soporte L2 ($80.00 USD/mes) es totalmente opcional</strong>; si la empresa opta por prescindir de él, solo pagará el consumo real de nube ($40.00 USD base) y podrá requerir soporte técnico puntual bajo la modalidad Ad-Hoc ($40/h estándar, $50/h emergencia).
       </div>
     </div>
 
     <!-- FOOTER HOJA 4 -->
     <footer class="page-footer">
-      <span class="footer-brand">VERTEX TELECOM &bull; Propuesta Técnico-Comercial B2B</span>
-      <span class="page-number">Página 4 de 5</span>
+      <span class="footer-left"><strong>VERTEX TELECOM</strong> &bull; PROPUESTA TÉCNICO-COMERCIAL B2B</span>
+      <span class="footer-right">PROP-VTX-2026-01 &bull; PÁGINA 4 DE 5</span>
     </footer>
   </div>
 
@@ -1252,126 +1242,123 @@
   <!-- ========================================== -->
   <div class="doc-page">
     <div class="page-main-content">
-      <div class="section-header" style="margin-bottom: 8px;">
-        <div class="section-title" style="margin-bottom: 4px;">
-          <span class="section-number">5</span>
-          Cuadro Resumen Ejecutivo, Marco Legal y Aprobación
-        </div>
+      <div class="section-title-wrap">
+        <h2 class="section-title">5. Cuadro Resumen Financiero, Marco Legal y Aprobación</h2>
       </div>
 
-      <!-- TABLA RESUMEN FINANCIERO COMPACTA -->
-      <div class="table-container-card" style="margin-bottom: 8px;">
-        <div class="table-card-header" style="padding: 7px 14px;">
-          <span class="table-card-title" style="font-size: 11px;">Resumen Financiero y Compromisos Operativos</span>
-          <span style="font-size: 9.5px; opacity: 0.9; font-weight: 600;">Valores Netos en USD (+ IVA)</span>
+      <!-- TABLA RESUMEN FINANCIERO -->
+      <div class="technical-table-card" style="margin-bottom: 7px;">
+        <div class="technical-table-header" style="padding: 6px 10px;">
+          <span class="technical-table-title" style="font-size: 10px;">Resumen Financiero y Compromisos Operativos</span>
+          <span class="technical-table-badge">VALORES NETOS EN USD (+ IVA)</span>
         </div>
 
-        <table class="data-table" style="font-size: 10px;">
+        <table class="spec-table">
           <thead>
             <tr>
-              <th style="padding: 5px 8px; font-size: 9px;">Concepto</th>
-              <th style="padding: 5px 8px; font-size: 9px;">Detalle de Entregables</th>
-              <th style="padding: 5px 8px; font-size: 9px;">Condición / Modalidad</th>
-              <th class="cost-col" style="padding: 5px 8px; font-size: 9px;">Monto Neto (USD) + IVA</th>
+              <th style="width: 24%;">Concepto</th>
+              <th style="width: 38%;">Detalle de Entregables</th>
+              <th style="width: 22%;">Condición / Modalidad</th>
+              <th class="mono-cost" style="width: 16%;">Monto Neto + IVA</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td style="padding: 4px 8px;"><strong>1. Setup e Implementación Base</strong></td>
-              <td style="padding: 4px 8px;">Puesta en producción de los 4 Módulos (Campo, Seguimiento, Administración y Plantillas), despliegue en GCP y carga de catálogos.</td>
-              <td style="padding: 4px 8px;">3 hitos de <strong>$550.00 USD</strong> (33.3% Firma / 33.3% Staging / 33.4% Producción).</td>
-              <td class="cost-col" style="padding: 4px 8px; color: var(--accent); font-size: 11px;">$1,650.00 USD<br><span style="font-size: 8px; color: var(--slate-400); font-weight: normal;">(Pago Único)</span></td>
+              <td><strong>1. Setup e Implementación Base</strong></td>
+              <td>Puesta en producción de los 4 Módulos (Campo, Seguimiento, Administración y Plantillas), despliegue en GCP y carga de catálogos.</td>
+              <td>3 hitos de <strong>$550.00 USD</strong> (33.3% Firma / 33.3% Staging / 33.4% Producción).</td>
+              <td class="mono-cost" style="color: var(--navy-light); font-size: 10.5px;">$1,650.00 USD<br><span style="font-size: 7.5px; color: var(--muted); font-weight: normal;">(Pago Único)</span></td>
             </tr>
 
             <tr style="background: #faf5ff;">
-              <td style="padding: 4px 8px;"><strong>2. Adecuaciones y Personalización</strong></td>
-              <td style="padding: 4px 8px;"><strong>Bolsa de hasta 20 horas libres</strong> para calibrar planillas, 48 zonas, diseño PDF y reglas técnicas.</td>
-              <td style="padding: 4px 8px;"><strong>100% Bonificado</strong> dentro de la tarifa de Setup (Cero cobros extras).</td>
-              <td class="cost-col" style="padding: 4px 8px; color: var(--emerald); font-size: 10.5px;">INCLUIDO</td>
+              <td><strong>2. Adecuaciones y Personalización</strong></td>
+              <td><strong>Bolsa de hasta 20 horas libres</strong> para calibrar planillas, 48 zonas, diseño PDF y reglas técnicas.</td>
+              <td><strong>100% Bonificado</strong> dentro de la tarifa de Setup (Cero cobros extras).</td>
+              <td class="mono-cost" style="color: var(--emerald-dark); font-size: 10px;">INCLUIDO</td>
             </tr>
 
             <tr>
-              <td style="padding: 4px 8px;"><strong>3. Infraestructura Cloud Base (GCP)</strong></td>
-              <td style="padding: 4px 8px;">Servidores Google Cloud de alta disponibilidad, PostgreSQL y fotos para 10 cuadrillas. <em>(Escalable por consumo).</em></td>
-              <td style="padding: 4px 8px;">Facturación mensual a mes vencido según consumo real GCP. <em>(Primeros 30 días con garantía técnica gratuita).</em></td>
-              <td class="cost-col" style="padding: 4px 8px; color: var(--slate-900); font-size: 10.5px;">$40.00 USD / mes<br><span style="font-size: 8px; color: var(--slate-400); font-weight: normal;">(Base consumo)</span></td>
+              <td><strong>3. Infraestructura Cloud Base (GCP)</strong></td>
+              <td>Servidores Google Cloud de alta disponibilidad, PostgreSQL y fotos para 10 cuadrillas. <em>(Escalable por consumo).</em></td>
+              <td>Facturación mensual a mes vencido según consumo real GCP. <em>(Primeros 30 días gratuitos con soporte).</em></td>
+              <td class="mono-cost" style="font-size: 10px;">$40.00 USD / mes<br><span style="font-size: 7.5px; color: var(--muted); font-weight: normal;">(Base consumo)</span></td>
             </tr>
 
             <tr style="background: #f0fdf4;">
-              <td style="padding: 4px 8px;"><strong>4. DevOps y Soporte L2</strong> <span style="display: inline-block; background: #e0f2fe; color: #0369a1; font-size: 8px; font-weight: 800; padding: 1px 4px; border-radius: 3px;">OPCIONAL</span></td>
-              <td style="padding: 4px 8px;">Mantenimiento preventivo, parches de seguridad, optimización DB y soporte L2 continuo.</td>
-              <td style="padding: 4px 8px;"><strong>Modalidad Opcional</strong>. Flexible mes a mes. <em>(Junto a nube base conforma paquete integral de $120.00 USD/mes).</em></td>
-              <td class="cost-col" style="padding: 4px 8px; color: var(--accent); font-size: 10.5px;">$80.00 USD / mes<br><span style="font-size: 8px; color: var(--slate-400); font-weight: normal;">(Opcional)</span></td>
+              <td><strong>4. DevOps y Soporte L2</strong> <span style="display: inline-block; background: var(--navy-subtle); color: var(--navy-light); font-size: 7.5px; font-weight: 800; padding: 1px 4px; border-radius: 2px;">OPCIONAL</span></td>
+              <td>Mantenimiento preventivo, parches de seguridad, optimización DB y soporte L2 continuo.</td>
+              <td><strong>Modalidad Opcional</strong>. Flexible mes a mes. <em>(Junto a nube base = $120.00 USD/mes).</em></td>
+              <td class="mono-cost" style="color: var(--navy-light); font-size: 10px;">$80.00 USD / mes<br><span style="font-size: 7.5px; color: var(--muted); font-weight: normal;">(Opcional)</span></td>
             </tr>
 
-            <tr style="background: var(--slate-50);">
-              <td style="padding: 4px 8px;"><strong>5. Soporte Ad-Hoc (Sin abono mensual)</strong></td>
-              <td style="padding: 4px 8px;">Intervenciones técnicas puntuales bajo demanda en caso de prescindir del abono de soporte L2.</td>
-              <td style="padding: 4px 8px;">Bajo demanda con cargo mínimo de 2 horas (SLA de 24-48 horas laborables).</td>
-              <td class="cost-col" style="padding: 4px 8px; font-size: 9.5px;">$40.00 / h (Estándar)<br>$50.00 / h (Emergencia)</td>
+            <tr style="background: var(--surface-subtle);">
+              <td><strong>5. Soporte Ad-Hoc (Sin abono)</strong></td>
+              <td>Intervenciones técnicas puntuales bajo demanda en caso de prescindir del abono de soporte L2.</td>
+              <td>Bajo demanda con cargo mínimo de 2 horas (SLA de 24-48 horas laborables).</td>
+              <td class="mono-cost" style="font-size: 9px;">$40.00 / h (Estándar)<br>$50.00 / h (Emergencia)</td>
             </tr>
 
             <tr>
-              <td style="padding: 4px 8px;"><strong>6. Tiempo de Ejecución Total</strong></td>
-              <td style="padding: 4px 8px;">Despliegue de infraestructura, parametrización, pruebas de campo y 2 sesiones de capacitación formal.</td>
-              <td style="padding: 4px 8px;">Cronograma ágil de <strong>3 a 4 semanas</strong> desde el anticipo inicial.</td>
-              <td class="cost-col" style="padding: 4px 8px; font-family: sans-serif; font-size: 10px; color: var(--emerald); font-weight: 800;">Garantizado</td>
+              <td><strong>6. Tiempo de Ejecución Total</strong></td>
+              <td>Despliegue de infraestructura, parametrización, pruebas de campo y 2 sesiones de capacitación formal.</td>
+              <td>Cronograma ágil de <strong>3 a 4 semanas</strong> desde el anticipo inicial.</td>
+              <td class="mono-cost" style="font-family: sans-serif; font-size: 9.5px; color: var(--emerald-dark); font-weight: 800;">Garantizado</td>
             </tr>
 
             <tr style="background: #eff6ff;">
-              <td style="padding: 4px 8px;"><strong>7. Soporte Post-Implementación</strong></td>
-              <td style="padding: 4px 8px;"><strong>1 mes continuo (30 días)</strong> de soporte de estabilización para corrección de fallas contractuales.</td>
-              <td style="padding: 4px 8px;">A partir de la entrega formal. <em>(Modificaciones de fondo tras recepción conforme se cotizan aparte).</em></td>
-              <td class="cost-col" style="padding: 4px 8px; color: #1e40af; font-size: 10.5px;">INCLUIDO<br><span style="font-size: 8px; color: var(--slate-400); font-weight: normal;">(30 Días)</span></td>
+              <td><strong>7. Soporte Post-Implementación</strong></td>
+              <td><strong>1 mes continuo (30 días)</strong> de soporte de estabilización para corrección de fallas contractuales.</td>
+              <td>A partir de la entrega formal. <em>(Modificaciones de fondo tras recepción conforme se cotizan aparte).</em></td>
+              <td class="mono-cost" style="color: #1e40af; font-size: 10px;">INCLUIDO<br><span style="font-size: 7.5px; color: var(--muted); font-weight: normal;">(30 Días)</span></td>
             </tr>
 
             <tr class="row-highlight">
-              <td style="padding: 4px 8px;"><strong>8. Licencia y Términos Legales</strong></td>
-              <td style="padding: 4px 8px;">Licencia de uso comercial perpetua (sin cobro mensual por usuario), exoneración por alteración de código y límite de responsabilidad.</td>
-              <td style="padding: 4px 8px;">Condiciones de protección legal mutua para ambas partes.</td>
-              <td class="cost-col" style="padding: 4px 8px; font-family: sans-serif; font-size: 10px;">Incluido</td>
+              <td><strong>8. Licencia y Términos Legales</strong></td>
+              <td>Licencia de uso comercial perpetua (sin cobro mensual por usuario), exoneración por alteración de código y límite patrimonial.</td>
+              <td>Condiciones de protección legal mutua para ambas partes.</td>
+              <td class="mono-cost" style="font-family: sans-serif; font-size: 9.5px;">Incluido</td>
             </tr>
           </tbody>
         </table>
 
-        <div style="background: #faf5ff; border-top: 1px solid var(--slate-200); padding: 4px 10px; font-size: 9px; color: #581c87; font-weight: 600; line-height: 1.35;">
+        <div style="background: var(--surface-subtle); border-top: 1px solid var(--border); padding: 4px 8px; font-size: 8.5px; color: var(--slate); font-weight: 600; line-height: 1.35;">
           ℹ️ <strong>RÉGIMEN FISCAL:</strong> Todos los montos y cánones presentados son valores netos en USD. A cada pago se le adicionará el Impuesto al Valor Agregado (IVA) correspondiente según la normativa tributaria vigente a la fecha de facturación formal.
         </div>
       </div>
 
       <!-- MARCO LEGAL CONDENSADO (GRID 2x2) -->
-      <div style="background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 8px; padding: 8px 12px; margin-bottom: 10px;">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 9.5px; line-height: 1.35; color: var(--slate-700);">
+      <div class="legal-grid-box">
+        <div class="legal-grid">
           <div>
-            <strong style="color: var(--slate-900);">1. Licencia Comercial Perpetua:</strong> Licencia de uso no exclusiva e intransferible concedida mediante el pago único de Setup, sin cobros recurrentes por usuario o cuadrilla.
+            <strong>1. Licencia Comercial Perpetua:</strong> Licencia de uso no exclusiva e intransferible concedida mediante el pago único de Setup, sin cobros recurrentes por usuario o cuadrilla.
           </div>
           <div>
-            <strong style="color: var(--slate-900);">2. Garantía Técnica (30 días):</strong> Ampara corrección de bugs sobre funcionalidades pactadas. Modificaciones de fondo o nuevas funciones tras recepción se cotizan aparte.
+            <strong>2. Garantía Técnica (30 días):</strong> Ampara corrección de bugs sobre funcionalidades pactadas. Modificaciones de fondo o nuevas funciones tras recepción se cotizan aparte.
           </div>
           <div>
-            <strong style="color: var(--slate-900);">3. Exoneración por Alteración:</strong> Queda prohibida la manipulación de código, DB o nube por terceros; cesará toda garantía y soporte, exonerando al PROVEEDOR. Reparaciones a $50/h.
+            <strong>3. Exoneración por Alteración:</strong> Queda prohibida la manipulación de código, DB o nube por terceros; cesará toda garantía y soporte, exonerando al PROVEEDOR. Reparaciones a $50/h.
           </div>
           <div>
-            <strong style="color: var(--slate-900);">4. Límite Legal y Régimen Fiscal:</strong> Responsabilidad patrimonial máxima limitada al monto percibido por Setup ($1,650.00 USD). Valores netos devengarán IVA de ley.
+            <strong>4. Límite Legal y Régimen Fiscal:</strong> Responsabilidad patrimonial máxima limitada al monto percibido por Setup ($1,650.00 USD). Valores netos devengarán IVA de ley.
           </div>
         </div>
       </div>
 
       <!-- FIRMAS FORMALES -->
-      <div class="signatures-block" style="padding-top: 10px; margin-top: auto;">
+      <div class="signatures-block">
         <div class="sign-box">
-          <div class="sign-line" style="height: 32px; margin-bottom: 6px;"></div>
-          <span class="sign-party" style="font-size: 10px;">POR EL PROVEEDOR TECNOLÓGICO</span>
-          <div class="sign-details" style="font-size: 9px; line-height: 1.4;">
+          <div class="sign-line"></div>
+          <span class="sign-party">POR EL PROVEEDOR TECNOLÓGICO</span>
+          <div class="sign-details">
             <strong>Nombre:</strong> ____________________________________<br>
             <strong>C.I. / RIF:</strong> ____________________________________<br>
             <strong>Cargo:</strong> Titular &amp; Arquitecto de Solución VERTEX
           </div>
         </div>
         <div class="sign-box">
-          <div class="sign-line" style="height: 32px; margin-bottom: 6px;"></div>
-          <span class="sign-party" style="font-size: 10px;">POR LA EMPRESA CONTRATANTE</span>
-          <div class="sign-details" style="font-size: 9px; line-height: 1.4;">
+          <div class="sign-line"></div>
+          <span class="sign-party">POR LA EMPRESA CONTRATANTE</span>
+          <div class="sign-details">
             <strong>Razón Social:</strong> ________________________________<br>
             <strong>RIF / Registro:</strong> ________________________________<br>
             <strong>Representante:</strong> ________________________________<br>
@@ -1383,8 +1370,8 @@
 
     <!-- FOOTER HOJA 5 -->
     <footer class="page-footer">
-      <span class="footer-brand">VERTEX TELECOM &bull; Propuesta Técnico-Comercial B2B</span>
-      <span class="page-number">Página 5 de 5</span>
+      <span class="footer-left"><strong>VERTEX TELECOM</strong> &bull; PROPUESTA TÉCNICO-COMERCIAL B2B</span>
+      <span class="footer-right">PROP-VTX-2026-01 &bull; PÁGINA 5 DE 5</span>
     </footer>
   </div>
 
