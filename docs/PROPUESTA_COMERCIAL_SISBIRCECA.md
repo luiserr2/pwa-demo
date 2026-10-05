@@ -59,15 +59,12 @@ La plataforma se compone de cuatro (4) módulos diseñados para la función exac
 
 ---
 
-### D. MÓDULO GESTOR DE PLANTILLAS (FORMULARIOS Y DOSSIER PDF)
-*Diseñado para administradores de plataforma, jefes de operaciones y control de calidad.*
+### D. MÓDULO DE PLANTILLAS (FORMULARIOS Y REPORTES PDF)
+*Diseñado para administradores y coordinadores de operaciones.*
 
-* **1. Diseñador de Formularios para Operadores:** Constructor de plantillas por tipo de misión (Mantenimiento, Swaps, Auditorías). Creación de secciones, preguntas técnicas, selectores de estado (`NORMAL`, `ALARMA`, `FALLA`) y campos de medición numéricos con validación en tiempo real.
-* **2. Motor de Renderizado y Maquetación PDF A4:** Mapeo automático de cada campo del formulario hacia el diseño final del documento. Organización automática de tablas de datos, encabezados oficiales con logos de contratista y cliente, y bloques de firmas tripartitas.
-* **3. Reglas Fotográficas Configurables por Misión:** Definición paramétrica de los slots de evidencia requeridos: configuración de flujo de **Evidencia Única** para instalaciones nuevas o flujo dual **Antes / Después** para mantenimientos correctivos.
-* **4. Disposición Dinámica de Láminas Fotográficas:** Configuración del anexo fotográfico en el PDF resultante: selección entre 2 fotos por página A4 con notas de campo expandidas o grillas compactas de 4 fotos para informes de alta densidad.
-* **5. Versionamiento Inmutable de Formatos:** Control estricto de versiones (v1.0, v2.1). Las modificaciones en una plantilla aplican exclusivamente a nuevas intervenciones, protegiendo la estructura histórica de los expedientes previamente visados y facturados.
-* **6. Asignación Automática por Tipo de Intervención:** Vinculación de plantillas pre-aprobadas según la orden de trabajo generada. El técnico en torre recibe automáticamente la planilla exacta correspondiente a su misión sin margen de error.
+* **1. Plantillas de Formularios:** Configuración de los campos, preguntas y datos básicos que debe completar el técnico en su teléfono según el tipo de servicio o trabajo a realizar.
+* **2. Plantilla del Informe PDF:** Generación del reporte en PDF a partir de los datos cargados en el formulario, incluyendo logos de la empresa y la información organizada en tablas legibles.
+* **3. Requerimiento de Fotos:** Definición de las evidencias fotográficas necesarias para el reporte (foto individual para instalaciones o fotos de antes y después para mantenimientos).
 
 ---
 
