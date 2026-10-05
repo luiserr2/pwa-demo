@@ -4,7 +4,8 @@ import { EvidenciaService } from '@/server/services/evidencia.service';
 import { RegistrarEvidenciaSchema, EvaluarEvidenciaSchema } from '@/server/schemas';
 import { verificarPermisosAPI } from '@/server/security/guard';
 import { RolUsuario } from '@/server/types/roles';
-import { respuestaError } from '@/server/http/respuestas';
+import { respuestaError, obtenerIpCliente } from '@/server/http/respuestas';
+import { resolverActorPersistido } from '@/server/security/actor';
 
 const MAX_DATA_URI_BYTES = 1024 * 1024 * 2; // 2MB
 
@@ -46,8 +47,8 @@ export async function POST(req: NextRequest) {
 export async function PATCH(req: NextRequest) {
   try {
     const guard = verificarPermisosAPI(req, [RolUsuario.SUPERVISOR, RolUsuario.ADMIN]);
-    if (!guard.autorizado && guard.response) {
-      return guard.response;
+    if (!guard.autorizado || !guard.usuario) {
+      return guard.response ?? NextResponse.json({ ok: false, error: 'No autorizado.' }, { status: 401 });
     }
 
     const body: unknown = await req.json();
@@ -60,8 +61,12 @@ export async function PATCH(req: NextRequest) {
     }
 
     const ds = await getDataSource();
+    const actor = await resolverActorPersistido(ds, guard.usuario);
     const service = new EvidenciaService(ds);
-    const evidencia = await service.evaluarVisualmente(validado.data);
+    const evidencia = await service.evaluarYAuditar(
+      { ...validado.data, supervisorId: actor.id },
+      obtenerIpCliente(req)
+    );
     return NextResponse.json({ ok: true, data: evidencia });
   } catch (error: unknown) {
     return respuestaError(error, 'API Fotos PATCH');

@@ -1,5 +1,6 @@
 import crypto from 'crypto';
 import { RolUsuario } from '../types/roles';
+import { esPayloadSesion } from './token-edge';
 
 const SECRET_KEY = process.env.AUTH_SECRET || 'sisbirceca_telecom_hmac_secret_key_2026_super_safe';
 
@@ -30,57 +31,28 @@ export function generarTokenSesion(user: { id: string; email: string; nombre: st
 }
 
 /**
- * Verifica la firma del token y retorna el payload o null si es inválido o expiró.
- * Es compatible tanto con Node.js como con Next.js Edge Runtime.
+ * Verifica la firma HMAC del token (runtime Node.js) y retorna el payload o null si es
+ * inválido, está mal formado o expiró. Falla cerrado. Para Edge (middleware) usar
+ * `verificarTokenSesionEdge` de ./token-edge.
  */
 export function verificarTokenSesion(token: string): UserPayload | null {
   try {
     if (!token || typeof token !== 'string') return null;
     const parts = token.split('.');
-    if (parts.length !== 2) return null;
+    if (parts.length !== 2 || !parts[0] || !parts[1]) return null;
 
     const [payloadBase64, signature] = parts;
+    const expectedSignature = crypto.createHmac('sha256', SECRET_KEY).update(payloadBase64).digest('base64url');
 
-    // 1. Verificación estricta de firma HMAC cuando crypto.createHmac de Node.js está disponible
-    if (typeof crypto !== 'undefined' && typeof (crypto as any).createHmac === 'function') {
-      const expectedSignature = (crypto as any)
-        .createHmac('sha256', SECRET_KEY)
-        .update(payloadBase64)
-        .digest('base64url');
-
-      if (typeof (crypto as any).timingSafeEqual === 'function' && typeof Buffer !== 'undefined') {
-        if (!(crypto as any).timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))) {
-          return null;
-        }
-      } else if (signature !== expectedSignature) {
-        return null;
-      }
-    }
-
-    // 2. Decodificación universal de payload JSON (compatible con Buffer y atob en Edge)
-    let jsonStr = '';
-    if (typeof Buffer !== 'undefined' && typeof Buffer.from === 'function') {
-      jsonStr = Buffer.from(payloadBase64, 'base64url').toString('utf8');
-    } else if (typeof atob === 'function') {
-      const base64 = payloadBase64.replace(/-/g, '+').replace(/_/g, '/');
-      jsonStr = decodeURIComponent(
-        atob(base64)
-          .split('')
-          .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-          .join('')
-      );
-    } else {
+    const recibida = Buffer.from(signature);
+    const esperada = Buffer.from(expectedSignature);
+    if (recibida.length !== esperada.length || !crypto.timingSafeEqual(recibida, esperada)) {
       return null;
     }
 
-    const payload: UserPayload = JSON.parse(jsonStr);
-    if (!payload || !payload.rol || !payload.exp) {
-      return null;
-    }
-
-    if (Date.now() / 1000 > payload.exp) {
-      return null;
-    }
+    const payload: unknown = JSON.parse(Buffer.from(payloadBase64, 'base64url').toString('utf8'));
+    if (!esPayloadSesion(payload)) return null;
+    if (Date.now() / 1000 > payload.exp) return null;
 
     return payload;
   } catch {

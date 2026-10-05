@@ -20,22 +20,33 @@
   - El portal de campo (`/campo`) no pasa el `reporteId` seleccionado como query param hacia `/mobile?reporteId=...`, provocando que la captura móvil arranque descontextualizada.
   - La sincronización Dexie en `/campo` es un botón con alert simulado en lugar de invocar una llamada real `POST /api/sync/offline`.
 
-## 2. Matriz de Segregación RBAC Oficial (Arquitectura Unificada de 2 Roles)
-- **Matriz de Segregación RBAC Absoluta (Zero-Trust UI):**
-  - **Persona 1: Operador de Campo (Gerson Martínez):**
-    - Rutas permitidas: `/campo`, `/mobile`, `/perfil`.
-    - Rutas prohibidas: `/admin/*`, `/supervisor`. Si intenta acceder, redirección inmediata a `/campo` con aviso de permisos.
-    - UX orientada a torre: Alto contraste para luz solar directa, targets táctiles grandes (≥ 48px), modo offline resiliente sin pantallas en blanco.
-  - **Persona 2: Dirección de Operaciones / Administrador (Lic. Mariana Fernández):**
-    - Rutas permitidas: `/admin/dashboard`, `/admin/radiobases`, `/admin/usuarios`, `/supervisor` (Auditoría QA y validación visual), `/reportes`, `/reportes/[id]/pdf`.
-    - Rutas prohibidas: Pantalla operativa de captura en torre `/mobile` (los directivos no capturan fotos en sitio).
-    - UX B2B unificada: Control integral sin saltos de perfil. Acceso en 1 clic a la auditoría fotográfica Antes vs Después, aprobación/rechazo con sellado SHA-256, catálogo de radiobases y ABM completo de usuarios (creación con 2 roles y eliminación).
+## 2. Matriz de Segregación RBAC Oficial (3 Roles)
+> Fuente única en código: `src/shared/rbac.ts` (la consumen el middleware, el Navbar, el sidebar admin y la redirección de `/`). Las APIs aplican su propio guard (`verificarPermisosAPI`) con la sesión HMAC firmada.
+
+| Ruta | TÉCNICO | SUPERVISOR | ADMIN |
+|---|:-:|:-:|:-:|
+| `/campo`, `/captura`, `/mobile` | ✅ | ❌ | ✅ |
+| `/reportes` (Pipeline de 8 fases) | ❌ | ✅ | ✅ |
+| `/supervisor` (Validación visual + trazabilidad) | ❌ | ✅ | ✅ |
+| `/reportes/[id]/pdf` (Expediente) | ✅ | ✅ | ✅ |
+| `/admin/*` (Estadísticas, usuarios, radiobases, auditoría, config) | ❌ | ❌ | ✅ |
+| **Ruta de inicio** | `/campo` | `/reportes` | `/admin/dashboard` |
+
+- **Persona 1: Técnico de Campo** (`tecnico@sisbirceca.com`)
+  - Captura Antes/Después y matriz de 48 zonas (offline-first), entrega a coordinación (`REVISION_INTERNA`).
+  - UX orientada a torre: alto contraste para luz solar directa, targets táctiles ≥ 48px, sin pantallas en blanco sin señal.
+- **Persona 2: Supervisor de Calidad** (`supervisor@sisbirceca.com`)
+  - Valida visualmente cada foto (aprobar / rechazar con motivo obligatorio) desde `/supervisor`; cada evaluación queda en la bitácora encadenada (`APROBACION_QA` / `OBSERVACION_QA`).
+  - Mueve expedientes en el pipeline: Observado, Enviado al cliente (canal + ticket), Visado (bloquea contenido y genera huella SHA-256), HES, Facturado.
+  - No puede visar si existen fotos rechazadas.
+- **Persona 3: Administrador / Dirección de Operaciones** (`admin@sisbirceca.com`)
+  - Todo lo del supervisor + estadísticas, ABM de usuarios con los 3 roles, radiobases, bitácora de auditoría y configuración.
 - **Flujo de Navegación E2E Cerrado:**
-  1. `/login` -> Redirección automática según rol.
-  2. Técnico en `/campo` selecciona orden de trabajo -> Redirige a `/mobile?reporteId=XYZ`.
-  3. Técnico completa fotos y matriz -> Presiona "Enviar a Revisión".
-  4. Supervisor en `/supervisor` ve el reporte en cola -> Evalúa visualmente -> Aprueba.
-  5. Administrador en `/admin/dashboard` ve el KPI actualizado y accede a `/reportes/[id]/pdf` para emisión de acta.
+  1. `/login` → redirección automática según rol firmado en la sesión.
+  2. Técnico en `/campo` elige radiobase/expediente → `/captura?reporteId=UUID`.
+  3. Técnico completa fotos y matriz → "Entregar a coordinación" (`REVISION_INTERNA`).
+  4. Supervisor en `/supervisor` aprueba/rechaza fotos → en `/reportes` avanza o devuelve (`OBSERVADO`) el expediente.
+  5. Administrador consulta KPIs en `/admin/dashboard` y el expediente en `/reportes/[id]/pdf`.
 
 ## 3. Expectativas Arquitectónicas y Estándares de Producción
 - **Estándares de Diseño Impeccable:**

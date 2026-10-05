@@ -29,23 +29,9 @@ export function verificarPermisosAPI(req: NextRequest, rolesPermitidos: RolUsuar
     }
   }
 
-  // Si no hay token en desarrollo/demo permitimos x-user-role para simplificar testing si está explícito
+  // Sin token no hay acceso. (Se eliminó el bypass por cabecera x-user-role: permitía
+  // a cualquier cliente autoproclamarse ADMIN sin sesión firmada.)
   if (!token) {
-    const devRole = req.headers.get('x-user-role') as RolUsuario;
-    const devId = req.headers.get('x-user-id') || 'usr-dev-01';
-    if (devRole && rolesPermitidos.includes(devRole)) {
-      return {
-        autorizado: true,
-        usuario: {
-          id: devId,
-          email: `${devRole.toLowerCase()}@sisbirceca.com`,
-          nombre: `Usuario ${devRole}`,
-          rol: devRole,
-          exp: Math.floor(Date.now() / 1000) + 3600,
-        },
-      };
-    }
-
     return {
       autorizado: false,
       response: NextResponse.json(

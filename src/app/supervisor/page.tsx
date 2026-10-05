@@ -23,6 +23,7 @@ import { solicitarApi } from '@/client/components/campo/api-campo';
 import { EstadoReporte, ETIQUETAS_ESTADO, esEstadoReporte } from '@/shared/flujo-reporte';
 import type { ReporteListadoApi } from '@/shared/tipos-api';
 import type { AuditEvent } from '@/app/api/admin/auditoria/route';
+import { ValidacionEvidencias } from '@/client/components/supervision/ValidacionEvidencias';
 
 /** Estados que entran en la bandeja de supervisión (de la revisión interna en adelante). */
 const ESTADOS_SUPERVISION: readonly EstadoReporte[] = [
@@ -161,6 +162,7 @@ export default function SupervisorAuditoriaPage() {
   const [errorEventos, setErrorEventos] = useState<ErrorCarga | null>(null);
   const [filtroTipo, setFiltroTipo] = useState<string>('TODOS');
   const [intentoEventos, setIntentoEventos] = useState<number>(0);
+  const refrescarHistorial = useCallback(() => setIntentoEventos((n) => n + 1), []);
 
   const cargarExpedientes = useCallback(async () => {
     setCargandoLista(true);
@@ -525,6 +527,13 @@ export default function SupervisorAuditoriaPage() {
                     )}
                   </div>
                 )}
+
+                {/* VALIDACIÓN VISUAL DE EVIDENCIAS (herramienta del rol Supervisor) */}
+                <ValidacionEvidencias
+                  reporteId={seleccionado.id}
+                  bloqueado={seleccionado.bloqueadoEdicion}
+                  onEvaluada={refrescarHistorial}
+                />
 
                 {/* FILTRO DEL HISTORIAL */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50 p-3 rounded-xl border border-slate-200">

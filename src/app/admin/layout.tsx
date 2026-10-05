@@ -16,7 +16,8 @@ import {
   X,
   Map,
   ShieldCheck,
-  Layers
+  Layers,
+  ClipboardCheck
 } from 'lucide-react';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -26,8 +27,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   const navigation = [
     { name: 'Dashboard Principal', href: '/admin/dashboard', icon: LayoutDashboard },
+    { name: 'Pipeline de 8 Fases', href: '/reportes', icon: Activity },
+    { name: 'Supervisión y Validación', href: '/supervisor', icon: ClipboardCheck },
     { name: 'Infraestructura y Sitios', href: '/admin/radiobases', icon: Server },
-    { name: 'Gestión de Cuadrillas', href: '/admin/usuarios', icon: Users },
+    { name: 'Usuarios y Roles', href: '/admin/usuarios', icon: Users },
     { name: 'Mapa de Operaciones', href: '/admin/mapa', icon: Map },
     { name: 'Expedientes Oficiales', href: '/admin/expedientes', icon: FileText },
     { name: 'Gestor de Plantillas', href: '/admin/plantillas', icon: Layers },

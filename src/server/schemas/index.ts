@@ -82,11 +82,11 @@ export const RegistrarEvidenciaSchema = z.object({
   urlImagen: z.string().min(5),
 });
 
+// El supervisor evaluador se toma de la sesión firmada, nunca del body.
 export const EvaluarEvidenciaSchema = z.object({
   evidenciaId: z.string().uuid(),
   estado: z.nativeEnum(EstadoValidacionVisual),
   observacionRechazo: z.string().max(500).optional(),
-  supervisorId: z.string(),
 });
 
 // Esquema para Sincronización en Lote Dexie.js

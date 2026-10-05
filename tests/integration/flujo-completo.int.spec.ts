@@ -30,7 +30,9 @@ import { GET as getReportes } from '../../src/app/api/reportes/route';
 import { GET as getStats } from '../../src/app/api/admin/stats/route';
 import { GET as getAuditoria } from '../../src/app/api/admin/auditoria/route';
 import { POST as postSync } from '../../src/app/api/sync/offline/route';
+import { PATCH as patchFoto } from '../../src/app/api/fotos/route';
 import type { StatsApi, SyncOfflineRespuestaApi } from '../../src/shared/tipos-api';
+import { generarTokenSesion } from '../../src/server/security/auth-token';
 
 const URL_BD = process.env.INTEGRATION_DATABASE_URL;
 const describirSiHayBD = URL_BD ? describe : describe.skip;
@@ -42,12 +44,17 @@ function peticion(
   actor: { id: string; rol: RolUsuario },
   init: { method?: string; body?: unknown } = {}
 ): NextRequest {
+  const token = generarTokenSesion({
+    id: actor.id,
+    email: `${actor.rol.toLowerCase()}@sisbirceca.com`,
+    nombre: `Prueba ${actor.rol}`,
+    rol: actor.rol,
+  });
   return new NextRequest(`http://localhost${url}`, {
     method: init.method ?? 'GET',
     headers: {
       'content-type': 'application/json',
-      'x-user-role': actor.rol,
-      'x-user-id': actor.id,
+      cookie: `sisbirceca_auth=${token}`,
     },
     body: init.body === undefined ? undefined : JSON.stringify(init.body),
   });
@@ -234,6 +241,53 @@ describirSiHayBD('Integración PostgreSQL — flujo operativo de 8 fases', () =>
     const lista = await getReportes(peticion(`/api/reportes?tecnicoId=${tecnico.id}`, tec));
     const listaJson = (await lista.json()) as { ok: boolean; data: Array<{ id: string; totalEvidencias: number }> };
     expect(listaJson.data.find((r) => r.id === reporteId)?.totalEvidencias).toBe(2);
+  });
+
+  it('SUPERVISOR valida evidencias vía HTTP: rol, motivo, bloqueo por visado y auditoría', async () => {
+    const reporteId = '0b6f6a2e-3c1d-4a8e-9f5b-2d7c8e9a1b23';
+    const tec = { id: tecnico.id, rol: RolUsuario.TECNICO };
+    const sup = { id: supervisor.id, rol: RolUsuario.SUPERVISOR };
+    const evidencia = (await ds.getRepository(EvidenciaFotografica).findOneBy({ reporteId, momento: MomentoFoto.ANTES }))!;
+
+    const prohibido = await patchFoto(
+      peticion('/api/fotos', tec, { method: 'PATCH', body: { evidenciaId: evidencia.id, estado: 'APROBADO' } })
+    );
+    expect(prohibido.status).toBe(403);
+
+    const sinMotivo = await patchFoto(
+      peticion('/api/fotos', sup, { method: 'PATCH', body: { evidenciaId: evidencia.id, estado: 'RECHAZADO' } })
+    );
+    expect(sinMotivo.status).toBe(422);
+
+    const rechazo = await patchFoto(
+      peticion('/api/fotos', sup, {
+        method: 'PATCH',
+        body: { evidenciaId: evidencia.id, estado: 'RECHAZADO', observacionRechazo: 'Foto desenfocada' },
+      })
+    );
+    expect(rechazo.status).toBe(200);
+    const aprobacion = await patchFoto(
+      peticion('/api/fotos', sup, { method: 'PATCH', body: { evidenciaId: evidencia.id, estado: 'APROBADO' } })
+    );
+    expect(aprobacion.status).toBe(200);
+    const persistida = (await ds.getRepository(EvidenciaFotografica).findOneBy({ id: evidencia.id }))!;
+    expect(persistida.estadoValidacion).toBe('APROBADO');
+    expect(persistida.observacionRechazo).toBeNull();
+
+    const visada = (await ds.getRepository(EvidenciaFotografica).findOneBy({ reporteId: reporteSemilla.id, slotNumero: 1 }))!;
+    const bloqueada = await patchFoto(
+      peticion('/api/fotos', sup, { method: 'PATCH', body: { evidenciaId: visada.id, estado: 'APROBADO' } })
+    );
+    expect(bloqueada.status).toBe(409);
+
+    const historial = await getAuditoria(peticion(`/api/admin/auditoria?reporteId=${reporteId}`, sup));
+    const historialJson = (await historial.json()) as {
+      data: Array<{ tipo: string; reporteId: string | null; actor: { email: string } }>;
+    };
+    expect(historialJson.data.every((e) => e.reporteId === reporteId)).toBe(true);
+    const qa = historialJson.data.filter((e) => e.tipo === 'APROBACION_QA' || e.tipo === 'OBSERVACION_QA');
+    expect(qa).toHaveLength(2);
+    expect(qa.every((e) => e.actor.email === 'supervisor@sisbirceca.com')).toBe(true);
   });
 
   it('stats devuelve métricas reales de las 8 columnas', async () => {

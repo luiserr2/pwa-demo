@@ -45,7 +45,7 @@ interface AuthContextType {
   rolActivo: RolUsuario | null;
   login: (email: string) => Promise<boolean>;
   logout: () => Promise<void>;
-  switchRole: (rol: RolUsuario) => Promise<void>;
+  switchRole: (rol: RolUsuario) => Promise<boolean>;
 }
 
 const AuthContext = createContext<AuthContextType>({
@@ -53,7 +53,7 @@ const AuthContext = createContext<AuthContextType>({
   rolActivo: null,
   login: async () => false,
   logout: async () => {},
-  switchRole: async () => {},
+  switchRole: async () => false,
 });
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -132,8 +132,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const switchRole = async (rol: RolUsuario) => {
-    await sincronizarCookieSesion(USUARIOS_HOMOLOGADOS[rol]);
+  const switchRole = async (rol: RolUsuario): Promise<boolean> => {
+    return await sincronizarCookieSesion(USUARIOS_HOMOLOGADOS[rol]);
   };
   return (
     <AuthContext.Provider

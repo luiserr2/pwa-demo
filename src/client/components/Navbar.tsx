@@ -2,13 +2,21 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { useAuth, RolUsuario } from '@/client/context/AuthContext';
+import { useAuth, USUARIOS_HOMOLOGADOS, type RolUsuario } from '@/client/context/AuthContext';
 import { usePathname } from 'next/navigation';
+import {
+  DESCRIPCION_ROL,
+  ETIQUETAS_ROL,
+  NAVEGACION_POR_ROL,
+  ROLES,
+  RUTA_INICIO_POR_ROL,
+} from '@/shared/rbac';
 
 export function Navbar() {
   const { user, rolActivo, switchRole, logout } = useAuth();
   const pathname = usePathname();
   const [modalSwitch, setModalSwitch] = useState(false);
+  const [errorCambio, setErrorCambio] = useState<string | null>(null);
 
   // En login, mobile, admin y campo no se muestra el navbar global de escritorio
   if (pathname === '/login' || pathname === '/mobile' || pathname.startsWith('/admin') || pathname.startsWith('/campo')) {
@@ -16,13 +24,14 @@ export function Navbar() {
   }
 
   const handleRoleChange = async (rol: RolUsuario) => {
-    await switchRole(rol);
-    setModalSwitch(false);
-    if (rol === 'TECNICO') {
-      window.location.href = '/campo';
-    } else {
-      window.location.href = '/admin/dashboard';
+    setErrorCambio(null);
+    const ok = await switchRole(rol);
+    if (!ok) {
+      setErrorCambio(`No se pudo abrir la sesión de ${ETIQUETAS_ROL[rol]}: usuario no registrado o base de datos no disponible.`);
+      return;
     }
+    setModalSwitch(false);
+    window.location.href = RUTA_INICIO_POR_ROL[rol];
   };
 
   const handleLogout = async () => {
@@ -30,10 +39,12 @@ export function Navbar() {
     window.location.href = '/login';
   };
 
+  const enlaces = rolActivo ? NAVEGACION_POR_ROL[rolActivo] : [];
+
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md text-slate-800 border-b border-slate-200 shadow-xs transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
-        
+
         {/* LOGO & PLATAFORMA */}
         <div className="flex items-center space-x-3">
           <Link href="/" className="flex items-center space-x-2.5 group">
@@ -47,79 +58,45 @@ export function Navbar() {
 
           {rolActivo && (
             <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 border border-slate-200 font-medium">
-              {rolActivo === 'ADMIN' ? 'Administrador' : 'Técnico'}
+              {ETIQUETAS_ROL[rolActivo]}
             </span>
           )}
         </div>
 
-        {/* NAVEGACIÓN SEGÚN ROL */}
+        {/* NAVEGACIÓN SEGÚN ROL (matriz RBAC compartida con el middleware) */}
         <nav className="flex items-center space-x-1 sm:space-x-1.5 text-xs">
-          {rolActivo === 'TECNICO' && (
-            <>
+          {enlaces.map((enlace) => {
+            const activo = pathname === enlace.href || pathname.startsWith(`${enlace.href}/`);
+            return (
               <Link
-                href="/campo"
+                key={enlace.href}
+                href={enlace.href}
                 className={`px-3 py-1.5 rounded-lg text-xs transition-colors ${
-                  pathname === '/campo'
+                  activo
                     ? 'bg-slate-100 text-slate-900 border border-slate-200 font-semibold shadow-xs'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 border border-transparent font-medium'
                 }`}
               >
-                Asignaciones
+                {enlace.etiqueta}
               </Link>
-              <Link
-                href="/mobile"
-                className="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition-colors"
-              >
-                Terminal Móvil
-              </Link>
-            </>
-          )}
-
-          {rolActivo === 'ADMIN' && (
-            <>
-              <Link
-                href="/admin/dashboard"
-                className={`px-3.5 py-1.5 rounded-lg text-xs transition-all ${
-                  pathname === '/admin/dashboard'
-                    ? 'bg-slate-100 text-slate-900 border border-slate-200 font-semibold shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 border border-transparent font-medium'
-                }`}
-              >
-                Estadísticas
-              </Link>
-              <Link
-                href="/admin/usuarios"
-                className={`px-3.5 py-1.5 rounded-lg text-xs transition-all ${
-                  pathname === '/admin/usuarios'
-                    ? 'bg-slate-100 text-slate-900 border border-slate-200 font-semibold shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 border border-transparent font-medium'
-                }`}
-              >
-                Técnicos
-              </Link>
-              <Link
-                href="/admin/radiobases"
-                className={`px-3.5 py-1.5 rounded-lg text-xs transition-all ${
-                  pathname === '/admin/radiobases'
-                    ? 'bg-slate-100 text-slate-900 border border-slate-200 font-semibold shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 border border-transparent font-medium'
-                }`}
-              >
-                Radiobases
-              </Link>
-            </>
-          )}
+            );
+          })}
         </nav>
 
         {/* PERFIL & CONMUTADOR */}
         <div className="flex items-center space-x-2 pl-3 border-l border-slate-200">
           <div className="hidden lg:block text-right text-[11px] leading-tight mr-1">
-            <span className="font-semibold text-slate-900 block">{user?.nombre || 'Usuario Autorizado'}</span>
-            <span className="text-slate-500 font-mono text-[10px]">{user?.cargo || `Rol: ${rolActivo}`}</span>
+            <span className="font-semibold text-slate-900 block">{user?.nombre || 'Sin sesión'}</span>
+            <span className="text-slate-500 font-mono text-[10px]">
+              {user?.cargo || (rolActivo ? ETIQUETAS_ROL[rolActivo] : '')}
+            </span>
           </div>
 
           <button
-            onClick={() => setModalSwitch(true)}
+            onClick={() => {
+              setErrorCambio(null);
+              setModalSwitch(true);
+            }}
             className="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium border border-slate-200 transition-all cursor-pointer active:translate-y-[1px]"
             title="Cambiar perfil o rol de trabajo"
           >
@@ -163,36 +140,32 @@ export function Navbar() {
             </div>
 
             <div className="space-y-2.5 mb-5">
-              <button
-                onClick={() => handleRoleChange('TECNICO')}
-                className={`w-full p-3.5 rounded-xl border text-left transition-all cursor-pointer ${
-                  rolActivo === 'TECNICO'
-                    ? 'border-blue-600 bg-blue-50/60'
-                    : 'border-slate-200 bg-white hover:bg-slate-50'
-                }`}
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-semibold text-xs text-slate-900">Técnico de Torre (Campo)</span>
-                  <span className="font-mono text-[10px] text-blue-700 bg-blue-100/70 border border-blue-200 px-2 py-0.5 rounded font-medium">/campo</span>
-                </div>
-                <p className="text-[11px] text-slate-500 mt-1">Gerson Martínez &middot; Terminal PWA y captura</p>
-              </button>
-
-              <button
-                onClick={() => handleRoleChange('ADMIN')}
-                className={`w-full p-3.5 rounded-xl border text-left transition-all cursor-pointer ${
-                  rolActivo === 'ADMIN'
-                    ? 'border-blue-600 bg-blue-50/60'
-                    : 'border-slate-200 bg-white hover:bg-slate-50'
-                }`}
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-semibold text-xs text-slate-900">Dirección de Operaciones (Admin)</span>
-                  <span className="font-mono text-[10px] text-blue-700 bg-blue-100/70 border border-blue-200 px-2 py-0.5 rounded font-medium">/admin</span>
-                </div>
-                <p className="text-[11px] text-slate-500 mt-1">Lic. Mariana Fernández &middot; Estadísticas operativas y gestión de personal</p>
-              </button>
+              {ROLES.map((rol) => (
+                <button
+                  key={rol}
+                  onClick={() => handleRoleChange(rol)}
+                  className={`w-full p-3.5 rounded-xl border text-left transition-all cursor-pointer ${
+                    rolActivo === rol ? 'border-blue-600 bg-blue-50/60' : 'border-slate-200 bg-white hover:bg-slate-50'
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="font-semibold text-xs text-slate-900">{ETIQUETAS_ROL[rol]}</span>
+                    <span className="font-mono text-[10px] text-blue-700 bg-blue-100/70 border border-blue-200 px-2 py-0.5 rounded font-medium">
+                      {RUTA_INICIO_POR_ROL[rol]}
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-slate-500 mt-1">
+                    {USUARIOS_HOMOLOGADOS[rol].nombre} &middot; {DESCRIPCION_ROL[rol]}
+                  </p>
+                </button>
+              ))}
             </div>
+
+            {errorCambio && (
+              <p role="alert" className="mb-4 text-[11px] font-medium text-rose-700 bg-rose-50 border border-rose-200 rounded-lg px-3 py-2">
+                {errorCambio}
+              </p>
+            )}
 
             <button
               onClick={() => setModalSwitch(false)}

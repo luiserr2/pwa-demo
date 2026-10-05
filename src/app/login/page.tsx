@@ -14,6 +14,7 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
 
   const setAdmin = () => { setEmail('admin@sisbirceca.com'); setPassword('admin123'); };
+  const setSupervisor = () => { setEmail('supervisor@sisbirceca.com'); setPassword('supervisor123'); };
   const setTecnico = () => { setEmail('tecnico@sisbirceca.com'); setPassword('tecnico123'); };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -97,6 +98,9 @@ export default function LoginPage() {
             <div className="flex items-center gap-2">
               <button type="button" onClick={setAdmin} className="px-3 py-1 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600 text-[10px] font-bold font-mono rounded-lg transition-all active:scale-95">
                 ADMIN
+              </button>
+              <button type="button" onClick={setSupervisor} className="px-3 py-1 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600 text-[10px] font-bold font-mono rounded-lg transition-all active:scale-95">
+                SUP
               </button>
               <button type="button" onClick={setTecnico} className="px-3 py-1 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600 text-[10px] font-bold font-mono rounded-lg transition-all active:scale-95">
                 TEC
