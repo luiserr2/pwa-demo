@@ -579,7 +579,24 @@ function MobileContent() {
                     <polyline points="2 12 12 17 22 12" />
                   </svg>
                   <span>Guardar Todo</span>
-                </button>
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      if(window.confirm('¿Seguro que quieres Entregar a Coordinación? Ya no podrás editar este reporte.')) {
+                        alert('Reporte entregado. Pasando a REVISION_INTERNA');
+                        window.location.href = '/campo';
+                      }
+                    }}
+                    className="min-h-[48px] bg-red-600 hover:bg-red-700 text-white font-bold text-xs px-4 py-2.5 rounded-lg transition-all flex items-center gap-2 cursor-pointer active:translate-y-[1px] shadow-sm"
+                    title="Entregar a Coordinacion"
+                  >
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                      <polyline points="22 4 12 14.01 9 11.01" />
+                    </svg>
+                    <span>Entregar a Coordinación</span>
+                  </button>
               </>
             ) : (
               <>
@@ -606,7 +623,24 @@ function MobileContent() {
                     <polyline points="2 12 12 17 22 12" />
                   </svg>
                   <span>Guardar Todo</span>
-                </button>
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      if(window.confirm('¿Seguro que quieres Entregar a Coordinación? Ya no podrás editar este reporte.')) {
+                        alert('Reporte entregado. Pasando a REVISION_INTERNA');
+                        window.location.href = '/campo';
+                      }
+                    }}
+                    className="min-h-[48px] bg-red-600 hover:bg-red-700 text-white font-bold text-xs px-4 py-2.5 rounded-lg transition-all flex items-center gap-2 cursor-pointer active:translate-y-[1px] shadow-sm"
+                    title="Entregar a Coordinacion"
+                  >
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                      <polyline points="22 4 12 14.01 9 11.01" />
+                    </svg>
+                    <span>Entregar a Coordinación</span>
+                  </button>
               </>
             )}
           </div>

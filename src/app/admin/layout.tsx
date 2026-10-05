@@ -14,7 +14,8 @@ import {
   LogOut,
   Menu,
   X,
-  Map
+  Map,
+  ShieldCheck
 } from 'lucide-react';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -28,6 +29,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { name: 'Gestión de Cuadrillas', href: '/admin/usuarios', icon: Users },
     { name: 'Mapa de Operaciones', href: '/admin/mapa', icon: Map },
     { name: 'Expedientes Oficiales', href: '/admin/expedientes', icon: FileText },
+    { name: 'Bitácora de Auditoría', href: '/admin/auditoria', icon: ShieldCheck },
     { name: 'Configuración del Sistema', href: '/admin/config', icon: Settings },
   ];
 
@@ -107,6 +109,44 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>
+
+      {/* MOBILE DRAWER */}
+      {isMobileMenuOpen && (
+        <div className="lg:hidden fixed inset-0 z-40 bg-slate-950/50 backdrop-blur-sm pt-16">
+          <div className="bg-white border-b border-slate-200 p-4 space-y-1">
+            {navigation.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all ${
+                    isActive
+                      ? 'bg-slate-900 text-white shadow-md shadow-slate-900/10'
+                      : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                  }`}
+                >
+                  <item.icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-slate-400'}`} />
+                  {item.name}
+                </Link>
+              );
+            })}
+            <div className="pt-2 mt-2 border-t border-slate-100">
+              <button
+                onClick={() => {
+                  logout();
+                  window.location.href = '/login';
+                }}
+                className="flex items-center gap-3 w-full px-3 py-2.5 text-sm font-bold text-rose-600 hover:bg-rose-50 rounded-xl transition-colors"
+              >
+                <LogOut className="w-5 h-5" />
+                Cerrar Sesión
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* CONTENIDO PRINCIPAL */}
       <main className="flex-1 flex flex-col min-h-screen lg:ml-72 pt-16 lg:pt-0">

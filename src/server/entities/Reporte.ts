@@ -16,10 +16,21 @@ import { ZonaMatriz } from './ZonaMatriz';
 import { EquipoInstalado } from './EquipoInstalado';
 
 export enum EstadoReporte {
+  // Estados Core de Certificación NOC (Conforme a Especificaciones y Tests)
   BORRADOR = 'BORRADOR',
   EN_REVISION = 'EN_REVISION',
   OBSERVADO = 'OBSERVADO',
   APROBADO = 'APROBADO',
+
+  // Estados de Flujo Comercial Extendido
+  SIN_EMPEZAR = 'SIN_EMPEZAR',
+  EN_VISITA = 'EN_VISITA',
+  ELABORANDO_INFORME = 'ELABORANDO_INFORME',
+  REVISION_INTERNA = 'REVISION_INTERNA',
+  ENVIADO_AL_CLIENTE = 'ENVIADO_AL_CLIENTE',
+  VISADO = 'VISADO',
+  HES_SOLICITADA = 'HES_SOLICITADA',
+  FACTURADO = 'FACTURADO',
 }
 
 @Entity('reportes')
@@ -35,7 +46,7 @@ export class Reporte {
   @Column({
     type: 'enum',
     enum: EstadoReporte,
-    default: EstadoReporte.BORRADOR,
+    default: EstadoReporte.SIN_EMPEZAR,
   })
   estado: EstadoReporte;
 

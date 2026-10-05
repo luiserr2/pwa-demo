@@ -100,7 +100,7 @@ export const SEED_REPORTES = [
   {
     id: 'rep-001',
     codigo: 'RDB-001_20260922',
-    estado: 'EN_REVISION',
+    estado: 'REVISION_INTERNA',
     radiobaseId: '11111111-1111-1111-1111-111111111111',
     tecnicoId: '00000000-0000-0000-0000-000000000001',
     supervisorId: '00000000-0000-0000-0000-000000000002',
@@ -114,7 +114,7 @@ export const SEED_REPORTES = [
   {
     id: 'rep-002',
     codigo: 'RDB-002_20260922',
-    estado: 'OBSERVADO',
+    estado: 'REVISION_INTERNA',
     radiobaseId: '22222222-2222-2222-2222-222222222222',
     tecnicoId: '00000000-0000-0000-0000-000000000001',
     supervisorId: '00000000-0000-0000-0000-000000000002',
@@ -129,7 +129,7 @@ export const SEED_REPORTES = [
   {
     id: 'rep-003',
     codigo: 'RDB-003_20260921',
-    estado: 'APROBADO',
+    estado: 'VISADO',
     radiobaseId: '33333333-3333-3333-3333-333333333333',
     tecnicoId: '00000000-0000-0000-0000-000000000001',
     supervisorId: '00000000-0000-0000-0000-000000000002',

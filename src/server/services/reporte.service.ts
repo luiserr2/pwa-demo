@@ -126,14 +126,14 @@ export class ReporteService {
     const estadoActual = reporte.estado;
 
     // Regla 1: BORRADOR -> EN_REVISION (El técnico solicita revisión)
-    if (nuevoEstado === EstadoReporte.EN_REVISION) {
+    if (nuevoEstado === EstadoReporte.EN_REVISION || nuevoEstado === EstadoReporte.REVISION_INTERNA) {
       if (usuarioEjecutor.rol === RolUsuario.TECNICO && reporte.tecnicoId !== usuarioEjecutor.id) {
         throw new Error('Solo el técnico titular asignado o un Administrador puede enviar a revisión.');
       }
       if (!reporte.evidencias || reporte.evidencias.length === 0) {
         throw new Error('No se puede enviar a revisión un reporte sin evidencias fotográficas.');
       }
-      reporte.estado = EstadoReporte.EN_REVISION;
+      reporte.estado = nuevoEstado;
     }
 
     // Regla 2: EN_REVISION -> OBSERVADO (El supervisor rechaza con observaciones)
@@ -150,7 +150,7 @@ export class ReporteService {
     }
 
     // Regla 3: EN_REVISION / OBSERVADO -> APROBADO (El supervisor valida visualmente y aprueba)
-    else if (nuevoEstado === EstadoReporte.APROBADO) {
+    else if (nuevoEstado === EstadoReporte.APROBADO || nuevoEstado === EstadoReporte.VISADO) {
       if (usuarioEjecutor.rol !== RolUsuario.SUPERVISOR && usuarioEjecutor.rol !== RolUsuario.ADMIN) {
         throw new Error('Solo un Supervisor o Administrador puede aprobar el reporte.');
       }
@@ -163,7 +163,7 @@ export class ReporteService {
         throw new Error('No se puede aprobar un reporte que contenga evidencias marcadas como RECHAZADAS.');
       }
 
-      reporte.estado = EstadoReporte.APROBADO;
+      reporte.estado = nuevoEstado;
       reporte.supervisorId = usuarioEjecutor.id;
       if (observacion) {
         reporte.observaciones = observacion;
@@ -183,11 +183,15 @@ export class ReporteService {
     }
 
     // Regla 4: Volver a BORRADOR para corregir
-    else if (nuevoEstado === EstadoReporte.BORRADOR) {
-      if (estadoActual !== EstadoReporte.OBSERVADO && usuarioEjecutor.rol !== RolUsuario.ADMIN) {
+    else if (nuevoEstado === EstadoReporte.BORRADOR || nuevoEstado === EstadoReporte.SIN_EMPEZAR) {
+      if (
+        estadoActual !== EstadoReporte.OBSERVADO &&
+        estadoActual !== EstadoReporte.REVISION_INTERNA &&
+        usuarioEjecutor.rol !== RolUsuario.ADMIN
+      ) {
         throw new Error('Solo se puede reabrir a borrador un reporte previamente observado.');
       }
-      reporte.estado = EstadoReporte.BORRADOR;
+      reporte.estado = nuevoEstado;
     }
 
     return await this.reporteRepo.save(reporte);

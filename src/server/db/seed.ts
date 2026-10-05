@@ -119,7 +119,7 @@ export async function seedDatabase(ds?: DataSource) {
     reporte1 = await reporteRepo.save(
       reporteRepo.create({
         codigo: codigoReporte1,
-        estado: EstadoReporte.EN_REVISION,
+        estado: EstadoReporte.ELABORANDO_INFORME,
         radiobaseId: rdb1.id,
         tecnicoId: tecnico.id,
         supervisorId: supervisor.id,
