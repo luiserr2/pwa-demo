@@ -110,16 +110,19 @@ A continuación se transparenta la estructura real de costos de la infraestructu
 | **3. Canon Mensual de Servicio y Nube** | Servidores Google Cloud, 15,000 fotos, licencias para 10 usuarios y soporte técnico Nivel 2. | Mes vencido a partir de la entrega final.<br>*(Primeros 30 días con garantía técnica gratuita).* | **$120.00 USD / mes**<br>*(Tarifa Plana)* |
 | **4. Soporte Ad-Hoc (Si no hay canon)** | Intervenciones técnicas bajo demanda en caso de rescindir el servicio mensual gestionado. | Bajo demanda con cargo mínimo de 2 horas (SLA de 24 a 48 horas laborables). | **$40.00 / h (Estándar)**<br>**$50.00 / h (Emergencia)** |
 | **5. Tiempo de Ejecución Total** | Despliegue, parametrización, pruebas en campo y 2 sesiones formales de capacitación al personal. | Cronograma cerrado de **3 a 4 semanas** desde el anticipo inicial. | **Garantizado** |
-| **6. Blindaje Contractual B2B** | Licencia de uso comercial (EULA), reserva de código fuente y límite máximo indemnizatorio ($1,650 USD). | Protección jurídica mutua para ambas entidades. | **Incluido** |
+| **6. Licencia y Términos Contractuales** | Licencia de uso comercial perpetua (sin cobro mensual por usuario), reserva de propiedad intelectual, exoneración total por modificación de código y límite de responsabilidad. | Protección jurídica mutua para ambas entidades. | **Incluido** |
 
 ---
 
 ## 6. RÉGIMEN LEGAL Y RESERVA DE DERECHOS
 
-1. **Licencia de Uso Comercial (EULA):** EL PROVEEDOR otorga a LA EMPRESA una licencia de uso no exclusiva, temporal e intransferible para operar el sistema en sus labores ordinarias internas de telecomunicaciones.
-2. **Reserva Absoluta de Propiedad Intelectual:** La totalidad del código fuente, arquitectura, algoritmos de compresión y derechos de autor son y continuarán siendo de la **propiedad única y exclusiva del PROVEEDOR**. El presente acuerdo no constituye venta de software ni entrega de repositorios.
-3. **Exoneración por Manipulación No Autorizada:** Cualquier manipulación externa de la base de datos o contenedores por parte de personal ajeno al PROVEEDOR anulará de inmediato toda garantía técnica y soporte.
-4. **Límite Indemnizatorio (Liability Cap):** La responsabilidad patrimonial máxima acumulada del PROVEEDOR ante cualquier eventualidad estará expresamente limitada al monto efectivamente percibido por concepto de la tarifa inicial de Setup ($1,650.00 USD).
+1. **Licencia de Uso Comercial Perpetua (Sin cobro recurrente por usuario):** EL PROVEEDOR concede a LA EMPRESA una licencia de uso comercial, no exclusiva e intransferible para operar la plataforma en sus labores ordinarias de telecomunicaciones. Dicha licencia queda 100% amortizada y concedida mediante el pago único de Setup inicial, sin cobros mensuales por cantidad de técnicos, cuadrillas o usuarios registrados.
+2. **Reserva Absoluta de Propiedad Intelectual:** La totalidad del código fuente, arquitectura, diseño de interfaces, bases de datos y algoritmos son y continuarán siendo de la **propiedad única y exclusiva del PROVEEDOR**. El presente acuerdo no constituye venta de software ni cesión de derechos de autor patrimoniales ni entrega de código fuente modificable.
+3. **Exoneración Total por Alteración o Modificación del Código / Sistema:** Queda terminantemente prohibida la modificación, alteración, descompilación, inyección de scripts o manipulación directa del código fuente, bases de datos o infraestructura del sistema por parte de personal de LA EMPRESA o terceros ajenos al PROVEEDOR. En caso de detectarse cualquier alteración no autorizada:
+   * Cesará de pleno derecho y de forma inmediata cualquier garantía técnica, acuerdo de nivel de servicio (SLA) y soporte técnico.
+   * EL PROVEEDOR queda **completamente exonerado de toda responsabilidad** por pérdida de información, corrupción de datos, fallas operativas, no disponibilidad del servicio, inconsistencias ante clientes o daños y perjuicios directos o indirectos.
+   * Cualquier labor técnica orientada a diagnosticar, restaurar o reparar los daños derivados de la alteración externa será cotizada como servicio extraordinario a la tarifa de soporte aplicable ($50.00 USD/h) y pagadera de forma previa a la intervención.
+4. **Límite Máximo de Responsabilidad (Liability Cap):** La responsabilidad patrimonial máxima acumulada del PROVEEDOR ante cualquier reclamo o eventualidad estará expresamente limitada al monto efectivamente percibido por concepto de la tarifa inicial de Setup ($1,650.00 USD).
 
 ---
 
