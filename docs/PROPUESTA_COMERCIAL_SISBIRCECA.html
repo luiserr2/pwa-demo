@@ -294,6 +294,7 @@
     .badge-tecnico { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
     .badge-supervisor { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
     .badge-admin { background: #f3e8ff; color: #6b21a8; border: 1px solid #e9d5ff; }
+    .badge-plantillas { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
 
     .role-target-user {
       font-size: 12px;
@@ -666,7 +667,7 @@
       Estructura de la Solución por Módulos y Roles
     </div>
     <p class="section-desc">
-      El sistema se divide en tres (3) interfaces especializadas, diseñadas para responder exactamente a la responsabilidad operativa de cada integrante de la empresa:
+      El sistema se compone de cuatro (4) módulos especializados, diseñados para responder exactamente a la responsabilidad operativa y técnica de cada integrante de la empresa:
     </p>
 
     <div class="modules-role-container">
@@ -869,6 +870,72 @@
         </div>
       </div>
 
+      <!-- MODULO 4: GESTOR Y GENERADOR DE PLANTILLAS -->
+      <div class="role-card">
+        <div class="role-card-header">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span class="role-badge badge-plantillas">Módulo 4</span>
+            <strong style="color: var(--slate-900); font-size: 14px;">MÓDULO GESTOR DE PLANTILLAS (FORMULARIOS Y DOSSIER PDF)</strong>
+          </div>
+          <span class="role-target-user">Perfil: Administradores de Plataforma, Jefes de Operaciones y Control de Calidad</span>
+        </div>
+        <div class="role-card-body">
+          <p class="role-card-intro">
+            Motor dinámico de parametrización operativa: permite a la empresa diseñar, editar y versionar los formularios que llenan las cuadrillas en campo, garantizando que los datos recolectados se mapeen de forma automática hacia el informe técnico en PDF A4 homologado para el cliente.
+          </p>
+
+          <div class="features-list">
+            <div class="feature-item">
+              <span class="feature-tag">Capacidad 01</span>
+              <div class="feature-title">Diseñador de Formularios para Operadores</div>
+              <p class="feature-detail">
+                Constructor de plantillas por tipo de misión (Mantenimiento, Swaps, Auditorías). Creación de secciones, preguntas técnicas, selectores de estado (<code>NORMAL</code>, <code>ALARMA</code>, <code>FALLA</code>) y campos de medición numéricos con validación en tiempo real.
+              </p>
+            </div>
+
+            <div class="feature-item">
+              <span class="feature-tag">Capacidad 02</span>
+              <div class="feature-title">Motor de Renderizado y Maquetación PDF A4</div>
+              <p class="feature-detail">
+                Mapeo automático de cada campo del formulario hacia el diseño final del documento. Organización automática de tablas de datos, encabezados oficiales con logos de contratista y cliente, y bloques de firmas tripartitas.
+              </p>
+            </div>
+
+            <div class="feature-item">
+              <span class="feature-tag">Capacidad 03</span>
+              <div class="feature-title">Reglas Fotográficas Configurables por Misión</div>
+              <p class="feature-detail">
+                Definición paramétrica de los slots de evidencia requeridos: configuración de flujo de <strong>Evidencia Única</strong> para instalaciones nuevas o flujo dual <strong>Antes / Después</strong> para mantenimientos correctivos.
+              </p>
+            </div>
+
+            <div class="feature-item">
+              <span class="feature-tag">Capacidad 04</span>
+              <div class="feature-title">Disposición Dinámica de Láminas Fotográficas</div>
+              <p class="feature-detail">
+                Configuración del anexo fotográfico en el PDF resultante: selección entre 2 fotos por página A4 con notas de campo expandidas o grillas compactas de 4 fotos para informes de alta densidad.
+              </p>
+            </div>
+
+            <div class="feature-item">
+              <span class="feature-tag">Capacidad 05</span>
+              <div class="feature-title">Versionamiento Inmutable de Formatos</div>
+              <p class="feature-detail">
+                Control estricto de versiones (v1.0, v2.1). Las modificaciones en una plantilla aplican exclusivamente a nuevas intervenciones, protegiendo la estructura histórica de los expedientes previamente visados y facturados.
+              </p>
+            </div>
+
+            <div class="feature-item">
+              <span class="feature-tag">Capacidad 06</span>
+              <div class="feature-title">Asignación Automática por Tipo de Intervención</div>
+              <p class="feature-detail">
+                Vinculación de plantillas pre-aprobadas según la orden de trabajo generada. El técnico en torre recibe automáticamente la planilla exacta correspondiente a su misión sin margen de error.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -1028,7 +1095,7 @@
           <tr>
             <td><strong>1. Setup e Implementación Base</strong></td>
             <td>
-              Puesta en producción de los 3 Módulos (Campo, Seguimiento, Administración), despliegue en Google Cloud y configuración de catálogos.
+              Puesta en producción de los 4 Módulos (Campo, Seguimiento, Administración y Gestor de Plantillas), despliegue en Google Cloud y configuración de catálogos.
             </td>
             <td>
               3 pagos fraccionados de <strong>$550.00 USD</strong>:<br>

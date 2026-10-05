@@ -21,7 +21,7 @@ Las empresas contratistas de mantenimiento e infraestructura en telecomunicacion
 
 ## 2. ESTRUCTURA DE LA SOLUCIÓN POR MÓDULOS Y ROLES DE USUARIO
 
-La plataforma se organiza en tres (3) módulos diseñados para la función exacta de cada miembro de la organización:
+La plataforma se compone de cuatro (4) módulos diseñados para la función exacta de cada miembro de la organización:
 
 ### A. MÓDULO DE CAMPO (TÉCNICO EN TORRE / OPERACIONES EN SITIO)
 *Diseñado para técnicos de campo, cuadrillas de mantenimiento e instaladores.*
@@ -56,6 +56,18 @@ La plataforma se organiza en tres (3) módulos diseñados para la función exact
 * **4. Generador de Actas Técnicas PDF A4 Homologadas:** Compilación a 1 clic de expedientes técnicos en formato A4 listos para cobrar, con membrete corporativo, resumen de 48 zonas, galería en alta resolución y código QR de validación.
 * **5. Bitácora Forense y Auditoría Criptográfica SHA-256:** Libro mayor inmutable *append-only* (FIPS 180-4) con hashes encadenados. Verificación matemática de integridad al 100% y descarga en CSV/JSON para peritajes judiciales o auditorías externas.
 * **6. Configuración Global del Sistema y Políticas NOC:** Calibración de tolerancias de geocerca en metros por región geográfica, políticas de retención documental, reglas de validación técnica y notificaciones automáticas del sistema.
+
+---
+
+### D. MÓDULO GESTOR DE PLANTILLAS (FORMULARIOS Y DOSSIER PDF)
+*Diseñado para administradores de plataforma, jefes de operaciones y control de calidad.*
+
+* **1. Diseñador de Formularios para Operadores:** Constructor de plantillas por tipo de misión (Mantenimiento, Swaps, Auditorías). Creación de secciones, preguntas técnicas, selectores de estado (`NORMAL`, `ALARMA`, `FALLA`) y campos de medición numéricos con validación en tiempo real.
+* **2. Motor de Renderizado y Maquetación PDF A4:** Mapeo automático de cada campo del formulario hacia el diseño final del documento. Organización automática de tablas de datos, encabezados oficiales con logos de contratista y cliente, y bloques de firmas tripartitas.
+* **3. Reglas Fotográficas Configurables por Misión:** Definición paramétrica de los slots de evidencia requeridos: configuración de flujo de **Evidencia Única** para instalaciones nuevas o flujo dual **Antes / Después** para mantenimientos correctivos.
+* **4. Disposición Dinámica de Láminas Fotográficas:** Configuración del anexo fotográfico en el PDF resultante: selección entre 2 fotos por página A4 con notas de campo expandidas o grillas compactas de 4 fotos para informes de alta densidad.
+* **5. Versionamiento Inmutable de Formatos:** Control estricto de versiones (v1.0, v2.1). Las modificaciones en una plantilla aplican exclusivamente a nuevas intervenciones, protegiendo la estructura histórica de los expedientes previamente visados y facturados.
+* **6. Asignación Automática por Tipo de Intervención:** Vinculación de plantillas pre-aprobadas según la orden de trabajo generada. El técnico en torre recibe automáticamente la planilla exacta correspondiente a su misión sin margen de error.
 
 ---
 
@@ -97,7 +109,7 @@ A continuación se transparenta la estructura real de costos de la infraestructu
 
 | Concepto | Detalle de Entregables | Condición / Forma de Pago | Inversión (USD) |
 | :--- | :--- | :--- | :---: |
-| **1. Setup e Implementación Base** | Despliegue de los 3 Módulos (Campo, Seguimiento, Administración), configuración de catálogos y capacitación de personal. | 3 pagos fraccionados de **$550.00 USD**:<br>&bull; 33.3% Firma / Kick-off<br>&bull; 33.3% Demostración Staging<br>&bull; 33.4% Pase a Producción | **$1,650.00 USD**<br>*(Pago Único)* |
+| **1. Setup e Implementación Base** | Despliegue de los 4 Módulos (Campo, Seguimiento, Administración y Gestor de Plantillas), configuración de catálogos y capacitación de personal. | 3 pagos fraccionados de **$550.00 USD**:<br>&bull; 33.3% Firma / Kick-off<br>&bull; 33.3% Demostración Staging<br>&bull; 33.4% Pase a Producción | **$1,650.00 USD**<br>*(Pago Único)* |
 | **2. Bolsa de Adecuaciones Libres** | **20 horas hombre de ingeniería** para personalizar planillas de 48 zonas, diseño del PDF con logo y tolerancias GPS. | **100% Bonificado** dentro del Setup inicial. | **INCLUIDO**<br>*(Valor: $800 USD)* |
 | **3. Canon Mensual de Servicio y Nube** | Servidores Google Cloud, 15,000 fotos, licencias para 10 usuarios y soporte técnico Nivel 2. | Mes vencido a partir de la entrega final.<br>*(Primeros 30 días con garantía técnica gratuita).* | **$120.00 USD / mes**<br>*(Tarifa Plana)* |
 | **4. Soporte Ad-Hoc (Si no hay canon)** | Intervenciones técnicas bajo demanda en caso de rescindir el servicio mensual gestionado. | Bajo demanda con cargo mínimo de 2 horas (SLA de 24 a 48 horas laborables). | **$40.00 / h (Estándar)**<br>**$50.00 / h (Emergencia)** |

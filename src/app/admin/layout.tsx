@@ -15,7 +15,8 @@ import {
   Menu,
   X,
   Map,
-  ShieldCheck
+  ShieldCheck,
+  Layers
 } from 'lucide-react';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -29,6 +30,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { name: 'Gestión de Cuadrillas', href: '/admin/usuarios', icon: Users },
     { name: 'Mapa de Operaciones', href: '/admin/mapa', icon: Map },
     { name: 'Expedientes Oficiales', href: '/admin/expedientes', icon: FileText },
+    { name: 'Gestor de Plantillas', href: '/admin/plantillas', icon: Layers },
     { name: 'Bitácora de Auditoría', href: '/admin/auditoria', icon: ShieldCheck },
     { name: 'Configuración del Sistema', href: '/admin/config', icon: Settings },
   ];
