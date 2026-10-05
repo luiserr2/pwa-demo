@@ -170,7 +170,7 @@ function ReportePDFContent({ params }: { params: { id: string } }) {
           <div>
             <div className="flex items-center gap-2 mb-2">
               <span className="bg-slate-900 text-white font-mono font-bold text-xs px-2.5 py-1 rounded">
-                SISBIRCECA
+                SISBIR
               </span>
               <span className="text-xs font-bold text-blue-700 tracking-wider uppercase font-mono">
                 {vista === 'UNIFICADO'

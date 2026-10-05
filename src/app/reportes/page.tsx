@@ -28,7 +28,7 @@ const KANBAN_COLUMNS: { id: EstadoReporte; title: string; color: string }[] = [
   { id: 'EN_VISITA', title: 'En Visita (Sitio)', color: 'bg-amber-100 text-amber-700' },
   { id: 'ELABORANDO_INFORME', title: 'Elaborando Informe', color: 'bg-blue-100 text-blue-700' },
   { id: 'REVISION_INTERNA', title: 'Revisión Interna', color: 'bg-indigo-100 text-indigo-700' },
-  { id: 'ENVIADO_AL_CLIENTE', title: 'Enviado a Digitel', color: 'bg-purple-100 text-purple-700' },
+  { id: 'ENVIADO_AL_CLIENTE', title: 'Enviado al Cliente', color: 'bg-purple-100 text-purple-700' },
   { id: 'VISADO', title: 'Visado (Aprobado)', color: 'bg-emerald-100 text-emerald-700' },
   { id: 'HES_SOLICITADA', title: 'HES Solicitada', color: 'bg-orange-100 text-orange-700' },
   { id: 'FACTURADO', title: 'Facturado', color: 'bg-slate-800 text-slate-100' },
@@ -80,7 +80,7 @@ export default function KanbanPipelinePage() {
   return (
     <div className="min-h-screen bg-slate-50/50 p-6">
       <header className="mb-8">
-        <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Ocupación Sisbirceca (Pipeline)</h1>
+        <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Pipeline de Órdenes (SISBIR)</h1>
         <p className="text-sm text-slate-500 mt-1">Gestión operativa estilo Notion. Arrastra las tarjetas para avanzar el proceso.</p>
       </header>
 

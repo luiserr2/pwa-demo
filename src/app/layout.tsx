@@ -4,7 +4,7 @@ import { AuthProvider } from '@/client/context/AuthContext';
 import { Navbar } from '@/client/components/Navbar';
 
 export const metadata: Metadata = {
-  title: 'SISBIRCECA — Sistema de Reportes Técnicos de Radiobases',
+  title: 'SISBIR — Sistema de Reportes Técnicos de Radiobases',
   description: 'PWA de grado de producción con TypeORM, Next.js y flujo de validación visual',
   manifest: '/manifest.webmanifest',
 };

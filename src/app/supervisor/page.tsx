@@ -79,7 +79,7 @@ const MOCK_EXPEDIENTES: ExpedienteSupervisor[] = [
         categoria: 'SUBSISTEMAS',
         valorAnterior: 'Pendiente de revisión inicial',
         valorNuevo: 'Rechazo preventivo: La foto de bornes no permitía leer el serial de la celda 4.',
-        motivo: 'Auditoría interna: Evitar rechazo por parte del inspector de Digitel.'
+        motivo: 'Auditoría interna: Evitar rechazo por parte del inspector del cliente.'
       },
       {
         id: 'ed-103',
@@ -121,8 +121,8 @@ const MOCK_EXPEDIENTES: ExpedienteSupervisor[] = [
         campoEditado: 'Radicación de Informe ante Operadora',
         categoria: 'ESTADO_FLUJO',
         valorAnterior: 'REVISION_INTERNA (Aprobado)',
-        valorNuevo: 'ENVIADO_AL_CLIENTE (Ticket DIG-8841)',
-        motivo: 'Expediente técnico revisado y enviado por portal contratista al inspector Digitel.'
+        valorNuevo: 'ENVIADO_AL_CLIENTE (Ticket TEL-8841)',
+        motivo: 'Expediente técnico revisado y enviado por portal contratista al inspector del cliente.'
       },
       {
         id: 'ed-202',
@@ -161,7 +161,7 @@ const MOCK_EXPEDIENTES: ExpedienteSupervisor[] = [
         id: 'ed-301',
         timestamp: '04/10/2026 18:10:00',
         autor: { nombre: 'Luis E. Rodríguez', rol: 'SUPERVISOR', avatar: 'LR' },
-        campoEditado: 'Estatus de Aprobación por Inspector Digitel',
+        campoEditado: 'Estatus de Aprobación por Inspector del Cliente',
         categoria: 'ESTADO_FLUJO',
         valorAnterior: 'ENVIADO_AL_CLIENTE',
         valorNuevo: 'VISADO (Acta N° ACT-2026-904)',
@@ -201,7 +201,7 @@ export default function SupervisorAuditoriaPage() {
       case 'REVISION_INTERNA':
         return <span className="px-2.5 py-1 text-[11px] font-bold rounded-md bg-amber-100 text-amber-800 border border-amber-300">Revisión Interna (QA)</span>;
       case 'ENVIADO_AL_CLIENTE':
-        return <span className="px-2.5 py-1 text-[11px] font-bold rounded-md bg-purple-100 text-purple-800 border border-purple-300">Enviado a Digitel</span>;
+        return <span className="px-2.5 py-1 text-[11px] font-bold rounded-md bg-purple-100 text-purple-800 border border-purple-300">Enviado al Cliente</span>;
       case 'VISADO':
         return <span className="px-2.5 py-1 text-[11px] font-bold rounded-md bg-emerald-100 text-emerald-800 border border-emerald-300">Visado Oficial (Aprobado)</span>;
       case 'HES_SOLICITADA':

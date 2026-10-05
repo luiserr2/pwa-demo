@@ -45,7 +45,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <Server className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-black text-slate-900 tracking-tight leading-none">SISBIRCECA</h1>
+              <h1 className="text-xl font-black text-slate-900 tracking-tight leading-none">SISBIR</h1>
               <p className="text-[10px] font-mono text-slate-500 uppercase font-semibold mt-1">Telecom Platform &middot; Admin</p>
             </div>
           </div>
@@ -105,7 +105,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <div className="bg-blue-600 p-1.5 rounded-md shadow-sm">
             <Server className="w-5 h-5 text-white" />
           </div>
-          <span className="font-bold text-slate-900">SISBIRCECA</span>
+          <span className="font-bold text-slate-900">SISBIR</span>
         </div>
         <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="p-2 text-slate-600">
           {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}

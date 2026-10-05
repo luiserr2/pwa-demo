@@ -483,7 +483,7 @@ export default function PlantillasAdminPage() {
                   </label>
 
                   <label className="flex items-center justify-between text-xs font-bold text-slate-800 cursor-pointer pt-2 border-t border-slate-200">
-                    <span>Membrete: Logo Cliente (Digitel / Operadora)</span>
+                    <span>Membrete: Logo de la Operadora Cliente</span>
                     <input
                       type="checkbox"
                       checked={seleccionada.configPdf.mostrarLogoCliente}
@@ -567,7 +567,7 @@ export default function PlantillasAdminPage() {
                       )}
                       {seleccionada.configPdf.mostrarLogoCliente && (
                         <div className="px-2 py-1 bg-blue-700 text-white font-black text-[9px] rounded">
-                          DIGITEL
+                          OPERADORA
                         </div>
                       )}
                     </div>
@@ -629,14 +629,14 @@ export default function PlantillasAdminPage() {
                       </div>
                       <div>
                         <div className="border-b border-slate-400 h-6"></div>
-                        <div className="mt-0.5 font-bold">Inspector Digitel</div>
+                        <div className="mt-0.5 font-bold">Inspector del Cliente</div>
                       </div>
                     </div>
                   )}
 
                   {seleccionada.configPdf.incluirBloqueHES && (
                     <div className="p-1.5 bg-blue-50 border border-blue-200 rounded text-center text-[8px] font-mono text-blue-900">
-                      HES / PEDIDO SAP DIGITEL: [Campo de radicación automática]
+                      HES / PEDIDO SAP OPERADORA: [Campo de radicación automática]
                     </div>
                   )}
 

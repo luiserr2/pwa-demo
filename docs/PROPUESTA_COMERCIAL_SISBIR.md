@@ -1,6 +1,6 @@
 # PROPUESTA TÉCNICO-COMERCIAL Y CONTRATO DE LICENCIAMIENTO
 
-**SISTEMA SISBIRCECA** &mdash; *Plataforma de Supervisión, Matriz Técnica de 48 Zonas y Certificación Forense de Radiobases*  
+**SISTEMA SISBIR** &mdash; *Plataforma de Supervisión, Matriz Técnica de 48 Zonas y Certificación Forense de Radiobases*  
 **REFERENCIA:** PROP-SISB-2026-01  
 **MODALIDAD:** Implementación, Bolsa de Adecuaciones y Licenciamiento Comercial (B2B)  
 **FECHA:** Octubre de 2026  
@@ -14,10 +14,10 @@
 Las empresas contratistas de mantenimiento e infraestructura en telecomunicaciones sufren con frecuencia pérdidas financieras entre un **15% y un 25% de su facturación bruta** debido a:
 * **En Campo:** Evidencias desordenadas en chats de WhatsApp, fotos borrosas y fallas por falta de señal en torre.
 * **En Coordinación:** Carga manual lenta de órdenes, descontrol de visados, retrasos en trámite de HES y falta de auditoría de cambios.
-* **En Gerencia:** Días perdidos maquetando actas en Word/Excel, falta de visibilidad en tiempo real y riesgo ante reclamos de operadoras (Digitel, Movistar, Cantv).
+* **En Gerencia:** Días perdidos maquetando actas en Word/Excel, falta de visibilidad en tiempo real y riesgo ante reclamos de las empresas operadoras.
 * **En Operaciones:** Formatos rígidos difíciles de adaptar ante los cambios de exigencias técnicas de cada cliente.
 
-**SISBIRCECA** soluciona esta fricción estandarizando el flujo operativo de punta a punta a través de cuatro (4) módulos integrados:
+**SISBIR** soluciona esta fricción estandarizando el flujo operativo de punta a punta a través de cuatro (4) módulos integrados:
 * **1. Campo (Técnicos):** Captura técnica 100% offline, modo sol de alto contraste y motor fotográfico adaptativo (foto única o Antes/Después).
 * **2. Seguimiento (Coordinación):** Carga masiva de órdenes desde plantilla Excel, control de visado/HES y registro detallado de quién editó qué.
 * **3. Administración (Gerencia):** Telemetría ejecutiva en vivo, actas PDF homologadas compiladas a 1 clic y bitácora forense SHA-256.
@@ -148,6 +148,6 @@ ___________________________________           __________________________________
 POR EL PROVEEDOR TECNOLÓGICO                  POR LA EMPRESA CONTRATANTE
 Nombre: ___________________________           Razón Social: _____________________
 C.I. / RIF: _______________________           RIF / Registro: ___________________
-Cargo: Titular & Arquitecto SISBIRCECA        Representante: ____________________
+Cargo: Titular & Arquitecto SISBIR        Representante: ____________________
                                               C.I.: _____________________________
 ```
