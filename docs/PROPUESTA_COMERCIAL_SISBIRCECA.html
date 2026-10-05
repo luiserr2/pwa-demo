@@ -3,89 +3,122 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contrato de Licenciamiento y Prestación de Servicios Tecnológicos — SISBIRCECA</title>
+  <title>Propuesta Comercial y Contrato de Licenciamiento Tecnológico — SISBIRCECA</title>
   <style>
     :root {
-      --bg-page: #f1f5f9;
+      --bg-page: #f8fafc;
       --bg-sheet: #ffffff;
       --text-dark: #0f172a;
       --text-body: #1e293b;
-      --text-muted: #475569;
+      --text-muted: #64748b;
       --border-color: #cbd5e1;
+      --border-light: #e2e8f0;
       --primary: #0f172a;
-      --accent: #0369a1;
+      --accent: #0284c7;
+      --accent-dark: #0369a1;
+      --gcp-blue: #4285f4;
+      --emerald: #059669;
+      --amber: #d97706;
+      --rose: #e11d48;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
     body {
       background-color: var(--bg-page);
-      font-family: "Georgia", "Cambria", "Times New Roman", serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       color: var(--text-body);
-      line-height: 1.7;
-      padding: 40px 15px;
+      line-height: 1.65;
+      padding: 30px 15px;
       -webkit-font-smoothing: antialiased;
     }
 
     .toolbar-actions {
-      max-width: 850px;
+      max-width: 960px;
       margin: 0 auto 20px auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
       background: #0f172a;
-      padding: 12px 24px;
-      border-radius: 6px;
+      padding: 14px 24px;
+      border-radius: 12px;
       color: #ffffff;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       font-size: 13px;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+    }
+
+    .toolbar-actions .badge-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .toolbar-actions button {
       background: #0284c7;
       color: #ffffff;
       border: none;
-      padding: 8px 16px;
-      border-radius: 4px;
+      padding: 9px 18px;
+      border-radius: 6px;
       font-weight: 600;
       cursor: pointer;
       font-size: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s;
     }
     .toolbar-actions button:hover { background: #0369a1; }
 
     .contract-sheet {
-      max-width: 850px;
+      max-width: 960px;
       margin: 0 auto;
       background: var(--bg-sheet);
-      padding: 70px 80px;
+      padding: 60px 70px;
       border: 1px solid var(--border-color);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
+      border-radius: 4px;
     }
 
-    /* HEADER NOTARIAL / LEGAL */
+    /* HEADER NOTARIAL / CORPORATIVO */
     .contract-header {
       text-align: center;
       border-bottom: 2px solid var(--text-dark);
-      padding-bottom: 20px;
-      margin-bottom: 30px;
-    }
-
-    .contract-title {
-      font-size: 17px;
-      font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      color: var(--text-dark);
-      margin-bottom: 8px;
-      line-height: 1.4;
+      padding-bottom: 24px;
+      margin-bottom: 32px;
     }
 
     .contract-reference {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       font-size: 11px;
-      color: var(--text-muted);
+      font-weight: 800;
+      color: var(--accent-dark);
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.2px;
+      margin-bottom: 8px;
+    }
+
+    .contract-title {
+      font-family: "Georgia", "Cambria", serif;
+      font-size: 21px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-dark);
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+
+    .contract-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
     }
 
     .preamble {
@@ -93,42 +126,228 @@
       text-align: justify;
       margin-bottom: 24px;
       line-height: 1.75;
+      color: #334155;
     }
 
     .clause {
-      margin-bottom: 22px;
+      margin-bottom: 28px;
       text-align: justify;
       font-size: 13.5px;
       line-height: 1.75;
     }
 
     .clause-title {
-      font-weight: bold;
+      font-weight: 800;
       color: var(--text-dark);
       text-transform: uppercase;
-    }
-
-    ul.contract-list {
-      margin: 10px 0 10px 24px;
       font-size: 13.5px;
+      letter-spacing: 0.3px;
     }
 
-    ul.contract-list li {
+    /* FICHAS VISUALES DE MÓDULOS */
+    .module-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      margin: 18px 0;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+
+    .module-card-header {
+      background: #f8fafc;
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .module-card-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .module-badge {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 999px;
+      letter-spacing: 0.5px;
+    }
+    .badge-core { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+    .badge-audit { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+    .badge-gcp { background: #eef2ff; color: #3730a3; border: 1px solid #c7d2fe; }
+
+    .module-card-body {
+      padding: 18px;
+    }
+
+    .module-description {
+      font-size: 13px;
+      color: #334155;
+      margin-bottom: 14px;
+      line-height: 1.6;
+    }
+
+    .module-features {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 16px;
+      margin-bottom: 16px;
+    }
+
+    .module-features li {
+      font-size: 12px;
+      color: #475569;
+      position: relative;
+      padding-left: 18px;
+      line-height: 1.5;
+    }
+    .module-features li::before {
+      content: "✔";
+      position: absolute;
+      left: 0;
+      color: var(--emerald);
+      font-weight: bold;
+    }
+
+    /* MOCKUPS VISUALES */
+    .visual-mockup-frame {
+      background: #0f172a;
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 10px;
+      border: 1px solid #1e293b;
+    }
+
+    .mockup-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .mockup-dot { width: 9px; height: 9px; border-radius: 50%; }
+    .dot-red { background: #ef4444; }
+    .dot-yellow { background: #f59e0b; }
+    .dot-green { background: #10b981; }
+    .mockup-title {
+      font-size: 11px;
+      color: #94a3b8;
+      font-family: monospace;
+      margin-left: 8px;
+    }
+
+    .mockup-content {
+      background: #ffffff;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .mockup-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+    }
+
+    /* MATRIZ 48 ZONAS MOCKUP */
+    .zones-grid-preview {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 6px;
+      padding: 12px;
+      background: #f8fafc;
+      font-family: monospace;
+      font-size: 10px;
+    }
+    .zone-cell {
+      padding: 6px 4px;
+      text-align: center;
+      border-radius: 4px;
+      font-weight: 700;
+      border: 1px solid transparent;
+    }
+    .zone-ok { background: #ecfdf5; color: #047857; border-color: #a7f3d0; }
+    .zone-warn { background: #fffbeb; color: #b45309; border-color: #fde68a; }
+    .zone-fail { background: #fef2f2; color: #b91c1c; border-color: #fecaca; }
+
+    /* FOTO ANTES Y DESPUES MOCKUP */
+    .photo-split-preview {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding: 12px;
+      background: #0f172a;
+      color: #ffffff;
+      font-family: monospace;
+    }
+    .photo-slot {
+      background: #1e293b;
+      border-radius: 6px;
+      padding: 10px;
+      position: relative;
+      border: 1px dashed #334155;
+    }
+    .photo-slot-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      font-weight: bold;
       margin-bottom: 6px;
     }
+    .stamp-overlay {
+      background: rgba(0, 0, 0, 0.75);
+      padding: 6px;
+      border-radius: 4px;
+      font-size: 9px;
+      line-height: 1.35;
+      border-left: 2px solid #38bdf8;
+      margin-top: 24px;
+    }
 
-    /* TABLAS LEGALES SOBRIAS */
+    /* CONSOLA DE AUDITORIA FORENSE MOCKUP */
+    .audit-terminal-preview {
+      background: #020617;
+      color: #94a3b8;
+      padding: 14px;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 11px;
+      line-height: 1.5;
+      border-radius: 6px;
+    }
+    .audit-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+      border-bottom: 1px solid #1e293b;
+    }
+    .hash-badge {
+      color: #38bdf8;
+      font-weight: bold;
+    }
+
+    /* TABLAS LEGALES Y DE COSTOS */
     table.legal-table {
       width: 100%;
       border-collapse: collapse;
       margin: 16px 0;
       font-size: 12.5px;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
     table.legal-table th, table.legal-table td {
       border: 1px solid var(--border-color);
-      padding: 10px 12px;
+      padding: 9px 12px;
       text-align: left;
     }
 
@@ -137,7 +356,8 @@
       font-weight: 700;
       color: var(--text-dark);
       text-transform: uppercase;
-      font-size: 11px;
+      font-size: 10.5px;
+      letter-spacing: 0.5px;
     }
 
     table.legal-table tr.total-row td {
@@ -152,6 +372,18 @@
       margin: 14px 0;
       border-left: 4px solid var(--text-dark);
       font-size: 13px;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .gcp-callout {
+      border: 1px solid #c7d2fe;
+      background: #eef2ff;
+      padding: 14px 18px;
+      margin: 14px 0;
+      border-left: 4px solid var(--gcp-blue);
+      font-size: 13px;
+      border-radius: 0 6px 6px 0;
+      color: #1e1b4b;
     }
 
     /* FIRMAS FORMALES */
@@ -177,13 +409,12 @@
 
     .sign-party {
       font-weight: bold;
-      font-size: 13px;
+      font-size: 12.5px;
       color: var(--text-dark);
       text-transform: uppercase;
     }
 
     .sign-details {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       font-size: 11.5px;
       color: var(--text-muted);
       line-height: 1.5;
@@ -193,7 +424,8 @@
     @media print {
       body { background: #fff; padding: 0; }
       .toolbar-actions { display: none; }
-      .contract-sheet { border: none; box-shadow: none; padding: 40px; max-width: 100%; }
+      .contract-sheet { border: none; box-shadow: none; padding: 20px; max-width: 100%; }
+      .module-card { page-break-inside: avoid; }
       .signatures-block { page-break-inside: avoid; }
     }
   </style>
@@ -202,42 +434,351 @@
 
 <div class="toolbar-actions">
   <div>
-    <strong>DOCUMENTO LEGAL VINCULANTE:</strong> Contrato de Licenciamiento y Servicios SISBIRCECA
+    <strong>PROPUESTA & CONTRATO OFICIAL:</strong> SISBIRCECA Telecom Platform (B2B)
   </div>
-  <button onclick="window.print()">Imprimir / Guardar en PDF</button>
+  <div style="display: flex; gap: 12px; align-items: center;">
+    <span class="badge-status">● VERSIÓN 2026.4 — VINCULANTE</span>
+    <button onclick="window.print()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
+      Imprimir / Guardar en PDF
+    </button>
+  </div>
 </div>
 
 <div class="contract-sheet">
 
   <header class="contract-header">
-    <div class="contract-reference">INSTRUMENTO PRIVADO VINCULANTE &middot; REF: CONTRATO-SISBIRCECA-2026-001</div>
+    <div class="contract-reference">INSTRUMENTO PRIVADO DE LICENCIAMIENTO &middot; REF: CONTRATO-SISBIRCECA-2026-001</div>
     <h1 class="contract-title">
-      CONTRATO MARCO DE PRESTACIÓN DE SERVICIOS TECNOLÓGICOS, PARAMETRIZACIÓN Y LICENCIAMIENTO DE SOFTWARE
+      CONTRATO MARCO DE LICENCIAMIENTO COMERCIAL, PARAMETRIZACIÓN TÉCNICA Y GESTIÓN CLOUD
     </h1>
+    <p class="contract-subtitle">
+      Plataforma SISBIRCECA &mdash; Sistema de Inspección, Matriz de 48 Zonas y Certificación Forense de Radiobases
+    </p>
   </header>
 
   <p class="preamble">
-    Entre las partes que a continuación se identifican: por una parte, <strong>EL PROVEEDOR TECNOLÓGICO</strong>, persona natural/jurídica en pleno ejercicio de sus derechos de propiedad intelectual sobre el software denominado <strong>SISBIRCECA</strong>; y por la otra parte, <strong>LA EMPRESA CONTRATANTE</strong>, entidad jurídica dedicada a la prestación de servicios de infraestructura y mantenimiento en telecomunicaciones, se conviene en celebrar el presente Contrato de Servicios Tecnológicos y Licenciamiento Comercial, el cual se regirá por las siguientes cláusulas:
+    Entre las partes que a continuación se identifican: por una parte, <strong>EL PROVEEDOR TECNOLÓGICO</strong>, persona natural/jurídica en pleno ejercicio de sus derechos de propiedad intelectual sobre el software denominado <strong>SISBIRCECA</strong>; y por la otra parte, <strong>LA EMPRESA CONTRATANTE</strong>, entidad jurídica dedicada a la prestación de servicios de infraestructura, auditoría y mantenimiento en telecomunicaciones, se conviene en celebrar el presente Contrato de Licenciamiento Comercial y Gestión Cloud, sujeto al siguiente tenor de cláusulas:
   </p>
 
   <!-- CLAUSULA PRIMERA -->
   <div class="clause">
     <span class="clause-title">CLÁUSULA PRIMERA: OBJETO DEL CONTRATO.</span>
-    El presente contrato tiene por objeto regular los términos y condiciones bajo los cuales <strong>EL PROVEEDOR</strong> ejecutará los servicios de configuración, parametrización técnica y puesta en producción del sistema informático <strong>SISBIRCECA</strong> (Sistema de Información para la Supervisión y Generación de Reportes Técnicos de Radiobases), así como el otorgamiento a <strong>LA EMPRESA</strong> de una Licencia de Uso Comercial para su explotación operativa en inspecciones de infraestructura de telecomunicaciones.
+    El presente contrato tiene por objeto regular los términos y condiciones bajo los cuales <strong>EL PROVEEDOR</strong> ejecutará los servicios de configuración inicial, parametrización técnica y puesta en producción del sistema informático <strong>SISBIRCECA</strong>, así como el otorgamiento a <strong>LA EMPRESA</strong> de una Licencia de Uso Comercial (EULA) para su explotación en inspecciones técnicas de radiobases y generación de expedientes homologados para operadoras de telefonía móvil.
   </div>
 
-  <!-- CLAUSULA SEGUNDA -->
+  <!-- CLAUSULA SEGUNDA: DESGLOSE POR MODULOS -->
   <div class="clause">
-    <span class="clause-title">CLÁUSULA SEGUNDA: ALCANCE TÉCNICO Y MÓDULOS INCLUIDOS (CORE OPERATIVO).</span>
-    El sistema aprovisionado y puesto en marcha comprende estrictamente los siguientes componentes funcionales garantizados:
-    <ul class="contract-list">
-      <li><strong>1. Aplicación Web Progresiva (PWA Móvil de Campo):</strong> Aplicación instalable en teléfonos inteligentes con arquitectura de almacenamiento local indexado (Dexie.js / IndexedDB), diseñada para operar al 100% en zonas remotas desprovistas de cobertura celular (Modo Offline).</li>
-      <li><strong>2. Matriz Técnica Homologada de 48 Zonas:</strong> Formulario técnico de inspección con registro de estados estandarizados (Normal, Alarma, Falla) y campo descriptivo de incidencias.</li>
-      <li><strong>3. Motor Fotográfico Inteligente y Regla "Antes vs. Después":</strong> Bloqueo programático que supedita la captura de la evidencia de solución a la preexistencia obligatoria de la foto del estado inicial. Incluye algoritmo de compresión WebP en el dispositivo móvil (< 250 KB por fotografía) para minimización de consumo de datos celulares.</li>
-      <li><strong>4. Consola Administrativa y Bandeja QA de Supervisión:</strong> Portal web centralizado para supervisores con flujo de validación foto por foto, emisión de observaciones técnicas y control de estados (Borrador, En Revisión, Aprobado y Observado).</li>
-      <li><strong>5. Motor de Emisión de Actas Oficiales en PDF:</strong> Generación instantánea a un clic de actas técnicas homologadas y expedientes fotográficos maquetados en formato A4 listos para facturación y cobro ante el operador de telecomunicaciones contratante.</li>
-      <li><strong>6. Seguridad y Perfiles de Acceso (RBAC):</strong> Control de acceso criptográfico mediante tokens de sesión y asignación de dos (2) roles canónicos: Técnicos de Campo y Administradores/Supervisores.</li>
-    </ul>
+    <span class="clause-title">CLÁUSULA SEGUNDA: ALCANCE TÉCNICO Y ESPECIFICACIÓN POR MÓDULOS.</span>
+    El sistema aprovisionado comprende seis (6) módulos funcionales integrados, diseñados bajo estándares de tolerancia cero a fallas en campo y rigurosidad legal:
+
+    <!-- MODULO 1 -->
+    <div class="module-card">
+      <div class="module-card-header">
+        <span class="module-card-title">
+          1. PWA Móvil de Campo Offline-First (Terminal de Torre)
+        </span>
+        <span class="module-badge badge-core">Core Indispensable</span>
+      </div>
+      <div class="module-card-body">
+        <p class="module-description">
+          Aplicación Web Progresiva instalable directamente en dispositivos Android e iOS sin dependencias de Play Store ni App Store. Opera al 100% en zonas remotas desprovistas de cobertura celular mediante base de datos transaccional local indexada (Dexie.js / IndexedDB). Permite al técnico ejecutar levantamientos completos, almacenar fotos localmente y sincronizar en dos vías al recuperar conectividad 3G/4G o Wi-Fi.
+        </p>
+        <ul class="module-features">
+          <li>Almacenamiento IndexedDB de alta capacidad.</li>
+          <li>Sincronización en segundo plano con reintentos exponenciales.</li>
+          <li>Interfaz táctil de alto contraste (Modo Sol).</li>
+          <li>Cero pérdida de datos ante apagados repentinos.</li>
+        </ul>
+        <div class="visual-mockup-frame">
+          <div class="mockup-bar">
+            <span class="mockup-dot dot-red"></span>
+            <span class="mockup-dot dot-yellow"></span>
+            <span class="mockup-dot dot-green"></span>
+            <span class="mockup-title">sisbirceca.app/campo &mdash; PWA Offline Terminal</span>
+          </div>
+          <div class="mockup-content">
+            <img src="assets/modulo1-pwa-campo.png" alt="PWA Móvil de Campo" class="mockup-image" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULO 2 -->
+    <div class="module-card">
+      <div class="module-card-header">
+        <span class="module-card-title">
+          2. Matriz Técnica Homologada de 48 Zonas de Inspección
+        </span>
+        <span class="module-badge badge-core">Normativo Telecom</span>
+      </div>
+      <div class="module-card-body">
+        <p class="module-description">
+          Formulario estandarizado de auditoría técnica dividido en los 5 subsistemas críticos de una estación celular: Estructura y Torre, Energía DC y Bancos de Baterías, Enlaces de Microondas y Fibra Óptica, Climatización de Shelter y Sistema de Puesta a Tierra (Aterramiento). Cada zona evalúa estados normalizados (<code>NORMAL</code>, <code>ALARMA</code>, <code>FALLA</code>) con campos obligatorios de justificación técnica.
+        </p>
+        <ul class="module-features">
+          <li>48 cuadrantes fijos auditables 1 a 1.</li>
+          <li>Detección de estados críticos con código cromático.</li>
+          <li>Campos técnicos específicos por subsistema.</li>
+          <li>Validación obligatoria antes de enviar a revisión.</li>
+        </ul>
+        <div class="visual-mockup-frame">
+          <div class="mockup-bar">
+            <span class="mockup-dot dot-red"></span>
+            <span class="mockup-dot dot-yellow"></span>
+            <span class="mockup-dot dot-green"></span>
+            <span class="mockup-title">Módulo 2: Matriz 48 Zonas &mdash; Inspección Técnica</span>
+          </div>
+          <div class="mockup-content">
+            <div class="zones-grid-preview">
+              <div class="zone-cell zone-ok">Z01: Estructura OK</div>
+              <div class="zone-cell zone-ok">Z02: Baliza OK</div>
+              <div class="zone-cell zone-warn">Z03: Guía Onda ALARM</div>
+              <div class="zone-cell zone-ok">Z04: Cableado OK</div>
+              <div class="zone-cell zone-ok">Z05: Conector OK</div>
+              <div class="zone-cell zone-ok">Z06: Anclaje OK</div>
+              <div class="zone-cell zone-ok">Z15: Shelter OK</div>
+              <div class="zone-cell zone-warn">Z16: A/C 01 ALARM</div>
+              <div class="zone-cell zone-ok">Z17: A/C 02 OK</div>
+              <div class="zone-cell zone-fail">Z34: Baterías CRIT</div>
+              <div class="zone-cell zone-ok">Z35: Inversor OK</div>
+              <div class="zone-cell zone-ok">Z36: Rectificador OK</div>
+              <div class="zone-cell zone-ok">Z43: Tablero AC OK</div>
+              <div class="zone-cell zone-ok">Z44: Pararrayo OK</div>
+              <div class="zone-cell zone-ok">Z45: Barra Tierra OK</div>
+              <div class="zone-cell zone-ok">Z46: Portón OK</div>
+              <div class="zone-cell zone-ok">Z47: Cerco OK</div>
+              <div class="zone-cell zone-ok">Z48: Señalética OK</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULO 3 -->
+    <div class="module-card">
+      <div class="module-card-header">
+        <span class="module-card-title">
+          3. Motor Fotográfico Inteligente con Regla Antes / Después
+        </span>
+        <span class="module-badge badge-core">Antifraude</span>
+      </div>
+      <div class="module-card-body">
+        <p class="module-description">
+          Mecanismo criptográfico y visual que erradica fraudes y reciclaje de fotos antiguas. El sistema bloquea de manera estricta la captura de la evidencia de subsanación ("DESPUÉS") hasta que exista una fotografía registrada del estado inicial ("ANTES"). Cada imagen es comprimida en el navegador mediante algoritmo WebP (&lt; 250 KB por foto) e incorpora un estampado indeleble en canvas con coordenadas GPS satelitales, fecha/hora atómica y código de torre.
+        </p>
+        <ul class="module-features">
+          <li>Bloqueo estricto por software: No hay Después sin Antes.</li>
+          <li>Compresión WebP ultra-liviana (ahorro del 85% de datos móviles).</li>
+          <li>Estampado indeleble de telemetría GPS y timestamp.</li>
+          <li>Validación de radio geocerca perimetral (&lt; 100m).</li>
+        </ul>
+        <div class="visual-mockup-frame">
+          <div class="mockup-bar">
+            <span class="mockup-dot dot-red"></span>
+            <span class="mockup-dot dot-yellow"></span>
+            <span class="mockup-dot dot-green"></span>
+            <span class="mockup-title">Módulo 3: Flujo Antes vs Después con Estampado Canvas</span>
+          </div>
+          <div class="mockup-content">
+            <div class="photo-split-preview">
+              <div class="photo-slot">
+                <div class="photo-slot-header">
+                  <span style="color: #f87171;">● SLOT 01 &mdash; FASE ANTES</span>
+                  <span style="color: #94a3b8;">WebP 184 KB</span>
+                </div>
+                <div style="font-size: 11px; color: #cbd5e1; margin-bottom: 8px;">Estado Inicial: Conector sulfatado</div>
+                <div class="stamp-overlay">
+                  LAT: 10.4932&deg; N | LNG: -66.8921&deg; W<br>
+                  2026-10-05 11:35:24 UTC &middot; RDB-001<br>
+                  TEC: GERSON MARTÍNEZ &middot; SHA-256 VERIFIED
+                </div>
+              </div>
+              <div class="photo-slot" style="border-color: #059669;">
+                <div class="photo-slot-header">
+                  <span style="color: #34d399;">● SLOT 01 &mdash; FASE DESPUÉS (DESBLOQUEADA)</span>
+                  <span style="color: #94a3b8;">WebP 192 KB</span>
+                </div>
+                <div style="font-size: 11px; color: #cbd5e1; margin-bottom: 8px;">Subsanación: Limpieza y termorretráctil</div>
+                <div class="stamp-overlay" style="border-color: #34d399;">
+                  LAT: 10.4932&deg; N | LNG: -66.8921&deg; W<br>
+                  2026-10-05 12:10:15 UTC &middot; RDB-001<br>
+                  TEC: GERSON MARTÍNEZ &middot; SHA-256 VERIFIED
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULO 4 -->
+    <div class="module-card">
+      <div class="module-card-header">
+        <span class="module-card-title">
+          4. Centro de Control NOC y Consola de Supervisión QA
+        </span>
+        <span class="module-badge badge-core">Gestión & SLA</span>
+      </div>
+      <div class="module-card-body">
+        <p class="module-description">
+          Panel de mando centralizado para supervisores y directores de operaciones. Ofrece telemetría en tiempo real sobre el estado de las cuadrillas en campo, control de tiempos de atención (SLA), geofencing perimetral con mapa satelital interactivo y bandeja de validación técnica foto por foto con capacidad de aprobación definitiva o rechazo justificado con observaciones.
+        </p>
+        <ul class="module-features">
+          <li>Bandeja de revisión con aprobación o rechazo foto a foto.</li>
+          <li>Mapa satelital con detección de cuadrillas en vivo.</li>
+          <li>Bloqueo preventivo de capturas a más de 100 metros de la torre.</li>
+          <li>Métricas de rendimiento, tiempos SLA y volumen de cuadrillas.</li>
+        </ul>
+        <div class="visual-mockup-frame">
+          <div class="mockup-bar">
+            <span class="mockup-dot dot-red"></span>
+            <span class="mockup-dot dot-yellow"></span>
+            <span class="mockup-dot dot-green"></span>
+            <span class="mockup-title">sisbirceca.app/admin/dashboard &mdash; Centro de Control NOC</span>
+          </div>
+          <div class="mockup-content" style="padding: 14px; background: #f8fafc; font-size: 12px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <div>
+                <strong style="color: #0f172a; font-size: 13px;">Bandeja de Expedientes Técnicos</strong>
+                <p style="color: #64748b; font-size: 11px;">Supervisión visual para entrega oficial a operadoras</p>
+              </div>
+              <span style="background: #ecfdf5; color: #047857; font-weight: bold; padding: 3px 8px; border-radius: 6px; font-size: 10px;">SISTEMA OPERATIVO NOC</span>
+            </div>
+            <table style="width: 100%; border-collapse: collapse; font-size: 11px; background: #fff; border: 1px solid #e2e8f0;">
+              <thead>
+                <tr style="background: #f1f5f9; text-align: left;">
+                  <th style="padding: 6px 8px; border-bottom: 1px solid #e2e8f0;">Radiobase</th>
+                  <th style="padding: 6px 8px; border-bottom: 1px solid #e2e8f0;">Cuadrilla</th>
+                  <th style="padding: 6px 8px; border-bottom: 1px solid #e2e8f0;">Fotos</th>
+                  <th style="padding: 6px 8px; border-bottom: 1px solid #e2e8f0;">SLA</th>
+                  <th style="padding: 6px 8px; border-bottom: 1px solid #e2e8f0;">Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding: 6px 8px; border-bottom: 1px solid #f1f5f9;"><strong>RDB-001 Torre Puerto Madero</strong></td>
+                  <td style="padding: 6px 8px; border-bottom: 1px solid #f1f5f9;">Gerson Martínez</td>
+                  <td style="padding: 6px 8px; border-bottom: 1px solid #f1f5f9;">12 / 12 (100%)</td>
+                  <td style="padding: 6px 8px; border-bottom: 1px solid #f1f5f9;">48 min</td>
+                  <td style="padding: 6px 8px; border-bottom: 1px solid #f1f5f9;"><span style="color: #059669; font-weight: bold;">CERTIFICADO</span></td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px 8px;"><strong>RDB-002 Cerro Catedral Rep.</strong></td>
+                  <td style="padding: 6px 8px;">Carlos Gómez</td>
+                  <td style="padding: 6px 8px;">6 / 6 (100%)</td>
+                  <td style="padding: 6px 8px;">1h 12m</td>
+                  <td style="padding: 6px 8px;"><span style="color: #d97706; font-weight: bold;">EN REVISIÓN</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULO 5 -->
+    <div class="module-card">
+      <div class="module-card-header">
+        <span class="module-card-title">
+          5. Generador de Actas Técnicas y Dictámenes Oficiales en PDF
+        </span>
+        <span class="module-badge badge-core">Facturación</span>
+      </div>
+      <div class="module-card-body">
+        <p class="module-description">
+          Motor automatizado de compilación documental en el servidor. Genera a un solo clic el expediente técnico formal maquetado en formato A4 listo para presentación y cobro ante el operador de telecomunicaciones (Digitel, Movistar, Cantv). Integra encabezado legal, detalle de zonas, galería de evidencias en alta resolución y bloque de firmas legalmente vinculante con huella digital SHA-256.
+        </p>
+        <ul class="module-features">
+          <li>Exportación instantánea a PDF estándar de imprenta.</li>
+          <li>Maquetación profesional con logotipo de la empresa contratista.</li>
+          <li>Firmas electrónicas del técnico titular y supervisor NOC.</li>
+          <li>Código QR para validación pública de autenticidad.</li>
+        </ul>
+        <div class="visual-mockup-frame">
+          <div class="mockup-bar">
+            <span class="mockup-dot dot-red"></span>
+            <span class="mockup-dot dot-yellow"></span>
+            <span class="mockup-dot dot-green"></span>
+            <span class="mockup-title">Acta Oficial A4 &mdash; EXP-RDB-001_20261005.pdf</span>
+          </div>
+          <div class="mockup-content" style="padding: 16px; background: #ffffff; border: 1px solid #e2e8f0; font-family: serif; font-size: 11px;">
+            <div style="border-bottom: 2px solid #0f172a; padding-bottom: 8px; margin-bottom: 10px; display: flex; justify-content: space-between;">
+              <div>
+                <strong style="font-size: 12px; text-transform: uppercase;">ACTA DE INSPECCIÓN Y MANTENIMIENTO TÉCNICO</strong><br>
+                <span style="font-family: sans-serif; font-size: 9px; color: #64748b;">REF: ACTA-NOC-2026-0042 &middot; CONTRATO TELECOM</span>
+              </div>
+              <div style="text-align: right; font-family: sans-serif; font-size: 9px; color: #0f172a;">
+                <strong>ESTACIÓN:</strong> RDB-001 (TORRE PUERTO MADERO)<br>
+                <strong>FECHA:</strong> 05/10/2026 &middot; <strong>ESTADO:</strong> APROBADO
+              </div>
+            </div>
+            <div style="font-family: sans-serif; font-size: 10px; color: #334155; line-height: 1.4; margin-bottom: 10px;">
+              Certificación de 48 zonas técnicas normalizadas conforme a estándares de mantenimiento correctivo y preventivo celular. Registro de 12 evidencias fotográficas pares Antes/Después con validación satelital.
+            </div>
+            <div style="display: flex; justify-content: space-between; font-family: sans-serif; font-size: 9px; border-top: 1px solid #cbd5e1; padding-top: 8px;">
+              <div>Firma Técnico: <strong>Gerson Martínez</strong> (V-24.891.203)</div>
+              <div>Firma Supervisor: <strong>Administrador NOC</strong></div>
+              <div>Sello SHA-256: <code>7f991c098ab3...</code></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULO 6 -->
+    <div class="module-card">
+      <div class="module-card-header">
+        <span class="module-card-title">
+          6. Bitácora Forense y Auditoría Criptográfica SHA-256
+        </span>
+        <span class="module-badge badge-audit">Compliance & Peritaje</span>
+      </div>
+      <div class="module-card-body">
+        <p class="module-description">
+          Libro mayor inmutable *append-only* diseñado bajo el estándar criptográfico FIPS 180-4. Cada acción operativa (inicio de sesión, subida de fotografía, cambio de estado en matriz técnica, dictamen de supervisor o rechazo por geocerca) genera un bloque criptográfico encadenado matemáticamente al registro anterior. Brinda prueba judicial irrefutable ante disputas con operadoras y permite exportar la bitácora completa en formatos CSV y JSON forense.
+        </p>
+        <ul class="module-features">
+          <li>Encadenamiento de hashes SHA-256: Bloque N enlazado a Bloque N-1.</li>
+          <li>Botón interactivo de verificación de integridad matemática al 100%.</li>
+          <li>Registro inalterable de fraudes bloqueados por geocerca perimetral.</li>
+          <li>Descarga directa de expedientes de auditoría para peritajes externos.</li>
+        </ul>
+        <div class="visual-mockup-frame">
+          <div class="mockup-bar">
+            <span class="mockup-dot dot-red"></span>
+            <span class="mockup-dot dot-yellow"></span>
+            <span class="mockup-dot dot-green"></span>
+            <span class="mockup-title">sisbirceca.app/admin/auditoria &mdash; Consola Forense SHA-256</span>
+          </div>
+          <div class="mockup-content">
+            <div class="audit-terminal-preview">
+              <div class="audit-row" style="color: #34d399; font-weight: bold;">
+                <span>[CERTIFICADO] CADENA CRIPTOGRÁFICA 100% ÍNTEGRA</span>
+                <span>FIPS 180-4 VALIDADO</span>
+              </div>
+              <div class="audit-row">
+                <span>AUD-001 &middot; 11:42:10 &middot; AUTENTICACIÓN</span>
+                <span class="hash-badge">sha256:a89c31...4910</span>
+              </div>
+              <div class="audit-row">
+                <span>AUD-002 &middot; 11:35:24 &middot; SUBIDA_FOTO (SLOT 01 ANTES)</span>
+                <span class="hash-badge">sha256:5ef12c...3f11</span>
+              </div>
+              <div class="audit-row" style="color: #f87171;">
+                <span>AUD-003 &middot; 11:20:05 &middot; GEOFENCING_FAIL [BLOQUEO 1,420m]</span>
+                <span class="hash-badge">sha256:908d1f...99c4</span>
+              </div>
+              <div class="audit-row">
+                <span>AUD-004 &middot; 10:55:12 &middot; APROBACION_QA (EXPEDIENTE CERRADO)</span>
+                <span class="hash-badge">sha256:3b09f4...ef20</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <!-- CLAUSULA TERCERA -->
@@ -245,7 +786,7 @@
     <span class="clause-title">CLÁUSULA TERCERA: RÉGIMEN DE PROPIEDAD INTELECTUAL Y RESERVA DE CÓDIGO FUENTE.</span>
     Queda expresamente estipulado entre las partes que <strong>LA TOTALIDAD DEL CÓDIGO FUENTE, ARQUITECTURA DE SOFTWARE, DISEÑO, ALGORITMOS DE COMPRESIÓN, MODELOS DE DATOS Y DERECHOS DE AUTOR MORALES Y PATRIMONIALES</strong> de la plataforma SISBIRCECA son y continuarán siendo de la <strong>PROPIEDAD ÚNICA Y EXCLUSIVA DEL PROVEEDOR</strong>.
     <div class="highlight-clause">
-      <strong>RESERVA EXPRESA:</strong> En ningún momento el presente contrato constituye venta de software, cesión de activos intangibles ni transferencia de propiedad intelectual. <strong>EL PROVEEDOR NO ENTREGARÁ CÓDIGO FUENTE</strong> ni accesos a repositorios de desarrollo. <strong>LA EMPRESA</strong> se compromete a no intentar descompilar, realizar ingeniería inversa, copiar, duplicar, ceder, transferir ni comercializar el software a terceros bajo pena de indemnización por daños y perjuicios.
+      <strong>RESERVA EXPRESA DE DERECHOS:</strong> En ningún momento el presente contrato constituye venta de software, cesión de activos intangibles ni transferencia de propiedad intelectual. <strong>EL PROVEEDOR NO ENTREGARÁ CÓDIGO FUENTE</strong> ni accesos a repositorios de desarrollo. <strong>LA EMPRESA</strong> se compromete a no intentar descompilar, realizar ingeniería inversa, copiar, duplicar, ceder, transferir ni comercializar el software a terceros bajo pena de indemnización por daños y perjuicios.
     </div>
   </div>
 
@@ -255,12 +796,14 @@
     En virtud del cumplimiento de los pagos acordados, <strong>EL PROVEEDOR</strong> otorga a <strong>LA EMPRESA</strong> una <strong>LICENCIA DE USO COMERCIAL, NO EXCLUSIVA, INTRANSFERIBLE Y TEMPORAL</strong> para acceder y operar la plataforma únicamente en sus operaciones ordinarias internas, con un límite inicial de hasta diez (10) usuarios técnicos/administrativos concurrentes.
   </div>
 
-  <!-- CLAUSULA QUINTA -->
+  <!-- CLAUSULA QUINTA: CONDICIONES ECONOMICAS Y COSTOS GOOGLE CLOUD -->
   <div class="clause">
-    <span class="clause-title">CLÁUSULA QUINTA: CONDICIONES ECONÓMICAS Y FORMA DE PAGO.</span>
-    El régimen financiero del presente acuerdo se divide en dos conceptos claramente diferenciados:
+    <span class="clause-title">CLÁUSULA QUINTA: CONDICIONES ECONÓMICAS Y DESGLOSE CLOUD (GOOGLE CLOUD PLATFORM).</span>
+    El régimen financiero del presente acuerdo se divide en la tarifa de implementación inicial y el canon mensual de infraestructura y soporte:
     
-    <p style="margin-top: 10px; font-weight: bold;">A. Tarifa Única de Parametrización, Implementación y Puesta en Marcha (Setup Fee):</p>
+    <p style="margin-top: 14px; font-weight: bold; color: var(--text-dark);">
+      A. Tarifa Única de Parametrización, Implementación y Puesta en Marcha (Setup Fee):
+    </p>
     Por la configuración inicial, parametrización de catálogos, despliegue del servidor en la nube y capacitación del personal, <strong>LA EMPRESA</strong> abonará la cantidad fija de <strong>UN MIL SEISCIENTOS CINCUENTA DÓLARES AMERICANOS ($1,650.00 USD)</strong>, liquidada mediante el siguiente cronograma de pagos:
 
     <table class="legal-table">
@@ -274,19 +817,19 @@
       </thead>
       <tbody>
         <tr>
-          <td><strong>Anticipo Inicial de Firma</strong></td>
+          <td><strong>1. Anticipo Inicial de Firma</strong></td>
           <td>A la firma y suscripción del presente contrato (Kick-off).</td>
           <td style="text-align: right;">33.33%</td>
           <td style="text-align: right;"><strong>$550.00</strong></td>
         </tr>
         <tr>
-          <td><strong>Entrega Funcional en Staging</strong></td>
+          <td><strong>2. Entrega Funcional en Staging</strong></td>
           <td>A la demostración de la PWA offline, matriz de 48 zonas y flujo Antes/Después en ambiente de pruebas.</td>
           <td style="text-align: right;">33.33%</td>
           <td style="text-align: right;"><strong>$550.00</strong></td>
         </tr>
         <tr>
-          <td><strong>Pase a Producción y Cierre</strong></td>
+          <td><strong>3. Pase a Producción y Cierre</strong></td>
           <td>A la activación del sistema en el servidor final en producción y culminación de las sesiones de capacitación.</td>
           <td style="text-align: right;">33.34%</td>
           <td style="text-align: right;"><strong>$550.00</strong></td>
@@ -299,23 +842,89 @@
       </tbody>
     </table>
 
-    <p style="margin-top: 14px; font-weight: bold;">B. Canon Mensual de Servicio Integral (Licenciamiento, Nube y Soporte):</p>
-    A partir de la puesta en producción y tras expirar los primeros treinta (30) días de garantía técnica gratuita, <strong>LA EMPRESA</strong> pagará un canon mensual vencido y no reembolsable de <strong>CIENTO VEINTE DÓLARES AMERICANOS ($120.00 USD / mes)</strong>, el cual ampara:
-    <ul class="contract-list">
-      <li>Licencia de uso activa ininterrumpida de la PWA móvil y Consola NOC para hasta 10 usuarios.</li>
-      <li>Costo del servidor en la nube de alta disponibilidad y bases de datos relacionales PostgreSQL.</li>
-      <li>Respaldos automatizados diarios de datos e imágenes para contingencias ante pérdidas de información.</li>
-      <li>Capacidad de almacenamiento en la nube de hasta 15,000 fotografías de evidencias técnicas.</li>
-      <li>Mantenimiento preventivo de software y soporte técnico especializado Nivel 2.</li>
-    </ul>
+    <p style="margin-top: 18px; font-weight: bold; color: var(--text-dark);">
+      B. Canon Mensual de Servicio Integral y Desglose de Google Cloud Platform (GCP):
+    </p>
+    A partir de la puesta en producción y tras expirar los primeros treinta (30) días de garantía técnica gratuita, <strong>LA EMPRESA</strong> pagará un canon mensual vencido y cerrado de <strong>CIENTO VEINTE DÓLARES AMERICANOS ($120.00 USD / mes)</strong>.
+    
+    <div class="gcp-callout">
+      <strong>DESGLOSE TÉCNICO DE INFRAESTRUCTURA GOOGLE CLOUD PLATFORM (GCP):</strong><br>
+      Para garantizar disponibilidad del 99.9% y soberanía sobre los datos, la plataforma se despliega en centros de datos Tier-3 de Google Cloud en Estados Unidos (Iowa / Carolina del Sur). A continuación se transparenta el costo directo de nube y el valor del servicio gestionado:
+    </div>
 
-    <p style="margin-top: 14px; font-weight: bold;">C. Régimen de Soporte Técnico Ocasional / Bajo Demanda (Sin Póliza Mensual):</p>
-    En caso de que <strong>LA EMPRESA</strong> decida no acogerse al Canon Mensual de Servicio Integral o este sea rescindido, el software continuará operando de manera autónoma bajo exclusiva custodia de LA EMPRESA. Cualquier requerimiento futuro de asistencia técnica, diagnóstico, restauración de respaldos, configuración o resolución de incidencias será provisto bajo la modalidad <strong>Bajo Demanda (Ad-Hoc)</strong>, sujeto a las siguientes condiciones:
-    <ul class="contract-list">
+    <table class="legal-table">
+      <thead>
+        <tr>
+          <th>Servicio Google Cloud (GCP)</th>
+          <th>Función en el Sistema</th>
+          <th>Métrica de Consumo Mensual</th>
+          <th style="text-align: right;">Costo Nube GCP</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Google Cloud Run</strong><br><span style="font-size: 10px; color: #64748b;">Serverless Container Instance</span></td>
+          <td>Ejecución de la PWA, API REST y Motor PDF (1 vCPU, 1 GB RAM, autoescalado).</td>
+          <td>~100,000 requests/mes y 0 cold-start garantizado.</td>
+          <td style="text-align: right; font-family: monospace;">$15.00 USD</td>
+        </tr>
+        <tr>
+          <td><strong>Cloud SQL for PostgreSQL</strong><br><span style="font-size: 10px; color: #64748b;">Managed Database Instance</span></td>
+          <td>Almacenamiento transaccional de 48 zonas, bitácora forense y usuarios con backups diarios automáticos.</td>
+          <td>Instancia db-f1-micro / e2-micro (20 GB SSD Multi-Zona).</td>
+          <td style="text-align: right; font-family: monospace;">$18.50 USD</td>
+        </tr>
+        <tr>
+          <td><strong>Google Cloud Storage (GCS)</strong><br><span style="font-size: 10px; color: #64748b;">Multi-Regional Standard Bucket</span></td>
+          <td>Repositorio de evidencias fotográficas WebP de alta seguridad con redundancia geográfica.</td>
+          <td>Hasta 15,000 fotos WebP (~3.5 GB) + 40,000 ops Class A/B.</td>
+          <td style="text-align: right; font-family: monospace;">$2.50 USD</td>
+        </tr>
+        <tr>
+          <td><strong>Cloud Armor, DNS y SSL</strong><br><span style="font-size: 10px; color: #64748b;">Perimeter Network & Security</span></td>
+          <td>Dominio personalizado, resolución ultra-rápida y certificados TLS 1.3 gestionados con renovación automática.</td>
+          <td>Zona Cloud DNS + Tráfico de salida (&lt; 20 GB).</td>
+          <td style="text-align: right; font-family: monospace;">$2.50 USD</td>
+        </tr>
+        <tr>
+          <td><strong>Cloud Logging & Monitoring</strong><br><span style="font-size: 10px; color: #64748b;">SRE Telemetry & Auditing</span></td>
+          <td>Registro de accesos de seguridad, bitácora de auditoría y alertas proactivas de disponibilidad NOC.</td>
+          <td>Retención 30 días (&lt; 50 GB log allowance).</td>
+          <td style="text-align: right; font-family: monospace;">$1.50 USD</td>
+        </tr>
+        <tr style="background: #f8fafc; font-weight: bold;">
+          <td colspan="3">SUBTOTAL CONSUMO DIRECTO EN GOOGLE CLOUD:</td>
+          <td style="text-align: right; font-family: monospace; color: var(--text-dark);">$40.00 USD</td>
+        </tr>
+        <tr style="background: #f1f5f9;">
+          <td colspan="3">
+            <strong>Servicio Gestionado DevOps, Mantenimiento y Soporte Nivel 2:</strong><br>
+            <span style="font-size: 10.5px; color: #64748b;">
+              Administración del servidor, aplicación de parches de seguridad, rotación de claves criptográficas, auditoría de respaldos off-site y soporte técnico especializado.
+            </span>
+          </td>
+          <td style="text-align: right; font-family: monospace; font-weight: bold; color: var(--accent);">$80.00 USD</td>
+        </tr>
+        <tr class="total-row" style="background: #e0f2fe; border-top: 2px solid var(--accent);">
+          <td colspan="3" style="font-size: 13px; color: var(--accent-dark);">CANON TOTAL MENSUAL FACTURADO A LA EMPRESA:</td>
+          <td style="text-align: right; font-family: monospace; font-size: 14px; color: var(--accent-dark);">$120.00 USD / mes</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-clause">
+      <strong>CLÁUSULA DE SALVAGUARDA DE COSTOS CLOUD:</strong> La tarifa mensual de $120.00 USD ampara holgadamente las operaciones de hasta diez (10) técnicos concurrentes, 15,000 fotografías activas y 20 GB de transferencia mensual. En el supuesto de que <strong>LA EMPRESA</strong> incremente masivamente su flota de cuadrillas o exceda dichos umbrales, el costo excedente de infraestructura en Google Cloud será facturado de manera transparente al costo neto estipulado en la factura oficial de GCP más un quince por ciento (15%) por concepto de cargos de gestión.
+    </div>
+
+    <p style="margin-top: 14px; font-weight: bold; color: var(--text-dark);">
+      C. Régimen de Soporte Técnico Ocasional / Bajo Demanda (Sin Póliza Mensual):
+    </p>
+    En caso de que <strong>LA EMPRESA</strong> decida no acogerse al Canon Mensual de Servicio Integral o este sea rescindido, el software continuará operando de manera autónoma bajo exclusiva custodia de LA EMPRESA. Cualquier requerimiento futuro de asistencia técnica, diagnóstico, restauración de respaldos o resolución de incidencias será provisto bajo la modalidad <strong>Bajo Demanda (Ad-Hoc)</strong>, sujeto a las siguientes condiciones:
+    <ul style="margin: 8px 0 8px 24px;">
       <li><strong>Tarifa Horaria Estándar:</strong> <strong>CUARENTA DÓLARES AMERICANOS ($40.00 USD) por hora hombre</strong> para intervenciones en días laborables y horario diurno (Lunes a Viernes, 8:00 AM a 5:00 PM).</li>
       <li><strong>Tarifa de Emergencia / Horario Inhábil:</strong> <strong>CINCUENTA DÓLARES AMERICANOS ($50.00 USD) por hora hombre</strong> para requerimientos en horario nocturno, fines de semana o días feriados.</li>
-      <li><strong>Cargo Mínimo Facturable:</strong> Toda solicitud de intervención técnica bajo demanda devengará un cargo mínimo de <strong>dos (2) horas de servicio</strong> ($80.00 USD en horario hábil / $100.00 USD en horario inhábil).</li>
-      <li><strong>Tiempo de Respuesta (SLA Ocasional):</strong> Al no existir una suscripción mensual activa con disponibilidad reservada, la atención técnica estará sujeta a la agenda del PROVEEDOR, estimándose una respuesta en un lapso de <strong>24 a 48 horas laborables</strong>.</li>
+      <li><strong>Cargo Mínimo Facturable:</strong> Toda solicitud devengará un cargo mínimo de <strong>dos (2) horas de servicio</strong> ($80.00 USD en horario hábil / $100.00 USD en horario inhábil).</li>
+      <li><strong>Tiempo de Respuesta (SLA Ocasional):</strong> Al no existir disponibilidad reservada, la respuesta técnica se estima en un lapso de <strong>24 a 48 horas laborables</strong>.</li>
       <li><strong>Condición de Pago:</strong> Las solicitudes bajo demanda deberán ser canceladas de contado antes o inmediatamente después de ejecutada la intervención.</li>
     </ul>
   </div>
@@ -324,27 +933,27 @@
   <div class="clause">
     <span class="clause-title">CLÁUSULA SEXTA: CRONOGRAMA DE EJECUCIÓN Y ENTREGABLES.</span>
     El plazo total para la puesta en marcha definitiva es de <strong>tres (3) a cuatro (4) semanas</strong> contadas a partir de la recepción del anticipo inicial, estructurándose en tres fases:
-    <ul class="contract-list">
-      <li><strong>Fase I (Semana 1):</strong> Despliegue de la infraestructura de base de datos, configuración de catálogos y parametrización de las 48 zonas.</li>
-      <li><strong>Fase II (Semana 2):</strong> Puesta a punto de la PWA móvil offline, verificación de compresión fotográfica y pruebas de sincronización.</li>
-      <li><strong>Fase III (Semana 3-4):</strong> Activación en servidor de producción con certificado SSL HTTPS, dos (2) sesiones de capacitación formal al personal y firma de recepción.</li>
+    <ul style="margin: 8px 0 8px 24px;">
+      <li><strong>Fase I (Semana 1):</strong> Despliegue de infraestructura en Google Cloud, configuración de base de datos relacional y parametrización de catálogos y 48 zonas.</li>
+      <li><strong>Fase II (Semana 2):</strong> Puesta a punto de la PWA móvil offline, verificación de compresión fotográfica WebP y pruebas de sincronización en campo.</li>
+      <li><strong>Fase III (Semana 3-4):</strong> Activación en producción con dominio institucional y certificado SSL, dos (2) sesiones de capacitación formal al personal y firma del acta de recepción.</li>
     </ul>
   </div>
 
   <!-- CLAUSULA SEPTIMA -->
   <div class="clause">
     <span class="clause-title">CLÁUSULA SÉPTIMA: GARANTÍA TÉCNICA Y ACUERDO DE SERVICIO (SLA).</span>
-    <strong>EL PROVEEDOR</strong> concede una <strong>Garantía de Estabilidad de treinta (30) días continuos</strong> a partir de la firma del acta de entrega en producción. Durante este lapso, cualquier desperfecto, error de programación (bug) o incompatibilidad demostrada con el alcance pactado será subsanado sin costo adicional. Para fallas de criticidad alta (sistema inoperativo), el tiempo máximo de respuesta técnica garantizado será menor a cuatro (4) horas laborables.
+    <strong>EL PROVEEDOR</strong> concede una <strong>Garantía de Estabilidad de treinta (30) días continuos</strong> a partir de la firma del acta de entrega en producción. Durante este lapso, cualquier desperfecto o error de programación (bug) con respecto al alcance pactado será corregido sin costo adicional. Para fallas de criticidad alta (sistema inoperativo), el tiempo máximo de respuesta técnica garantizado será menor a cuatro (4) horas laborables.
   </div>
 
   <!-- CLAUSULA OCTAVA -->
   <div class="clause">
-    <span class="clause-title">CLÁUSULA OCTAVA: EXONERACIÓN TOTAL POR MANIPULACIÓN, ALTERACIÓN O INTERVENCIÓN NO AUTORIZADA.</span>
-    Queda expresamente convenido que si <strong>LA EMPRESA</strong>, sus empleados, dependientes o cualquier tercero no autorizado accede al servidor, manipula o altera los archivos de código fuente, ejecuta sentencias o modificaciones manuales en la base de datos PostgreSQL, altera las configuraciones del contenedor Docker o vulnera los componentes de la plataforma:
-    <ul class="contract-list">
-      <li><strong>a)</strong> Cesará de forma inmediata, automática e irrevocable toda garantía técnica y soporte ofrecido por <strong>EL PROVEEDOR</strong>.</li>
-      <li><strong>b)</strong> <strong>EL PROVEEDOR quedará 100% exonerado de cualquier responsabilidad</strong> por errores de cálculo, inconsistencias en reportes, caída del servicio, corrupción de bases de datos o pérdida parcial o total de información y fotografías.</li>
-      <li><strong>c)</strong> Cualquier asistencia técnica requerida para auditar, reparar o restablecer el sistema tras una alteración no autorizada no estará cubierta por el presente contrato y se facturará bajo tarifa técnica extraordinaria de emergencia a razón de <strong>CINCUENTA DÓLARES AMERICANOS ($50.00 USD) por hora hombre</strong>, previa aprobación de fondos por parte de <strong>LA EMPRESA</strong>.</li>
+    <span class="clause-title">CLÁUSULA OCTAVA: EXONERACIÓN TOTAL POR MANIPULACIÓN O INTERVENCIÓN NO AUTORIZADA.</span>
+    Queda expresamente convenido que si <strong>LA EMPRESA</strong>, sus empleados o terceros no autorizados acceden al servidor, manipulan archivos de código fuente, ejecutan sentencias manuales en la base de datos PostgreSQL, alteran configuraciones del contenedor Docker o vulneran componentes de la plataforma:
+    <ul style="margin: 8px 0 8px 24px;">
+      <li><strong>a)</strong> Cesará de forma automática e irrevocable toda garantía técnica y soporte ofrecido por <strong>EL PROVEEDOR</strong>.</li>
+      <li><strong>b)</strong> <strong>EL PROVEEDOR quedará 100% exonerado de cualquier responsabilidad</strong> por errores de cálculo, inconsistencias en reportes, caída del servicio o pérdida de información y fotografías.</li>
+      <li><strong>c)</strong> Cualquier asistencia técnica para auditar o restaurar el sistema tras una alteración no autorizada se facturará bajo tarifa de emergencia a razón de <strong>CINCUENTA DÓLARES AMERICANOS ($50.00 USD) por hora hombre</strong>.</li>
     </ul>
   </div>
 
@@ -352,19 +961,19 @@
   <div class="clause">
     <span class="clause-title">CLÁUSULA NOVENA: DESLINDE DE RESPONSABILIDAD OPERATIVA, LUCRO CESANTE Y LÍMITE MÁXIMO INDEMNIZATORIO (LIABILITY CAP).</span>
     El software SISBIRCECA se suministra como una herramienta informática de asistencia técnica y gestión de campo:
-    <ul class="contract-list">
-      <li><strong>1. Inexistencia de Responsabilidad por Sanciones Externas:</strong> <strong>EL PROVEEDOR</strong> no asume responsabilidad alguna por multas, penalizaciones contractuales, retrasos de pago, cancelaciones de contratos o reclamos que terceros, operadoras de telecomunicaciones (Digitel, Movistar, Cantv, Movilnet, entre otras) o entes regulatorios gubernamentales impongan a <strong>LA EMPRESA</strong> con motivo de sus trabajos de campo o la presentación de sus reportes.</li>
-      <li><strong>2. Exclusión de Lucro Cesante:</strong> En ningún caso <strong>EL PROVEEDOR</strong> responderá por lucro cesante, pérdidas comerciales, daño emergente, pérdida de ingresos o daños indirectos derivados del uso o de la imposibilidad de uso del software.</li>
-      <li><strong>3. Límite Máximo Indemnizatorio:</strong> En el supuesto no consentido de que un tribunal o autoridad competente determine alguna responsabilidad imputable a <strong>EL PROVEEDOR</strong>, la responsabilidad patrimonial máxima acumulada frente a <strong>LA EMPRESA</strong> estará expresamente limitada al monto total efectivamente percibido por <strong>EL PROVEEDOR</strong> por concepto de la Tarifa de Setup inicial ($1,650.00 USD), renunciando <strong>LA EMPRESA</strong> a reclamar cualquier indemnización superior.</li>
+    <ul style="margin: 8px 0 8px 24px;">
+      <li><strong>1. Inexistencia de Responsabilidad por Sanciones Externas:</strong> <strong>EL PROVEEDOR</strong> no asume responsabilidad alguna por multas, penalizaciones contractuales, retrasos de pago o reclamos que terceros, operadoras de telefonía (Digitel, Movistar, Cantv, Movilnet) o entes regulatorios impongan a <strong>LA EMPRESA</strong> con motivo de sus trabajos de campo o reportes.</li>
+      <li><strong>2. Exclusión de Lucro Cesante:</strong> En ningún caso <strong>EL PROVEEDOR</strong> responderá por lucro cesante, pérdidas comerciales, daño emergente o pérdidas de ingresos derivadas del uso o imposibilidad de uso del software.</li>
+      <li><strong>3. Límite Máximo Indemnizatorio:</strong> En el supuesto no consentido de que un tribunal determine alguna responsabilidad imputable a <strong>EL PROVEEDOR</strong>, la responsabilidad patrimonial máxima acumulada frente a <strong>LA EMPRESA</strong> estará expresamente limitada al monto total efectivamente percibido por la Tarifa de Setup inicial ($1,650.00 USD), renunciando <strong>LA EMPRESA</strong> a reclamar cualquier monto superior.</li>
     </ul>
   </div>
 
   <!-- CLAUSULA DECIMA -->
   <div class="clause">
     <span class="clause-title">CLÁUSULA DÉCIMA: ENTREGA DEFINITIVA, RECEPCIÓN "TAL CUAL" (AS-IS) Y CESE DE OBLIGACIONES.</span>
-    Una vez cumplido el plazo de garantía técnica de treinta (30) días y suscrita el Acta de Entrega y Recepción Final en producción:
+    Una vez cumplido el plazo de garantía de treinta (30) días y suscrita el Acta de Recepción Final en producción:
     <div class="highlight-clause">
-      <strong>ENTREGA DEFINITIVA Y CESE DE VINCULACIÓN:</strong> El software se considerará formalmente aceptado a entera y total satisfacción de <strong>LA EMPRESA</strong> en su estado "TAL CUAL" (<em>AS-IS</em>). A partir de dicho hito, <strong>EL PROVEEDOR se considerará completamente desvinculado de la operación técnica, comercial y laboral de LA EMPRESA</strong>, no existiendo obligación de permanencia, asesoría, soporte ni desarrollos adicionales, salvo que las partes suscriban una adenda contractual independiente. En caso de que LA EMPRESA no contrate el servicio de hosting y soporte mensual, la custodia integral de la infraestructura, respaldos de datos y mantenimiento del servidor recaerá bajo la exclusiva y única responsabilidad de <strong>LA EMPRESA</strong>.
+      <strong>ENTREGA DEFINITIVA:</strong> El software se considerará formalmente aceptado a entera satisfacción de <strong>LA EMPRESA</strong> en su estado "TAL CUAL" (<em>AS-IS</em>). A partir de dicho momento, <strong>EL PROVEEDOR se considerará completamente desvinculado de la operación técnica, comercial y laboral de LA EMPRESA</strong>, no existiendo obligación de permanencia, asesoría, soporte ni desarrollos adicionales, salvo suscripción de adendas independientes. Si LA EMPRESA no contrata el servicio de hosting y soporte mensual, la custodia de la infraestructura, respaldos y mantenimiento recaerá bajo la exclusiva responsabilidad de <strong>LA EMPRESA</strong>.
     </div>
   </div>
 
@@ -382,13 +991,7 @@
 
   <!-- CLAUSULA DECIMO TERCERA -->
   <div class="clause">
-    <span class="clause-title">CLÁUSULA DÉCIMO TERCERA: SUSPENSIÓN POR MORA Y RESCISIÓN.</span>
-    En caso de acogerse al servicio mensual de hosting y soporte, la falta de pago del canon mensual por un lapso superior a quince (15) días continuos facultará al PROVEEDOR a suspender temporalmente el acceso a la plataforma hasta tanto se subsane la morosidad, sin que ello genere responsabilidad por lucro cesante.
-  </div>
-
-  <!-- CLAUSULA DECIMO CUARTA -->
-  <div class="clause">
-    <span class="clause-title">CLÁUSULA DÉCIMO CUARTA: CONFORMIDAD Y FIRMAS.</span>
+    <span class="clause-title">CLÁUSULA DÉCIMO TERCERA: CONFORMIDAD Y FIRMAS.</span>
     En prueba de plena conformidad con todas y cada una de las cláusulas del presente contrato, las partes lo suscriben en dos (2) ejemplares de idéntico tenor y efecto, a los ____ días del mes de Octubre del año 2026.
   </div>
 
