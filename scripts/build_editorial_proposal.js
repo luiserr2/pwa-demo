@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+const fs = require('fs');
+const path = require('path');
+
+const htmlContent = `<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -1584,3 +1587,8 @@
 
 </body>
 </html>
+`;
+
+const outputPath = path.join(__dirname, '../docs/PROPUESTA_COMERCIAL_SISBIR.html');
+fs.writeFileSync(outputPath, htmlContent, 'utf8');
+console.log('Successfully updated docs/PROPUESTA_COMERCIAL_SISBIR.html with 100% restored content and new editorial styles!');
