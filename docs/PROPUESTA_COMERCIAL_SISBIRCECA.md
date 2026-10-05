@@ -54,7 +54,6 @@ La plataforma se compone de cuatro (4) módulos diseñados para la función exac
 * **3. Directorio de Cuadrillas y Seguridad RBAC:** Administración de usuarios y segregación estricta de roles (Técnico, Seguimiento, Administrador). Seguridad Zero-Trust con tokens de sesión criptográficos HMAC-SHA256.
 * **4. Generador de Actas Técnicas PDF A4 Homologadas:** Compilación a 1 clic de expedientes técnicos en formato A4 listos para cobrar, con membrete corporativo, resumen de 48 zonas, galería en alta resolución y código QR de validación.
 * **5. Bitácora Forense y Auditoría Criptográfica SHA-256:** Libro mayor inmutable *append-only* (FIPS 180-4) con hashes encadenados. Verificación matemática de integridad al 100% y descarga en CSV/JSON para peritajes judiciales o auditorías externas.
-* **6. Configuración Global del Sistema y Políticas NOC:** Calibración de tolerancias de geocerca en metros por región geográfica, políticas de retención documental, reglas de validación técnica y notificaciones automáticas del sistema.
 
 ---
 
@@ -76,7 +75,7 @@ Para asegurar una transición sin fricción con los formatos existentes de su em
 | **1. Adaptación de Planilla de 48 Zonas** | Personalización de los nombres técnicos, categorías o preguntas específicas según el estándar de su operadora cliente. |
 | **2. Identidad y Maquetación del Acta PDF** | Incorporación de logotipo corporativo, datos fiscales, tipografías y orden de firmas exigido por su cliente. |
 | **3. Carga Inicial de Catálogos de Sitios** | Importación y normalización de la lista de radiobases oficiales con sus coordenadas satelitales oficiales. |
-| **4. Calibración de Geocercas Satelitales** | Ajuste fino del radio de tolerancia en metros por región geográfica para evitar falsos positivos de bloqueo. |
+| **4. Ajuste de Parámetros y Validaciones** | Calibración de campos obligatorios, umbrales técnicos y reglas de validación de la empresa. |
 
 ---
 
@@ -106,7 +105,7 @@ A continuación se transparenta la estructura real de costos de la infraestructu
 | Concepto | Detalle de Entregables | Condición / Forma de Pago | Inversión (USD) |
 | :--- | :--- | :--- | :---: |
 | **1. Setup e Implementación Base** | Despliegue de los 4 Módulos (Campo, Seguimiento, Administración y Gestor de Plantillas), configuración de catálogos y capacitación de personal. | 3 pagos fraccionados de **$550.00 USD**:<br>&bull; 33.3% Firma / Kick-off<br>&bull; 33.3% Demostración Staging<br>&bull; 33.4% Pase a Producción | **$1,650.00 USD**<br>*(Pago Único)* |
-| **2. Bolsa de Adecuaciones Libres** | **20 horas hombre de ingeniería** para personalizar planillas de 48 zonas, diseño del PDF con logo y tolerancias GPS. | **100% Bonificado** dentro del Setup inicial. | **INCLUIDO**<br>*(Valor: $800 USD)* |
+| **2. Bolsa de Adecuaciones Libres** | **20 horas hombre de ingeniería** para personalizar planillas de 48 zonas, diseño del PDF con logo y reglas de validación técnica. | **100% Bonificado** dentro del Setup inicial. | **INCLUIDO**<br>*(Valor: $800 USD)* |
 | **3. Canon Mensual de Servicio y Nube** | Servidores Google Cloud, 15,000 fotos, licencias para 10 usuarios y soporte técnico Nivel 2. | Mes vencido a partir de la entrega final.<br>*(Primeros 30 días con garantía técnica gratuita).* | **$120.00 USD / mes**<br>*(Tarifa Plana)* |
 | **4. Soporte Ad-Hoc (Si no hay canon)** | Intervenciones técnicas bajo demanda en caso de rescindir el servicio mensual gestionado. | Bajo demanda con cargo mínimo de 2 horas (SLA de 24 a 48 horas laborables). | **$40.00 / h (Estándar)**<br>**$50.00 / h (Emergencia)** |
 | **5. Tiempo de Ejecución Total** | Despliegue, parametrización, pruebas en campo y 2 sesiones formales de capacitación al personal. | Cronograma cerrado de **3 a 4 semanas** desde el anticipo inicial. | **Garantizado** |
