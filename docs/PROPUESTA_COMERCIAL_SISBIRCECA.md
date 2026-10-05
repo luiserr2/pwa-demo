@@ -13,7 +13,7 @@
 Las empresas contratistas de mantenimiento e infraestructura en telecomunicaciones sufren con frecuencia pérdidas financieras entre un **15% y un 25% de su facturación bruta** debido a:
 * **Glosa y rechazo de actas:** Fotografías borrosas, desactualizadas o sin trazabilidad geográfica exigida por las operadoras (Digitel, Movistar, Cantv).
 * **Retrasos de pago:** Semanas perdidas compilando fotos de WhatsApp en archivos de Word y hojas de cálculo de Excel.
-* **Falta de blindaje legal:** Ausencia de evidencia inmutable cuando la operadora desconoce un servicio ejecutado en torre.
+* **Falta de respaldo técnico:** Ausencia de evidencia fehaciente cuando la operadora objeta un servicio ejecutado en torre.
 
 **SISBIRCECA** soluciona esta fricción estandarizando todo el flujo operativo en una plataforma integrada de tres perfiles de usuario.
 
