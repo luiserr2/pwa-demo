@@ -30,8 +30,7 @@ La plataforma se organiza en tres (3) módulos diseñados para la función exact
 * **2. Sincronización Automática Bidireccional:** Detección de conectividad (3G/4G/Wi-Fi) con reintentos exponenciales y cola visual de sincronización en segundo plano para asegurar que ningún reporte quede atrapado en el teléfono.
 * **3. Matriz Técnica Homologada de 48 Zonas:** Formulario secuencial guiado para los 5 subsistemas normativos (Torre, Shelter, Energía DC, Microondas y Puesta a Tierra). Evaluación (`NORMAL`, `ALARMA`, `FALLA`) con notas de campo obligatorias.
 * **4. Motor Fotográfico Adaptativo por Tipo de Misión:** Soporta flujo de **Evidencia Única** para obras nuevas, swaps o auditorías, y flujo dual **Antes / Después** para mantenimientos correctivos. Compresión automática WebP (< 250 KB por foto).
-* **5. Estampado Canvas y Sello Satelital:** Incrustación indeleble en los píxeles de cada foto: Coordenadas GPS en tiempo real, marca temporal atómica UTC, código oficial de la radiobase y nombre del técnico responsable.
-* **6. Modo Sol:** Interfaz de alto contraste y botones táctiles sobredimensionados (≥ 48px) para operar bajo luz solar intensa y con guantes de seguridad.
+* **5. Modo Sol:** Interfaz de alto contraste y botones táctiles sobredimensionados (≥ 48px) para operar bajo luz solar intensa y con guantes de seguridad.
 
 ---
 
