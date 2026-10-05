@@ -69,155 +69,162 @@
       overflow: hidden;
     }
 
-    /* PORTADA ESPECÍFICA */
-    .sheet.cover-sheet {
-      padding: 24mm 24mm 18mm 24mm;
-      justify-content: space-between;
+    /* PORTADA MINIMALISTA & PRO ESTILO CORPORATIVO VECTORIAL (MEDIA REFERENCE FIDELITY) */
+    .sheet.cover-wave-sheet {
+      padding: 0 !important;
+      background: #0f172a;
+      position: relative;
+      overflow: hidden;
+      display: block;
     }
 
-    .cover-top {
+    .cover-bg-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .cover-content-layer {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
       display: flex;
+      flex-direction: column;
       justify-content: space-between;
-      align-items: center;
-      border-bottom: 2px solid var(--text-main);
-      padding-bottom: 12px;
-      margin-bottom: 34px;
+      box-sizing: border-box;
     }
 
-    .cover-badge {
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--blue);
+    .cover-upper-zone {
+      padding-top: 24mm;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 6px;
+      text-align: center;
     }
 
-    .cover-badge::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      background: var(--blue);
-      border-radius: 50%;
-      display: inline-block;
-    }
-
-    .cover-ref {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--text-muted);
-    }
-
-    .cover-brand-mark {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
+    .cover-symbol-box {
       margin-bottom: 22px;
     }
 
-    .cover-logo-icon {
-      background: var(--text-main);
-      color: #ffffff;
-      font-family: 'Plus Jakarta Sans', sans-serif;
+    .cover-year {
+      font-size: 19px;
       font-weight: 800;
-      font-size: 20px;
-      width: 44px;
-      height: 44px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.3);
+      color: #0f172a;
+      letter-spacing: 3px;
+      margin-bottom: 8px;
     }
 
-    .cover-brand-name {
+    .cover-hero-title {
       font-size: 38px;
-      font-weight: 800;
-      letter-spacing: -1.5px;
-      color: var(--text-main);
-      line-height: 1;
-    }
-
-    .cover-doc-title {
-      font-size: 26px;
-      font-weight: 800;
-      color: var(--text-main);
-      line-height: 1.2;
-      margin-bottom: 12px;
+      font-weight: 900;
+      line-height: 1.08;
       letter-spacing: -0.5px;
-    }
-
-    .cover-tagline {
-      font-size: 14px;
-      color: var(--text-muted);
-      line-height: 1.6;
-      max-width: 620px;
-    }
-
-    .cover-divider {
-      width: 72px;
-      height: 4px;
-      background: var(--blue);
-      margin: 24px 0 28px 0;
-      border-radius: 2px;
-    }
-
-    .cover-dossier-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 24px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      overflow: hidden;
-      background: var(--surface-subtle);
-    }
-
-    .cover-dossier-table td {
-      padding: 10.5px 16px;
-      font-size: 12px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .cover-dossier-table tr:last-child td {
-      border-bottom: none;
-    }
-
-    .cover-dossier-label {
-      width: 32%;
-      color: var(--text-light);
-      font-weight: 600;
       text-transform: uppercase;
-      font-size: 10.5px;
-      letter-spacing: 0.5px;
+      color: #0f172a;
+      margin-bottom: 14px;
     }
 
-    .cover-dossier-value {
-      width: 68%;
-      color: var(--text-main);
+    .cover-hero-title .accent-red {
+      color: #e11d48;
+    }
+
+    .cover-hero-subtitle {
+      font-size: 14px;
+      font-weight: 800;
+      color: #64748b;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .cover-hero-desc {
+      font-size: 12px;
+      color: #94a3b8;
+      font-weight: 600;
+      max-width: 480px;
+      line-height: 1.45;
+    }
+
+    .cover-lower-zone {
+      padding: 0 24mm 16mm 24mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .cover-quote-container {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .cover-quote-symbol {
+      font-size: 46px;
+      font-family: Georgia, serif;
+      color: #e11d48;
+      line-height: 1;
+      margin-bottom: 2px;
+      display: block;
+    }
+
+    .cover-quote-text-main {
+      font-size: 19px;
+      font-weight: 700;
+      color: #f8fafc;
+      letter-spacing: -0.2px;
+    }
+
+    .cover-quote-text-sub {
+      font-size: 17px;
+      font-weight: 700;
+      color: #e11d48;
+      margin-top: 3px;
+    }
+
+    .cover-info-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 16px 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 28px;
+      margin-bottom: 20px;
+    }
+
+    .cover-info-row {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cover-info-lbl {
+      font-size: 9.5px;
+      color: #94a3b8;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .cover-info-val {
+      font-size: 12px;
+      color: #ffffff;
       font-weight: 700;
     }
 
-    .cover-notice {
-      padding: 12px 16px;
-      border-left: 3px solid var(--text-main);
-      background: #f1f5f9;
-      font-size: 11px;
-      color: var(--text-muted);
-      line-height: 1.5;
-      border-radius: 0 6px 6px 0;
-    }
-
-    .cover-footer {
-      border-top: 1px solid var(--border);
+    .cover-dark-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
       padding-top: 14px;
       display: flex;
       justify-content: space-between;
-      font-size: 10.5px;
-      color: var(--text-light);
+      font-size: 10px;
+      color: #64748b;
       font-weight: 600;
+      letter-spacing: 0.8px;
     }
 
     /* TOP EYEBROW COMÚN */
@@ -686,76 +693,111 @@
 <div class="container">
 
   <!-- ========================================== -->
-  <!-- PÁGINA 1: PORTADA EJECUTIVA                -->
+  <!-- PÁGINA 1: PORTADA SPLIT-WAVE MINIMALISTA   -->
   <!-- ========================================== -->
-  <div class="sheet cover-sheet">
-    <div>
-      <!-- TOP PORTADA -->
-      <div class="cover-top">
-        <div class="cover-badge">Documento Privado y Confidencial</div>
-        <div class="cover-ref">PROP-VTX-2026-01</div>
-      </div>
+  <div class="sheet cover-wave-sheet">
+    <!-- Vector Art Background de Alta Precisión (Fidelidad 100% a Referencia) -->
+    <svg class="cover-bg-svg" viewBox="0 0 1000 1414" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Gradiente Cinta Roja Principal -->
+        <linearGradient id="mainRedGrad" x1="0%" y1="0%" x2="100%" y2="80%">
+          <stop offset="0%" stop-color="#fb7185" />
+          <stop offset="35%" stop-color="#e11d48" />
+          <stop offset="100%" stop-color="#be123c" />
+        </linearGradient>
 
-      <!-- HERO DE LA PORTADA -->
-      <div class="cover-hero">
-        <div class="cover-brand-mark">
-          <div class="cover-logo-icon">V</div>
-          <span class="cover-brand-name">VERTEX</span>
+        <!-- Gradiente Pliegue Oscuro / Sombra 3D en la parte derecha -->
+        <linearGradient id="darkFoldGrad" x1="20%" y1="0%" x2="90%" y2="100%">
+          <stop offset="0%" stop-color="#881337" />
+          <stop offset="45%" stop-color="#4c0519" />
+          <stop offset="100%" stop-color="#1c040a" />
+        </linearGradient>
+
+        <!-- Sombra difuminada realista hacia el fondo oscuro -->
+        <filter id="ambientShadow" x="-30%" y="-30%" width="160%" height="180%">
+          <feDropShadow dx="0" dy="24" stdDeviation="25" flood-color="#000000" flood-opacity="0.6" />
+        </filter>
+      </defs>
+
+      <!-- Base Oscura Total -->
+      <rect width="1000" height="1414" fill="#0f172a" />
+
+      <!-- 1. Fondo Blanco Superior Completo -->
+      <path d="M 0,0 L 1000,0 L 1000,650 C 750,750 550,720 380,640 C 200,550 80,450 0,380 Z" fill="#ffffff" />
+
+      <!-- 2. Capa Curva Gris Claro Dinámica (Banda aerodinámica de transición) -->
+      <path d="M 0,300 C 140,390 320,530 520,590 C 720,650 880,580 1000,450 L 1000,550 C 880,670 680,730 480,670 C 300,610 130,480 0,380 Z" fill="#e2e8f0" />
+
+      <!-- 3. Sombra Global y Cintas Escarlata 3D -->
+      <g filter="url(#ambientShadow)">
+        <!-- 3a. Pliegue 3D Oscuro Inferior (Bajo la cinta en la derecha) -->
+        <path d="M 430,680 C 600,740 800,730 1000,590 L 1000,750 C 780,850 560,800 430,680 Z" fill="url(#darkFoldGrad)" />
+
+        <!-- 3b. Cinta Roja Escarlata Principal (Swoop Dinámico Continuo) -->
+        <path d="M 0,360 C 140,440 320,600 500,660 C 700,720 880,630 1000,490 L 1000,590 C 880,715 680,775 480,720 C 300,655 130,510 0,440 Z" fill="url(#mainRedGrad)" />
+      </g>
+    </svg>
+
+    <!-- Contenido Semántico Flotante en Capa Z-Index Superior -->
+    <div class="cover-content-layer">
+      <!-- SECCIÓN SUPERIOR (ZONA BLANCA) -->
+      <div class="cover-upper-zone">
+        <!-- LOGO GEOMÉTRICO MODERNO -->
+        <div class="cover-symbol-box">
+          <svg width="52" height="52" viewBox="0 0 48 48" fill="none">
+            <path d="M18 13L7 24L18 35" stroke="#e11d48" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M30 13L41 24L30 35" stroke="#e11d48" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            <polygon points="24,17 28.5,24 24,31 19.5,24" fill="#e11d48"/>
+          </svg>
         </div>
 
-        <h1 class="cover-doc-title">Propuesta Técnico-Comercial B2B</h1>
-        <p class="cover-tagline">
-          Plataforma Integral de Supervisión Técnica de Infraestructura Celular, Matriz de 48 Zonas y Certificación Forense Criptográfica.
-        </p>
+        <div class="cover-year">2026</div>
 
-        <div class="cover-divider"></div>
+        <h1 class="cover-hero-title">
+          <span class="accent-red">PROPUESTA</span><br>
+          COMERCIAL
+        </h1>
+
+        <div class="cover-hero-subtitle">SISTEMA VERTEX</div>
+        <div class="cover-hero-desc">
+          Supervisión Técnica de Infraestructura y Certificación Forense
+        </div>
       </div>
 
-      <!-- TABLA DOSSIER DE METADATOS -->
-      <table class="cover-dossier-table">
-        <tbody>
-          <tr>
-            <td class="cover-dossier-label">Entidad Destinataria</td>
-            <td class="cover-dossier-value">Empresa Contratista de Infraestructura y Servicios</td>
-          </tr>
-          <tr>
-            <td class="cover-dossier-label">Proyecto Técnico</td>
-            <td class="cover-dossier-value">Estandarización de Reportes, Actas Homologadas y Visado Digital</td>
-          </tr>
-          <tr>
-            <td class="cover-dossier-label">Modalidad</td>
-            <td class="cover-dossier-value">Setup Llave en Mano + Licenciamiento Perpetuo (EULA)</td>
-          </tr>
-          <tr>
-            <td class="cover-dossier-label">Fecha de Emisión</td>
-            <td class="cover-dossier-value">Octubre de 2026</td>
-          </tr>
-          <tr>
-            <td class="cover-dossier-label">Validez de Oferta</td>
-            <td class="cover-dossier-value">15 Días Continuos a partir de la emisión</td>
-          </tr>
-          <tr>
-            <td class="cover-dossier-label">Régimen Fiscal</td>
-            <td class="cover-dossier-value">Precios Netos en USD (+ IVA de ley aplicable)</td>
-          </tr>
-          <tr>
-            <td class="cover-dossier-label">Estado del Dossier</td>
-            <td class="cover-dossier-value">Versión Ejecutiva para Evaluación y Aprobación</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <!-- SECCIÓN INFERIOR (ZONA OBSIDIANA) -->
+      <div class="cover-lower-zone">
+        <!-- CITA / SLOGAN INSPIRADO EN LA REFERENCIA -->
+        <div class="cover-quote-container">
+          <span class="cover-quote-symbol">&ldquo;</span>
+          <p class="cover-quote-text-main">Estandarización y control técnico</p>
+          <p class="cover-quote-text-sub">de alto rendimiento</p>
+        </div>
 
-    <div>
-      <!-- AVISO DE CONFIDENCIALIDAD -->
-      <div class="cover-notice">
-        <strong>Aviso de Confidencialidad y Propiedad:</strong> La información técnica, funcional y comercial contenida en este dossier es de carácter estrictamente confidencial. Queda prohibida su reproducción, divulgación o entrega a terceros sin autorización expresa de las partes involucradas.
-      </div>
+        <!-- METADATOS CLAVE EN CARD TRANSLÚCIDA -->
+        <div class="cover-info-card">
+          <div class="cover-info-row">
+            <span class="cover-info-lbl">Destinatario</span>
+            <span class="cover-info-val">Empresa Contratista</span>
+          </div>
+          <div class="cover-info-row">
+            <span class="cover-info-lbl">Referencia</span>
+            <span class="cover-info-val">PROP-VTX-2026-01</span>
+          </div>
+          <div class="cover-info-row">
+            <span class="cover-info-lbl">Modalidad</span>
+            <span class="cover-info-val">Setup + EULA Perpetua</span>
+          </div>
+          <div class="cover-info-row">
+            <span class="cover-info-lbl">Vigencia</span>
+            <span class="cover-info-val">15 Días Continuos</span>
+          </div>
+        </div>
 
-      <!-- FOOTER PORTADA -->
-      <div class="cover-footer">
-        <span>VERTEX &bull; Soluciones de Ingeniería de Software</span>
-        <span>Dossier Comercial &bull; 2026</span>
+        <!-- FOOTER DE LA PORTADA -->
+        <div class="cover-dark-footer">
+          <span>DOCUMENTO PRIVADO Y CONFIDENCIAL</span>
+          <span>VERTEX &bull; 2026</span>
+        </div>
       </div>
     </div>
   </div>
