@@ -454,7 +454,7 @@ export default function ConfigPage() {
                 <div className="flex items-start justify-between gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200/80">
                   <div className="space-y-0.5">
                     <span className="text-xs font-bold text-slate-900">
-                      Estampado de Telemetría Legal en Imagen (Watermark)
+                      Marca de Agua y Telemetría en Imagen (Watermark)
                     </span>
                     <p className="text-[11px] text-slate-500 max-w-xl">
                       Incrusta en los píxeles de la imagen: Código de Radiobase, Coordenadas GPS del técnico, Fecha militar UTC y Hash SHA-256 preliminar para validez ante aseguradoras y CONATEL.
