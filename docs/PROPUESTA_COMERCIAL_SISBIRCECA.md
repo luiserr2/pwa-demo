@@ -110,19 +110,18 @@ A continuación se transparenta la estructura real de costos de la infraestructu
 | **4. DevOps y Soporte L2 (OPCIONAL)** | Mantenimiento preventivo de infraestructura, parches de seguridad, optimización de base de datos y soporte técnico especializado continuo.<br>*(Junto a la nube conforma el paquete integral de $120.00 USD/mes).* | **Modalidad Opcional**. Contratación mensual flexible mes a mes. | **$80.00 USD / mes**<br>*(Opcional)* |
 | **5. Soporte Ad-Hoc (Si no hay abono mensual)** | Intervenciones técnicas puntuales bajo demanda en caso de prescindir del servicio mensual de soporte L2. | Bajo demanda con cargo mínimo de 2 horas (SLA de 24 a 48 horas laborables). | **$40.00 / h (Estándar)**<br>**$50.00 / h (Emergencia)** |
 | **6. Tiempo de Ejecución Total** | Despliegue, parametrización, pruebas en campo y 2 sesiones formales de capacitación al personal. | Cronograma cerrado de **3 a 4 semanas** desde el anticipo inicial. | **Garantizado** |
-| **7. Licencia y Términos Contractuales** | Licencia de uso comercial perpetua (sin cobro mensual por usuario), reserva de propiedad intelectual, exoneración total por modificación de código y límite de responsabilidad. | Protección jurídica mutua para ambas entidades. | **Incluido** |
+| **7. Licencia y Términos Contractuales** | Licencia de uso comercial perpetua (sin cobro mensual por usuario), exoneración total por modificación de código y límite de responsabilidad. | Protección jurídica mutua para ambas entidades. | **Incluido** |
 
 ---
 
-## 6. RÉGIMEN LEGAL Y RESERVA DE DERECHOS
+## 6. RÉGIMEN LEGAL Y CONDICIONES DE LICENCIA
 
 1. **Licencia de Uso Comercial Perpetua (Sin cobro recurrente por usuario):** EL PROVEEDOR concede a LA EMPRESA una licencia de uso comercial, no exclusiva e intransferible para operar la plataforma en sus labores ordinarias de telecomunicaciones. Dicha licencia queda 100% amortizada y concedida mediante el pago único de Setup inicial, sin cobros mensuales por cantidad de técnicos, cuadrillas o usuarios registrados.
-2. **Reserva Absoluta de Propiedad Intelectual:** La totalidad del código fuente, arquitectura, diseño de interfaces, bases de datos y algoritmos son y continuarán siendo de la **propiedad única y exclusiva del PROVEEDOR**. El presente acuerdo no constituye venta de software ni cesión de derechos de autor patrimoniales ni entrega de código fuente modificable.
-3. **Exoneración Total por Alteración o Modificación del Código / Sistema:** Queda terminantemente prohibida la modificación, alteración, descompilación, inyección de scripts o manipulación directa del código fuente, bases de datos o infraestructura del sistema por parte de personal de LA EMPRESA o terceros ajenos al PROVEEDOR. En caso de detectarse cualquier alteración no autorizada:
+2. **Exoneración Total por Alteración o Modificación del Código / Sistema:** Queda terminantemente prohibida la modificación, alteración, descompilación, inyección de scripts o manipulación directa del código fuente, bases de datos o infraestructura del sistema por parte de personal de LA EMPRESA o terceros ajenos al PROVEEDOR. En caso de detectarse cualquier alteración no autorizada:
    * Cesará de pleno derecho y de forma inmediata cualquier garantía técnica, acuerdo de nivel de servicio (SLA) y soporte técnico.
    * EL PROVEEDOR queda **completamente exonerado de toda responsabilidad** por pérdida de información, corrupción de datos, fallas operativas, no disponibilidad del servicio, inconsistencias ante clientes o daños y perjuicios directos o indirectos.
    * Cualquier labor técnica orientada a diagnosticar, restaurar o reparar los daños derivados de la alteración externa será cotizada como servicio extraordinario a la tarifa de soporte aplicable ($50.00 USD/h) y pagadera de forma previa a la intervención.
-4. **Límite Máximo de Responsabilidad (Liability Cap):** La responsabilidad patrimonial máxima acumulada del PROVEEDOR ante cualquier reclamo o eventualidad estará expresamente limitada al monto efectivamente percibido por concepto de la tarifa inicial de Setup ($1,650.00 USD).
+3. **Límite Máximo de Responsabilidad (Liability Cap):** La responsabilidad patrimonial máxima acumulada del PROVEEDOR ante cualquier reclamo o eventualidad estará expresamente limitada al monto efectivamente percibido por concepto de la tarifa inicial de Setup ($1,650.00 USD).
 
 ---
 
