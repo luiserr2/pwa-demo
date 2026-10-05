@@ -11,11 +11,16 @@
 ## 1. RESUMEN EJECUTIVO (EL CASO DE NEGOCIO)
 
 Las empresas contratistas de mantenimiento e infraestructura en telecomunicaciones sufren con frecuencia pérdidas financieras entre un **15% y un 25% de su facturación bruta** debido a:
-* **Glosa y rechazo de actas:** Fotografías borrosas, desactualizadas o sin trazabilidad geográfica exigida por las operadoras (Digitel, Movistar, Cantv).
-* **Retrasos de pago:** Semanas perdidas compilando fotos de WhatsApp en archivos de Word y hojas de cálculo de Excel.
-* **Falta de respaldo técnico:** Ausencia de evidencia fehaciente cuando la operadora objeta un servicio ejecutado en torre.
+* **En Campo:** Evidencias desordenadas en chats de WhatsApp, fotos borrosas y fallas por falta de señal en torre.
+* **En Coordinación:** Carga manual lenta de órdenes, descontrol de visados, retrasos en trámite de HES y falta de auditoría de cambios.
+* **En Gerencia:** Días perdidos maquetando actas en Word/Excel, falta de visibilidad en tiempo real y riesgo ante reclamos de operadoras (Digitel, Movistar, Cantv).
+* **En Operaciones:** Formatos rígidos difíciles de adaptar ante los cambios de exigencias técnicas de cada cliente.
 
-**SISBIRCECA** soluciona esta fricción estandarizando todo el flujo operativo en una plataforma integrada de tres perfiles de usuario.
+**SISBIRCECA** soluciona esta fricción estandarizando el flujo operativo de punta a punta a través de cuatro (4) módulos integrados:
+* **1. Campo (Técnicos):** Captura técnica 100% offline, modo sol de alto contraste y motor fotográfico adaptativo (foto única o Antes/Después).
+* **2. Seguimiento (Coordinación):** Carga masiva de órdenes desde plantilla Excel, control de visado/HES y registro detallado de quién editó qué.
+* **3. Administración (Gerencia):** Telemetría ejecutiva en vivo, actas PDF homologadas compiladas a 1 clic y bitácora forense SHA-256.
+* **4. Plantillas (Operaciones):** Flexibilidad para configurar formularios, requerimientos fotográficos y diseño de actas sin tocar código.
 
 ---
 
