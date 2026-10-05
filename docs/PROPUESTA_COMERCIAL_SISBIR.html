@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Propuesta Técnico-Comercial — Plataforma SISBIR</title>
+  <title>Propuesta Técnico-Comercial B2B — Plataforma VERTEX</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #0f172a;
@@ -17,6 +20,12 @@
       --amber: #d97706;
       --amber-soft: #fffbeb;
       --amber-border: #fde68a;
+      --rose: #dc2626;
+      --rose-soft: #fef2f2;
+      --rose-border: #fecaca;
+      --purple: #7c3aed;
+      --purple-soft: #faf5ff;
+      --purple-border: #e9d5ff;
       --slate-50: #f8fafc;
       --slate-100: #f1f5f9;
       --slate-200: #e2e8f0;
@@ -32,26 +41,29 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background-color: #f1f5f9;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #0b1120;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       color: var(--slate-700);
-      line-height: 1.6;
-      padding: 30px 15px;
+      line-height: 1.5;
+      padding: 30px 15px 60px 15px;
       -webkit-font-smoothing: antialiased;
     }
 
+    /* BARRA SUPERIOR DE ACCIONES */
     .toolbar-actions {
-      max-width: 1000px;
-      margin: 0 auto 20px auto;
+      max-width: 860px;
+      margin: 0 auto 24px auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: var(--slate-900);
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
       padding: 12px 24px;
       border-radius: 12px;
       color: #ffffff;
       font-size: 13px;
-      box-shadow: 0 4px 15px rgba(15, 23, 42, 0.12);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     }
 
     .toolbar-actions .badge-status {
@@ -73,31 +85,81 @@
       border: none;
       padding: 8px 18px;
       border-radius: 8px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       font-size: 12.5px;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: background 0.2s;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
     }
-    .toolbar-actions button:hover { background: #1d4ed8; }
+    .toolbar-actions button:hover { background: #1d4ed8; transform: translateY(-1px); }
 
-    .proposal-sheet {
-      max-width: 1000px;
+    /* CONTENEDOR MULTI-PÁGINA */
+    .proposal-container {
+      max-width: 860px;
       margin: 0 auto;
-      background: #ffffff;
-      padding: 60px 75px;
-      border: 1px solid var(--slate-200);
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
     }
 
-    /* HEADER */
+    /* PÁGINA A4 INDIVIDUAL (PAGE BUDGETING) */
+    .doc-page {
+      background: #ffffff;
+      width: 100%;
+      min-height: 1170px;
+      padding: 44px 48px 36px 48px;
+      margin-bottom: 30px;
+      border-radius: 12px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      box-sizing: border-box;
+    }
+
+    .page-main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* PIE DE PÁGINA EDITORIAL */
+    .page-footer {
+      border-top: 1px solid var(--slate-200);
+      padding-top: 12px;
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10.5px;
+      color: var(--slate-400);
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    .page-footer .footer-brand {
+      color: var(--slate-800);
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .page-footer .page-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      color: var(--slate-600);
+      background: var(--slate-100);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    /* ENCABEZADOS Y METADATOS (PÁGINA 1) */
     .proposal-header {
       border-bottom: 2px solid var(--slate-100);
-      padding-bottom: 30px;
-      margin-bottom: 40px;
+      padding-bottom: 24px;
+      margin-bottom: 24px;
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
@@ -105,107 +167,133 @@
     }
 
     .brand-tag {
-      display: inline-block;
-      font-size: 11px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10.5px;
       font-weight: 800;
-      letter-spacing: 1.5px;
+      letter-spacing: 1.2px;
       text-transform: uppercase;
       color: var(--accent);
       background: var(--accent-soft);
       padding: 4px 10px;
       border-radius: 6px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       border: 1px solid var(--accent-border);
     }
 
     .proposal-title {
-      font-size: 26px;
+      font-size: 32px;
       font-weight: 900;
       color: var(--slate-900);
-      line-height: 1.25;
-      letter-spacing: -0.5px;
-      margin-bottom: 8px;
+      line-height: 1.15;
+      letter-spacing: -0.8px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .proposal-title .title-accent {
+      color: var(--accent);
     }
 
     .proposal-subtitle {
-      font-size: 14.5px;
-      color: var(--slate-500);
+      font-size: 13.5px;
+      color: var(--slate-600);
       font-weight: 500;
-      max-width: 600px;
+      max-width: 480px;
+      line-height: 1.45;
     }
 
     .meta-box {
       background: var(--slate-50);
       border: 1px solid var(--slate-200);
       border-radius: 10px;
-      padding: 14px 18px;
-      font-size: 12px;
-      min-width: 240px;
+      padding: 12px 16px;
+      font-size: 11px;
+      min-width: 250px;
       line-height: 1.6;
     }
 
     .meta-box div {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
     .meta-box div:last-child { margin-bottom: 0; }
     .meta-label { color: var(--slate-500); font-weight: 500; }
     .meta-val { color: var(--slate-900); font-weight: 700; text-align: right; }
 
-    /* SECCIONES GENERALES */
-    .section-block {
-      margin-bottom: 45px;
+    /* SECCIONES Y ENCABEZADOS DE BLOQUE */
+    .section-header {
+      margin-bottom: 14px;
     }
 
     .section-title {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 900;
       color: var(--slate-900);
       text-transform: uppercase;
-      letter-spacing: 0.8px;
+      letter-spacing: 0.6px;
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 8px;
+      gap: 8px;
+      margin-bottom: 6px;
     }
 
     .section-title .section-number {
       background: var(--slate-900);
       color: #fff;
       font-size: 11px;
-      width: 24px;
-      height: 24px;
+      width: 22px;
+      height: 22px;
       border-radius: 6px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       font-weight: 800;
+      flex-shrink: 0;
     }
 
     .section-desc {
-      font-size: 13.5px;
-      color: var(--slate-500);
-      margin-bottom: 20px;
-      line-height: 1.6;
+      font-size: 12px;
+      color: var(--slate-600);
+      line-height: 1.5;
     }
 
-    /* RESUMEN EJECUTIVO (EL PROBLEMA Y LA SOLUCIÓN) */
+    /* PÁGINA 1: CASO DE NEGOCIO (DIAGNÓSTICO PSICOLÓGICO) */
+    .executive-loss-banner {
+      background: #fff1f2;
+      border: 1px solid #fecdd3;
+      border-left: 4px solid var(--rose);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      font-size: 12px;
+      color: #9f1239;
+      line-height: 1.5;
+    }
+
+    .executive-loss-banner strong {
+      color: #881337;
+    }
+
     .executive-summary-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 10px;
+      gap: 14px;
+      margin-bottom: 18px;
     }
 
     .summary-card {
-      padding: 20px;
-      border-radius: 12px;
+      padding: 16px 18px;
+      border-radius: 10px;
       border: 1px solid var(--slate-200);
     }
     .card-pain {
-      background: #fff5f5;
-      border-color: #fed7d7;
+      background: #fffafa;
+      border-color: #fed7aa;
     }
     .card-gain {
       background: #f0fdf4;
@@ -213,253 +301,301 @@
     }
 
     .summary-card-title {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       margin-bottom: 10px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
-    .card-pain .summary-card-title { color: #991b1b; }
-    .card-gain .summary-card-title { color: #166534; }
+    .card-pain .summary-card-title { color: #c2410c; }
+    .card-gain .summary-card-title { color: #15803d; }
 
     .summary-card ul {
       list-style: none;
-      font-size: 12.5px;
-      line-height: 1.6;
+      font-size: 11.5px;
+      line-height: 1.55;
     }
     .summary-card ul li {
-      margin-bottom: 6px;
+      margin-bottom: 8px;
       position: relative;
       padding-left: 18px;
+      color: var(--slate-700);
     }
+    .summary-card ul li:last-child { margin-bottom: 0; }
     .card-pain ul li::before {
       content: "✕";
       position: absolute;
       left: 0;
-      color: #dc2626;
-      font-weight: bold;
+      color: #ea580c;
+      font-weight: 800;
     }
     .card-gain ul li::before {
       content: "✓";
       position: absolute;
       left: 0;
       color: #16a34a;
-      font-weight: bold;
+      font-weight: 800;
     }
 
-    /* MÓDULOS POR ROL DE USUARIO (3 COLUMNAS) */
-    .modules-role-container {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
+    /* PÁGINA 1: VALUE METRICS STRIP */
+    .metrics-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      background: var(--slate-900);
+      border-radius: 10px;
+      padding: 16px 20px;
+      color: #ffffff;
+      margin-top: auto;
     }
 
+    .metric-item {
+      text-align: center;
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0 10px;
+    }
+    .metric-item:last-child { border-right: none; }
+
+    .metric-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 20px;
+      font-weight: 800;
+      color: #38bdf8;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+    .metric-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #e2e8f0;
+      margin-bottom: 2px;
+    }
+    .metric-desc {
+      font-size: 10px;
+      color: #94a3b8;
+      line-height: 1.35;
+    }
+
+    /* TARJETAS DE MÓDULOS (PÁGINAS 2 Y 3) */
     .role-card {
       background: #ffffff;
       border: 1px solid var(--slate-200);
-      border-radius: 14px;
+      border-radius: 10px;
       overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
-      transition: border-color 0.2s;
+      margin-bottom: 14px;
     }
-    .role-card:hover {
-      border-color: var(--slate-300);
-    }
+    .role-card:last-child { margin-bottom: 0; }
 
     .role-card-header {
       background: var(--slate-50);
-      padding: 16px 24px;
+      padding: 10px 16px;
       border-bottom: 1px solid var(--slate-200);
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 8px;
     }
 
     .role-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      padding: 4px 10px;
-      border-radius: 6px;
+      padding: 3px 8px;
+      border-radius: 5px;
     }
     .badge-tecnico { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
     .badge-supervisor { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
     .badge-admin { background: #f3e8ff; color: #6b21a8; border: 1px solid #e9d5ff; }
     .badge-plantillas { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
 
+    .role-title {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--slate-900);
+      letter-spacing: 0.3px;
+    }
+
     .role-target-user {
-      font-size: 12px;
+      font-size: 10.5px;
       color: var(--slate-500);
       font-weight: 600;
     }
 
     .role-card-body {
-      padding: 24px;
+      padding: 12px 16px;
     }
 
     .role-card-intro {
-      font-size: 13.5px;
+      font-size: 11px;
       color: var(--slate-600);
-      margin-bottom: 20px;
-      line-height: 1.55;
+      margin-bottom: 10px;
+      line-height: 1.45;
     }
 
-    .features-list {
+    .features-grid-3 {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 16px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .features-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
     }
 
     .feature-item {
       background: var(--slate-50);
       border: 1px solid var(--slate-200);
-      border-radius: 10px;
-      padding: 16px;
+      border-radius: 7px;
+      padding: 8px 10px;
     }
 
     .feature-tag {
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 800;
       text-transform: uppercase;
       color: var(--accent);
       letter-spacing: 0.5px;
       display: block;
-      margin-bottom: 6px;
+      margin-bottom: 3px;
     }
 
     .feature-title {
-      font-size: 13px;
+      font-size: 11px;
       font-weight: 800;
       color: var(--slate-900);
-      margin-bottom: 6px;
-      line-height: 1.35;
+      margin-bottom: 3px;
+      line-height: 1.3;
     }
 
     .feature-detail {
-      font-size: 11.5px;
+      font-size: 10px;
       color: var(--slate-500);
-      line-height: 1.5;
+      line-height: 1.4;
     }
 
-    /* BOLSA DE HORAS Y ADECUACIONES */
+    /* PÁGINA 3: BOLSA DE HORAS INCLUIDA */
     .included-scope-banner {
       background: #eff6ff;
       border: 1px solid var(--accent-border);
-      border-radius: 14px;
-      padding: 26px;
-      margin-bottom: 10px;
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-top: 12px;
     }
 
     .included-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
-      flex-wrap: wrap;
-      gap: 10px;
+      margin-bottom: 6px;
     }
 
     .included-title {
-      font-size: 16px;
+      font-size: 13px;
       font-weight: 900;
       color: var(--slate-900);
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
     .included-badge {
-      background: #2563eb;
+      background: var(--accent);
       color: #fff;
-      font-size: 11px;
+      font-size: 9.5px;
       font-weight: 800;
-      padding: 4px 12px;
+      padding: 2px 8px;
       border-radius: 999px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
 
     .included-desc {
-      font-size: 13px;
+      font-size: 11px;
       color: var(--slate-600);
-      line-height: 1.6;
-      margin-bottom: 18px;
+      line-height: 1.45;
+      margin-bottom: 10px;
     }
 
     .included-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
+      gap: 8px;
     }
 
     .included-box {
       background: #ffffff;
       border: 1px solid var(--accent-border);
-      border-radius: 8px;
-      padding: 12px 14px;
+      border-radius: 7px;
+      padding: 8px 10px;
     }
 
     .included-box-title {
-      font-size: 12px;
+      font-size: 10.5px;
       font-weight: 800;
       color: var(--slate-900);
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
 
     .included-box-text {
-      font-size: 11px;
+      font-size: 9.5px;
       color: var(--slate-500);
-      line-height: 1.45;
+      line-height: 1.35;
     }
 
-    /* TABLA GOOGLE CLOUD */
-    .gcp-section-card {
+    /* PÁGINAS 4 Y 5: TABLAS DE DATOS */
+    .table-container-card {
       border: 1px solid var(--slate-200);
-      border-radius: 14px;
+      border-radius: 10px;
       overflow: hidden;
       background: #ffffff;
+      margin-bottom: 12px;
     }
 
-    .gcp-header {
+    .table-card-header {
       background: var(--slate-900);
       color: #ffffff;
-      padding: 20px 24px;
+      padding: 12px 18px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    .gcp-header-title {
-      font-size: 15px;
+    .table-card-title {
+      font-size: 13px;
       font-weight: 800;
-      letter-spacing: 0.3px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
     }
 
-    .gcp-header-tag {
-      font-size: 11px;
+    .table-card-tag {
+      font-size: 10px;
       background: rgba(255, 255, 255, 0.15);
-      padding: 4px 10px;
-      border-radius: 6px;
+      padding: 3px 8px;
+      border-radius: 4px;
       font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
     }
 
     table.data-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 12px;
+      font-size: 11px;
     }
 
     table.data-table th, table.data-table td {
-      padding: 11px 16px;
+      padding: 8px 12px;
       text-align: left;
       border-bottom: 1px solid var(--slate-200);
     }
@@ -468,7 +604,7 @@
       background: var(--slate-50);
       font-weight: 800;
       color: var(--slate-700);
-      font-size: 10.5px;
+      font-size: 9.5px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
@@ -479,15 +615,15 @@
 
     .cost-col {
       text-align: right !important;
-      font-family: monospace;
-      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
       font-weight: 700;
       color: var(--slate-900);
+      white-space: nowrap;
     }
 
     .row-highlight {
       background: var(--slate-50);
-      font-weight: 700;
     }
 
     .row-total {
@@ -495,7 +631,7 @@
       border-top: 2px solid var(--accent);
     }
     .row-total td {
-      font-size: 13px;
+      font-size: 11.5px;
       font-weight: 900;
       color: #1e3a8a;
     }
@@ -503,47 +639,51 @@
     .clause-box {
       background: var(--slate-50);
       border-left: 3px solid var(--accent);
-      padding: 12px 18px;
-      font-size: 12px;
+      padding: 10px 14px;
+      font-size: 10.5px;
       color: var(--slate-600);
-      margin: 16px 20px 20px 20px;
       border-radius: 0 6px 6px 0;
-      line-height: 1.55;
+      line-height: 1.5;
+      margin-top: 10px;
     }
 
-    /* CUADRO RESUMEN FINAL */
-    .summary-table-card {
-      border: 2px solid var(--slate-900);
-      border-radius: 14px;
-      overflow: hidden;
-      margin-top: 20px;
+    /* PÁGINA 5: MARCO LEGAL Y FIRMAS */
+    .legal-conditions-box {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: 9px;
+      padding: 12px 16px;
+      font-size: 10.5px;
+      line-height: 1.5;
+      color: var(--slate-700);
+      margin-bottom: 16px;
     }
 
-    .summary-table-header {
-      background: var(--slate-900);
-      color: #ffffff;
-      padding: 18px 24px;
+    .legal-conditions-box ol {
+      margin: 0;
+      padding-left: 16px;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      flex-direction: column;
+      gap: 7px;
     }
 
-    .summary-table-title {
-      font-size: 15px;
-      font-weight: 900;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
+    .legal-conditions-box ol li strong {
+      color: var(--slate-900);
     }
 
-    /* FIRMAS FORMALES */
+    .legal-conditions-box ul {
+      margin-top: 3px;
+      padding-left: 14px;
+      list-style-type: disc;
+    }
+
     .signatures-block {
-      margin-top: 50px;
-      padding-top: 30px;
       border-top: 1px solid var(--slate-200);
+      padding-top: 14px;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      page-break-inside: avoid;
+      gap: 40px;
+      margin-top: auto;
     }
 
     .sign-box {
@@ -553,30 +693,67 @@
 
     .sign-line {
       border-bottom: 1px solid var(--slate-400);
-      height: 50px;
-      margin-bottom: 12px;
+      height: 36px;
+      margin-bottom: 8px;
     }
 
     .sign-party {
       font-weight: 800;
-      font-size: 12.5px;
+      font-size: 10.5px;
       color: var(--slate-900);
       text-transform: uppercase;
+      letter-spacing: 0.4px;
       margin-bottom: 4px;
     }
 
     .sign-details {
-      font-size: 11.5px;
+      font-size: 9.5px;
       color: var(--slate-500);
-      line-height: 1.5;
+      line-height: 1.45;
+    }
+
+    /* ESTILOS EXACTOS DE IMPRESIÓN Y PAGE BUDGETING A4 */
+    @page {
+      size: A4 portrait;
+      margin: 10mm 12mm 10mm 12mm;
     }
 
     @media print {
-      body { background: #fff; padding: 0; }
-      .toolbar-actions { display: none; }
-      .proposal-sheet { border: none; box-shadow: none; padding: 20px; max-width: 100%; }
-      .role-card, .included-scope-banner, .gcp-section-card, .summary-table-card { page-break-inside: avoid; }
-      .signatures-block { page-break-inside: avoid; }
+      body {
+        background: #ffffff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .toolbar-actions { display: none !important; }
+      .proposal-container {
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      .doc-page {
+        page-break-after: always !important;
+        break-after: page !important;
+        min-height: 275mm !important;
+        max-height: 275mm !important;
+        height: 275mm !important;
+        box-shadow: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow: hidden !important;
+        justify-content: space-between !important;
+      }
+      .doc-page:last-child {
+        page-break-after: auto !important;
+        break-after: auto !important;
+      }
+      .page-footer {
+        padding-top: 8px !important;
+        margin-top: 10px !important;
+      }
     }
   </style>
 </head>
@@ -584,7 +761,7 @@
 
 <div class="toolbar-actions">
   <div>
-    <strong>PROPUESTA TÉCNICO-COMERCIAL B2B:</strong> Plataforma SISBIR Telecom
+    <strong>PROPUESTA TÉCNICO-COMERCIAL B2B:</strong> Plataforma VERTEX Telecom
   </div>
   <div style="display: flex; gap: 12px; align-items: center;">
     <span class="badge-status">● VERSIÓN EJECUTIVA 2026</span>
@@ -595,140 +772,166 @@
   </div>
 </div>
 
-<div class="proposal-sheet">
+<div class="proposal-container">
 
-  <!-- HEADER -->
-  <header class="proposal-header">
-    <div>
-      <span class="brand-tag">PROPUESTA DE LICENCIAMIENTO & SERVICIOS</span>
-      <h1 class="proposal-title">SISTEMA SISBIR</h1>
-      <p class="proposal-subtitle">
-        Plataforma Integral de Supervisión, Matriz Técnica de 48 Zonas y Certificación Forense para Cuadrillas de Telecomunicaciones.
-      </p>
+  <!-- ========================================== -->
+  <!-- HOJA 1: RESUMEN EJECUTIVO & PROPUESTA VALOR -->
+  <!-- ========================================== -->
+  <div class="doc-page">
+    <div class="page-main-content">
+      <!-- HEADER -->
+      <header class="proposal-header">
+        <div>
+          <span class="brand-tag">PROPUESTA DE LICENCIAMIENTO &amp; SERVICIOS B2B</span>
+          <h1 class="proposal-title">SISTEMA <span class="title-accent">VERTEX</span></h1>
+          <p class="proposal-subtitle">
+            Plataforma Integral de Supervisión, Matriz Técnica de 48 Zonas y Certificación Forense para Cuadrillas de Telecomunicaciones.
+          </p>
+        </div>
+
+        <div class="meta-box">
+          <div>
+            <span class="meta-label">Referencia:</span>
+            <span class="meta-val">PROP-VTX-2026-01</span>
+          </div>
+          <div>
+            <span class="meta-label">Fecha de Emisión:</span>
+            <span class="meta-val">Octubre 2026</span>
+          </div>
+          <div>
+            <span class="meta-label">Validez de Oferta:</span>
+            <span class="meta-val">15 Días Continuos</span>
+          </div>
+          <div>
+            <span class="meta-label">Modalidad:</span>
+            <span class="meta-val">Setup Único + EULA B2B</span>
+          </div>
+          <div>
+            <span class="meta-label">Régimen Fiscal:</span>
+            <span class="meta-val">Precios Netos (+ IVA)</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- SECCION 1: DIAGNÓSTICO PSICOLÓGICO Y PROPUESTA DE VALOR -->
+      <div class="section-header">
+        <div class="section-title">
+          <span class="section-number">1</span>
+          Resumen Ejecutivo: Diagnóstico y Retorno de Inversión
+        </div>
+      </div>
+
+      <div class="executive-loss-banner">
+        ⚠️ <strong>Impacto Financiero Oculto:</strong> Las empresas contratistas de telecomunicaciones pierden en promedio entre un <strong>15% y un 25% de su margen operativo</strong> debido a glosas, retrasos en la facturación y rechazos de actas de mantenimiento por parte de las operadoras clientes. La plataforma <strong>VERTEX</strong> estandariza el flujo integral de punta a punta, eliminando rechazos técnicos y acelerando la liquidación de HES.
+      </div>
+
+      <div class="executive-summary-grid">
+        <div class="summary-card card-pain">
+          <div class="summary-card-title">Situación Actual (Sin Plataforma)</div>
+          <ul>
+            <li><strong>En Campo:</strong> Evidencias desordenadas en chats de WhatsApp, fotos borrosas, descontrol en torre y pérdida de datos por falta de señal.</li>
+            <li><strong>En Coordinación:</strong> Carga manual lenta de órdenes, descontrol de visados, retrasos en trámite de HES y falta de auditoría de cambios.</li>
+            <li><strong>En Gerencia:</strong> Días perdidos maquetando actas en Word/Excel, falta de visibilidad en tiempo real y riesgo ante reclamos o glosas.</li>
+            <li><strong>En Operaciones:</strong> Formatos rígidos difíciles de adaptar ante los continuos cambios de exigencias de cada operadora cliente.</li>
+          </ul>
+        </div>
+
+        <div class="summary-card card-gain">
+          <div class="summary-card-title">Impacto con VERTEX</div>
+          <ul>
+            <li><strong>Campo (Técnicos):</strong> Captura técnica 100% offline, modo sol de alto contraste y motor fotográfico adaptativo (foto única o Antes/Después).</li>
+            <li><strong>Seguimiento (Coordinación):</strong> Carga masiva desde Excel, pipeline visual de 8 fases con control de visado/HES y registro de quién editó qué.</li>
+            <li><strong>Administración (Gerencia):</strong> Telemetría ejecutiva en vivo, actas PDF homologadas compiladas a 1 clic y bitácora forense SHA-256.</li>
+            <li><strong>Plantillas (Operaciones):</strong> Flexibilidad total para configurar formularios, requerimientos de fotos y diseño de actas sin tocar código.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- VALUE METRICS STRIP -->
+      <div class="metrics-strip">
+        <div class="metric-item">
+          <div class="metric-value">-85%</div>
+          <div class="metric-title">Tiempo en Actas</div>
+          <div class="metric-desc">Compilación de expedientes técnicos en segundos en lugar de días de trabajo manual.</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-value">0%</div>
+          <div class="metric-title">Pérdida de Evidencias</div>
+          <div class="metric-desc">Almacenamiento IndexedDB offline y sincronización en cola en segundo plano.</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-value">100%</div>
+          <div class="metric-title">Blindaje Criptográfico</div>
+          <div class="metric-desc">Trazabilidad inalterable SHA-256 (FIPS 180-4) para defender cobros ante el cliente.</div>
+        </div>
+      </div>
     </div>
 
-    <div class="meta-box">
-      <div>
-        <span class="meta-label">Referencia:</span>
-        <span class="meta-val">PROP-SISB-2026-01</span>
-      </div>
-      <div>
-        <span class="meta-label">Fecha de Emisión:</span>
-        <span class="meta-val">Octubre 2026</span>
-      </div>
-      <div>
-        <span class="meta-label">Validez de Oferta:</span>
-        <span class="meta-val">15 Días Continuos</span>
-      </div>
-      <div>
-        <span class="meta-label">Modalidad:</span>
-        <span class="meta-val">Setup + EULA B2B</span>
-      </div>
-      <div>
-        <span class="meta-label">Régimen Fiscal:</span>
-        <span class="meta-val">Precios Netos (+ IVA)</span>
-      </div>
-    </div>
-  </header>
+    <!-- FOOTER HOJA 1 -->
+    <footer class="page-footer">
+      <span class="footer-brand">VERTEX TELECOM &bull; Propuesta Técnico-Comercial B2B</span>
+      <span class="page-number">Página 1 de 5</span>
+    </footer>
+  </div>
 
-  <!-- SECCION 1: RESUMEN EJECUTIVO (EL CASO DE NEGOCIO) -->
-  <section class="section-block">
-    <div class="section-title">
-      <span class="section-number">1</span>
-      Resumen Ejecutivo: Diagnóstico y Propuesta de Valor
-    </div>
-    <p class="section-desc">
-      Las empresas contratistas de telecomunicaciones pierden en promedio entre un 15% y un 25% de su margen operativo debido a glosas, retrasos en la facturación y rechazos de actas de mantenimiento por parte de las operadoras de telecomunicaciones. La plataforma SISBIR estandariza el flujo integral de punta a punta.
-    </p>
 
-    <div class="executive-summary-grid">
-      <div class="summary-card card-pain">
-        <div class="summary-card-title">Situación Actual (Sin Plataforma)</div>
-        <ul>
-          <li><strong>En Campo:</strong> Evidencias desordenadas en chats de WhatsApp, fotos borrosas y fallas por falta de señal en torre.</li>
-          <li><strong>En Coordinación:</strong> Carga manual lenta de órdenes, descontrol de visados, retrasos en trámite de HES y falta de auditoría de cambios.</li>
-          <li><strong>En Gerencia:</strong> Días perdidos maquetando actas en Word/Excel, falta de visibilidad en tiempo real y riesgo ante reclamos del cliente.</li>
-          <li><strong>En Operaciones:</strong> Formatos rígidos difíciles de adaptar ante los cambios de exigencias de cada operadora.</li>
-        </ul>
+  <!-- ========================================== -->
+  <!-- HOJA 2: ARQUITECTURA TÉCNICA (MODULOS 1 Y 2) -->
+  <!-- ========================================== -->
+  <div class="doc-page">
+    <div class="page-main-content">
+      <div class="section-header">
+        <div class="section-title">
+          <span class="section-number">2</span>
+          Estructura de la Solución: Módulos Operativos (Campo y Despacho)
+        </div>
+        <p class="section-desc">
+          Módulos diseñados específicamente para resolver la fricción técnica del trabajo de campo y la coordinación de cuadrillas:
+        </p>
       </div>
-
-      <div class="summary-card card-gain">
-        <div class="summary-card-title">Impacto con SISBIR</div>
-        <ul>
-          <li><strong>Campo (Técnicos):</strong> Captura técnica 100% offline, modo sol de alto contraste y motor fotográfico (foto única o Antes/Después).</li>
-          <li><strong>Seguimiento (Coordinación):</strong> Carga de órdenes desde plantilla Excel, control de visado/HES y registro detallado de quién editó qué.</li>
-          <li><strong>Administración (Gerencia):</strong> Telemetría ejecutiva en vivo, actas PDF homologadas compiladas a 1 clic y bitácora forense SHA-256.</li>
-          <li><strong>Plantillas (Operaciones):</strong> Flexibilidad para configurar formularios, requerimientos de fotos y diseño de actas sin tocar código.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECCION 2: ALCANCE POR MODULO / ROL DE USUARIO -->
-  <section class="section-block">
-    <div class="section-title">
-      <span class="section-number">2</span>
-      Estructura de la Solución por Módulos y Roles
-    </div>
-    <p class="section-desc">
-      El sistema se compone de cuatro (4) módulos especializados, diseñados para responder exactamente a la responsabilidad operativa y técnica de cada integrante de la empresa:
-    </p>
-
-    <div class="modules-role-container">
 
       <!-- MODULO 1: TECNICO DE CAMPO -->
       <div class="role-card">
         <div class="role-card-header">
-          <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
             <span class="role-badge badge-tecnico">Módulo 1</span>
-            <strong style="color: var(--slate-900); font-size: 14px;">MÓDULO DE CAMPO (TÉCNICO EN TORRE / OPERACIONES EN SITIO)</strong>
+            <span class="role-title">MÓDULO DE CAMPO (TÉCNICO EN SITIO / CUADRILLAS EN TORRE)</span>
           </div>
           <span class="role-target-user">Perfil: Técnicos de Campo, Cuadrillas de Mantenimiento e Instaladores</span>
         </div>
         <div class="role-card-body">
           <p class="role-card-intro">
-            Aplicación PWA móvil optimizada para terminales táctiles, diseñada para operar en condiciones severas de campo con visibilidad bajo luz solar directa, cero dependencia de cobertura celular y consumo mínimo de batería.
+            Aplicación móvil PWA táctil de alto rendimiento, diseñada para operar en condiciones severas de campo con visibilidad bajo luz solar directa, cero dependencia de cobertura celular y consumo mínimo de batería.
           </p>
 
-          <div class="features-list">
+          <div class="features-grid-3">
             <div class="feature-item">
               <span class="feature-tag">Capacidad 01</span>
               <div class="feature-title">PWA Offline-First (Sin Conexión)</div>
-              <p class="feature-detail">
-                Base de datos local indexada <code>IndexedDB / Dexie.js</code>. Levantamientos íntegros sin internet en zonas rurales o shelters metálicos apantallados. Cero riesgo de pantallas en blanco.
-              </p>
+              <p class="feature-detail">Base local indexada <code>IndexedDB / Dexie.js</code>. Levantamientos íntegros sin internet en zonas rurales o shelters apantallados.</p>
             </div>
-
             <div class="feature-item">
               <span class="feature-tag">Capacidad 02</span>
-              <div class="feature-title">Sincronización Automática Bidireccional</div>
-              <p class="feature-detail">
-                Detección inteligente de red (3G/4G/Wi-Fi) con reintentos exponenciales y cola de sincronización visual en segundo plano para asegurar que ningún informe se quede retenido en el teléfono.
-              </p>
+              <div class="feature-title">Sincronización Bidireccional</div>
+              <p class="feature-detail">Detección de red (3G/4G/Wi-Fi) con reintentos exponenciales y cola visual en segundo plano para garantizar transmisión.</p>
             </div>
-
             <div class="feature-item">
               <span class="feature-tag">Capacidad 03</span>
-              <div class="feature-title">Matriz Técnica de 48 Zonas (5 Subsistemas)</div>
-              <p class="feature-detail">
-                Formulario secuencial guiado para Torre, Shelter, Energía DC/Baterías, Radiofrecuencia y Sistema de Tierra. Evaluación (<code>NORMAL</code>, <code>ALARMA</code>, <code>FALLA</code>) con notas obligatorias.
-              </p>
+              <div class="feature-title">Matriz Técnica de 48 Zonas</div>
+              <p class="feature-detail">Formulario secuencial guiado para Torre, Shelter, Energía DC, RF y Tierra con evaluación (<code>NORMAL</code>, <code>ALARMA</code>, <code>FALLA</code>).</p>
             </div>
+          </div>
 
+          <div class="features-grid-2" style="margin-top: 8px;">
             <div class="feature-item">
               <span class="feature-tag">Capacidad 04</span>
               <div class="feature-title">Motor Fotográfico Adaptativo por Misión</div>
-              <p class="feature-detail">
-                Soporta flujo de <strong>Evidencia Única</strong> para instalaciones nuevas, swaps o auditorías, y flujo dual <strong>Antes / Después</strong> para mantenimientos correctivos. Compresión WebP (&lt; 250 KB).
-              </p>
+              <p class="feature-detail">Flujo de <strong>Evidencia Única</strong> para instalaciones o swaps, y flujo dual <strong>Antes / Después</strong> para mantenimientos. Compresión WebP (&lt; 250 KB).</p>
             </div>
-
             <div class="feature-item">
               <span class="feature-tag">Capacidad 05</span>
-              <div class="feature-title">Modo Sol</div>
-              <p class="feature-detail">
-                Modo Sol de alto contraste y botones táctiles sobredimensionados (&ge; 48px) para operar bajo luz solar intensa y con guantes de seguridad.
-              </p>
+              <div class="feature-title">Modo Sol de Alto Contraste</div>
+              <p class="feature-detail">Interfaz de alto contraste con botones sobredimensionados (&ge; 48px) para operar bajo luz solar intensa y con guantes de seguridad.</p>
             </div>
           </div>
         </div>
@@ -737,122 +940,118 @@
       <!-- MODULO 2: SEGUIMIENTO Y COORDINACION -->
       <div class="role-card">
         <div class="role-card-header">
-          <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
             <span class="role-badge badge-supervisor">Módulo 2</span>
-            <strong style="color: var(--slate-900); font-size: 14px;">MÓDULO DE SEGUIMIENTO (COORDINACIÓN, VISADO Y HES)</strong>
+            <span class="role-title">MÓDULO DE SEGUIMIENTO (COORDINACIÓN, VISADO Y HES)</span>
           </div>
-          <span class="role-target-user">Perfil: Persona de Seguimiento / Coordinador de Operaciones y Facturación Técnica</span>
+          <span class="role-target-user">Perfil: Persona de Seguimiento, Coordinadores de Operaciones y Facturación Técnica</span>
         </div>
         <div class="role-card-body">
           <p class="role-card-intro">
-            Consola central de operaciones: permite cargar las órdenes de salida desde plantillas Excel, hacer seguimiento al avance de las cuadrillas en campo, supervisar el control de calidad técnico, dar seguimiento a la radicación y visado ante el cliente, y registrar la HES para facturación.
+            Consola central de despacho y control: asignación ágil de órdenes, supervisión del avance de cuadrillas en campo, auditoría técnica QA, radicación ante el cliente y gestión de HES para habilitar facturación.
           </p>
 
-          <div class="features-list">
+          <div class="features-grid-3">
             <div class="feature-item">
               <span class="feature-tag">Capacidad 01</span>
               <div class="feature-title">Carga de Órdenes desde Excel</div>
-              <p class="feature-detail">
-                Importación rápida de órdenes de salida o trabajo mediante una plantilla estándar en Excel (código de radiobase, tipo de servicio, fecha y cuadrilla asignada), evitando la carga manual individual.
-              </p>
+              <p class="feature-detail">Importación ágil de órdenes de salida mediante plantilla estándar en Excel (sitio, servicio, fecha y cuadrilla), evitando la carga individual.</p>
             </div>
-
             <div class="feature-item">
               <span class="feature-tag">Capacidad 02</span>
-              <div class="feature-title">Pipeline de Seguimiento Operativo</div>
-              <p class="feature-detail">
-                Tablero visual para monitorear el estatus de cada orden a lo largo de su ciclo: <code>SIN_EMPEZAR</code> &rarr; <code>EN_VISITA</code> &rarr; <code>ELABORANDO_INFORME</code> &rarr; <code>REVISION_INTERNA</code> &rarr; <code>ENVIADO_AL_CLIENTE</code> &rarr; <code>VISADO</code> &rarr; <code>HES_SOLICITADA</code> &rarr; <code>FACTURADO</code>.
-              </p>
+              <div class="feature-title">Pipeline Operativo de 8 Fases</div>
+              <p class="feature-detail">Monitoreo visual del ciclo: <code>SIN_EMPEZAR</code> &rarr; <code>EN_VISITA</code> &rarr; <code>ELABORANDO</code> &rarr; <code>REVISION_QA</code> &rarr; <code>VISADO</code> &rarr; <code>HES_SOLICITADA</code>.</p>
             </div>
-
             <div class="feature-item">
               <span class="feature-tag">Capacidad 03</span>
               <div class="feature-title">Revisión y Control de Calidad (QA)</div>
-              <p class="feature-detail">
-                Bandeja de auditoría interna para revisar las 48 zonas y la calidad de las fotos cargadas por el técnico, con potestad de aprobar el informe o solicitar subsanaciones inmediatas a la cuadrilla.
-              </p>
+              <p class="feature-detail">Bandeja de auditoría previa para validar las 48 zonas y calidad de fotos, con potestad de aprobar o solicitar subsanaciones inmediatas.</p>
             </div>
-
             <div class="feature-item">
               <span class="feature-tag">Capacidad 04</span>
-              <div class="feature-title">Seguimiento de Entrega y Radicación</div>
-              <p class="feature-detail">
-                Registro del estado de entrega del informe al cliente (<code>ENVIADO_AL_CLIENTE</code>), documentando canal de entrega, número de ticket y tiempos de respuesta del inspector de la operadora.
-              </p>
+              <div class="feature-title">Seguimiento de Entrega / Radicación</div>
+              <p class="feature-detail">Registro de entrega al cliente (<code>ENVIADO_AL_CLIENTE</code>), documentando canal, número de ticket y tiempos de respuesta del inspector.</p>
             </div>
-
             <div class="feature-item">
               <span class="feature-tag">Capacidad 05</span>
-              <div class="feature-title">Visado del Cliente y Gestión de HES</div>
-              <p class="feature-detail">
-                Registro del visto bueno del cliente (<code>VISADO</code>), bloqueo del informe para impedir modificaciones y registro de la Hoja de Entrada de Servicios (<code>HES_SOLICITADA</code> en SAP) para habilitar el cobro.
-              </p>
+              <div class="feature-title">Visado del Cliente y Gestión HES</div>
+              <p class="feature-detail">Registro de conformidad (<code>VISADO</code>), congelamiento de informe y registro de HES (SAP) requerida para la cobranza formal.</p>
             </div>
-
             <div class="feature-item">
               <span class="feature-tag">Capacidad 06</span>
               <div class="feature-title">Historial de Modificaciones y Auditoría</div>
-              <p class="feature-detail">
-                Bitácora organizada que registra quién editó el documento, fecha y hora, y el cambio puntual realizado (dato anterior vs. nuevo), garantizando total control antes de la entrega final.
-              </p>
+              <p class="feature-detail">Bitácora exhaustiva que registra usuario, fecha, hora y cambio exacto realizado (dato previo vs nuevo) antes de la entrega final.</p>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- FOOTER HOJA 2 -->
+    <footer class="page-footer">
+      <span class="footer-brand">VERTEX TELECOM &bull; Propuesta Técnico-Comercial B2B</span>
+      <span class="page-number">Página 2 de 5</span>
+    </footer>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- HOJA 3: GERENCIA, PLANTILLAS & BOLSA HORAS -->
+  <!-- ========================================== -->
+  <div class="doc-page">
+    <div class="page-main-content">
+      <div class="section-header">
+        <div class="section-title">
+          <span class="section-number">3</span>
+          Módulos Gerenciales y Personalización del Sistema
+        </div>
+        <p class="section-desc">
+          Herramientas de control ejecutivo para la dirección y flexibilidad de parametrización sin depender de desarrollo:
+        </p>
       </div>
 
       <!-- MODULO 3: ADMINISTRATIVO Y GERENCIAL -->
       <div class="role-card">
         <div class="role-card-header">
-          <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
             <span class="role-badge badge-admin">Módulo 3</span>
-            <strong style="color: var(--slate-900); font-size: 14px;">MÓDULO ADMINISTRATIVO (GERENCIA, AUDITORÍA Y COMPLIANCE)</strong>
+            <span class="role-title">MÓDULO ADMINISTRATIVO (GERENCIA, AUDITORÍA Y COMPLIANCE)</span>
           </div>
           <span class="role-target-user">Perfil: Directores Generales, Gerentes de Operaciones y Auditores Corporativos</span>
         </div>
         <div class="role-card-body">
           <p class="role-card-intro">
-            Centro de control ejecutivo para la toma de decisiones estratégicas, supervisión del parque de infraestructura, control de accesos, certificación legal y liquidación comercial de servicios.
+            Centro de comando ejecutivo para la toma de decisiones estratégicas, supervisión del parque de infraestructura, segregación de accesos, certificación legal y liquidación comercial.
           </p>
 
-          <div class="features-list">
+          <div class="features-grid-3">
             <div class="feature-item">
               <span class="feature-tag">Capacidad 01</span>
-              <div class="feature-title">Dashboard Ejecutivo & Telemetría</div>
-              <p class="feature-detail">
-                Métricas en tiempo real: volumen mensual de radiobases atendidas, tasa de rechazo interno vs. cliente, sitios con mayor recurrencia de alarmas críticas y cumplimiento de metas contractuales.
-              </p>
+              <div class="feature-title">Dashboard &amp; Telemetría</div>
+              <p class="feature-detail">Métricas en tiempo real: volumen mensual de radiobases atendidas, tasa de rechazo interno vs cliente y cumplimiento de metas.</p>
             </div>
-
             <div class="feature-item">
               <span class="feature-tag">Capacidad 02</span>
-              <div class="feature-title">Gestión de Infraestructura de Radiobases</div>
-              <p class="feature-detail">
-                Catálogo maestro de estaciones celulares con código único, región geográfica, coordenadas oficiales, tipo de estructura y tecnología instalada (4G/LTE, 5G, Microondas).
-              </p>
+              <div class="feature-title">Catálogo de Radiobases</div>
+              <p class="feature-detail">Inventario maestro con código único, región, coordenadas oficiales, tipo de estructura y tecnología (4G/LTE, 5G, Microondas).</p>
             </div>
-
             <div class="feature-item">
               <span class="feature-tag">Capacidad 03</span>
-              <div class="feature-title">Directorio de Cuadrillas y RBAC</div>
-              <p class="feature-detail">
-                Administración de usuarios y segregación estricta de roles (Técnico, Seguimiento, Administrador). Seguridad Zero-Trust con tokens criptográficos de sesión HMAC-SHA256.
-              </p>
+              <div class="feature-title">Directorio Cuadrillas &amp; RBAC</div>
+              <p class="feature-detail">Control de roles (Técnico, Seguimiento, Administrador) bajo arquitectura Zero-Trust con tokens de sesión HMAC-SHA256.</p>
             </div>
+          </div>
 
+          <div class="features-grid-2" style="margin-top: 8px;">
             <div class="feature-item">
               <span class="feature-tag">Capacidad 04</span>
               <div class="feature-title">Generador de Actas Técnicas PDF A4</div>
-              <p class="feature-detail">
-                Compilación a 1 clic de expedientes técnicos homologados listos para cobrar, con membrete corporativo, resumen de 48 zonas, galería en alta resolución y código QR de validación.
-              </p>
+              <p class="feature-detail">Compilación a 1 clic de expedientes técnicos homologados con membrete corporativo, resumen de 48 zonas, galería HD y código QR.</p>
             </div>
-
             <div class="feature-item">
               <span class="feature-tag">Capacidad 05</span>
               <div class="feature-title">Bitácora Forense SHA-256 (FIPS 180-4)</div>
-              <p class="feature-detail">
-                Libro mayor inmutable <em>append-only</em> con hashes encadenados. Verificación matemática de integridad al 100% y descarga en CSV/JSON para peritajes judiciales o auditorías externas.
-              </p>
+              <p class="feature-detail">Libro mayor inmutable append-only con hashes encadenados. Verificación matemática de integridad al 100% para blindaje legal.</p>
             </div>
           </div>
         </div>
@@ -861,371 +1060,332 @@
       <!-- MODULO 4: GESTOR DE PLANTILLAS -->
       <div class="role-card">
         <div class="role-card-header">
-          <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
             <span class="role-badge badge-plantillas">Módulo 4</span>
-            <strong style="color: var(--slate-900); font-size: 14px;">MÓDULO DE PLANTILLAS (FORMULARIOS Y REPORTES PDF)</strong>
+            <span class="role-title">MÓDULO DE PLANTILLAS (FORMULARIOS Y REPORTES DINÁMICOS)</span>
           </div>
-          <span class="role-target-user">Perfil: Administradores y Coordinadores de Operaciones</span>
+          <span class="role-target-user">Perfil: Administradores de Sistema y Coordinadores de Operaciones</span>
         </div>
         <div class="role-card-body">
           <p class="role-card-intro">
-            Permite organizar y ajustar las plantillas de los formularios que completan los técnicos en campo, así como el formato del reporte PDF que se genera automáticamente con esa información.
+            Gestión visual de plantillas operativas para adaptar formularios y reportes PDF a las especificaciones cambiantes de cada operadora cliente:
           </p>
 
-          <div class="features-list">
+          <div class="features-grid-3">
             <div class="feature-item">
               <span class="feature-tag">Capacidad 01</span>
               <div class="feature-title">Plantillas de Formularios</div>
-              <p class="feature-detail">
-                Configuración de los campos, preguntas y datos básicos que debe completar el técnico en su teléfono según el tipo de servicio o trabajo a realizar.
-              </p>
+              <p class="feature-detail">Configuración de campos, preguntas técnicas y datos requeridos según el tipo de servicio o protocolo del cliente.</p>
             </div>
-
             <div class="feature-item">
               <span class="feature-tag">Capacidad 02</span>
-              <div class="feature-title">Plantilla del Informe PDF</div>
-              <p class="feature-detail">
-                Generación del reporte en PDF a partir de los datos cargados en el formulario, incluyendo logos de la empresa y la información organizada en tablas legibles.
-              </p>
+              <div class="feature-title">Plantillas de Informes PDF</div>
+              <p class="feature-detail">Generación de reportes PDF estructurados con logo institucional, membretes y tablas automáticas organizadas.</p>
             </div>
-
             <div class="feature-item">
               <span class="feature-tag">Capacidad 03</span>
               <div class="feature-title">Requerimiento de Fotos</div>
-              <p class="feature-detail">
-                Definición de las evidencias fotográficas necesarias para el reporte (foto individual para instalaciones o fotos de antes y después para mantenimientos).
-              </p>
+              <p class="feature-detail">Definición de evidencias fotográficas obligatorias (evidencia individual para instalación o par Antes/Después para correctivos).</p>
             </div>
           </div>
         </div>
       </div>
 
-    </div>
-  </section>
-
-  <!-- SECCION 3: BOLSA DE HORAS Y ADECUACIONES INCLUIDAS -->
-  <section class="section-block">
-    <div class="section-title">
-      <span class="section-number">3</span>
-      Adecuaciones Personalizadas y Bolsa de Horas Libres
-    </div>
-    <p class="section-desc">
-      Entendemos que cada contratista posee requerimientos particulares exigidos por su operadora cliente. Por ello, la tarifa de implementación inicial no es una "caja cerrada", sino que incluye una bolsa de ingeniería dedicada:
-    </p>
-
-    <div class="included-scope-banner">
-      <div class="included-header">
-        <div class="included-title">
-          Bolsa de 20 Horas de Adecuación Técnica Incluidas
+      <!-- BOLSA DE 20 HORAS DE ADECUACIONES -->
+      <div class="included-scope-banner">
+        <div class="included-header">
+          <div class="included-title">
+            ⭐ Bolsa de 20 Horas de Adecuación Técnica Incluidas
+          </div>
+          <span class="included-badge">100% Bonificado en Setup</span>
         </div>
-      </div>
-      <p class="included-desc">
-        Dentro del precio de Setup cerrado de <strong>$1,650.00 USD</strong>, se asignan hasta <strong>veinte (20) horas hombre de ingeniería</strong> sin costo adicional para ajustar la plataforma a las directrices exactas de su operación:
-      </p>
+        <p class="included-desc">
+          La tarifa de implementación inicial de <strong>$1,650.00 USD</strong> incluye <strong>veinte (20) horas hombre de ingeniería</strong> sin costo adicional para ajustar la plataforma a las directrices de su operación:
+        </p>
 
-      <div class="included-grid">
-        <div class="included-box">
-          <div class="included-box-title">1. Adaptación de Planilla</div>
-          <p class="included-box-text">Ajuste de nomenclaturas o items de las 48 zonas al estándar de su operadora cliente.</p>
-        </div>
-
-        <div class="included-box">
-          <div class="included-box-title">2. Identidad en Actas PDF</div>
-          <p class="included-box-text">Inclusión de logotipo, datos fiscales, tipografías y maquetación personalizada de actas.</p>
-        </div>
-
-        <div class="included-box">
-          <div class="included-box-title">3. Carga de Catálogos</div>
-          <p class="included-box-text">Importación inicial del catálogo oficial de radiobases y coordenadas del cliente.</p>
-        </div>
-
-        <div class="included-box">
-          <div class="included-box-title">4. Ajuste de Parámetros</div>
-          <p class="included-box-text">Calibración de campos obligatorios, umbrales técnicos y reglas de validación de la empresa.</p>
+        <div class="included-grid">
+          <div class="included-box">
+            <div class="included-box-title">1. Adaptación de Planilla</div>
+            <p class="included-box-text">Ajuste de nomenclaturas o ítems de las 48 zonas al estándar de su operadora cliente.</p>
+          </div>
+          <div class="included-box">
+            <div class="included-box-title">2. Identidad en Actas PDF</div>
+            <p class="included-box-text">Inclusión de logo, datos fiscales, tipografías y maquetación personalizada de actas.</p>
+          </div>
+          <div class="included-box">
+            <div class="included-box-title">3. Carga de Catálogos</div>
+            <p class="included-box-text">Importación inicial del inventario oficial de radiobases y coordenadas del cliente.</p>
+          </div>
+          <div class="included-box">
+            <div class="included-box-title">4. Ajuste de Parámetros</div>
+            <p class="included-box-text">Calibración de campos obligatorios, umbrales técnicos y reglas de validación interna.</p>
+          </div>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- SECCION 4: COSTOS EN LA NUBE (GOOGLE CLOUD PLATFORM) -->
-  <section class="section-block">
-    <div class="section-title">
-      <span class="section-number">4</span>
-      Infraestructura Cloud de Nivel Empresarial (Google Cloud Platform)
-    </div>
-    <p class="section-desc">
-      Para evitar servidores vulnerables o caídas de servicio, la plataforma se hospeda en la nube de <strong>Google Cloud Platform (GCP)</strong> en centros de datos Tier-3 de Estados Unidos, garantizando un 99.9% de disponibilidad y soberanía de los datos:
-    </p>
+    <!-- FOOTER HOJA 3 -->
+    <footer class="page-footer">
+      <span class="footer-brand">VERTEX TELECOM &bull; Propuesta Técnico-Comercial B2B</span>
+      <span class="page-number">Página 3 de 5</span>
+    </footer>
+  </div>
 
-    <div class="gcp-section-card">
-      <div class="gcp-header">
-        <div class="gcp-header-title">Desglose de Costos de Infraestructura y Mantenimiento</div>
-        <span class="gcp-header-tag">Centros de Datos GCP EE.UU. (Iowa / Carolina)</span>
+
+  <!-- ========================================== -->
+  <!-- HOJA 4: INFRAESTRUCTURA CLOUD & COSTOS GCP -->
+  <!-- ========================================== -->
+  <div class="doc-page">
+    <div class="page-main-content">
+      <div class="section-header">
+        <div class="section-title">
+          <span class="section-number">4</span>
+          Infraestructura Cloud de Nivel Empresarial (Google Cloud Platform)
+        </div>
+        <p class="section-desc">
+          Para garantizar 99.9% de disponibilidad, soberanía documental y velocidad de respuesta sin caídas de servidor, la plataforma se hospeda en centros de datos Google Cloud Platform (Tier-3 en EE.UU.):
+        </p>
       </div>
 
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Servicio Cloud (GCP)</th>
-            <th>Función Operativa</th>
-            <th>Consumo Mensual Estimado</th>
-            <th class="cost-col">Costo Nube GCP</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Google Cloud Run</strong></td>
-            <td>Instancia serverless para la PWA, API REST y motor de PDFs (1 vCPU, 1 GB RAM).</td>
-            <td>~100,000 peticiones / mes (0 cold-start garantizado).</td>
-            <td class="cost-col">$15.00 USD</td>
-          </tr>
-          <tr>
-            <td><strong>Cloud SQL for PostgreSQL</strong></td>
-            <td>Base de datos transaccional PostgreSQL multi-zona con almacenamiento SSD de alta velocidad.</td>
-            <td>Instancia db-f1-micro / e2-micro (20 GB SSD).</td>
-            <td class="cost-col">$18.50 USD</td>
-          </tr>
-          <tr>
-            <td><strong>Google Cloud Storage (GCS)</strong></td>
-            <td>Repositorio redundante multi-regional para fotos WebP de alta seguridad.</td>
-            <td>Hasta 15,000 fotografías activas (~3.5 GB).</td>
-            <td class="cost-col">$2.50 USD</td>
-          </tr>
-          <tr>
-            <td><strong>Cloud Armor, DNS y SSL</strong></td>
-            <td>Resolución DNS ultra-rápida, protección DDoS y certificados TLS 1.3 gestionados.</td>
-            <td>Zona DNS + Tráfico saliente seguro (&lt; 20 GB).</td>
-            <td class="cost-col">$2.50 USD</td>
-          </tr>
-          <tr>
-            <td><strong>Cloud Logging & Monitoring</strong></td>
-            <td>Telemetría SRE, detección de incidencias y alertas automáticas al NOC.</td>
-            <td>Retención a 30 días de eventos de auditoría.</td>
-            <td class="cost-col">$1.50 USD</td>
-          </tr>
-          <tr class="row-highlight">
-            <td colspan="3">
-              <strong>SUBTOTAL CONSUMO BASE DE NUBE GOOGLE CLOUD:</strong><br>
-              <span style="font-size: 11px; color: var(--slate-500); font-weight: normal;">
-                Costo directo de infraestructura (ampara hasta 10 técnicos, 15,000 fotos y 20 GB de tráfico). <em>El gasto en la nube aumentará si hay más tráfico, almacenamiento o técnicos del estimado base.</em>
-              </span>
-            </td>
-            <td class="cost-col">$40.00 USD / mes<br><span style="font-size: 10px; color: var(--slate-400); font-weight: normal;">(Sujeto a consumo)</span></td>
-          </tr>
-          <tr>
-            <td colspan="3">
-              <strong>Servicio Gestionado DevOps, Mantenimiento Preventivo y Soporte Nivel 2:</strong>
-              <span style="display: inline-block; background: #e0f2fe; color: #0369a1; font-size: 10.5px; font-weight: 800; padding: 2px 8px; border-radius: 4px; margin-left: 6px; vertical-align: middle;">OPCIONAL</span><br>
-              <span style="font-size: 11px; color: var(--slate-500);">
-                Administración proactiva de infraestructura, aplicación de parches de seguridad, optimización de consultas en base de datos y soporte técnico especializado continuo.
-              </span>
-            </td>
-            <td class="cost-col" style="color: var(--accent);">$80.00 USD / mes<br><span style="font-size: 10px; color: var(--slate-400); font-weight: normal;">(Opcional)</span></td>
-          </tr>
-          <tr class="row-total">
-            <td colspan="3">
-              PAQUETE INTEGRAL RECOMENDADO (NUBE BASE + DEVOPS + SOPORTE L2):<br>
-              <span style="font-size: 11px; color: #2563eb; font-weight: normal;">
-                (Si la empresa no contrata el servicio opcional de DevOps/Soporte L2, la facturación mensual será únicamente el costo neto de nube de $40.00 USD base).
-              </span>
-            </td>
-            <td class="cost-col" style="color: #1e3a8a; font-size: 13.5px;">$120.00 USD / mes</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-container-card">
+        <div class="table-card-header">
+          <span class="table-card-title">Desglose de Costos de Infraestructura y Mantenimiento</span>
+          <span class="table-card-tag">Centros de Datos GCP EE.UU. (Iowa / Carolina)</span>
+        </div>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Servicio Cloud (GCP)</th>
+              <th>Función Operativa</th>
+              <th>Consumo Mensual Estimado</th>
+              <th class="cost-col">Costo Nube GCP</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Google Cloud Run</strong></td>
+              <td>Instancia serverless para PWA, API REST y motor de PDFs (1 vCPU, 1 GB RAM).</td>
+              <td>~100,000 peticiones / mes (0 cold-start garantizado).</td>
+              <td class="cost-col">$15.00 USD</td>
+            </tr>
+            <tr>
+              <td><strong>Cloud SQL for PostgreSQL</strong></td>
+              <td>Base de datos transaccional PostgreSQL multi-zona con almacenamiento SSD.</td>
+              <td>Instancia db-f1-micro / e2-micro (20 GB SSD).</td>
+              <td class="cost-col">$18.50 USD</td>
+            </tr>
+            <tr>
+              <td><strong>Google Cloud Storage (GCS)</strong></td>
+              <td>Repositorio redundante multi-regional para fotos WebP de alta seguridad.</td>
+              <td>Hasta 15,000 fotografías activas (~3.5 GB).</td>
+              <td class="cost-col">$2.50 USD</td>
+            </tr>
+            <tr>
+              <td><strong>Cloud Armor, DNS y SSL</strong></td>
+              <td>Resolución DNS ultra-rápida, mitigación DDoS y certificados TLS 1.3 gestionados.</td>
+              <td>Zona DNS + Tráfico saliente seguro (&lt; 20 GB).</td>
+              <td class="cost-col">$2.50 USD</td>
+            </tr>
+            <tr>
+              <td><strong>Cloud Logging &amp; Monitoring</strong></td>
+              <td>Telemetría SRE, detección proactiva de incidencias y alertas al NOC.</td>
+              <td>Retención a 30 días de eventos de auditoría.</td>
+              <td class="cost-col">$1.50 USD</td>
+            </tr>
+
+            <tr class="row-highlight">
+              <td colspan="3">
+                <strong>SUBTOTAL CONSUMO BASE DE NUBE GOOGLE CLOUD:</strong><br>
+                <span style="font-size: 10px; color: var(--slate-500); font-weight: normal;">
+                  Costo directo de infraestructura (ampara hasta 10 técnicos, 15,000 fotos y 20 GB de transferencia). <em>El gasto en la nube aumentará proporcionalmente si hay más tráfico, almacenamiento o técnicos del estimado base.</em>
+                </span>
+              </td>
+              <td class="cost-col" style="font-size: 11.5px; color: var(--slate-900);">
+                $40.00 USD / mes<br><span style="font-size: 9px; color: var(--slate-400); font-weight: normal;">(Sujeto a consumo)</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td colspan="3">
+                <strong>Servicio Gestionado DevOps, Mantenimiento Preventivo y Soporte Nivel 2:</strong>
+                <span style="display: inline-block; background: #e0f2fe; color: #0369a1; font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle;">OPCIONAL</span><br>
+                <span style="font-size: 10px; color: var(--slate-500);">
+                  Administración proactiva de infraestructura, aplicación de parches de seguridad, optimización de consultas SQL y soporte técnico especializado continuo.
+                </span>
+              </td>
+              <td class="cost-col" style="color: var(--accent); font-size: 11.5px;">
+                $80.00 USD / mes<br><span style="font-size: 9px; color: var(--slate-400); font-weight: normal;">(Opcional)</span>
+              </td>
+            </tr>
+
+            <tr class="row-total">
+              <td colspan="3">
+                PAQUETE INTEGRAL RECOMENDADO (NUBE BASE + DEVOPS + SOPORTE L2):<br>
+                <span style="font-size: 10px; color: #2563eb; font-weight: normal;">
+                  (Si la empresa opta por prescindir del servicio opcional de DevOps/Soporte L2, la facturación mensual será únicamente el costo neto de nube de $40.00 USD base).
+                </span>
+              </td>
+              <td class="cost-col" style="color: #1e3a8a; font-size: 13px;">
+                $120.00 USD / mes
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <div class="clause-box">
-        <strong>CLÁUSULA DE ESCALABILIDAD CLOUD Y CONDICIONES DE SERVICIO:</strong> La estimación base de $40.00 USD ampara con holgura hasta diez (10) cuadrillas concurrentes, 15,000 fotos en la nube y 20 GB de transferencia mensual. <strong>El gasto en la nube aumentará si hay más tráfico, mayor volumen de almacenamiento o más técnicos concurrentes del definido previamente</strong>, facturándose a costo neto de la factura oficial de Google Cloud (+ 15% de gastos administrativos en caso de gestión intermediada). Por su parte, el <strong>Servicio Gestionado DevOps y Soporte L2 ($80.00 USD/mes) es totalmente opcional</strong>; si la empresa opta por prescindir de él, solo pagará el consumo real de nube y podrá requerir soporte técnico puntual bajo la modalidad Ad-Hoc.
+        <strong>CLÁUSULA DE ESCALABILIDAD CLOUD Y CONDICIONES DE SERVICIO:</strong> La estimación base de $40.00 USD ampara con holgura hasta diez (10) cuadrillas concurrentes, 15,000 fotos en la nube y 20 GB de transferencia mensual. <strong>El gasto en la nube aumentará si hay más tráfico, mayor volumen de almacenamiento o más técnicos concurrentes del definido previamente</strong>, facturándose a costo neto de la factura oficial de Google Cloud (+ 15% de gastos administrativos en caso de gestión intermediada). Por su parte, el <strong>Servicio Gestionado DevOps y Soporte L2 ($80.00 USD/mes) es totalmente opcional</strong>; si la empresa opta por prescindir de él, solo pagará el consumo real de nube ($40.00 USD base) y podrá requerir soporte técnico puntual bajo la modalidad Ad-Hoc ($40/h estándar, $50/h emergencia).
       </div>
     </div>
-  </section>
 
-  <!-- SECCION 5: CUADRO RESUMEN FINAL -->
-  <section class="section-block">
-    <div class="section-title">
-      <span class="section-number">5</span>
-      Cuadro Resumen Ejecutivo de la Propuesta
-    </div>
-    <p class="section-desc">
-      A continuación se consolida la totalidad de la propuesta económica, términos de entrega y acuerdos de servicio para facilitar la decisión directiva:
-    </p>
+    <!-- FOOTER HOJA 4 -->
+    <footer class="page-footer">
+      <span class="footer-brand">VERTEX TELECOM &bull; Propuesta Técnico-Comercial B2B</span>
+      <span class="page-number">Página 4 de 5</span>
+    </footer>
+  </div>
 
-    <div class="summary-table-card">
-      <div class="summary-table-header">
-        <span class="summary-table-title">Resumen Financiero y de Compromisos Operativos</span>
-        <span style="font-size: 11.5px; opacity: 0.9; font-weight: 600;">Moneda: Dólares Americanos (USD) &bull; Precios Netos (+ IVA)</span>
+
+  <!-- ========================================== -->
+  <!-- HOJA 5: RESUMEN FINANCIERO, LEGAL Y FIRMAS -->
+  <!-- ========================================== -->
+  <div class="doc-page">
+    <div class="page-main-content">
+      <div class="section-header" style="margin-bottom: 8px;">
+        <div class="section-title" style="margin-bottom: 4px;">
+          <span class="section-number">5</span>
+          Cuadro Resumen Ejecutivo, Marco Legal y Aprobación
+        </div>
       </div>
 
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Concepto</th>
-            <th>Detalle de Entregables</th>
-            <th>Condición / Modalidad</th>
-            <th class="cost-col">Monto Neto (USD) + IVA</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>1. Setup e Implementación Base</strong></td>
-            <td>
-              Puesta en producción de los 4 Módulos (Campo, Seguimiento, Administración y Gestor de Plantillas), despliegue en Google Cloud y configuración de catálogos.
-            </td>
-            <td>
-              3 pagos fraccionados de <strong>$550.00 USD</strong>:<br>
-              &bull; 33.3% Firma / Kick-off<br>
-              &bull; 33.3% Demostración Staging<br>
-              &bull; 33.4% Pase a Producción
-            </td>
-            <td class="cost-col" style="font-size: 14px; color: var(--accent);">$1,650.00 USD<br><span style="font-size: 10px; color: var(--slate-400); font-weight: normal;">(Pago Único)</span></td>
-          </tr>
+      <!-- TABLA RESUMEN FINANCIERO COMPACTA -->
+      <div class="table-container-card" style="margin-bottom: 8px;">
+        <div class="table-card-header" style="padding: 7px 14px;">
+          <span class="table-card-title" style="font-size: 11px;">Resumen Financiero y Compromisos Operativos</span>
+          <span style="font-size: 9.5px; opacity: 0.9; font-weight: 600;">Valores Netos en USD (+ IVA)</span>
+        </div>
 
-          <tr style="background: #faf5ff;">
-            <td><strong>2. Adecuaciones y Personalización</strong></td>
-            <td>
-              <strong>Bolsa de hasta 20 horas libres</strong> para calibrar planillas, campos de 48 zonas, diseño del PDF con logo y reglas de validación técnica.
-            </td>
-            <td>
-              <strong>100% Bonificado</strong> dentro de la tarifa de Setup (No genera cobros extras).
-            </td>
-            <td class="cost-col" style="color: var(--emerald); font-size: 13px;">INCLUIDO</td>
-          </tr>
+        <table class="data-table" style="font-size: 10px;">
+          <thead>
+            <tr>
+              <th style="padding: 5px 8px; font-size: 9px;">Concepto</th>
+              <th style="padding: 5px 8px; font-size: 9px;">Detalle de Entregables</th>
+              <th style="padding: 5px 8px; font-size: 9px;">Condición / Modalidad</th>
+              <th class="cost-col" style="padding: 5px 8px; font-size: 9px;">Monto Neto (USD) + IVA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 4px 8px;"><strong>1. Setup e Implementación Base</strong></td>
+              <td style="padding: 4px 8px;">Puesta en producción de los 4 Módulos (Campo, Seguimiento, Administración y Plantillas), despliegue en GCP y carga de catálogos.</td>
+              <td style="padding: 4px 8px;">3 hitos de <strong>$550.00 USD</strong> (33.3% Firma / 33.3% Staging / 33.4% Producción).</td>
+              <td class="cost-col" style="padding: 4px 8px; color: var(--accent); font-size: 11px;">$1,650.00 USD<br><span style="font-size: 8px; color: var(--slate-400); font-weight: normal;">(Pago Único)</span></td>
+            </tr>
 
-          <tr>
-            <td><strong>3. Infraestructura Cloud Base (Google Cloud)</strong></td>
-            <td>
-              Servidores Google Cloud de alta disponibilidad, base de datos PostgreSQL, almacenamiento (hasta 15,000 fotos) y red para 10 cuadrillas.<br>
-              <span style="font-size: 11px; color: var(--slate-500);"><em>(El gasto en la nube aumentará proporcionalmente si hay más tráfico o almacenamiento del estimado base).</em></span>
-            </td>
-            <td>
-              Requerido para operación en línea. Facturación a mes vencido según consumo real GCP.<br>
-              <em>(Primeros 30 días con garantía técnica gratuita).</em>
-            </td>
-            <td class="cost-col" style="font-size: 13.5px; color: var(--slate-900);">$40.00 USD / mes<br><span style="font-size: 10px; color: var(--slate-400); font-weight: normal;">(Base sujeta a consumo)</span></td>
-          </tr>
+            <tr style="background: #faf5ff;">
+              <td style="padding: 4px 8px;"><strong>2. Adecuaciones y Personalización</strong></td>
+              <td style="padding: 4px 8px;"><strong>Bolsa de hasta 20 horas libres</strong> para calibrar planillas, 48 zonas, diseño PDF y reglas técnicas.</td>
+              <td style="padding: 4px 8px;"><strong>100% Bonificado</strong> dentro de la tarifa de Setup (Cero cobros extras).</td>
+              <td class="cost-col" style="padding: 4px 8px; color: var(--emerald); font-size: 10.5px;">INCLUIDO</td>
+            </tr>
 
-          <tr style="background: #f0fdf4;">
-            <td><strong>4. DevOps y Soporte L2</strong> <span style="display: inline-block; background: #e0f2fe; color: #0369a1; font-size: 9.5px; font-weight: 800; padding: 1px 6px; border-radius: 4px; vertical-align: middle;">OPCIONAL</span></td>
-            <td>
-              Mantenimiento preventivo de infraestructura, parches de seguridad, optimización de base de datos y soporte técnico especializado.<br>
-              <span style="font-size: 11px; color: #047857;"><em>(Contratado junto a la nube conforma el paquete integral de $120.00 USD / mes).</em></span>
-            </td>
-            <td>
-              <strong>Modalidad Opcional</strong>. Contratación mensual flexible mes a mes.
-            </td>
-            <td class="cost-col" style="font-size: 13.5px; color: var(--accent);">$80.00 USD / mes<br><span style="font-size: 10px; color: var(--slate-400); font-weight: normal;">(Opcional)</span></td>
-          </tr>
+            <tr>
+              <td style="padding: 4px 8px;"><strong>3. Infraestructura Cloud Base (GCP)</strong></td>
+              <td style="padding: 4px 8px;">Servidores Google Cloud de alta disponibilidad, PostgreSQL y fotos para 10 cuadrillas. <em>(Escalable por consumo).</em></td>
+              <td style="padding: 4px 8px;">Facturación mensual a mes vencido según consumo real GCP. <em>(Primeros 30 días con garantía técnica gratuita).</em></td>
+              <td class="cost-col" style="padding: 4px 8px; color: var(--slate-900); font-size: 10.5px;">$40.00 USD / mes<br><span style="font-size: 8px; color: var(--slate-400); font-weight: normal;">(Base consumo)</span></td>
+            </tr>
 
-          <tr style="background: var(--slate-50);">
-            <td><strong>5. Soporte Ad-Hoc (Si no hay abono mensual)</strong></td>
-            <td>
-              Intervenciones técnicas puntuales bajo demanda en caso de prescindir del servicio mensual de soporte L2.
-            </td>
-            <td>
-              Bajo demanda con cargo mínimo de 2 horas (SLA de 24-48 horas laborables).
-            </td>
-            <td class="cost-col">$40.00 / h (Estándar)<br>$50.00 / h (Emergencia)</td>
-          </tr>
+            <tr style="background: #f0fdf4;">
+              <td style="padding: 4px 8px;"><strong>4. DevOps y Soporte L2</strong> <span style="display: inline-block; background: #e0f2fe; color: #0369a1; font-size: 8px; font-weight: 800; padding: 1px 4px; border-radius: 3px;">OPCIONAL</span></td>
+              <td style="padding: 4px 8px;">Mantenimiento preventivo, parches de seguridad, optimización DB y soporte L2 continuo.</td>
+              <td style="padding: 4px 8px;"><strong>Modalidad Opcional</strong>. Flexible mes a mes. <em>(Junto a nube base conforma paquete integral de $120.00 USD/mes).</em></td>
+              <td class="cost-col" style="padding: 4px 8px; color: var(--accent); font-size: 10.5px;">$80.00 USD / mes<br><span style="font-size: 8px; color: var(--slate-400); font-weight: normal;">(Opcional)</span></td>
+            </tr>
 
-          <tr>
-            <td><strong>6. Tiempo de Ejecución Total</strong></td>
-            <td>
-              Despliegue de infraestructura, parametrización, pruebas de campo y 2 sesiones de capacitación formal al personal.
-            </td>
-            <td>
-              Cronograma ágil de <strong>3 a 4 semanas</strong> desde el anticipo inicial.
-            </td>
-            <td class="cost-col" style="font-family: sans-serif; font-size: 11px;">Garantizado</td>
-          </tr>
+            <tr style="background: var(--slate-50);">
+              <td style="padding: 4px 8px;"><strong>5. Soporte Ad-Hoc (Sin abono mensual)</strong></td>
+              <td style="padding: 4px 8px;">Intervenciones técnicas puntuales bajo demanda en caso de prescindir del abono de soporte L2.</td>
+              <td style="padding: 4px 8px;">Bajo demanda con cargo mínimo de 2 horas (SLA de 24-48 horas laborables).</td>
+              <td class="cost-col" style="padding: 4px 8px; font-size: 9.5px;">$40.00 / h (Estándar)<br>$50.00 / h (Emergencia)</td>
+            </tr>
 
-          <tr style="background: #eff6ff;">
-            <td><strong>7. Soporte Post-Implementación</strong></td>
-            <td>
-              <strong>1 mes continuo (30 días)</strong> de soporte de estabilización para corrección exclusiva de fallas sobre funcionalidades delimitadas en el contrato.<br>
-              <span style="font-size: 11px; color: #1e40af;"><em>(Cualquier modificación de fondo o cambio de alcance tras la aprobación del sistema será cotizada adicionalmente).</em></span>
-            </td>
-            <td>
-              A partir del pase formal a producción y entrega del sistema.
-            </td>
-            <td class="cost-col" style="color: #1e40af; font-size: 12.5px;">INCLUIDO<br><span style="font-size: 10px; color: var(--slate-400); font-weight: normal;">(30 Días)</span></td>
-          </tr>
+            <tr>
+              <td style="padding: 4px 8px;"><strong>6. Tiempo de Ejecución Total</strong></td>
+              <td style="padding: 4px 8px;">Despliegue de infraestructura, parametrización, pruebas de campo y 2 sesiones de capacitación formal.</td>
+              <td style="padding: 4px 8px;">Cronograma ágil de <strong>3 a 4 semanas</strong> desde el anticipo inicial.</td>
+              <td class="cost-col" style="padding: 4px 8px; font-family: sans-serif; font-size: 10px; color: var(--emerald); font-weight: 800;">Garantizado</td>
+            </tr>
 
-          <tr class="row-highlight">
-            <td><strong>8. Licencia y Términos Contractuales</strong></td>
-            <td>
-              Licencia de uso comercial perpetua (sin cobro mensual por usuario), exoneración total por modificación de código y límite de responsabilidad.
-            </td>
-            <td>
-              Condiciones de protección legal mutua para ambas partes.
-            </td>
-            <td class="cost-col" style="font-family: sans-serif; font-size: 11px;">Incluido</td>
-          </tr>
-        </tbody>
-      </table>
-      <div style="background: #faf5ff; border-top: 1px solid var(--slate-200); padding: 12px 18px; font-size: 11.5px; color: #581c87; font-weight: 600; line-height: 1.55;">
-        ℹ️ <strong>RÉGIMEN FISCAL:</strong> Todos los montos, cánones y tarifas presentadas en esta propuesta económica son valores netos en USD. A cada pago se le adicionará el Impuesto al Valor Agregado (IVA) correspondiente de acuerdo con la legislación tributaria aplicable al momento de la facturación formal.
+            <tr style="background: #eff6ff;">
+              <td style="padding: 4px 8px;"><strong>7. Soporte Post-Implementación</strong></td>
+              <td style="padding: 4px 8px;"><strong>1 mes continuo (30 días)</strong> de soporte de estabilización para corrección de fallas contractuales.</td>
+              <td style="padding: 4px 8px;">A partir de la entrega formal. <em>(Modificaciones de fondo tras recepción conforme se cotizan aparte).</em></td>
+              <td class="cost-col" style="padding: 4px 8px; color: #1e40af; font-size: 10.5px;">INCLUIDO<br><span style="font-size: 8px; color: var(--slate-400); font-weight: normal;">(30 Días)</span></td>
+            </tr>
+
+            <tr class="row-highlight">
+              <td style="padding: 4px 8px;"><strong>8. Licencia y Términos Legales</strong></td>
+              <td style="padding: 4px 8px;">Licencia de uso comercial perpetua (sin cobro mensual por usuario), exoneración por alteración de código y límite de responsabilidad.</td>
+              <td style="padding: 4px 8px;">Condiciones de protección legal mutua para ambas partes.</td>
+              <td class="cost-col" style="padding: 4px 8px; font-family: sans-serif; font-size: 10px;">Incluido</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="background: #faf5ff; border-top: 1px solid var(--slate-200); padding: 4px 10px; font-size: 9px; color: #581c87; font-weight: 600; line-height: 1.35;">
+          ℹ️ <strong>RÉGIMEN FISCAL:</strong> Todos los montos y cánones presentados son valores netos en USD. A cada pago se le adicionará el Impuesto al Valor Agregado (IVA) correspondiente según la normativa tributaria vigente a la fecha de facturación formal.
+        </div>
+      </div>
+
+      <!-- MARCO LEGAL CONDENSADO (GRID 2x2) -->
+      <div style="background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 8px; padding: 8px 12px; margin-bottom: 10px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 9.5px; line-height: 1.35; color: var(--slate-700);">
+          <div>
+            <strong style="color: var(--slate-900);">1. Licencia Comercial Perpetua:</strong> Licencia de uso no exclusiva e intransferible concedida mediante el pago único de Setup, sin cobros recurrentes por usuario o cuadrilla.
+          </div>
+          <div>
+            <strong style="color: var(--slate-900);">2. Garantía Técnica (30 días):</strong> Ampara corrección de bugs sobre funcionalidades pactadas. Modificaciones de fondo o nuevas funciones tras recepción se cotizan aparte.
+          </div>
+          <div>
+            <strong style="color: var(--slate-900);">3. Exoneración por Alteración:</strong> Queda prohibida la manipulación de código, DB o nube por terceros; cesará toda garantía y soporte, exonerando al PROVEEDOR. Reparaciones a $50/h.
+          </div>
+          <div>
+            <strong style="color: var(--slate-900);">4. Límite Legal y Régimen Fiscal:</strong> Responsabilidad patrimonial máxima limitada al monto percibido por Setup ($1,650.00 USD). Valores netos devengarán IVA de ley.
+          </div>
+        </div>
+      </div>
+
+      <!-- FIRMAS FORMALES -->
+      <div class="signatures-block" style="padding-top: 10px; margin-top: auto;">
+        <div class="sign-box">
+          <div class="sign-line" style="height: 32px; margin-bottom: 6px;"></div>
+          <span class="sign-party" style="font-size: 10px;">POR EL PROVEEDOR TECNOLÓGICO</span>
+          <div class="sign-details" style="font-size: 9px; line-height: 1.4;">
+            <strong>Nombre:</strong> ____________________________________<br>
+            <strong>C.I. / RIF:</strong> ____________________________________<br>
+            <strong>Cargo:</strong> Titular &amp; Arquitecto de Solución VERTEX
+          </div>
+        </div>
+        <div class="sign-box">
+          <div class="sign-line" style="height: 32px; margin-bottom: 6px;"></div>
+          <span class="sign-party" style="font-size: 10px;">POR LA EMPRESA CONTRATANTE</span>
+          <div class="sign-details" style="font-size: 9px; line-height: 1.4;">
+            <strong>Razón Social:</strong> ________________________________<br>
+            <strong>RIF / Registro:</strong> ________________________________<br>
+            <strong>Representante:</strong> ________________________________<br>
+            <strong>C.I.:</strong> ________________________________________
+          </div>
+        </div>
       </div>
     </div>
-  </section>
 
-  <!-- SECCION 6: MARCO LEGAL Y CONDICIONES DE LICENCIA -->
-  <section class="section-block">
-    <div class="section-title">
-      <span class="section-number">6</span>
-      Marco Legal, Licencia y Exoneración de Responsabilidad
-    </div>
-    <div style="background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 12px; padding: 20px; font-size: 12.5px; line-height: 1.6; color: var(--slate-700);">
-      <ol style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 12px;">
-        <li>
-          <strong>Licencia de Uso Comercial Perpetua (Sin cobro recurrente por usuario):</strong> EL PROVEEDOR concede a LA EMPRESA una licencia de uso comercial, no exclusiva e intransferible para operar la plataforma en sus labores ordinarias de telecomunicaciones. Dicha licencia queda 100% amortizada y concedida mediante el pago único de Setup inicial, sin cobros mensuales por cantidad de técnicos, cuadrillas o usuarios registrados.
-        </li>
-        <li>
-          <strong>Garantía Técnica y Soporte Post-Implementación (Periodo de Estabilización):</strong> A partir de la entrega formal y pase a producción del sistema, EL PROVEEDOR otorga un periodo de <strong>soporte de estabilización y garantía técnica de un (1) mes continuo (30 días calendario)</strong> sin costo adicional:
-          <ul style="margin-top: 6px; padding-left: 18px; list-style-type: disc;">
-            <li><strong>Alcance de la Garantía:</strong> Ampara única y exclusivamente la corrección de errores de programación (<em>bugs</em>), fallas operativas o discrepancias técnicas atribuibles a las funcionalidades expresamente delimitadas y contratadas en la presente propuesta.</li>
-            <li><strong>Exclusión de Modificaciones de Fondo:</strong> Esta garantía no contempla el desarrollo de nuevas funcionalidades, reestructuración de bases de datos, cambios de flujo operativo ni alteraciones de diseño posteriores a la recepción conforme.</li>
-            <li><strong>Cotización de Cambios Adicionales:</strong> Una vez aprobado el sistema por LA EMPRESA, cualquier modificación de fondo, ampliación de alcance o cambio sobre lo pactado será cotizado de forma independiente como desarrollo o servicio extraordinario.</li>
-          </ul>
-        </li>
-        <li>
-          <strong>Exoneración Total por Alteración o Modificación del Código / Sistema:</strong> Queda terminantemente prohibida la modificación, alteración, descompilación, inyección de scripts o manipulación directa del código fuente, bases de datos o infraestructura del sistema por parte de personal de LA EMPRESA o terceros ajenos al PROVEEDOR. En caso de detectarse cualquier alteración no autorizada:
-          <ul style="margin-top: 6px; padding-left: 18px; list-style-type: disc;">
-            <li>Cesará de pleno derecho y de forma inmediata cualquier garantía técnica, acuerdo de nivel de servicio (SLA) y soporte técnico.</li>
-            <li>EL PROVEEDOR queda <strong>completamente exonerado de toda responsabilidad</strong> por pérdida de información, corrupción de datos, fallas operativas, no disponibilidad del servicio, inconsistencias ante clientes o daños y perjuicios directos o indirectos.</li>
-            <li>Cualquier labor técnica orientada a diagnosticar, restaurar o reparar los daños derivados de la alteración externa será cotizada como servicio extraordinario a la tarifa de soporte aplicable ($50.00 USD/h) y pagadera de forma previa a la intervención.</li>
-          </ul>
-        </li>
-        <li>
-          <strong>Límite Máximo de Responsabilidad (Liability Cap):</strong> La responsabilidad patrimonial máxima acumulada del PROVEEDOR ante cualquier reclamo o eventualidad estará expresamente limitada al monto efectivamente percibido por concepto de la tarifa inicial de Setup ($1,650.00 USD).
-        </li>
-        <li>
-          <strong>Régimen Tributario e Impuestos de Ley:</strong> La totalidad de las tarifas, montos de implementación, cánones de infraestructura y honorarios técnicos estipulados en la presente propuesta y sus anexos corresponden a <strong>valores netos expresados en Dólares Americanos (USD)</strong>. En consecuencia, sobre cada pago o facturación se adicionará y devengará el Impuesto al Valor Agregado (IVA) o gravamen tributario aplicable conforme a la normativa fiscal vigente a la fecha de emisión de cada factura legal correspondiente.
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- BLOQUE FORMAL DE CONFORMIDAD Y FIRMAS -->
-  <div class="signatures-block">
-    <div class="sign-box">
-      <div class="sign-line"></div>
-      <span class="sign-party">POR EL PROVEEDOR TECNOLÓGICO</span>
-      <div class="sign-details">
-        <strong>Nombre:</strong> ____________________________________<br>
-        <strong>C.I. / RIF:</strong> ____________________________________<br>
-        <strong>Cargo:</strong> Titular & Arquitecto SISBIR
-      </div>
-    </div>
-    <div class="sign-box">
-      <div class="sign-line"></div>
-      <span class="sign-party">POR LA EMPRESA CONTRATANTE</span>
-      <div class="sign-details">
-        <strong>Razón Social:</strong> ________________________________<br>
-        <strong>RIF / Registro:</strong> ________________________________<br>
-        <strong>Representante:</strong> ________________________________<br>
-        <strong>C.I.:</strong> ________________________________________
-      </div>
-    </div>
+    <!-- FOOTER HOJA 5 -->
+    <footer class="page-footer">
+      <span class="footer-brand">VERTEX TELECOM &bull; Propuesta Técnico-Comercial B2B</span>
+      <span class="page-number">Página 5 de 5</span>
+    </footer>
   </div>
 
 </div>

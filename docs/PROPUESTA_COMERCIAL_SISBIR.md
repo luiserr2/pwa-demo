@@ -1,7 +1,7 @@
 # PROPUESTA TÉCNICO-COMERCIAL Y CONTRATO DE LICENCIAMIENTO
 
-**SISTEMA SISBIR** &mdash; *Plataforma de Supervisión, Matriz Técnica de 48 Zonas y Certificación Forense de Radiobases*  
-**REFERENCIA:** PROP-SISB-2026-01  
+**SISTEMA VERTEX** &mdash; *Plataforma de Supervisión, Matriz Técnica de 48 Zonas y Certificación Forense de Radiobases*  
+**REFERENCIA:** PROP-VTX-2026-01  
 **MODALIDAD:** Implementación, Bolsa de Adecuaciones y Licenciamiento Comercial (B2B)  
 **FECHA:** Octubre de 2026  
 **VALIDEZ DE OFERTA:** 15 Días Continuos  
@@ -17,7 +17,7 @@ Las empresas contratistas de mantenimiento e infraestructura en telecomunicacion
 * **En Gerencia:** Días perdidos maquetando actas en Word/Excel, falta de visibilidad en tiempo real y riesgo ante reclamos de las empresas operadoras.
 * **En Operaciones:** Formatos rígidos difíciles de adaptar ante los cambios de exigencias técnicas de cada cliente.
 
-**SISBIR** soluciona esta fricción estandarizando el flujo operativo de punta a punta a través de cuatro (4) módulos integrados:
+**VERTEX** soluciona esta fricción estandarizando el flujo operativo de punta a punta a través de cuatro (4) módulos integrados:
 * **1. Campo (Técnicos):** Captura técnica 100% offline, modo sol de alto contraste y motor fotográfico adaptativo (foto única o Antes/Después).
 * **2. Seguimiento (Coordinación):** Carga masiva de órdenes desde plantilla Excel, control de visado/HES y registro detallado de quién editó qué.
 * **3. Administración (Gerencia):** Telemetría ejecutiva en vivo, actas PDF homologadas compiladas a 1 clic y bitácora forense SHA-256.
@@ -148,6 +148,6 @@ ___________________________________           __________________________________
 POR EL PROVEEDOR TECNOLÓGICO                  POR LA EMPRESA CONTRATANTE
 Nombre: ___________________________           Razón Social: _____________________
 C.I. / RIF: _______________________           RIF / Registro: ___________________
-Cargo: Titular & Arquitecto SISBIR        Representante: ____________________
+Cargo: Titular & Arquitecto VERTEX           Representante: ____________________
                                               C.I.: _____________________________
 ```
