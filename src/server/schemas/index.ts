@@ -2,6 +2,8 @@ import { z } from 'zod';
 import { EstadoReporte } from '../entities/Reporte';
 import { RolUsuario } from '../entities/User';
 import { MomentoFoto, EstadoValidacionVisual } from '../entities/EvidenciaFotografica';
+import { CANALES_RADICACION } from '../../shared/flujo-reporte';
+import { EstadoZona, TOTAL_ZONAS, zonaRequiereObservacion } from '../../shared/catalogo-zonas';
 
 // Esquema para Creación de Reportes
 export const CrearReporteSchema = z.object({
@@ -22,19 +24,32 @@ export const CrearReporteSchema = z.object({
     .optional(),
 });
 
-// Esquema para Transición de Estado de Reporte
+// Esquema para Transición de Estado de Reporte.
+// `usuarioEjecutor` es opcional: la identidad autoritativa SIEMPRE es la sesión; si se envía, debe coincidir.
 export const CambiarEstadoReporteSchema = z.object({
   nuevoEstado: z.nativeEnum(EstadoReporte, {
     errorMap: () => ({ message: 'Estado de reporte inválido.' }),
   }),
-  usuarioEjecutor: z.object({
-    id: z.string(),
-    rol: z.nativeEnum(RolUsuario, {
-      errorMap: () => ({ message: 'Rol de usuario ejecutor inválido.' }),
-    }),
-  }),
-  observacion: z.string().max(1000).optional(),
+  usuarioEjecutor: z
+    .object({
+      id: z.string().min(1),
+      rol: z.nativeEnum(RolUsuario, {
+        errorMap: () => ({ message: 'Rol de usuario ejecutor inválido.' }),
+      }),
+    })
+    .optional(),
+  observacion: z.string().trim().max(1000).optional(),
+  motivoRechazo: z.string().trim().max(2000).optional(),
+  canalRadicacion: z
+    .enum(CANALES_RADICACION, {
+      errorMap: () => ({ message: `Canal de radicación inválido (${CANALES_RADICACION.join(', ')}).` }),
+    })
+    .optional(),
+  numeroTicketCliente: z.string().trim().min(1).max(100).optional(),
+  numeroHes: z.string().trim().min(3).max(100).optional(),
+  fechaHes: z.string().datetime({ message: 'fechaHes debe ser una fecha ISO-8601.' }).optional(),
 });
+export type CambiarEstadoReporteInput = z.infer<typeof CambiarEstadoReporteSchema>;
 
 // Esquema para Radiobases
 export const CrearRadiobaseSchema = z.object({
@@ -75,27 +90,40 @@ export const EvaluarEvidenciaSchema = z.object({
 });
 
 // Esquema para Sincronización en Lote Dexie.js
-export const SincronizarOfflineSchema = z.object({
-  reporteId: z.string(),
-  tecnicoId: z.string(),
-  radiobaseId: z.string(),
-  tipoReporte: z.enum(['FOTOGRAFICO', 'TECNICO', 'UNIFICADO']).optional(),
-  evidencias: z.array(
-    z.object({
-      slotNumero: z.number().int(),
-      tipoEquipo: z.string(),
-      momento: z.nativeEnum(MomentoFoto),
-      urlImagen: z.string(),
-      creadoEn: z.string().optional(),
-    })
-  ),
-  zonas: z
-    .array(
-      z.object({
-        numeroZona: z.number().int(),
-        descripcion: z.string(),
-        estado: z.string(),
-      })
-    )
-    .optional(),
-});
+// El técnico se toma de la sesión; la radiobase se identifica por UUID o por código (RDB-001).
+export const ZonaSincronizacionSchema = z
+  .object({
+    numeroZona: z.number().int().min(1).max(TOTAL_ZONAS),
+    descripcion: z.string().max(150).optional(),
+    estado: z.nativeEnum(EstadoZona, {
+      errorMap: () => ({ message: 'Estado de zona inválido (NORMAL, ALARMA o FALLA).' }),
+    }),
+    observacion: z.string().trim().max(1000).nullable().optional(),
+  })
+  .refine((zona) => !zonaRequiereObservacion(zona.estado) || !!zona.observacion?.trim(), {
+    message: 'Las zonas en ALARMA o FALLA requieren observación técnica obligatoria.',
+  });
+
+export const SincronizarOfflineSchema = z
+  .object({
+    reporteId: z.string().uuid({ message: 'reporteId debe ser un UUID válido.' }),
+    radiobaseId: z.string().uuid().optional(),
+    radiobaseCodigo: z.string().trim().min(3).max(50).optional(),
+    tipoReporte: z.enum(['FOTOGRAFICO', 'TECNICO', 'UNIFICADO']).optional(),
+    evidencias: z
+      .array(
+        z.object({
+          slotNumero: z.number().int().min(1).max(48),
+          tipoEquipo: z.string().min(2).max(50),
+          momento: z.nativeEnum(MomentoFoto),
+          urlImagen: z.string().min(5),
+          creadoEn: z.string().optional(),
+        })
+      )
+      .max(96),
+    zonas: z.array(ZonaSincronizacionSchema).max(TOTAL_ZONAS).optional(),
+  })
+  .refine((d) => !!d.radiobaseId || !!d.radiobaseCodigo, {
+    message: 'Debe indicar radiobaseId o radiobaseCodigo.',
+  });
+export type SincronizarOfflineInput = z.infer<typeof SincronizarOfflineSchema>;

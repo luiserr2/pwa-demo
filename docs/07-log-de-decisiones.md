@@ -1,0 +1,23 @@
+# 07 — LOG DE DECISIONES
+
+## 2026-10-05 · Flujo operativo de 8 fases conectado de punta a punta
+
+| # | Decisión | Motivo | Alternativa descartada |
+|---|---|---|---|
+| D-01 | `EstadoReporte`, transiciones y catálogo de zonas viven en `src/shared/` (TS puro). | El cliente (Kanban, PWA, PDF) necesita las mismas reglas sin importar TypeORM. | Duplicar enums en cliente (ya había divergencias: captura usaba NORMAL/OBSERVADO/NO_APLICA). |
+| D-02 | Se conservan `BORRADOR`, `EN_REVISION`, `APROBADO` como estados heredados con salidas válidas. | Hay filas y pruebas vivas con esos valores; borrarlos rompe el enum de Postgres. | Eliminar valores del enum. |
+| D-03 | Los reportes nacen en `SIN_EMPEZAR` (antes `BORRADOR`); el sync de campo los crea en `EN_VISITA`. | `BORRADOR` no es columna del pipeline: los reportes quedaban invisibles en el Kanban. | Mantener `BORRADOR` como estado inicial. |
+| D-04 | La identidad del ejecutor sale de la sesión firmada y se resuelve contra `usuarios`; `usuarioEjecutor` del body solo se acepta si coincide. | El body era suplantable y las sesiones traían IDs no-UUID (`usr-tec-01`) que violaban las FK. | Confiar en el body. |
+| D-05 | `zonas_matriz.estado` y `subsistema` como varchar validado por Zod/servicio. | `synchronize` intentaría castear filas `'OK'` a un enum nativo y fallaría. | Enum nativo de Postgres. |
+| D-06 | Auditoría con hash encadenado + `pg_advisory_xact_lock` dentro de la misma transacción de negocio. | Sin lock, dos transacciones concurrentes leen el mismo "último hash" y bifurcan la cadena. | Cadena en memoria (se perdía en cada reinicio). |
+| D-07 | Eliminados todos los fallbacks "resilientes" (SEED_REPORTES, stats inventadas, `rep-001`, hash fijo). La API devuelve 503 real. | Datos falsos ocultaban caídas de BD y hacían creer que se guardaba lo que no. | Mantener demo offline del servidor. |
+| D-08 | El listado `GET /api/reportes` ya no carga evidencias (base64); expone `totalEvidencias`. | Cada foto viaja como dataURL: el Kanban descargaba todos los binarios. | Paginación sin quitar el join. |
+| D-09 | `/reportes` (Kanban) habilitado para SUPERVISOR/ADMIN; el middleware lo redirigía siempre. | La pantalla central del flujo era inalcanzable. | — |
+| D-10 | Service Worker no cachea `/api/*`. | Cache-First congelaba `/api/reportes` y el Kanban mostraba datos viejos. | — |
+| D-11 | `/mobile` redirige a `/captura`. | Era una copia divergente que enviaba técnico/radiobase ficticios. | Mantener dos capturas. |
+| D-12 | Importación Excel fuera de alcance en esta etapa. | Instrucción explícita del usuario. | — |
+| D-13 | Sync de campo envía solo evidencias con `sincronizado=false` (ANTES primero) + las 48 zonas siempre. | `registrarEvidencia` hace upsert y resetea la validación a PENDIENTE: reenviar fotos borraba aprobaciones del supervisor y gastaba datos móviles. | Reenviar todas las evidencias en cada sync. |
+| D-14 | Si Dexie no tiene la matriz de un reporte, `/captura` adopta la del servidor (`GET /api/reportes/{id}`) antes de editar. | Sin esto, un equipo nuevo pisaba ALARMA/FALLA del servidor con 48 NORMAL en la siguiente sync. | Inicializar siempre desde el catálogo. |
+| D-15 | Eliminados `fallback-catalog.ts` y los fallbacks de `/api/radiobases`, `/api/usuarios` y `/api/fotos`. Ahora devuelven errores reales (`respuestaError`). `GET /api/usuarios` exige SUPERVISOR/ADMIN. | `/api/fotos` respondía `ok:true` con un id falso aunque la foto no se guardara, y `/api/usuarios` simulaba altas y bajas en memoria. | Mantener el modo "alta disponibilidad". |
+| D-16 | `GET /api/admin/auditoria?reporteId=` filtra por expediente; la cadena se sigue verificando de forma global. | Lo necesita la vista de trazabilidad del supervisor, que ya no usa historial mock. | Endpoint aparte. |
+| D-17 | `/admin/usuarios` muestra y crea los 3 roles reales (TECNICO, SUPERVISOR, ADMIN). Se eliminan los campos sin respaldo en BD: cuadrilla en usuarios; coordenadas y estado ACTIVA/MANTENIMIENTO en radiobases. | La vista mostraba SUPERVISOR como ADMIN, pero el backend (enum, guards, middleware, seed) distingue 3 roles. **Contradice `03-FRONTEND_RBAC_UX.md` §2 ("2 roles"): pendiente de que el usuario confirme.** | Seguir mostrando los supervisores como administradores. |

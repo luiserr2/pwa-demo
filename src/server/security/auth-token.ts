@@ -115,3 +115,64 @@ export function generarHashDeterministaReporte(datos: {
 
   return crypto.createHash('sha256').update(payloadCanonica).digest('hex');
 }
+
+/** SHA-256 hexadecimal de una cadena UTF-8. */
+export function sha256Hex(contenido: string): string {
+  return crypto.createHash('sha256').update(contenido, 'utf8').digest('hex');
+}
+
+/**
+ * Serialización JSON canónica (claves ordenadas) para que el hash sea determinista
+ * independientemente del orden de inserción de propiedades.
+ */
+export function serializarCanonico(valor: unknown): string {
+  if (valor === null || typeof valor !== 'object') {
+    return JSON.stringify(valor ?? null);
+  }
+  if (valor instanceof Date) {
+    return JSON.stringify(valor.toISOString());
+  }
+  if (Array.isArray(valor)) {
+    return `[${valor.map((v) => serializarCanonico(v)).join(',')}]`;
+  }
+  const entradas = Object.entries(valor as Record<string, unknown>)
+    .filter(([, v]) => v !== undefined)
+    .sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0));
+  return `{${entradas.map(([k, v]) => `${JSON.stringify(k)}:${serializarCanonico(v)}`).join(',')}}`;
+}
+
+/**
+ * Sello SHA-256 del contenido técnico del expediente al momento del visado:
+ * identidad del reporte + estado de las 48 zonas + inventario de evidencias.
+ */
+export function generarHashContenidoReporte(datos: {
+  reporteId: string;
+  codigoReporte: string;
+  radiobaseId: string;
+  tecnicoId: string;
+  supervisorId: string;
+  fechaVisado: string;
+  zonas: ReadonlyArray<{ numeroZona: number; estado: string; observacion: string | null }>;
+  evidencias: ReadonlyArray<{ slotNumero: number; tipoEquipo: string; momento: string; urlImagen: string }>;
+}): string {
+  const zonas = [...datos.zonas]
+    .sort((a, b) => a.numeroZona - b.numeroZona)
+    .map((z) => ({ n: z.numeroZona, e: z.estado, o: z.observacion ?? null }));
+  const evidencias = [...datos.evidencias]
+    .map((e) => ({ s: e.slotNumero, t: e.tipoEquipo, m: e.momento, h: sha256Hex(e.urlImagen) }))
+    .sort((a, b) => a.s - b.s || (a.m < b.m ? -1 : a.m > b.m ? 1 : 0) || (a.t < b.t ? -1 : 1));
+
+  return sha256Hex(
+    serializarCanonico({
+      reporteId: datos.reporteId,
+      codigo: datos.codigoReporte,
+      radiobaseId: datos.radiobaseId,
+      tecnicoId: datos.tecnicoId,
+      supervisorId: datos.supervisorId,
+      fechaVisado: datos.fechaVisado,
+      zonas,
+      evidencias,
+    })
+  );
+}
+

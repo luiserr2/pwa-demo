@@ -1,160 +1,249 @@
 'use client';
 
-import React, { useState, Suspense } from 'react';
-import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+import React, { Suspense, useCallback, useEffect, useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import type { ReporteDetalleApi, RespuestaApi } from '@/shared/tipos-api';
+import { ETIQUETAS_ESTADO } from '@/shared/flujo-reporte';
+import {
+  SIN_DATO,
+  TONO_ESTADO_REPORTE,
+  camposRedInformados,
+  equipoPresentable,
+  formatearFecha,
+} from '@/client/components/expediente/formato-expediente';
+import { MatrizZonasDocumento } from '@/client/components/expediente/MatrizZonasDocumento';
+import { EvidenciasDocumento } from '@/client/components/expediente/EvidenciasDocumento';
+import { TrazabilidadDocumento } from '@/client/components/expediente/TrazabilidadDocumento';
 
-function ReportePDFContent({ params }: { params: { id: string } }) {
+type Vista = 'UNIFICADO' | 'FOTOS' | 'TECNICO';
+
+const VISTAS: readonly Vista[] = ['UNIFICADO', 'FOTOS', 'TECNICO'];
+
+function esVista(valor: string | null): valor is Vista {
+  return valor !== null && (VISTAS as readonly string[]).includes(valor);
+}
+
+type EstadoCarga =
+  | { fase: 'cargando' }
+  | { fase: 'error'; titulo: string; mensaje: string }
+  | { fase: 'ok'; reporte: ReporteDetalleApi };
+
+type SeccionId = 'RED' | 'EQUIPOS' | 'OBSERVACIONES' | 'EVIDENCIAS' | 'ZONAS' | 'TRAZABILIDAD';
+
+const TITULO_ERROR_POR_STATUS: Record<number, string> = {
+  400: 'Identificador de expediente inválido',
+  401: 'Sesión requerida',
+  403: 'Acceso denegado',
+  404: 'Expediente no encontrado',
+  503: 'Servicio no disponible',
+};
+
+async function leerRespuesta(res: Response): Promise<RespuestaApi<ReporteDetalleApi> | null> {
+  try {
+    const cuerpo: unknown = await res.json();
+    if (typeof cuerpo === 'object' && cuerpo !== null && 'ok' in cuerpo) {
+      return cuerpo as RespuestaApi<ReporteDetalleApi>;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+function DatoCabecera({ etiqueta, valor, detalle }: { etiqueta: string; valor: string; detalle?: string }) {
+  return (
+    <div>
+      <span className="block text-[10px] font-bold text-slate-500 uppercase">{etiqueta}</span>
+      <span className="font-bold text-slate-900">{valor}</span>
+      {detalle && <span className="block text-[10px] font-mono text-slate-500">{detalle}</span>}
+    </div>
+  );
+}
+
+function BotonVista({
+  activa,
+  onClick,
+  children,
+}: {
+  activa: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={activa}
+      className={`min-h-[40px] px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer flex items-center gap-1.5 ${
+        activa ? 'bg-blue-600 text-white font-semibold shadow-xs' : 'text-slate-600 hover:text-slate-900'
+      }`}
+    >
+      {children}
+    </button>
+  );
+}
+
+function ReportePDFContent({ id }: { id: string }) {
   const searchParams = useSearchParams();
-  const initialVista = (searchParams.get('vista') as 'UNIFICADO' | 'FOTOS' | 'TECNICO') || 'UNIFICADO';
-  const [vista, setVista] = useState<'UNIFICADO' | 'FOTOS' | 'TECNICO'>(initialVista);
+  const router = useRouter();
+  const pathname = usePathname();
+  const parametroVista = searchParams.get('vista');
+  const [vista, setVista] = useState<Vista>(esVista(parametroVista) ? parametroVista : 'UNIFICADO');
+  const [estado, setEstado] = useState<EstadoCarga>({ fase: 'cargando' });
+  const [intento, setIntento] = useState(0);
 
-  // Datos representativos del reporte oficial de producción
-  const reporte = {
-    id: params.id || 'rep-001',
-    codigo: 'RDB-001_20260922',
-    radiobase: 'Torre Puerto Madero',
-    region: 'AMBA / CABA',
-    tecnologia: '4G / 5G LTE',
-    tipoTorre: 'Mástil Autosoportado',
-    tecnico: 'Gerson Martínez',
-    cedulaTecnico: 'V-24.891.203',
-    cuadrilla: 'Cuadrilla Técnica #04',
-    fecha: '2026-09-22',
-    estado: 'COMPLETADO',
-    hashSha256: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
-    datosRed: {
-      ipWan: '190.210.45.12',
-      ipLan: '192.168.100.1',
-      gateway: '190.210.45.1',
-      mascara: '255.255.255.248',
-      vlanId: '104',
-      dns1: '8.8.8.8',
-      dns2: '1.1.1.1',
+  useEffect(() => {
+    const controlador = new AbortController();
+    setEstado({ fase: 'cargando' });
+
+    fetch(`/api/reportes/${encodeURIComponent(id)}`, {
+      signal: controlador.signal,
+      cache: 'no-store',
+      credentials: 'same-origin',
+    })
+      .then(async (res) => {
+        const cuerpo = await leerRespuesta(res);
+        if (res.ok && cuerpo?.ok && cuerpo.data) {
+          setEstado({ fase: 'ok', reporte: cuerpo.data });
+          return;
+        }
+        setEstado({
+          fase: 'error',
+          titulo: TITULO_ERROR_POR_STATUS[res.status] ?? 'No se pudo cargar el expediente',
+          mensaje: cuerpo?.error ?? `El servidor respondió HTTP ${res.status}.`,
+        });
+      })
+      .catch((error: unknown) => {
+        if (controlador.signal.aborted) return;
+        setEstado({
+          fase: 'error',
+          titulo: 'Sin conexión con el servidor',
+          mensaje: error instanceof Error ? error.message : 'Error de red desconocido.',
+        });
+      });
+
+    return () => controlador.abort();
+  }, [id, intento]);
+
+  const cambiarVista = useCallback(
+    (nueva: Vista) => {
+      setVista(nueva);
+      const params = new URLSearchParams(searchParams.toString());
+      params.set('vista', nueva);
+      router.replace(`${pathname}?${params.toString()}`, { scroll: false });
     },
-    equipos: [
-      { desc: 'Panel de Alarma Híbrido AX PRO', modelo: 'DS-PHA64-LP', serial: 'HKV-2026-9921', cant: 1 },
-      { desc: 'Cámara Domo IP 4K ColorVu', modelo: 'DS-2CD2187G2-LSU', serial: 'HKV-CAM-8831', cant: 2 },
-      { desc: 'Sensor PIR Anti-enmascaramiento', modelo: 'DS-PD2-P10P-W', serial: 'HKV-PIR-4410', cant: 4 },
-      { desc: 'Grabador NVR 16 Canales PoE', modelo: 'DS-7616NXI-I2/16P', serial: 'HKV-NVR-1120', cant: 1 },
-    ],
-    evidencias: [
-      {
-        slot: 1,
-        tipo: 'CAMARA',
-        nombre: 'Cámara Domo Perimetral',
-        antes: 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=600&auto=format&fit=crop&q=80',
-        despues: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&auto=format&fit=crop&q=80',
-        estado: 'COMPLETADO',
-      },
-      {
-        slot: 2,
-        tipo: 'PIR',
-        nombre: 'Sensor PIR Infrarrojo',
-        antes: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600&auto=format&fit=crop&q=80',
-        despues: 'https://images.unsplash.com/photo-1581092335397-9583fe92d232?w=600&auto=format&fit=crop&q=80',
-        estado: 'COMPLETADO',
-      },
-      {
-        slot: 3,
-        tipo: 'BOTON',
-        nombre: 'Botón de Pánico Baliza',
-        antes: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&auto=format&fit=crop&q=80',
-        despues: 'https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=600&auto=format&fit=crop&q=80',
-        estado: 'COMPLETADO',
-      },
-      {
-        slot: 4,
-        tipo: 'TECLADO',
-        nombre: 'Teclado de Alarma y Acceso',
-        antes: 'https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=600&auto=format&fit=crop&q=80',
-        despues: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&auto=format&fit=crop&q=80',
-        estado: 'COMPLETADO',
-      },
-      {
-        slot: 5,
-        tipo: 'DVR',
-        nombre: 'DVR / Grabador NVR',
-        antes: 'https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?w=600&auto=format&fit=crop&q=80',
-        despues: 'https://images.unsplash.com/photo-1581092162384-8987c1d64718?w=600&auto=format&fit=crop&q=80',
-        estado: 'COMPLETADO',
-      },
-      {
-        slot: 6,
-        tipo: 'TABLERO',
-        nombre: 'Tablero Eléctrico Principal',
-        antes: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&auto=format&fit=crop&q=80',
-        despues: 'https://images.unsplash.com/photo-1581092787765-7351c2807e3d?w=600&auto=format&fit=crop&q=80',
-        estado: 'COMPLETADO',
-      },
-    ],
+    [pathname, router, searchParams]
+  );
+
+  const volver = () => {
+    if (window.history.length > 1) window.history.back();
+    else window.location.href = '/campo';
   };
+
+  if (estado.fase === 'cargando') {
+    return (
+      <div className="min-h-screen bg-slate-100 flex items-center justify-center p-8">
+        <div className="flex items-center gap-3 text-xs text-slate-500 font-mono">
+          <span className="h-4 w-4 rounded-full border-2 border-slate-300 border-t-blue-600 animate-spin" aria-hidden="true" />
+          Cargando expediente técnico...
+        </div>
+      </div>
+    );
+  }
+
+  if (estado.fase === 'error') {
+    return (
+      <div className="min-h-screen bg-slate-100 flex items-center justify-center p-6">
+        <div role="alert" className="max-w-md w-full bg-white border border-rose-200 rounded-xl shadow-sm p-6 text-center">
+          <span className="inline-block bg-slate-900 text-white font-mono font-bold text-xs px-2.5 py-1 rounded mb-3">VERTEX</span>
+          <h1 className="text-lg font-bold text-slate-900 mb-1">{estado.titulo}</h1>
+          <p className="text-xs text-slate-600 mb-5">{estado.mensaje}</p>
+          <div className="flex items-center justify-center gap-2">
+            <button
+              type="button"
+              onClick={volver}
+              className="min-h-[40px] px-4 py-2 rounded-lg text-xs font-medium text-slate-700 border border-slate-300 hover:bg-slate-50 cursor-pointer"
+            >
+              &larr; Volver
+            </button>
+            <button
+              type="button"
+              onClick={() => setIntento((n) => n + 1)}
+              className="min-h-[40px] px-4 py-2 rounded-lg text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 cursor-pointer"
+            >
+              Reintentar
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const { reporte } = estado;
+  const camposRed = camposRedInformados(reporte.datosRed);
+  const equipos = reporte.equipos.map(equipoPresentable);
+  const observaciones = reporte.observaciones?.trim() ?? '';
+  const incluyeFicha = vista === 'UNIFICADO' || vista === 'TECNICO';
+  const incluyeFotos = vista === 'UNIFICADO' || vista === 'FOTOS';
+
+  const secciones: SeccionId[] = [];
+  if (incluyeFicha && camposRed.length > 0) secciones.push('RED');
+  if (incluyeFicha && equipos.length > 0) secciones.push('EQUIPOS');
+  if (incluyeFicha && observaciones !== '') secciones.push('OBSERVACIONES');
+  if (incluyeFotos) secciones.push('EVIDENCIAS');
+  if (incluyeFicha) secciones.push('ZONAS');
+  secciones.push('TRAZABILIDAD');
+  const numero = (seccion: SeccionId): number => secciones.indexOf(seccion) + 1;
+
+  const radiobase = reporte.radiobase;
+  const tecnico = reporte.tecnico;
+  const supervisor = reporte.supervisor;
 
   return (
     <div className="min-h-screen bg-slate-100 text-slate-800 py-6 px-4 print:bg-white print:text-black print:p-0">
+      <style>{'@page { size: A4; margin: 12mm; }'}</style>
+
       {/* BARRA DE CONTROL SUPERIOR (OCULTA AL IMPRIMIR) */}
       <div className="max-w-4xl mx-auto mb-6 flex flex-wrap items-center justify-between gap-3 print:hidden">
         <button
-          onClick={() => (window.history.length > 1 ? window.history.back() : (window.location.href = '/campo'))}
+          type="button"
+          onClick={volver}
           className="text-xs font-medium text-slate-600 hover:text-slate-900 transition-colors flex items-center gap-1 cursor-pointer"
         >
           &larr; Volver
         </button>
 
-        {/* SELECTOR SEGMENTADO DE ENTREGABLES MODULARES (SVGS SIN EMOJIS) */}
         <div className="flex items-center gap-1 bg-white p-1 rounded-xl border border-slate-200 shadow-xs">
-          <button
-            onClick={() => setVista('UNIFICADO')}
-            className={`min-h-[40px] px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer flex items-center gap-1.5 ${
-              vista === 'UNIFICADO'
-                ? 'bg-blue-600 text-white font-semibold shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <BotonVista activa={vista === 'UNIFICADO'} onClick={() => cambiarVista('UNIFICADO')}>
+            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
               <polygon points="12 2 2 7 12 12 22 7 12 2" />
               <polyline points="2 17 12 22 22 17" />
               <polyline points="2 12 12 17 22 12" />
             </svg>
             <span>Informe Unificado</span>
-          </button>
-
-          <button
-            onClick={() => setVista('FOTOS')}
-            className={`min-h-[40px] px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer flex items-center gap-1.5 ${
-              vista === 'FOTOS'
-                ? 'bg-blue-600 text-white font-semibold shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          </BotonVista>
+          <BotonVista activa={vista === 'FOTOS'} onClick={() => cambiarVista('FOTOS')}>
+            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
               <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
               <circle cx="12" cy="13" r="4" />
             </svg>
             <span>Solo Fotos</span>
-          </button>
-
-          <button
-            onClick={() => setVista('TECNICO')}
-            className={`min-h-[40px] px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer flex items-center gap-1.5 ${
-              vista === 'TECNICO'
-                ? 'bg-blue-600 text-white font-semibold shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          </BotonVista>
+          <BotonVista activa={vista === 'TECNICO'} onClick={() => cambiarVista('TECNICO')}>
+            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
               <polyline points="14 2 14 8 20 8" />
             </svg>
             <span>Solo Ficha</span>
-          </button>
+          </BotonVista>
         </div>
 
         <button
+          type="button"
           onClick={() => window.print()}
           className="min-h-[40px] bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-4 py-2 rounded-lg shadow-xs transition-all flex items-center gap-2 cursor-pointer active:translate-y-[1px]"
         >
-          <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
             <polyline points="6 9 6 2 18 2 18 9" />
             <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
             <rect x="6" y="14" width="12" height="8" />
@@ -163,15 +252,13 @@ function ReportePDFContent({ params }: { params: { id: string } }) {
         </button>
       </div>
 
-      {/* DOCUMENTO FORMAL A4 (FONDO BLANCO PULCRO PARA IMPRESIÓN OFICIAL) */}
-      <div className="max-w-4xl mx-auto bg-white text-slate-900 p-8 sm:p-12 rounded-xl shadow-2xl border border-slate-200 print:shadow-none print:border-none print:p-0">
+      {/* DOCUMENTO FORMAL A4 */}
+      <article className="max-w-4xl mx-auto bg-white text-slate-900 p-8 sm:p-12 rounded-xl shadow-2xl border border-slate-200 print:shadow-none print:border-none print:p-0 print:max-w-none">
         {/* HEADER INSTITUCIONAL */}
-        <div className="border-b border-slate-200 pb-6 mb-6 flex items-start justify-between">
+        <header className="border-b border-slate-200 pb-6 mb-6 flex items-start justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="bg-slate-900 text-white font-mono font-bold text-xs px-2.5 py-1 rounded">
-                VERTEX
-              </span>
+              <span className="bg-slate-900 text-white font-mono font-bold text-xs px-2.5 py-1 rounded">VERTEX</span>
               <span className="text-xs font-bold text-blue-700 tracking-wider uppercase font-mono">
                 {vista === 'UNIFICADO'
                   ? 'Expediente Oficial Integrado'
@@ -185,214 +272,150 @@ function ReportePDFContent({ params }: { params: { id: string } }) {
                 ? 'Reporte Integral de Intervención Técnica en Radiobase'
                 : vista === 'FOTOS'
                 ? 'Reporte Fotográfico de Evidencias (Antes vs Después)'
-                : 'Ficha Técnica de Homologación e Inspección de Zonas'}
+                : 'Ficha Técnica de Inspección de Zonas'}
             </h1>
             <p className="text-xs text-slate-500 font-mono mt-1">
-              Código Único: {reporte.codigo} &middot; Emisión: {reporte.fecha} &middot; Modo: {vista}
+              Código: {reporte.codigo} &middot; Visita: {formatearFecha(reporte.fechaVisita)} &middot; Modo: {vista}
             </p>
           </div>
 
-          <div className="text-right">
-            <span className="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-800 border border-emerald-300 text-xs font-bold uppercase px-3 py-1 rounded-md mb-1 font-mono">
-              <svg className="w-3 h-3 text-emerald-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              <span>{reporte.estado}</span>
+          <div className="text-right shrink-0">
+            <span
+              className={`inline-flex items-center gap-1.5 border text-xs font-bold uppercase px-3 py-1 rounded-md mb-1 font-mono ${TONO_ESTADO_REPORTE[reporte.estado]}`}
+            >
+              {ETIQUETAS_ESTADO[reporte.estado]}
             </span>
-            <div className="text-[10px] text-slate-500 font-mono">
-              SHA-256: {reporte.hashSha256.substring(0, 16)}...
-            </div>
+            {reporte.hashSha256 && (
+              <div className="text-[10px] text-slate-500 font-mono" title="Huella SHA-256 de integridad del contenido visado">
+                SHA-256: {reporte.hashSha256.substring(0, 16)}…
+              </div>
+            )}
           </div>
-        </div>
+        </header>
 
         {/* METADATOS DEL SITIO Y PERSONAL */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-slate-50 p-4 rounded-lg border border-slate-200 mb-6 text-xs">
-          <div>
-            <span className="block text-[10px] font-bold text-slate-500 uppercase">Radiobase</span>
-            <span className="font-bold text-slate-900">{reporte.radiobase}</span>
-          </div>
-          <div>
-            <span className="block text-[10px] font-bold text-slate-500 uppercase">Región / Tipo</span>
-            <span className="font-bold text-slate-900">{reporte.region} ({reporte.tipoTorre})</span>
-          </div>
-          <div>
-            <span className="block text-[10px] font-bold text-slate-500 uppercase">Técnico Certificado</span>
-            <span className="font-bold text-slate-900">{reporte.tecnico} ({reporte.cedulaTecnico})</span>
-          </div>
-          <div>
-            <span className="block text-[10px] font-bold text-slate-500 uppercase">Cuadrilla Asignada</span>
-            <span className="font-bold text-slate-900">{reporte.cuadrilla}</span>
-          </div>
+          <DatoCabecera etiqueta="Radiobase" valor={radiobase?.nombre ?? SIN_DATO} detalle={radiobase?.codigo} />
+          <DatoCabecera etiqueta="Región" valor={radiobase?.region || SIN_DATO} />
+          <DatoCabecera etiqueta="Tecnología" valor={radiobase?.tecnologia || SIN_DATO} />
+          <DatoCabecera etiqueta="Tipo de torre" valor={radiobase?.tipoTorre || SIN_DATO} />
+          <DatoCabecera
+            etiqueta="Técnico"
+            valor={tecnico?.nombre ?? SIN_DATO}
+            detalle={tecnico?.cedula ? `C.I. ${tecnico.cedula}` : undefined}
+          />
+          {supervisor && (
+            <DatoCabecera
+              etiqueta="Supervisor"
+              valor={supervisor.nombre}
+              detalle={supervisor.cedula ? `C.I. ${supervisor.cedula}` : undefined}
+            />
+          )}
+          <DatoCabecera etiqueta="Fecha de visita" valor={formatearFecha(reporte.fechaVisita)} />
+          <DatoCabecera etiqueta="Estado" valor={ETIQUETAS_ESTADO[reporte.estado]} />
         </div>
 
-        {/* SECCIÓN 1: CONFIGURACION DE RED (VISIBLE EN UNIFICADO O TECNICO) */}
-        {(vista === 'UNIFICADO' || vista === 'TECNICO') && (
-          <div className="mb-6">
+        {secciones.includes('RED') && (
+          <section className="mb-6">
             <h2 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-2">
-              1. Parámetros de Conectividad & Red
+              {numero('RED')}. Parámetros de Conectividad &amp; Red
             </h2>
-            <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 text-xs">
-              <div className="p-2 border border-slate-200 rounded bg-slate-50">
-                <span className="block text-[9px] text-slate-500 font-bold uppercase">IP WAN</span>
-                <span className="font-mono font-bold text-slate-800">{reporte.datosRed.ipWan}</span>
-              </div>
-              <div className="p-2 border border-slate-200 rounded bg-slate-50">
-                <span className="block text-[9px] text-slate-500 font-bold uppercase">IP LAN</span>
-                <span className="font-mono font-bold text-slate-800">{reporte.datosRed.ipLan}</span>
-              </div>
-              <div className="p-2 border border-slate-200 rounded bg-slate-50">
-                <span className="block text-[9px] text-slate-500 font-bold uppercase">Gateway</span>
-                <span className="font-mono font-bold text-slate-800">{reporte.datosRed.gateway}</span>
-              </div>
-              <div className="p-2 border border-slate-200 rounded bg-slate-50">
-                <span className="block text-[9px] text-slate-500 font-bold uppercase">Máscara</span>
-                <span className="font-mono font-bold text-slate-800">{reporte.datosRed.mascara}</span>
-              </div>
-              <div className="p-2 border border-slate-200 rounded bg-slate-50">
-                <span className="block text-[9px] text-slate-500 font-bold uppercase">VLAN ID</span>
-                <span className="font-mono font-bold text-slate-800">{reporte.datosRed.vlanId}</span>
-              </div>
-              <div className="p-2 border border-slate-200 rounded bg-slate-50">
-                <span className="block text-[9px] text-slate-500 font-bold uppercase">DNS</span>
-                <span className="font-mono font-bold text-slate-800">{reporte.datosRed.dns1}</span>
-              </div>
+            <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 text-xs">
+              {camposRed.map((campo) => (
+                <div key={campo.etiqueta} className="p-2 border border-slate-200 rounded bg-slate-50">
+                  <span className="block text-[9px] text-slate-500 font-bold uppercase">{campo.etiqueta}</span>
+                  <span className="font-mono font-bold text-slate-800 break-all">{campo.valor}</span>
+                </div>
+              ))}
             </div>
-          </div>
+          </section>
         )}
 
-        {/* SECCIÓN 2: EQUIPOS INSTALADOS (VISIBLE EN UNIFICADO O TECNICO) */}
-        {(vista === 'UNIFICADO' || vista === 'TECNICO') && (
-          <div className="mb-8">
+        {secciones.includes('EQUIPOS') && (
+          <section className="mb-8">
             <h2 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-2">
-              2. Inventario de Equipos Homologados
+              {numero('EQUIPOS')}. Inventario de Equipos Instalados
             </h2>
             <table className="w-full text-xs border border-slate-200">
               <thead className="bg-slate-100 text-slate-700 font-semibold uppercase text-[11px] border-b border-slate-200">
                 <tr>
-                  <th className="p-2 text-left">Descripción del Equipo</th>
+                  <th className="p-2 text-left">Descripción del equipo</th>
                   <th className="p-2 text-left">Modelo</th>
-                  <th className="p-2 text-left">Número de Serial</th>
+                  <th className="p-2 text-left">Serial</th>
                   <th className="p-2 text-center">Cant.</th>
                 </tr>
               </thead>
               <tbody>
-                {reporte.equipos.map((eq, i) => (
-                  <tr key={i} className="border-b border-slate-200 hover:bg-slate-50">
-                    <td className="p-2 font-bold text-slate-800">{eq.desc}</td>
+                {equipos.map((eq) => (
+                  <tr key={eq.id} className="border-b border-slate-200 break-inside-avoid">
+                    <td className="p-2 font-bold text-slate-800">{eq.descripcion}</td>
                     <td className="p-2 font-mono text-slate-600">{eq.modelo}</td>
                     <td className="p-2 font-mono text-slate-600">{eq.serial}</td>
-                    <td className="p-2 text-center font-bold">{eq.cant}</td>
+                    <td className="p-2 text-center font-bold">{eq.cantidad}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
-          </div>
+          </section>
         )}
 
-        {/* SECCIÓN 3: EVIDENCIAS FOTOGRAFICAS (VISIBLE EN UNIFICADO O FOTOS) */}
-        {(vista === 'UNIFICADO' || vista === 'FOTOS') && (
-          <div className="mb-8">
-            <h2 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-3">
-              {vista === 'FOTOS' ? '1.' : '3.'} Registro Fotográfico Comparativo (Antes vs Después)
-            </h2>
-            <div className="space-y-4">
-              {reporte.evidencias.map((ev) => (
-                <div key={ev.slot} className="border border-slate-200 rounded-lg p-3 bg-slate-50/50">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-bold text-slate-900">
-                      Slot #{ev.slot}: {ev.nombre} ({ev.tipo})
-                    </span>
-                    <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                      <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                      <span>Validado Visualmente</span>
-                    </span>
-                  </div>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <span className="block text-[10px] font-semibold text-slate-500 mb-1">
-                        ESTADO ANTERIOR (ANTES)
-                      </span>
-                      <div className="aspect-video rounded overflow-hidden border border-slate-300">
-                        <img src={ev.antes} alt="Antes" className="w-full h-full object-cover" />
-                      </div>
-                    </div>
-                    <div>
-                      <span className="block text-[10px] font-semibold text-emerald-700 mb-1">
-                        ESTADO FINAL (DESPUÉS)
-                      </span>
-                      <div className="aspect-video rounded overflow-hidden border border-emerald-300">
-                        <img src={ev.despues} alt="Después" className="w-full h-full object-cover" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* SECCIÓN 4: MATRIZ DE 48 ZONAS (VISIBLE EN UNIFICADO O TECNICO) */}
-        {(vista === 'UNIFICADO' || vista === 'TECNICO') && (
-          <div className="mb-8">
+        {secciones.includes('OBSERVACIONES') && (
+          <section className="mb-8">
             <h2 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-2">
-              {vista === 'TECNICO' ? '3.' : '4.'} Resumen Matriz de 48 Zonas Técnicas
+              {numero('OBSERVACIONES')}. Observaciones Generales
             </h2>
-            <div className="grid grid-cols-4 sm:grid-cols-8 gap-1 text-[10px] text-center">
-              {Array.from({ length: 48 }, (_, i) => (
-                <div
-                  key={i}
-                  className={`p-1 border rounded ${
-                    i === 2 ? 'bg-amber-100 text-amber-900 border-amber-300 font-bold' : 'bg-slate-50 border-slate-200 text-slate-700'
-                  }`}
-                >
-                  Z{i + 1}: {i === 2 ? 'ALR' : 'OK'}
-                </div>
-              ))}
-            </div>
-          </div>
+            <p className="text-xs text-slate-700 whitespace-pre-line border border-slate-200 rounded bg-slate-50 p-3">
+              {observaciones}
+            </p>
+          </section>
         )}
 
-        {/* FIRMAS Y SELLO INMUTABLE */}
-        <div className="pt-8 border-t-2 border-slate-200 grid grid-cols-1 sm:grid-cols-2 gap-8 text-center text-xs">
-          <div className="flex flex-col items-center justify-end">
-            <div className="w-52 border-b-2 border-slate-400 mb-2 pb-1 font-signature text-base text-slate-800">
-              Gerson Martínez
-            </div>
-            <span className="font-extrabold text-slate-900">{reporte.tecnico}</span>
-            <span className="text-[10px] text-slate-500">Técnico Instalador Certificado &middot; C.I. {reporte.cedulaTecnico}</span>
-          </div>
+        {secciones.includes('EVIDENCIAS') && (
+          <EvidenciasDocumento evidencias={reporte.evidencias} numeroSeccion={numero('EVIDENCIAS')} />
+        )}
 
-          <div className="flex flex-col items-center justify-center p-4 rounded-xl border border-dashed border-emerald-300 bg-emerald-50/50">
-            <div className="flex items-center gap-1.5 text-emerald-800 font-bold font-mono text-[11px] mb-1">
-              <svg className="w-3.5 h-3.5 text-emerald-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-              </svg>
-              <span>SELLO DIGITAL DE CIERRE</span>
-            </div>
-            <p className="font-mono text-[9px] text-slate-600 break-all max-w-xs">
-              HASH: {reporte.hashSha256}
-            </p>
-            <span className="text-[9px] text-emerald-700 font-semibold mt-1">
-              {vista === 'UNIFICADO'
-                ? 'Expediente Unificado Finalizado'
-                : vista === 'FOTOS'
-                ? 'Reporte Fotográfico Certificado'
-                : 'Ficha Técnica Certificada'} &middot; Integridad Criptográfica Verificada
+        {secciones.includes('ZONAS') && <MatrizZonasDocumento zonas={reporte.zonas} numeroSeccion={numero('ZONAS')} />}
+
+        <TrazabilidadDocumento reporte={reporte} numeroSeccion={numero('TRAZABILIDAD')} />
+
+        {/* FIRMAS */}
+        <div
+          className={`mt-10 grid grid-cols-1 gap-8 text-center text-xs break-inside-avoid ${
+            supervisor ? 'sm:grid-cols-2 print:grid-cols-2' : ''
+          }`}
+        >
+          <div className="flex flex-col items-center justify-end">
+            <div className="w-56 h-10 border-b-2 border-slate-400 mb-2" />
+            <span className="font-extrabold text-slate-900">{tecnico?.nombre ?? SIN_DATO}</span>
+            <span className="text-[10px] text-slate-500">
+              Técnico responsable{tecnico?.cedula ? ` · C.I. ${tecnico.cedula}` : ''}
             </span>
           </div>
+          {supervisor && (
+            <div className="flex flex-col items-center justify-end">
+              <div className="w-56 h-10 border-b-2 border-slate-400 mb-2" />
+              <span className="font-extrabold text-slate-900">{supervisor.nombre}</span>
+              <span className="text-[10px] text-slate-500">
+                Supervisor{supervisor.cedula ? ` · C.I. ${supervisor.cedula}` : ''}
+              </span>
+            </div>
+          )}
         </div>
-      </div>
+      </article>
     </div>
   );
 }
 
 export default function ReportePDFPage({ params }: { params: { id: string } }) {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-slate-100 p-8 text-center text-xs text-slate-500 font-mono">Cargando documento técnico...</div>}>
-      <ReportePDFContent params={params} />
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-slate-100 p-8 text-center text-xs text-slate-500 font-mono">
+          Cargando documento técnico...
+        </div>
+      }
+    >
+      <ReportePDFContent id={params.id} />
     </Suspense>
   );
 }

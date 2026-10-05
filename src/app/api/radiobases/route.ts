@@ -4,7 +4,7 @@ import { RadiobaseService } from '@/server/services/radiobase.service';
 import { CrearRadiobaseSchema } from '@/server/schemas';
 import { verificarPermisosAPI } from '@/server/security/guard';
 import { RolUsuario } from '@/server/types/roles';
-import { SEED_RADIOBASES } from '@/server/db/fallback-catalog';
+import { respuestaError } from '@/server/http/respuestas';
 
 export async function GET(req: NextRequest) {
   try {
@@ -17,9 +17,9 @@ export async function GET(req: NextRequest) {
     const lista = await service.listarRadiobases({ busqueda, region });
 
     return NextResponse.json({ ok: true, data: lista });
-  } catch (error: any) {
-    console.warn(`[API Radiobases] Usando catálogo de alta disponibilidad: ${error.message}`);
-    return NextResponse.json({ ok: true, data: SEED_RADIOBASES, _resilient: true });
+  } catch (error: unknown) {
+    // Sin catálogo de respaldo: IDs inventados harían fallar la sincronización de campo.
+    return respuestaError(error, 'API Radiobases GET');
   }
 }
 
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
       return guard.response;
     }
 
-    const body = await req.json();
+    const body: unknown = await req.json();
     const validado = CrearRadiobaseSchema.safeParse(body);
     if (!validado.success) {
       return NextResponse.json(
@@ -45,10 +45,7 @@ export async function POST(req: NextRequest) {
     const nueva = await service.crearRadiobase(validado.data);
 
     return NextResponse.json({ ok: true, data: nueva }, { status: 201 });
-  } catch (error: any) {
-    return NextResponse.json(
-      { ok: false, error: error.message || 'Error al crear radiobase.' },
-      { status: 400 }
-    );
+  } catch (error: unknown) {
+    return respuestaError(error, 'API Radiobases POST');
   }
 }

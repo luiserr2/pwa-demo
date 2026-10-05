@@ -1,98 +1,95 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { solicitarApi, mensajePorEstadoHttp } from '@/client/components/campo/api-campo';
+import type { RolApi, UsuarioApi } from '@/shared/tipos-api';
 
-interface UsuarioItem {
-  id: string;
-  nombre: string;
-  email: string;
-  cedula: string;
-  rol: 'TECNICO' | 'ADMIN' | 'SUPERVISOR';
-  cuadrilla: string;
-  estado: 'ACTIVO' | 'INACTIVO';
+type UsuarioItem = Pick<UsuarioApi, 'id' | 'nombre' | 'email' | 'cedula' | 'rol' | 'activo'>;
+
+interface ErrorCarga {
+  mensaje: string;
+  status: number;
 }
 
-const USUARIOS_INITIAL: UsuarioItem[] = [
-  {
-    id: 'u-1',
-    nombre: 'Gerson Martínez',
-    email: 'tecnico@sisbirceca.com',
-    cedula: 'V-24.891.203',
-    rol: 'TECNICO',
-    cuadrilla: 'Cuadrilla 04 (Torres AMBA)',
-    estado: 'ACTIVO',
-  },
-  {
-    id: 'u-3',
-    nombre: 'Lic. Mariana Fernández',
-    email: 'admin@sisbirceca.com',
-    cedula: 'V-15.320.841',
-    rol: 'ADMIN',
-    cuadrilla: 'Dirección Nacional de Operaciones',
-    estado: 'ACTIVO',
-  },
-  {
-    id: 'u-4',
-    nombre: 'Carlos Gómez',
-    email: 'carlos.gomez@sisbirceca.com',
-    cedula: 'V-22.104.992',
-    rol: 'TECNICO',
-    cuadrilla: 'Cuadrilla 09 (Patagonia)',
-    estado: 'ACTIVO',
-  },
-  {
-    id: 'u-5',
-    nombre: 'Martín Albornoz',
-    email: 'martin.albornoz@sisbirceca.com',
-    cedula: 'V-20.441.512',
-    rol: 'TECNICO',
-    cuadrilla: 'Cuadrilla 02 (Córdoba)',
-    estado: 'ACTIVO',
-  },
-];
+type ResultadoMutacion = { ok: true } | { ok: false; error: string; status: number };
+
+const ROLES: readonly RolApi[] = ['TECNICO', 'SUPERVISOR', 'ADMIN'];
+
+const ETIQUETA_ROL: Record<RolApi, string> = {
+  TECNICO: 'Técnico Campo',
+  SUPERVISOR: 'Supervisor',
+  ADMIN: 'Administrador',
+};
+
+const ESTILO_ROL: Record<RolApi, string> = {
+  TECNICO: 'bg-emerald-50 text-emerald-800 border-emerald-200',
+  SUPERVISOR: 'bg-amber-50 text-amber-800 border-amber-200',
+  ADMIN: 'bg-blue-50 text-blue-800 border-blue-200',
+};
+
+function esRolApi(valor: string): valor is RolApi {
+  return (ROLES as readonly string[]).includes(valor);
+}
+
+function aUsuarioItem(u: UsuarioApi): UsuarioItem {
+  return { id: u.id, nombre: u.nombre, email: u.email, cedula: u.cedula, rol: u.rol, activo: u.activo };
+}
+
+/** Para endpoints que responden { ok, message } sin `data` (DELETE). */
+async function ejecutarMutacionSinDatos(url: string, init: RequestInit): Promise<ResultadoMutacion> {
+  let respuesta: Response;
+  try {
+    respuesta = await fetch(url, { credentials: 'same-origin', cache: 'no-store', ...init });
+  } catch {
+    return { ok: false, error: mensajePorEstadoHttp(0), status: 0 };
+  }
+  let cuerpo: unknown = null;
+  try {
+    cuerpo = await respuesta.json();
+  } catch {
+    cuerpo = null;
+  }
+  const objeto = typeof cuerpo === 'object' && cuerpo !== null ? (cuerpo as { ok?: unknown; error?: unknown }) : null;
+  if (respuesta.ok && objeto?.ok === true) return { ok: true };
+  const error =
+    objeto && typeof objeto.error === 'string' && objeto.error.trim() !== ''
+      ? objeto.error
+      : mensajePorEstadoHttp(respuesta.status);
+  return { ok: false, error, status: respuesta.status };
+}
 
 export default function AdminUsuariosPage() {
-  const [usuarios, setUsuarios] = useState<UsuarioItem[]>(USUARIOS_INITIAL);
-  const [cargando, setCargando] = useState(false);
+  const [usuarios, setUsuarios] = useState<UsuarioItem[]>([]);
+  const [cargando, setCargando] = useState<boolean>(true);
+  const [errorCarga, setErrorCarga] = useState<ErrorCarga | null>(null);
   const [modalCrear, setModalCrear] = useState(false);
   const [mensaje, setMensaje] = useState<{ tipo: 'ok' | 'error'; texto: string } | null>(null);
+  const [procesandoId, setProcesandoId] = useState<string | null>(null);
 
   // Formulario nuevo usuario
   const [formNombre, setFormNombre] = useState('');
   const [formEmail, setFormEmail] = useState('');
   const [formCedula, setFormCedula] = useState('');
-  const [formRol, setFormRol] = useState<'TECNICO' | 'ADMIN'>('TECNICO');
-  const [formCuadrilla, setFormCuadrilla] = useState('');
+  const [formRol, setFormRol] = useState<RolApi>('TECNICO');
   const [guardando, setGuardando] = useState(false);
 
-  const cargarUsuarios = async () => {
+  const cargarUsuarios = useCallback(async () => {
     setCargando(true);
-    try {
-      const res = await fetch('/api/usuarios');
-      const json = await res.json();
-      if (json.ok && Array.isArray(json.data) && json.data.length > 0) {
-        const mapeados: UsuarioItem[] = json.data.map((u: any) => ({
-          id: u.id,
-          nombre: u.nombre,
-          email: u.email,
-          cedula: u.cedula,
-          rol: u.rol === 'SUPERVISOR' ? 'ADMIN' : u.rol,
-          cuadrilla: u.rol === 'TECNICO' ? (u.cuadrilla || 'Cuadrilla Operativa Telecom') : 'Dirección y Control',
-          estado: u.activo ? 'ACTIVO' : 'INACTIVO',
-        }));
-        setUsuarios(mapeados);
-      }
-    } catch {
-      // Usar estado inicial si no hay conexión
-    } finally {
-      setCargando(false);
+    setErrorCarga(null);
+    const resultado = await solicitarApi<UsuarioApi[]>('/api/usuarios');
+    if (resultado.ok) {
+      setUsuarios((Array.isArray(resultado.data) ? resultado.data : []).map(aUsuarioItem));
+    } else {
+      setUsuarios([]);
+      setErrorCarga({ mensaje: resultado.error, status: resultado.status });
     }
-  };
+    setCargando(false);
+  }, []);
 
   useEffect(() => {
-    cargarUsuarios();
-  }, []);
+    void cargarUsuarios();
+  }, [cargarUsuarios]);
 
   const handleCrearUsuario = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -104,84 +101,75 @@ export default function AdminUsuariosPage() {
     setGuardando(true);
     setMensaje(null);
 
-    try {
-      const res = await fetch('/api/usuarios', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          nombre: formNombre.trim(),
-          email: formEmail.trim().toLowerCase(),
-          cedula: formCedula.trim(),
-          rol: formRol,
-        }),
-      });
+    const resultado = await solicitarApi<UsuarioApi>('/api/usuarios', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        nombre: formNombre.trim(),
+        email: formEmail.trim().toLowerCase(),
+        cedula: formCedula.trim(),
+        rol: formRol,
+      }),
+    });
 
-      const json = await res.json();
-      if (json.ok) {
-        setMensaje({ tipo: 'ok', texto: `Usuario '${formNombre}' registrado exitosamente.` });
-        setModalCrear(false);
-        setFormNombre('');
-        setFormEmail('');
-        setFormCedula('');
-        setFormCuadrilla('');
-        await cargarUsuarios();
-      } else {
-        setMensaje({ tipo: 'error', texto: json.error || 'Error al crear usuario.' });
-      }
-    } catch (err: any) {
-      setMensaje({ tipo: 'error', texto: 'Fallo de conexión al registrar usuario.' });
-    } finally {
-      setGuardando(false);
+    if (resultado.ok) {
+      setMensaje({ tipo: 'ok', texto: `Usuario '${resultado.data.nombre}' registrado exitosamente.` });
+      setModalCrear(false);
+      setFormNombre('');
+      setFormEmail('');
+      setFormCedula('');
+      setFormRol('TECNICO');
+      await cargarUsuarios();
+    } else {
+      setMensaje({ tipo: 'error', texto: `No se pudo crear el usuario (HTTP ${resultado.status}): ${resultado.error}` });
     }
+    setGuardando(false);
   };
 
   const handleToggleEstado = async (id: string, nombre: string) => {
-    try {
-      const res = await fetch('/api/usuarios', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id }),
+    setProcesandoId(id);
+    const resultado = await solicitarApi<UsuarioApi>('/api/usuarios', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id }),
+    });
+    if (resultado.ok) {
+      const actualizado = resultado.data;
+      setUsuarios((prev) => prev.map((u) => (u.id === id ? { ...u, activo: actualizado.activo } : u)));
+      setMensaje({
+        tipo: 'ok',
+        texto: `Usuario '${nombre}' ahora está ${actualizado.activo ? 'ACTIVO' : 'INACTIVO'}.`,
       });
-      const json = await res.json();
-      if (json.ok) {
-        setUsuarios((prev) =>
-          prev.map((u) =>
-            u.id === id ? { ...u, estado: u.estado === 'ACTIVO' ? 'INACTIVO' : 'ACTIVO' } : u
-          )
-        );
-        setMensaje({
-          tipo: 'ok',
-          texto: `Estado del usuario '${nombre}' actualizado correctamente.`,
-        });
-      }
-    } catch {
-      setUsuarios((prev) =>
-        prev.map((u) =>
-          u.id === id ? { ...u, estado: u.estado === 'ACTIVO' ? 'INACTIVO' : 'ACTIVO' } : u
-        )
-      );
+    } else {
+      setMensaje({
+        tipo: 'error',
+        texto: `No se pudo cambiar el estado de '${nombre}' (HTTP ${resultado.status}): ${resultado.error}`,
+      });
     }
+    setProcesandoId(null);
   };
 
   const handleEliminarUsuario = async (id: string, nombre: string) => {
     if (!confirm(`¿Confirma que desea dar de baja al usuario '${nombre}' del directorio?`)) return;
 
-    try {
-      const res = await fetch(`/api/usuarios?id=${id}`, { method: 'DELETE' });
-      const json = await res.json();
-      if (json.ok) {
-        setUsuarios((prev) => prev.filter((u) => u.id !== id));
-        setMensaje({ tipo: 'ok', texto: `Usuario '${nombre}' removido del directorio.` });
-      } else {
-        setUsuarios((prev) => prev.filter((u) => u.id !== id));
-      }
-    } catch {
+    setProcesandoId(id);
+    const resultado = await ejecutarMutacionSinDatos(`/api/usuarios?id=${encodeURIComponent(id)}`, {
+      method: 'DELETE',
+    });
+    if (resultado.ok) {
       setUsuarios((prev) => prev.filter((u) => u.id !== id));
+      setMensaje({ tipo: 'ok', texto: `Usuario '${nombre}' removido del directorio.` });
+    } else {
+      setMensaje({
+        tipo: 'error',
+        texto: `No se pudo eliminar a '${nombre}' (HTTP ${resultado.status}): ${resultado.error}`,
+      });
     }
+    setProcesandoId(null);
   };
 
-  const conteoTecnicos = usuarios.filter((u) => u.rol === 'TECNICO').length;
-  const conteoAdmins = usuarios.filter((u) => u.rol === 'ADMIN').length;
+  const conteoPorRol = (rol: RolApi) => usuarios.filter((u) => u.rol === rol).length;
+  const conteoActivos = usuarios.filter((u) => u.activo).length;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full pb-20">
@@ -204,14 +192,25 @@ export default function AdminUsuariosPage() {
             </span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
-            Directorio y Administración de Personal Técnico
+            Directorio y Administración de Personal
           </h1>
           <p className="text-slate-500 text-xs sm:text-sm mt-0.5">
-            Control de cuentas de técnicos de campo, asignación de cuadrillas y permisos de captura.
+            Control de cuentas de técnicos de campo, supervisores y administradores.
           </p>
         </div>
 
         <div className="flex items-center gap-2.5">
+          <button
+            onClick={() => void cargarUsuarios()}
+            disabled={cargando}
+            className="bg-white hover:bg-slate-50 text-slate-700 font-medium text-xs px-4 py-2.5 rounded-lg border border-slate-200 shadow-sm transition-colors flex items-center gap-2 cursor-pointer disabled:opacity-50"
+          >
+            <svg className={`w-3.5 h-3.5 ${cargando ? 'animate-spin' : ''}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M21 12a9 9 0 1 1-3-6.7L21 8" />
+              <path d="M21 3v5h-5" />
+            </svg>
+            <span>Actualizar</span>
+          </button>
           <button
             onClick={() => setModalCrear(true)}
             className="bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs px-4 py-2.5 rounded-lg shadow-sm transition-colors flex items-center gap-2 cursor-pointer active:translate-y-[1px]"
@@ -220,7 +219,7 @@ export default function AdminUsuariosPage() {
               <line x1="12" y1="5" x2="12" y2="19" />
               <line x1="5" y1="12" x2="19" y2="12" />
             </svg>
-            <span>Registrar Técnico</span>
+            <span>Registrar Usuario</span>
           </button>
         </div>
       </div>
@@ -268,14 +267,14 @@ export default function AdminUsuariosPage() {
               Total Cuentas Registradas
             </span>
             <span className="text-[10px] font-mono bg-slate-100 text-slate-700 px-2 py-0.5 rounded border border-slate-200 font-semibold">
-              Directorio Activo
+              Directorio
             </span>
           </div>
           <div className="text-3xl sm:text-4xl font-extrabold text-slate-900 font-mono tracking-tight my-1">
-            {usuarios.length}
+            {cargando ? '—' : usuarios.length}
           </div>
           <p className="text-xs text-slate-500">
-            Personal con credenciales activas y certificados de acceso a la red.
+            {cargando ? 'Cargando directorio...' : `${conteoActivos} activas · ${usuarios.length - conteoActivos} inactivas`}
           </p>
         </div>
 
@@ -283,29 +282,28 @@ export default function AdminUsuariosPage() {
         <div className="md:col-span-7 bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
           <div className="flex items-center justify-between mb-2">
             <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
-              Distribución por Rol Operativo
-            </span>
-            <span className="text-[11px] font-mono text-slate-500">
-              Arquitectura de 2 Roles Oficiales
+              Distribución por Rol
             </span>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 my-1">
+          <div className="grid grid-cols-3 gap-3 my-1">
             <div className="p-3 rounded-lg bg-emerald-50/70 border border-emerald-200">
-              <span className="text-[10px] font-mono uppercase text-emerald-800 font-bold block mb-0.5">Técnicos (Campo)</span>
-              <div className="text-2xl font-bold font-mono text-emerald-700">{conteoTecnicos}</div>
-              <span className="text-[10px] text-slate-600 mt-0.5 block">Habilitados para captura y PWA</span>
+              <span className="text-[10px] font-mono uppercase text-emerald-800 font-bold block mb-0.5">Técnicos</span>
+              <div className="text-2xl font-bold font-mono text-emerald-700">{cargando ? '—' : conteoPorRol('TECNICO')}</div>
+              <span className="text-[10px] text-slate-600 mt-0.5 block">Captura en campo</span>
+            </div>
+
+            <div className="p-3 rounded-lg bg-amber-50/70 border border-amber-200">
+              <span className="text-[10px] font-mono uppercase text-amber-800 font-bold block mb-0.5">Supervisores</span>
+              <div className="text-2xl font-bold font-mono text-amber-700">{cargando ? '—' : conteoPorRol('SUPERVISOR')}</div>
+              <span className="text-[10px] text-slate-600 mt-0.5 block">Revisión y radicación</span>
             </div>
 
             <div className="p-3 rounded-lg bg-blue-50/70 border border-blue-200">
-              <span className="text-[10px] font-mono uppercase text-blue-800 font-bold block mb-0.5">Administradores (Operaciones)</span>
-              <div className="text-2xl font-bold font-mono text-blue-700">{conteoAdmins}</div>
-              <span className="text-[10px] text-slate-600 mt-0.5 block">Auditoría y control de expedientes</span>
+              <span className="text-[10px] font-mono uppercase text-blue-800 font-bold block mb-0.5">Administradores</span>
+              <div className="text-2xl font-bold font-mono text-blue-700">{cargando ? '—' : conteoPorRol('ADMIN')}</div>
+              <span className="text-[10px] text-slate-600 mt-0.5 block">Gestión del sistema</span>
             </div>
-          </div>
-
-          <div className="pt-2 text-[10px] text-slate-500 font-mono">
-            * Cero roles innecesarios. Control directo sin intermediación.
           </div>
         </div>
       </div>
@@ -315,77 +313,98 @@ export default function AdminUsuariosPage() {
         <div className="p-4 sm:p-5 border-b border-slate-200 flex flex-wrap items-center justify-between gap-3">
           <div>
             <h2 className="text-sm font-bold text-slate-900 tracking-tight">
-              Directorio de Operadores y Administradores
+              Directorio de Usuarios
             </h2>
             <p className="text-xs text-slate-500">
-              Listado general con privilegios de acceso y asignación operativa.
+              Listado general con rol y estado de acceso.
             </p>
           </div>
           <span className="text-xs font-mono font-semibold bg-slate-100 text-slate-700 px-3 py-1 rounded border border-slate-200">
-            {usuarios.length} Registros Activos
+            {usuarios.length} Registros
           </span>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-xs text-left">
-            <thead className="bg-slate-50 text-slate-500 font-mono uppercase text-[10px] tracking-wider border-b border-slate-200">
-              <tr>
-                <th className="p-3.5 pl-5">Nombre y Apellido</th>
-                <th className="p-3.5">Correo Corporativo</th>
-                <th className="p-3.5">Cédula</th>
-                <th className="p-3.5">Rol Oficial</th>
-                <th className="p-3.5">Asignación</th>
-                <th className="p-3.5 text-center">Estado</th>
-                <th className="p-3.5 pr-5 text-right">Acciones</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100">
-              {usuarios.map((u) => (
-                <tr key={u.id} className="hover:bg-slate-50/70 transition-colors">
-                  <td className="p-3.5 pl-5">
-                    <span className="font-bold text-slate-900 text-xs">{u.nombre}</span>
-                  </td>
-                  <td className="p-3.5 font-mono text-slate-600 text-[11px]">{u.email}</td>
-                  <td className="p-3.5 text-slate-700 font-medium font-mono">{u.cedula}</td>
-                  <td className="p-3.5">
-                    <span
-                      className={`text-[10px] font-mono font-semibold uppercase px-2 py-0.5 rounded border ${
-                        u.rol === 'ADMIN'
-                          ? 'bg-blue-50 text-blue-800 border-blue-200'
-                          : 'bg-emerald-50 text-emerald-800 border-emerald-200'
-                      }`}
-                    >
-                      {u.rol === 'ADMIN' ? 'Administrador' : 'Técnico Campo'}
-                    </span>
-                  </td>
-                  <td className="p-3.5 text-slate-600 font-medium">{u.cuadrilla}</td>
-                  <td className="p-3.5 text-center">
-                    <button
-                      onClick={() => handleToggleEstado(u.id, u.nombre)}
-                      title="Haga clic para alternar estado"
-                      className={`text-[10px] font-mono font-bold px-2.5 py-1 rounded-md border cursor-pointer transition-all active:translate-y-[1px] ${
-                        u.estado === 'ACTIVO'
-                          ? 'text-emerald-800 bg-emerald-50 border-emerald-200 hover:bg-emerald-100'
-                          : 'text-slate-600 bg-slate-100 border-slate-200 hover:bg-slate-200'
-                      }`}
-                    >
-                      {u.estado}
-                    </button>
-                  </td>
-                  <td className="p-3.5 pr-5 text-right">
-                    <button
-                      onClick={() => handleEliminarUsuario(u.id, u.nombre)}
-                      className="px-2.5 py-1 text-[11px] font-medium text-rose-700 hover:text-rose-800 bg-rose-50 hover:bg-rose-100 rounded-md transition-colors border border-rose-200 cursor-pointer active:translate-y-[1px]"
-                      title="Eliminar usuario permanentemente"
-                    >
-                      Eliminar
-                    </button>
-                  </td>
+        {cargando ? (
+          <div className="p-10 text-center text-xs text-slate-500">Cargando usuarios...</div>
+        ) : errorCarga ? (
+          <div className="p-6">
+            <div className="p-4 rounded-xl border border-rose-200 bg-rose-50 text-rose-800 text-xs space-y-3">
+              <div>
+                <div className="font-bold">
+                  {errorCarga.status > 0 ? `Error HTTP ${errorCarga.status}` : 'Sin conexión'}
+                </div>
+                <p className="mt-0.5">{errorCarga.mensaje}</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => void cargarUsuarios()}
+                className="px-3 py-1.5 text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 rounded-lg transition-colors cursor-pointer"
+              >
+                Reintentar
+              </button>
+            </div>
+          </div>
+        ) : usuarios.length === 0 ? (
+          <div className="p-10 text-center text-xs text-slate-400">No hay usuarios registrados.</div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-xs text-left">
+              <thead className="bg-slate-50 text-slate-500 font-mono uppercase text-[10px] tracking-wider border-b border-slate-200">
+                <tr>
+                  <th className="p-3.5 pl-5">Nombre y Apellido</th>
+                  <th className="p-3.5">Correo Corporativo</th>
+                  <th className="p-3.5">Cédula</th>
+                  <th className="p-3.5">Rol</th>
+                  <th className="p-3.5 text-center">Estado</th>
+                  <th className="p-3.5 pr-5 text-right">Acciones</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {usuarios.map((u) => {
+                  const procesando = procesandoId === u.id;
+                  return (
+                    <tr key={u.id} className="hover:bg-slate-50/70 transition-colors">
+                      <td className="p-3.5 pl-5">
+                        <span className="font-bold text-slate-900 text-xs">{u.nombre}</span>
+                      </td>
+                      <td className="p-3.5 font-mono text-slate-600 text-[11px]">{u.email}</td>
+                      <td className="p-3.5 text-slate-700 font-medium font-mono">{u.cedula}</td>
+                      <td className="p-3.5">
+                        <span className={`text-[10px] font-mono font-semibold uppercase px-2 py-0.5 rounded border ${ESTILO_ROL[u.rol]}`}>
+                          {ETIQUETA_ROL[u.rol]}
+                        </span>
+                      </td>
+                      <td className="p-3.5 text-center">
+                        <button
+                          onClick={() => void handleToggleEstado(u.id, u.nombre)}
+                          disabled={procesando}
+                          title="Haga clic para alternar estado"
+                          className={`text-[10px] font-mono font-bold px-2.5 py-1 rounded-md border cursor-pointer transition-all active:translate-y-[1px] disabled:opacity-50 ${
+                            u.activo
+                              ? 'text-emerald-800 bg-emerald-50 border-emerald-200 hover:bg-emerald-100'
+                              : 'text-slate-600 bg-slate-100 border-slate-200 hover:bg-slate-200'
+                          }`}
+                        >
+                          {u.activo ? 'ACTIVO' : 'INACTIVO'}
+                        </button>
+                      </td>
+                      <td className="p-3.5 pr-5 text-right">
+                        <button
+                          onClick={() => void handleEliminarUsuario(u.id, u.nombre)}
+                          disabled={procesando}
+                          className="px-2.5 py-1 text-[11px] font-medium text-rose-700 hover:text-rose-800 bg-rose-50 hover:bg-rose-100 rounded-md transition-colors border border-rose-200 cursor-pointer active:translate-y-[1px] disabled:opacity-50"
+                          title="Eliminar usuario permanentemente"
+                        >
+                          Eliminar
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
 
       {/* MODAL PARA CREAR NUEVO USUARIO */}
@@ -400,7 +419,7 @@ export default function AdminUsuariosPage() {
             <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
               <div>
                 <h3 id="modal-usuario-title" className="font-bold text-sm text-slate-900">Registrar Nuevo Usuario</h3>
-                <p className="text-xs text-slate-500">Seleccione el rol y asigne permisos operativos:</p>
+                <p className="text-xs text-slate-500">Complete los datos y seleccione el rol de acceso:</p>
               </div>
               <button
                 type="button"
@@ -423,6 +442,8 @@ export default function AdminUsuariosPage() {
                   id="usuario-nombre"
                   type="text"
                   required
+                  minLength={3}
+                  maxLength={150}
                   placeholder="Ej. Juan Pérez"
                   value={formNombre}
                   onChange={(e) => setFormNombre(e.target.value)}
@@ -453,6 +474,8 @@ export default function AdminUsuariosPage() {
                   id="usuario-cedula"
                   type="text"
                   required
+                  minLength={5}
+                  maxLength={30}
                   placeholder="Ej. V-25.123.456"
                   value={formCedula}
                   onChange={(e) => setFormCedula(e.target.value)}
@@ -467,29 +490,16 @@ export default function AdminUsuariosPage() {
                 <select
                   id="usuario-rol"
                   value={formRol}
-                  onChange={(e) => setFormRol(e.target.value as 'TECNICO' | 'ADMIN')}
+                  onChange={(e) => {
+                    const valor = e.target.value;
+                    if (esRolApi(valor)) setFormRol(valor);
+                  }}
                   className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 text-xs font-medium"
                 >
-                  <option value="TECNICO">Técnico de Torre (Campo) &middot; Terminal PWA /campo y /mobile</option>
-                  <option value="ADMIN">Dirección de Operaciones (Admin) &middot; Gestión y Reportes</option>
+                  <option value="TECNICO">Técnico de Torre (Campo) &middot; Captura de reportes</option>
+                  <option value="SUPERVISOR">Supervisor &middot; Revisión, radicación y seguimiento</option>
+                  <option value="ADMIN">Administrador &middot; Gestión completa del sistema</option>
                 </select>
-                <p className="text-[10px] text-slate-500 mt-1">
-                  * Arquitectura de 2 roles. Los administradores auditan y gestionan reportes directamente.
-                </p>
-              </div>
-
-              <div>
-                <label htmlFor="usuario-cuadrilla" className="block text-[11px] font-semibold text-slate-700 uppercase mb-1 tracking-wider">
-                  Cuadrilla / Asignación Regional (Opcional)
-                </label>
-                <input
-                  id="usuario-cuadrilla"
-                  type="text"
-                  placeholder="Ej. Cuadrilla Centro - AMBA"
-                  value={formCuadrilla}
-                  onChange={(e) => setFormCuadrilla(e.target.value)}
-                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 text-xs transition-all"
-                />
               </div>
 
               <div className="pt-3 flex items-center justify-end gap-2 border-t border-slate-100">

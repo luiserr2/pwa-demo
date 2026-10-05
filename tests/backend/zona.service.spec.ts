@@ -1,4 +1,5 @@
 import { ZonaService } from '../../src/server/services/zona.service';
+import { EstadoZona } from '../../src/shared/catalogo-zonas';
 
 describe('ZonaService - Matriz de 48 Zonas Fijas', () => {
   let zonaService: ZonaService;
@@ -18,24 +19,42 @@ describe('ZonaService - Matriz de 48 Zonas Fijas', () => {
     zonaService = new ZonaService(mockDataSource);
   });
 
-  it('debe actualizar en lote las descripciones y estados de las zonas existentes', async () => {
-    const zonasMock = [
-      { id: 'z1', numeroZona: 1, descripcion: 'Zona 1', estado: 'OK' },
-      { id: 'z2', numeroZona: 2, descripcion: 'Zona 2', estado: 'OK' },
-    ];
-    mockZonaRepo.find.mockResolvedValue(zonasMock);
+  it('debe actualizar en lote estados y observaciones, reportando los cambios efectivos', async () => {
+    mockZonaRepo.find.mockResolvedValue([
+      { id: 'z1', numeroZona: 1, descripcion: 'Cerco Perimetral Norte', estado: EstadoZona.NORMAL, observacion: null, subsistema: null },
+      { id: 'z2', numeroZona: 2, descripcion: 'Cerco Perimetral Sur', estado: EstadoZona.NORMAL, observacion: null, subsistema: 'TORRE' },
+    ]);
 
-    const actualizacion = [
-      { numeroZona: 1, descripcion: 'Sensor PIR Pasillo', estado: 'ALARMA' },
-      { numeroZona: 2, descripcion: 'Contacto Magnético Puerta', estado: 'OK' },
-    ];
+    const { zonas, cambios } = await zonaService.guardarZonasLoteConCambios('rep-1', [
+      { numeroZona: 1, estado: EstadoZona.ALARMA, observacion: 'Malla perimetral cortada 2 m' },
+      { numeroZona: 2, estado: EstadoZona.NORMAL },
+    ]);
 
-    const resultado = await zonaService.guardarZonasLote('rep-1', actualizacion);
+    expect(zonas).toHaveLength(2);
+    expect(zonas[0].estado).toBe(EstadoZona.ALARMA);
+    expect(zonas[0].observacion).toBe('Malla perimetral cortada 2 m');
+    expect(zonas[0].subsistema).toBe('TORRE');
+    expect(cambios).toEqual([
+      { numeroZona: 1, estadoAnterior: EstadoZona.NORMAL, estadoNuevo: EstadoZona.ALARMA, observacion: 'Malla perimetral cortada 2 m' },
+    ]);
+  });
 
-    expect(resultado).toHaveLength(2);
-    expect(resultado[0].descripcion).toBe('Sensor PIR Pasillo');
-    expect(resultado[0].estado).toBe('ALARMA');
-    expect(resultado[1].descripcion).toBe('Contacto Magnético Puerta');
+  it('debe exigir observación para ALARMA / FALLA', async () => {
+    await expect(
+      zonaService.guardarZonasLote('rep-1', [{ numeroZona: 3, estado: EstadoZona.FALLA, observacion: ' ' }])
+    ).rejects.toThrow('La zona 3 está en FALLA: la observación técnica es obligatoria.');
+  });
+
+  it('debe rechazar zonas fuera de rango y duplicadas', async () => {
+    await expect(
+      zonaService.guardarZonasLote('rep-1', [{ numeroZona: 49, estado: EstadoZona.NORMAL }])
+    ).rejects.toThrow('Número de zona fuera de rango: 49');
+    await expect(
+      zonaService.guardarZonasLote('rep-1', [
+        { numeroZona: 4, estado: EstadoZona.NORMAL },
+        { numeroZona: 4, estado: EstadoZona.NORMAL },
+      ])
+    ).rejects.toThrow('La zona 4 está duplicada en el lote.');
   });
 
   it('debe lanzar error si no se envian datos de zonas', async () => {

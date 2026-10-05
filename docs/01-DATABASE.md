@@ -38,3 +38,15 @@
 - [ ] [DB-03] Crear servicio y repositorio para entidad `User` (`UserService`) para consulta de cuadrillas y roles. (`src/server/services/user.service.ts`)
 - [ ] [DB-04] Agregar índices compuestos en `reportes` para acelerar filtros de KPIs: `(estado, created_at)` y `(tecnico_id, estado)`. (`src/server/entities/Reporte.ts`)
 - [ ] [DB-05] Conectar seed automático en inicio o script de migración para inicialización de Cloud SQL. (`src/server/db/seed.ts`)
+
+
+## 5. ESTADO VIGENTE DEL MODELO (2026-10-05)
+> Prevalece sobre las secciones 1–4.
+
+- **`reportes`** (nuevas columnas): `canal_radicacion` varchar(50) null, `numero_ticket_cliente` varchar(100) null, `fecha_envio_cliente` timestamp null, `fecha_visado` timestamp null, `bloqueado_edicion` boolean default false, `numero_hes` varchar(100) null **indexado**, `fecha_hes` timestamp null, `motivo_rechazo` text null. Enum `estado` con las 8 fases + `OBSERVADO`, `BORRADOR` y los heredados `EN_REVISION`/`APROBADO`. Default `SIN_EMPEZAR`.
+- **`zonas_matriz`**: `estado` varchar(20) default `NORMAL` (dominio NORMAL | ALARMA | FALLA, validado con Zod + `ZonaService`), `subsistema` varchar(30) null (TORRE | SHELTER | ENERGIA_DC | RADIOFRECUENCIA | TIERRA), `observacion` text null (obligatoria en ALARMA/FALLA). Se mantiene varchar —no enum nativo— para que `synchronize` no falle con filas heredadas `'OK'` (se leen como NORMAL vía `normalizarEstadoZona`).
+- **`auditoria_eventos`** (nueva): `id` uuid PK, `reporte_id` uuid null, `usuario_id` uuid, `tipo_evento` varchar(60), `estado_anterior`/`estado_nuevo` varchar(40) null, `detalles` jsonb (incluye `hashPrevio`), `hash_sha256` varchar(64), `created_at`. Índices `(created_at)` y `(reporte_id, created_at)`. Cadena: `sha256(hashPrevio + JSON canónico del evento)`; escritura serializada con `pg_advisory_xact_lock`.
+- Catálogo canónico de las 48 zonas: `src/shared/catalogo-zonas.ts` (única fuente; seed, servicio y PWA lo consumen).
+
+> [!WARNING]
+> Producción corre con `synchronize: false`: antes de desplegar se debe generar la migración TypeORM correspondiente a estas columnas y a `auditoria_eventos`.

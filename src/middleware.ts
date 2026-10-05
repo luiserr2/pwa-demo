@@ -51,7 +51,9 @@ export function middleware(request: NextRequest) {
     const redirectUrl =
       user.rol === RolUsuario.TECNICO
         ? new URL('/campo', request.url)
-        : new URL('/admin/dashboard', request.url);
+        : user.rol === RolUsuario.SUPERVISOR
+          ? new URL('/reportes', request.url)
+          : new URL('/admin/dashboard', request.url);
     return NextResponse.redirect(redirectUrl);
   }
 
@@ -69,21 +71,29 @@ export function middleware(request: NextRequest) {
   // 1. Jurisdicción ADMINISTRADOR: /admin/*
   if (pathname.startsWith('/admin')) {
     if (user.rol !== RolUsuario.ADMIN) {
-      return NextResponse.redirect(new URL('/campo', request.url));
+      return NextResponse.redirect(
+        new URL(user.rol === RolUsuario.SUPERVISOR ? '/reportes' : '/campo', request.url)
+      );
     }
   }
 
-  // 2. Redirección de rutas legadas (/supervisor y /reportes)
-  if (pathname === '/reportes' || pathname.startsWith('/supervisor')) {
+  // 2. Pipeline operativo (Kanban) /reportes: SUPERVISOR y ADMIN. El expediente PDF (/reportes/[id]/pdf)
+  //    es accesible para cualquier rol autenticado (el técnico consulta su propio informe).
+  if (pathname === '/reportes') {
+    if (user.rol === RolUsuario.TECNICO) {
+      return NextResponse.redirect(new URL('/campo', request.url));
+    }
+  }
+  if (pathname.startsWith('/supervisor')) {
     return NextResponse.redirect(
-      new URL(user.rol === RolUsuario.ADMIN ? '/admin/dashboard' : '/campo', request.url)
+      new URL(user.rol === RolUsuario.TECNICO ? '/campo' : '/reportes', request.url)
     );
   }
 
-  // 3. Jurisdicción TÉCNICO: /campo y /mobile
-  if (pathname.startsWith('/campo') || pathname.startsWith('/mobile')) {
+  // 3. Jurisdicción TÉCNICO: /campo, /captura y /mobile
+  if (pathname.startsWith('/campo') || pathname.startsWith('/mobile') || pathname.startsWith('/captura')) {
     if (user.rol !== RolUsuario.TECNICO && user.rol !== RolUsuario.ADMIN) {
-      return NextResponse.redirect(new URL('/admin/dashboard', request.url));
+      return NextResponse.redirect(new URL('/reportes', request.url));
     }
   }
 

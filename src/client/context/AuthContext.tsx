@@ -59,7 +59,11 @@ const AuthContext = createContext<AuthContextType>({
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserSession | null>(null);
 
-  const sincronizarCookieSesion = async (usuario: UserSession) => {
+  /**
+   * Pide al servidor la sesión firmada y adopta la identidad persistida (UUID real de `usuarios`).
+   * Devuelve false si el servidor rechaza al usuario (no existe / BD caída).
+   */
+  const sincronizarCookieSesion = async (usuario: UserSession): Promise<boolean> => {
     try {
       const res = await fetch('/api/auth/session', {
         method: 'POST',
@@ -67,22 +71,33 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         body: JSON.stringify({ email: usuario.email, rol: usuario.rol }),
       });
       const data = await res.json();
-      if (data?.data?.token && typeof document !== 'undefined') {
-        document.cookie = `sisbirceca_auth=${data.data.token}; path=/; max-age=86400; SameSite=Lax`;
+      if (!res.ok || !data?.ok || !data?.data?.usuario?.id) {
+        return false;
       }
+      const real: UserSession = {
+        ...usuario,
+        id: data.data.usuario.id,
+        nombre: data.data.usuario.nombre ?? usuario.nombre,
+        rol: data.data.usuario.rol ?? usuario.rol,
+      };
+      setUser(real);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('sisbirceca_session', JSON.stringify(real));
+      }
+      return true;
     } catch {
-      // En caso de fallo de red puntual, no bloquear la UI
+      return false;
     }
   };
 
   useEffect(() => {
-    // Cargar sesión persistida si existe
+    // Cargar sesión persistida si existe y revalidarla contra el servidor
     const saved = typeof window !== 'undefined' ? localStorage.getItem('sisbirceca_session') : null;
     if (saved) {
       try {
-        const initialUser = JSON.parse(saved);
+        const initialUser = JSON.parse(saved) as UserSession;
         setUser(initialUser);
-        sincronizarCookieSesion(initialUser);
+        void sincronizarCookieSesion(initialUser);
       } catch {
         setUser(null);
       }
@@ -90,29 +105,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const login = async (email: string): Promise<boolean> => {
-    const found = Object.values(USUARIOS_HOMOLOGADOS).find(
-      (u) => u.email.toLowerCase() === email.trim().toLowerCase()
-    );
-    if (found) {
-      setUser(found);
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('sisbirceca_session', JSON.stringify(found));
-        try {
-          const payload = {
-            id: found.id,
-            email: found.email,
-            nombre: found.nombre,
-            rol: found.rol,
-            exp: Math.floor(Date.now() / 1000) + 24 * 60 * 60,
-          };
-          const p64 = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
-          document.cookie = `sisbirceca_auth=${p64}.client_sync; path=/; max-age=86400; SameSite=Lax`;
-        } catch {}
-      }
-      await sincronizarCookieSesion(found);
-      return true;
-    }
-    return false;
+    const normalizado = email.trim().toLowerCase();
+    if (!normalizado) return false;
+    const homologado = Object.values(USUARIOS_HOMOLOGADOS).find((u) => u.email.toLowerCase() === normalizado);
+    const semilla: UserSession = homologado ?? {
+      id: '',
+      email: normalizado,
+      nombre: normalizado,
+      cedula: '',
+      rol: 'TECNICO',
+      cargo: '',
+    };
+    return await sincronizarCookieSesion(semilla);
   };
 
   const logout = async () => {
@@ -129,25 +133,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const switchRole = async (rol: RolUsuario) => {
-    const target = USUARIOS_HOMOLOGADOS[rol];
-    setUser(target);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('sisbirceca_session', JSON.stringify(target));
-      try {
-        const payload = {
-          id: target.id,
-          email: target.email,
-          nombre: target.nombre,
-          rol: target.rol,
-          exp: Math.floor(Date.now() / 1000) + 24 * 60 * 60,
-        };
-        const p64 = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
-        document.cookie = `sisbirceca_auth=${p64}.client_sync; path=/; max-age=86400; SameSite=Lax`;
-      } catch {}
-    }
-    await sincronizarCookieSesion(target);
+    await sincronizarCookieSesion(USUARIOS_HOMOLOGADOS[rol]);
   };
-
   return (
     <AuthContext.Provider
       value={{

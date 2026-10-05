@@ -14,24 +14,10 @@ import { Radiobase } from './Radiobase';
 import { EvidenciaFotografica } from './EvidenciaFotografica';
 import { ZonaMatriz } from './ZonaMatriz';
 import { EquipoInstalado } from './EquipoInstalado';
+import { EstadoReporte } from '../../shared/flujo-reporte';
 
-export enum EstadoReporte {
-  // Estados Core de Certificación NOC (Conforme a Especificaciones y Tests)
-  BORRADOR = 'BORRADOR',
-  EN_REVISION = 'EN_REVISION',
-  OBSERVADO = 'OBSERVADO',
-  APROBADO = 'APROBADO',
-
-  // Estados de Flujo Comercial Extendido
-  SIN_EMPEZAR = 'SIN_EMPEZAR',
-  EN_VISITA = 'EN_VISITA',
-  ELABORANDO_INFORME = 'ELABORANDO_INFORME',
-  REVISION_INTERNA = 'REVISION_INTERNA',
-  ENVIADO_AL_CLIENTE = 'ENVIADO_AL_CLIENTE',
-  VISADO = 'VISADO',
-  HES_SOLICITADA = 'HES_SOLICITADA',
-  FACTURADO = 'FACTURADO',
-}
+// El enum vive en src/shared para que el cliente lo consuma sin arrastrar TypeORM.
+export { EstadoReporte };
 
 @Entity('reportes')
 @Index(['estado', 'createdAt'])
@@ -93,6 +79,35 @@ export class Reporte {
 
   @Column({ name: 'firma_digital', type: 'text', nullable: true })
   firmaDigital: string | null;
+
+  // ── Fase ENVIADO_AL_CLIENTE ─────────────────────────────────────
+  @Column({ name: 'canal_radicacion', type: 'varchar', length: 50, nullable: true })
+  canalRadicacion: string | null;
+
+  @Column({ name: 'numero_ticket_cliente', type: 'varchar', length: 100, nullable: true })
+  numeroTicketCliente: string | null;
+
+  @Column({ name: 'fecha_envio_cliente', type: 'timestamp', nullable: true })
+  fechaEnvioCliente: Date | null;
+
+  // ── Fase VISADO ─────────────────────────────────────────────────
+  @Column({ name: 'fecha_visado', type: 'timestamp', nullable: true })
+  fechaVisado: Date | null;
+
+  @Column({ name: 'bloqueado_edicion', type: 'boolean', default: false })
+  bloqueadoEdicion: boolean;
+
+  // ── Fase HES_SOLICITADA ─────────────────────────────────────────
+  @Index()
+  @Column({ name: 'numero_hes', type: 'varchar', length: 100, nullable: true })
+  numeroHes: string | null;
+
+  @Column({ name: 'fecha_hes', type: 'timestamp', nullable: true })
+  fechaHes: Date | null;
+
+  // ── Fase OBSERVADO ──────────────────────────────────────────────
+  @Column({ name: 'motivo_rechazo', type: 'text', nullable: true })
+  motivoRechazo: string | null;
 
   @OneToMany(() => EvidenciaFotografica, (evidencia) => evidencia.reporte, { cascade: true })
   evidencias: EvidenciaFotografica[];

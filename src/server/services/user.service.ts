@@ -1,5 +1,6 @@
 import { DataSource, Repository } from 'typeorm';
 import { User, RolUsuario } from '../entities/User';
+import { RecursoNoEncontradoError } from './errores';
 
 export interface CrearUsuarioDTO {
   email: string;
@@ -58,7 +59,7 @@ export class UserService {
   async eliminarUsuario(id: string): Promise<boolean> {
     const user = await this.obtenerPorId(id);
     if (!user) {
-      throw new Error(`Usuario con ID '${id}' no encontrado.`);
+      throw new RecursoNoEncontradoError(`Usuario con ID '${id}' no encontrado.`);
     }
     await this.repo.remove(user);
     return true;
@@ -67,7 +68,7 @@ export class UserService {
   async alternarEstado(id: string): Promise<User> {
     const user = await this.obtenerPorId(id);
     if (!user) {
-      throw new Error(`Usuario con ID '${id}' no encontrado.`);
+      throw new RecursoNoEncontradoError(`Usuario con ID '${id}' no encontrado.`);
     }
     user.activo = !user.activo;
     return await this.repo.save(user);

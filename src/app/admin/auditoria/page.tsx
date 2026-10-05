@@ -22,7 +22,7 @@ import {
   ChevronRight,
   Database
 } from 'lucide-react';
-import { AuditEvent } from '@/app/api/admin/auditoria/route';
+import type { AuditEvent } from '@/app/api/admin/auditoria/route';
 
 export default function AuditoriaPage() {
   const [eventos, setEventos] = useState<AuditEvent[]>([]);
@@ -80,36 +80,40 @@ export default function AuditoriaPage() {
     setTimeout(() => setCopiadoHash(null), 2000);
   };
 
-  // Verificación forense interactiva de la cadena SHA-256
-  const ejecutarVerificacionCriptografica = () => {
+  // Verificación criptográfica server-side: el backend recomputa cada hash SHA-256 y su enlace.
+  const ejecutarVerificacionCriptografica = async () => {
     setVerificandoCadena(true);
     setResultadoVerificacion(null);
 
-    setTimeout(() => {
-      // Los eventos vienen del más reciente al más antiguo.
-      // Comprobamos la continuidad hashActual de N con hashPrevio de N-1
-      let esValida = true;
-      let rotos = 0;
-
-      for (let i = 0; i < eventos.length - 1; i++) {
-        const actual = eventos[i];
-        const previo = eventos[i + 1];
-        if (actual.hashPrevio !== previo.hashActual) {
-          esValida = false;
-          rotos++;
-        }
+    try {
+      const res = await fetch('/api/admin/auditoria?limite=2000');
+      const json = await res.json();
+      if (!res.ok || !json.ok) {
+        throw new Error(json.error || 'No fue posible verificar la cadena.');
       }
-
-      setVerificandoCadena(false);
+      const { totalEventos, eslabonesRotos, cadenaValida } = json.stats as {
+        totalEventos: number;
+        eslabonesRotos: number;
+        cadenaValida: boolean;
+      };
       setResultadoVerificacion({
-        valida: esValida,
-        totalComprobados: eventos.length,
-        mensaje: esValida
-          ? `Integridad certificada al 100%. Los ${eventos.length} bloques auditados conservan continuidad criptográfica SHA-256 sin manipulaciones.`
-          : `Alerta: Se detectaron ${rotos} discontinuidades en la cadena de custodia forense.`,
+        valida: cadenaValida,
+        totalComprobados: totalEventos,
+        mensaje: cadenaValida
+          ? `Integridad verificada: los ${totalEventos} eventos recomputados conservan continuidad SHA-256.`
+          : `Alerta: ${eslabonesRotos} eslabones no coinciden con su hash recomputado o con el evento anterior.`,
         timestamp: new Date().toLocaleTimeString('es-VE'),
       });
-    }, 900);
+    } catch (err) {
+      setResultadoVerificacion({
+        valida: false,
+        totalComprobados: 0,
+        mensaje: err instanceof Error ? err.message : 'Error verificando la cadena.',
+        timestamp: new Date().toLocaleTimeString('es-VE'),
+      });
+    } finally {
+      setVerificandoCadena(false);
+    }
   };
 
   // Exportar bitácora a formato JSON oficial
@@ -342,11 +346,13 @@ export default function AuditoriaPage() {
                 className="bg-transparent text-xs font-semibold text-slate-800 focus:outline-none cursor-pointer"
               >
                 <option value="TODOS">Todos los tipos</option>
-                <option value="AUTENTICACION">Autenticación</option>
-                <option value="SUBIDA_FOTO">Subida de Evidencia</option>
-                <option value="GEOFENCING_FAIL">Bloqueo Geofence</option>
-                <option value="APROBACION_QA">Aprobación QA / Dictamen</option>
+                <option value="CAMBIO_ESTADO">Cambio de Estado</option>
+                <option value="APROBACION_QA">Visado / Aprobación</option>
+                <option value="OBSERVACION_QA">Observación / Rechazo</option>
+                <option value="SINCRONIZACION_CAMPO">Sincronización de Campo</option>
                 <option value="CAMBIO_MATRIZ">Cambio Matriz Técnica</option>
+                <option value="SUBIDA_FOTO">Subida de Evidencia</option>
+                <option value="AUTENTICACION">Autenticación</option>
                 <option value="POLITICA_CONFIG">Configuración de Políticas</option>
               </select>
             </div>

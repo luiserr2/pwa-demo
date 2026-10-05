@@ -4,3 +4,4 @@ export * from './Reporte';
 export * from './EvidenciaFotografica';
 export * from './ZonaMatriz';
 export * from './EquipoInstalado';
+export * from './AuditoriaEvento';

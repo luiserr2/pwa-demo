@@ -32,7 +32,7 @@ export async function comprimirImagenEnCliente(
             width = maxDimension;
           } else {
             width = Math.round((width * maxDimension) / height);
-            width = maxDimension;
+            height = maxDimension;
           }
         }
 

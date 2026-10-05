@@ -13,8 +13,8 @@ export default function LoginPage() {
   const [procesando, setProcesando] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const setAdmin = () => { setEmail('admin@vertex.com'); setPassword('admin123'); };
-  const setTecnico = () => { setEmail('tecnico@vertex.com'); setPassword('tecnico123'); };
+  const setAdmin = () => { setEmail('admin@sisbirceca.com'); setPassword('admin123'); };
+  const setTecnico = () => { setEmail('tecnico@sisbirceca.com'); setPassword('tecnico123'); };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,19 +23,16 @@ export default function LoginPage() {
 
     try {
       const success = await login(email);
-      
+
       if (!success) {
-        setError('Credenciales inválidas (intente admin@vertex.com o tecnico@vertex.com)');
+        setError('Usuario no registrado, inactivo o base de datos no disponible.');
         setProcesando(false);
         return;
       }
 
-      await new Promise((resolve) => setTimeout(resolve, 300));
-      
-      const isAd = email.toLowerCase().includes('admin') || email.toLowerCase().includes('supervisor');
-      const redirectUrl = isAd ? '/admin/dashboard' : '/campo';
-
-      router.push(redirectUrl);
+      // El middleware redirige desde "/" según el rol firmado en la sesión (técnico → /campo,
+      // supervisor → /reportes, admin → /admin/dashboard).
+      router.push('/');
     } catch (err) {
       setError('Error interno del sistema.');
       setProcesando(false);

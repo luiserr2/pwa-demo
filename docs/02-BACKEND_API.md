@@ -44,3 +44,34 @@
 - [ ] [API-04] Crear ruta `GET /api/admin/stats` para computar los KPIs en tiempo real desde la BD. (`src/app/api/admin/stats/route.ts`)
 - [ ] [API-05] Crear endpoint `POST /api/sync/offline` para recepción en lote de paquetes Dexie.js. (`src/app/api/sync/offline/route.ts`)
 - [ ] [API-06] Blindar las rutas de mutación con validación de cabecera de rol/autorización. (`src/server/middleware/auth.guard.ts`)
+
+## 5. ESTADO VIGENTE — FLUJO OPERATIVO DE 8 FASES (2026-10-05)
+> Esta sección prevalece sobre las secciones 1–4 (diagnóstico histórico).
+
+### 5.1 Máquina de estados (`src/shared/flujo-reporte.ts`, compartida cliente/servidor)
+| Origen | Destinos permitidos | Quién | Regla de fase |
+|---|---|---|---|
+| SIN_EMPEZAR | EN_VISITA | Técnico titular / Sup / Admin | — (el primer sync de campo lo dispara solo) |
+| EN_VISITA | ELABORANDO_INFORME, SIN_EMPEZAR | Técnico titular / Sup / Admin | — |
+| ELABORANDO_INFORME | REVISION_INTERNA, EN_VISITA | Técnico titular / Sup / Admin | REVISION_INTERNA exige ≥1 evidencia, 48 zonas y observación en toda zona ALARMA/FALLA |
+| REVISION_INTERNA | ENVIADO_AL_CLIENTE, OBSERVADO | Sup / Admin | ENVIADO exige `canalRadicacion` ∈ {CORREO, PORTAL_CLIENTE, MESA_DE_AYUDA, FISICO} + `numeroTicketCliente`; fija `fechaEnvioCliente` |
+| OBSERVADO | ELABORANDO_INFORME, REVISION_INTERNA, EN_REVISION, BORRADOR | Técnico titular / Sup / Admin | OBSERVADO exige `motivoRechazo` |
+| ENVIADO_AL_CLIENTE | VISADO, OBSERVADO | Sup / Admin | VISADO: sin evidencias RECHAZADAS; `bloqueadoEdicion=true`, `fechaVisado`, `hashSha256` del contenido (zonas + evidencias) |
+| VISADO | HES_SOLICITADA | Sup / Admin | `numeroHes` válido y único; `fechaHes` |
+| HES_SOLICITADA | FACTURADO | Sup / Admin | Requiere HES registrada |
+| FACTURADO | — (terminal) | — | — |
+| BORRADOR / EN_REVISION / APROBADO | Heredados (compatibilidad de datos) | — | — |
+
+Toda transición se ejecuta en una transacción junto con su registro en `auditoria_eventos` (hash SHA-256 encadenado, `pg_advisory_xact_lock` para evitar bifurcaciones).
+
+### 5.2 Contratos HTTP (tipos en `src/shared/tipos-api.ts`)
+- `PATCH /api/reportes/[id]` y alias `PATCH /api/reportes/[id]/estado` → handler único `src/server/http/cambiar-estado.handler.ts`. La identidad sale de la sesión firmada y se resuelve contra `usuarios` (`src/server/security/actor.ts`); `usuarioEjecutor` en el body es opcional y si no coincide con la sesión → 403.
+- `GET /api/reportes` (sin binarios; `totalEvidencias` por conteo), `GET /api/reportes/[id]` (expediente completo).
+- `POST /api/sync/offline`: UUID generado en el dispositivo, radiobase por `radiobaseCodigo` o `radiobaseId`, técnico desde la sesión, zonas NORMAL/ALARMA/FALLA (observación obligatoria), 409 si el expediente está visado.
+- `GET /api/admin/stats`: conteo de las 8 columnas + todos los estados, validación visual, zonas por estado, por región/tecnología, serie mensual, horas promedio hasta visado.
+- `GET/POST /api/admin/auditoria`: lectura DESC desde `auditoria_eventos` con verificación de cadena server-side.
+- Códigos: 400 (Zod / UUID), 401 (sin sesión o usuario inexistente), 403 (rol), 404, 409 (transición inválida / visado), 422 (regla de negocio), 503 (BD caída). **Sin respuestas simuladas**: los fallbacks "resilientes" fueron eliminados.
+
+### 5.3 Verificación
+- `npm test`: unitarias de máquina de estados, zonas, auditoría encadenada.
+- `tests/integration/flujo-completo.int.spec.ts`: recorrido real contra PostgreSQL (opt-in con `INTEGRATION_DATABASE_URL`, destruye el esquema).

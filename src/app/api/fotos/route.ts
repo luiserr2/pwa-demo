@@ -4,6 +4,9 @@ import { EvidenciaService } from '@/server/services/evidencia.service';
 import { RegistrarEvidenciaSchema, EvaluarEvidenciaSchema } from '@/server/schemas';
 import { verificarPermisosAPI } from '@/server/security/guard';
 import { RolUsuario } from '@/server/types/roles';
+import { respuestaError } from '@/server/http/respuestas';
+
+const MAX_DATA_URI_BYTES = 1024 * 1024 * 2; // 2MB
 
 export async function POST(req: NextRequest) {
   try {
@@ -12,7 +15,7 @@ export async function POST(req: NextRequest) {
       return guard.response;
     }
 
-    const body = await req.json();
+    const body: unknown = await req.json();
     const validado = RegistrarEvidenciaSchema.safeParse(body);
     if (!validado.success) {
       return NextResponse.json(
@@ -23,38 +26,20 @@ export async function POST(req: NextRequest) {
 
     // Zero-Trust: Límite de tamaño de imagen para prevenir denegación de servicio (DoS)
     const { urlImagen } = validado.data;
-    if (urlImagen.startsWith('data:') && urlImagen.length > 1024 * 1024 * 2) { // 2MB max Data URI
+    if (urlImagen.startsWith('data:') && urlImagen.length > MAX_DATA_URI_BYTES) {
       return NextResponse.json(
         { ok: false, error: 'La fotografía excede el tamaño máximo permitido (máx 2MB).' },
         { status: 413 }
       );
     }
 
-    try {
-      const ds = await getDataSource();
-      const service = new EvidenciaService(ds);
-      const evidencia = await service.registrarEvidencia(validado.data);
-      return NextResponse.json({ ok: true, data: evidencia }, { status: 201 });
-    } catch (dbErr: any) {
-      console.warn(`[API Fotos POST] Guardado local resiliente: ${dbErr.message}`);
-      return NextResponse.json(
-        {
-          ok: true,
-          data: {
-            id: `ev-${Date.now()}`,
-            ...validado.data,
-            estadoValidacion: 'PENDIENTE',
-            _resilient: true,
-          },
-        },
-        { status: 201 }
-      );
-    }
-  } catch (error: any) {
-    return NextResponse.json(
-      { ok: false, error: error.message || 'Error al registrar evidencia fotográfica.' },
-      { status: 400 }
-    );
+    const ds = await getDataSource();
+    const service = new EvidenciaService(ds);
+    const evidencia = await service.registrarEvidencia(validado.data);
+    return NextResponse.json({ ok: true, data: evidencia }, { status: 201 });
+  } catch (error: unknown) {
+    // Sin "guardado resiliente" falso: si no se persistió, el cliente debe saberlo y conservar la foto en Dexie.
+    return respuestaError(error, 'API Fotos POST');
   }
 }
 
@@ -65,7 +50,7 @@ export async function PATCH(req: NextRequest) {
       return guard.response;
     }
 
-    const body = await req.json();
+    const body: unknown = await req.json();
     const validado = EvaluarEvidenciaSchema.safeParse(body);
     if (!validado.success) {
       return NextResponse.json(
@@ -74,27 +59,11 @@ export async function PATCH(req: NextRequest) {
       );
     }
 
-    try {
-      const ds = await getDataSource();
-      const service = new EvidenciaService(ds);
-      const evidencia = await service.evaluarVisualmente(validado.data);
-      return NextResponse.json({ ok: true, data: evidencia });
-    } catch (dbErr: any) {
-      console.warn(`[API Fotos PATCH] Modo resiliente: ${dbErr.message}`);
-      return NextResponse.json({
-        ok: true,
-        data: {
-          id: validado.data.evidenciaId,
-          estadoValidacion: validado.data.estado,
-          observacionRechazo: validado.data.observacionRechazo || null,
-          _resilient: true,
-        },
-      });
-    }
-  } catch (error: any) {
-    return NextResponse.json(
-      { ok: false, error: error.message || 'Error al evaluar evidencia visualmente.' },
-      { status: 400 }
-    );
+    const ds = await getDataSource();
+    const service = new EvidenciaService(ds);
+    const evidencia = await service.evaluarVisualmente(validado.data);
+    return NextResponse.json({ ok: true, data: evidencia });
+  } catch (error: unknown) {
+    return respuestaError(error, 'API Fotos PATCH');
   }
 }

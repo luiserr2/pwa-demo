@@ -13,6 +13,7 @@ import {
   EquipoInstalado,
 } from '../entities';
 import { getDataSource } from './data-source';
+import { CATALOGO_ZONAS, EstadoZona } from '../../shared/catalogo-zonas';
 
 export async function seedDatabase(ds?: DataSource) {
   const dataSource = ds || (await getDataSource());
@@ -137,25 +138,18 @@ export async function seedDatabase(ds?: DataSource) {
       })
     );
 
-    // Inicializar 48 zonas
-    const zonas: ZonaMatriz[] = [];
-    for (let i = 1; i <= 48; i++) {
-      zonas.push(
-        zonaRepo.create({
-          reporteId: reporte1.id,
-          numeroZona: i,
-          descripcion:
-            i === 1
-              ? 'PIR Entrada Principal'
-              : i === 2
-              ? 'Magnético Puerta Torre'
-              : i === 3
-              ? 'Sensor Sísmico Baterías'
-              : `Zona ${i}`,
-          estado: i === 3 ? 'ALARMA' : 'OK',
-        })
-      );
-    }
+    // Inicializar 48 zonas desde el catálogo canónico (zona 9 en ALARMA con observación obligatoria)
+    const reporte1Id = reporte1.id;
+    const zonas: ZonaMatriz[] = CATALOGO_ZONAS.map((def) =>
+      zonaRepo.create({
+        reporteId: reporte1Id,
+        numeroZona: def.numeroZona,
+        descripcion: def.descripcion,
+        subsistema: def.subsistema,
+        estado: def.numeroZona === 9 ? EstadoZona.ALARMA : EstadoZona.NORMAL,
+        observacion: def.numeroZona === 9 ? 'Sensor PIR del gabinete de baterías intermitente; requiere recalibración.' : null,
+      })
+    );
     await zonaRepo.save(zonas);
 
     // 6 pares de fotos (Antes / Después)

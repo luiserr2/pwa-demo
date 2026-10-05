@@ -29,5 +29,15 @@
     - 0 emojis.
     - 0 orbes difusos de neón (`blur-[120px]`).
 
+- FLUJO OPERATIVO VERTEX DE 8 FASES (2026-10-05) — CONECTADO DE PUNTA A PUNTA:
+  * SIN_EMPEZAR → EN_VISITA → ELABORANDO_INFORME → REVISION_INTERNA → ENVIADO_AL_CLIENTE → VISADO → HES_SOLICITADA → FACTURADO (+ OBSERVADO).
+  * Reglas en src/shared/flujo-reporte.ts; servicio src/server/services/reporte.service.ts; auditoría persistente encadenada en `auditoria_eventos`.
+  * Roles: TECNICO (/campo, /captura), SUPERVISOR (/reportes Kanban), ADMIN (/admin/* + todo).
+  * Sin datos simulados en APIs: si PostgreSQL no responde → 503.
+  * Contratos JSON: src/shared/tipos-api.ts. Decisiones: docs/07-log-de-decisiones.md.
+  * Excel: fuera de alcance en esta etapa.
+
 - SIGUIENTE PASO ESTRATÉGICO:
-  * Conectar el formulario B2B a TypeORM Auth o avanzar a despliegue productivo.
+  * Generar migración TypeORM (producción usa synchronize:false) para columnas nuevas de `reportes`, `zonas_matriz` y tabla `auditoria_eventos`.
+  * Mover evidencias de dataURL base64 en Postgres a almacenamiento de objetos (GCS) antes de volumen productivo.
+  * Firmar/verificar el token también en Edge (middleware) — hoy la verificación HMAC real ocurre en las rutas Node.

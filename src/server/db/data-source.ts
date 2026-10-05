@@ -7,7 +7,10 @@ import {
   EvidenciaFotografica,
   ZonaMatriz,
   EquipoInstalado,
+  AuditoriaEvento,
 } from '../entities';
+
+const ENTIDADES = [User, Radiobase, Reporte, EvidenciaFotografica, ZonaMatriz, EquipoInstalado, AuditoriaEvento];
 
 declare global {
   // eslint-disable-next-line no-var
@@ -22,7 +25,7 @@ export function createDataSource(): DataSource {
     return new DataSource({
       type: 'postgres',
       url: databaseUrl,
-      entities: [User, Radiobase, Reporte, EvidenciaFotografica, ZonaMatriz, EquipoInstalado],
+      entities: ENTIDADES,
       synchronize: !isProduction,
       logging: process.env.DB_LOGGING === 'true',
       ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false,
@@ -44,7 +47,7 @@ export function createDataSource(): DataSource {
     username: process.env.DB_USER || 'postgres',
     password: process.env.DB_PASSWORD || 'postgres',
     database: process.env.DB_NAME || 'sisbirceca_db',
-    entities: [User, Radiobase, Reporte, EvidenciaFotografica, ZonaMatriz, EquipoInstalado],
+    entities: ENTIDADES,
     synchronize: !isProduction,
     logging: process.env.DB_LOGGING === 'true',
     ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false,

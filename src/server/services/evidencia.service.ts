@@ -41,6 +41,9 @@ export class EvidenciaService {
     if (!reporte) {
       throw new Error(`Reporte con ID '${dto.reporteId}' no encontrado.`);
     }
+    if (reporte.bloqueadoEdicion) {
+      throw new Error(`El reporte '${reporte.codigo}' está visado y bloqueado para edición.`);
+    }
 
     // Regla Crítica de Bloqueo "Antes/Después"
     if (dto.momento === MomentoFoto.DESPUES) {
