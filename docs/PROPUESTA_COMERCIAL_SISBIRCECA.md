@@ -43,6 +43,7 @@ La plataforma se organiza en tres (3) módulos diseñados para la función exact
 * **4. Envío al Cliente y Radicación Formal:** Registro del paso a `ENVIADO_AL_CLIENTE` (Digitel / Operadora). Trazabilidad de fecha y canal de entrega, monitoreando tiempos de respuesta del inspector de la operadora.
 * **5. Gestión y Registro de Visado del Cliente:** Seguimiento de correcciones hasta la obtención del visto bueno formal (`VISADO`) por parte del cliente. Registro del soporte o acta de aprobación y bloqueo del expediente para impedir modificaciones posteriores.
 * **6. Tramitación de HES y Cierre a Facturación:** Registro de la solicitud de Hoja de Entrada de Servicios (`HES_SOLICITADA`) en el portal del cliente (SAP Digitel). Traslado administrativo inmediato para cambio a `FACTURADO` y cobranza final.
+* **7. Auditoría y Trazabilidad de Edición de Documentos:** Bitácora organizada para el supervisor que registra cada edición sobre los informes técnicos: **quién** modificó el documento (usuario y rol), **cuándo** (fecha y hora exacta) y **cómo** lo editó (comparativa del dato anterior vs. dato nuevo, fotos sustituidas o notas corregidas). Permite al supervisor verificar la autenticidad antes de enviar al cliente.
 
 ---
 
@@ -54,7 +55,7 @@ La plataforma se organiza en tres (3) módulos diseñados para la función exact
 * **3. Directorio de Cuadrillas y Seguridad RBAC:** Administración de usuarios y segregación estricta de roles (Técnico, Seguimiento, Administrador). Seguridad Zero-Trust con tokens de sesión criptográficos HMAC-SHA256.
 * **4. Generador de Actas Técnicas PDF A4 Homologadas:** Compilación a 1 clic de expedientes técnicos en formato A4 listos para cobrar, con membrete corporativo, resumen de 48 zonas, galería en alta resolución y código QR de validación.
 * **5. Bitácora Forense y Auditoría Criptográfica SHA-256:** Libro mayor inmutable *append-only* (FIPS 180-4) con hashes encadenados. Verificación matemática de integridad al 100% y descarga en CSV/JSON para peritajes judiciales o auditorías externas.
-* **6. Configuración Global del Sistema y Políticas NOC:** Calibración de tolerancias de geocerca en metros por región geográfica, políticas de retención documental, respaldos automatizados y notificaciones automáticas del sistema.
+* **6. Configuración Global del Sistema y Políticas NOC:** Calibración de tolerancias de geocerca en metros por región geográfica, políticas de retención documental, reglas de validación técnica y notificaciones automáticas del sistema.
 
 ---
 
@@ -85,7 +86,7 @@ A continuación se transparenta la estructura real de costos de la infraestructu
 | **Cloud Armor, Cloud DNS y Red Saliente** | Zona Cloud DNS + Tráfico saliente (< 20 GB/mes) | Dominio institucional y certificados TLS 1.3 gestionados | **$2.50 USD** |
 | **Cloud Logging & Monitoring** | Retención a 30 días (< 50 GB log allowance) | Telemetría SRE, detección de caídas y alertas al NOC | **$1.50 USD** |
 | **SUBTOTAL INFRAESTRUCTURA DIRECTA GOOGLE CLOUD:** | **Consumo neto de servidores de grado industrial** | | **$40.00 USD** |
-| **Servicio Gestionado DevOps, Mantenimiento y Soporte L2:** | **Administración 24/7, parches de seguridad, rotación de claves criptográficas, auditoría de respaldos off-site y soporte técnico.** | | **$80.00 USD** |
+| **Servicio Gestionado DevOps, Mantenimiento y Soporte L2:** | **Administración 24/7, parches de seguridad, optimización de consultas y soporte técnico.** | | **$80.00 USD** |
 | **CANON MENSUAL INTEGRAL FACTURADO A LA EMPRESA:** | **Tarifa plana mensual todo incluido** | | **$120.00 USD / mes** |
 
 > **CLÁUSULA DE SALVAGUARDA DE COSTOS CLOUD:** La tarifa mensual de $120.00 USD ampara con holgura hasta diez (10) técnicos concurrentes, 15,000 fotografías activas en la nube y 20 GB de transferencia mensual. En el supuesto de que **LA EMPRESA** aumente significativamente su flota de cuadrillas o exceda dichos umbrales operativos, el costo excedente de Google Cloud será facturado de manera transparente al costo neto estipulado en la factura oficial de GCP más un quince por ciento (15%) por concepto de gastos administrativos y de gestión.
@@ -98,7 +99,7 @@ A continuación se transparenta la estructura real de costos de la infraestructu
 | :--- | :--- | :--- | :---: |
 | **1. Setup e Implementación Base** | Despliegue de los 3 Módulos (Campo, Seguimiento, Administración), configuración de catálogos y capacitación de personal. | 3 pagos fraccionados de **$550.00 USD**:<br>&bull; 33.3% Firma / Kick-off<br>&bull; 33.3% Demostración Staging<br>&bull; 33.4% Pase a Producción | **$1,650.00 USD**<br>*(Pago Único)* |
 | **2. Bolsa de Adecuaciones Libres** | **20 horas hombre de ingeniería** para personalizar planillas de 48 zonas, diseño del PDF con logo y tolerancias GPS. | **100% Bonificado** dentro del Setup inicial. | **INCLUIDO**<br>*(Valor: $800 USD)* |
-| **3. Canon Mensual de Servicio y Nube** | Servidores Google Cloud, 15,000 fotos, respaldos diarios off-site, licencias para 10 usuarios y soporte técnico Nivel 2. | Mes vencido a partir de la entrega final.<br>*(Primeros 30 días con garantía técnica gratuita).* | **$120.00 USD / mes**<br>*(Tarifa Plana)* |
+| **3. Canon Mensual de Servicio y Nube** | Servidores Google Cloud, 15,000 fotos, licencias para 10 usuarios y soporte técnico Nivel 2. | Mes vencido a partir de la entrega final.<br>*(Primeros 30 días con garantía técnica gratuita).* | **$120.00 USD / mes**<br>*(Tarifa Plana)* |
 | **4. Soporte Ad-Hoc (Si no hay canon)** | Intervenciones técnicas bajo demanda en caso de rescindir el servicio mensual gestionado. | Bajo demanda con cargo mínimo de 2 horas (SLA de 24 a 48 horas laborables). | **$40.00 / h (Estándar)**<br>**$50.00 / h (Emergencia)** |
 | **5. Tiempo de Ejecución Total** | Despliegue, parametrización, pruebas en campo y 2 sesiones formales de capacitación al personal. | Cronograma cerrado de **3 a 4 semanas** desde el anticipo inicial. | **Garantizado** |
 | **6. Blindaje Contractual B2B** | Licencia de uso comercial (EULA), reserva de código fuente y límite máximo indemnizatorio ($1,650 USD). | Protección jurídica mutua para ambas entidades. | **Incluido** |
